@@ -17,14 +17,18 @@
 }
 
 #pragma mark Creating an HTML Writer
-// For if you desperately need to set a doctype before calling -startDocument:isXHTML:
+// For if you desperately need to set a doctype before calling -startDocument:isXHTML: (perhaps because you're not going to call it!)
 - (id)initWithOutputWriter:(id <KSWriter>)stream isXHTML:(BOOL)isXHTML;
 
 
-#pragma mark Document
-// It doesn't make sense to change from isXHTML mid-write, so is only supported when initialising or when starting document.
-- (void)startDocument:(NSString *)DTD isXHTML:(BOOL)isXHTML;
+#pragma mark XHTML
+// Whether empty elements should be written as <FOO> or <FOO />
+// Default is YES. There's no setter method; instead, specify with -startDocument:isXHTML: or when initializing.
 @property(nonatomic, readonly, getter=isXHTML) BOOL XHTML;
+
+
+#pragma mark Document
+- (void)startDocument:(NSString *)DTD isXHTML:(BOOL)isXHTML;
 
 
 #pragma mark HTML Fragments

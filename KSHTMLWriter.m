@@ -11,6 +11,8 @@
 
 @implementation KSHTMLWriter
 
+#pragma mark Creating an HTML Writer
+
 - (id)initWithOutputWriter:(id <KSWriter>)stream;
 {
     [super initWithOutputWriter:stream];
@@ -28,6 +30,10 @@
     return self;
 }
 
+#pragma mark XHTML
+
+@synthesize XHTML = _isXHTML;
+
 #pragma mark Document
 
 - (void)startDocument:(NSString *)DTD isXHTML:(BOOL)isXHTML;
@@ -35,8 +41,6 @@
     _isXHTML = isXHTML;
     [self startDocument:DTD];
 }
-
-@synthesize XHTML = _isXHTML;
 
 #pragma mark HTML Fragments
 
