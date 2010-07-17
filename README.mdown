@@ -64,6 +64,10 @@ As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It's what `-[KSXMLWriter 
 
 This is probably an area of the project that needs cleaning up though: better method naming (`ks` as a prefix or similar), documentation, and improved efficiency.
 
+iOS
+===
+iOS support would be nice in the project. There's nothing to stop it that I can see (indeed, it may actually work at the moment for all I know!), but it's not a priority for us right now. If you do want this support, fork, and again I'll be more than happy to pull back into the main project.
+
 Licensing
 =========
 
