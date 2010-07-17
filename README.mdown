@@ -1,0 +1,72 @@
+KSHTMLWriter
+=============
+
+KSHTMLWriter is a set of classes for generating HTML and XML markup programmatically. It is quite easy in Cocoa to start producing XML by using `+stringWithFormat:` etc. but this can quickly grow to become unwieldy. KSHTMLWriter simplifies the task considerably, while offering plenty of flexibility.
+
+Another benefit is that markup is generated in a stream-like fashion, potentially cutting down on memory overhead. You can think of it as the opposite of `NSXMLParser` etc.
+
+Adding KSHTMLWriter to your project
+====================================
+
+The simplest way to add KSHTMLWriter to your project is to directly add all the source files to your project. If you only need XML writing, it's fine to omit the `KSHTMLWriter` class itself.
+
+Potentially KSHTMLWriter could be built into a framework or static library instead. If you want to do this, feel free to make a fork and add this support; I'll be happy to pull it back into the master.
+
+Usage
+=====
+
+###KSXMLWriter###
+`KSXMLWriter` provides the real meat of the project. Creating elements is very straightforward, and can be thought of as NSXMLParser in reverse. So to write this XML:
+
+    <foo>bar</foo>
+
+you'd do:
+
+    [writer startElement:@"foo" attributes:nil];
+    [writer writeText:@"bar"];
+    [writer endElement];
+
+Simples! As you can probably see there's easy support for writing element attributes if you need it. Other features:
+
+- Call `-startElement:…` multiple times to nest elements inside of each other
+- `KSXMLWriter` keeps a stack so you can do `-endElement` and the correct end tag will be written
+- Nested elements are pretty printed with correct newlines and indentation
+- Empty elements are automatically written as `<foo />`
+- Built-in `-writeComment:` support
+
+If you need it, there's lower-level API to give precise control over indentation, inline elements, raw text, and element primitives. For more info, read through `KSXMLWriter.h`.
+
+###KSHTMLWriter###
+If you specifically need to generate (X)HTML, use `KSHTMLWriter`. It adds:
+
+- Many convenience methods for writing common HTML elements and attributes
+- Knowledge of whether an element should be written inline or on its own newline
+- If you enable it, support for HTML 4 and earlier by writing empty elements as `<br>`
+
+###KSWriter###
+`KSXMLWriter` and `KSHTMLWriter` know how to generate markup, but don't deal with storing that during writing. Instead, we copy a small portion of Java by adopting the concept of a "writer".
+
+You provide the XML writer with a suitable output writer at initialization time. To make life easy for you, NSMutableString is already supported. So to re-use our previous example, you would do:
+
+    NSMutableString *xml = [NSMutableString string];
+    KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:xml];
+    
+    [writer startElement:@"foo" attributes:nil];
+    [writer writeText:@"bar"];
+    [writer endElement];
+
+This will neatly append the markup to the mutable string.
+
+You can easily expand support by adopting `KSWriter` in your own classes. For example, a class that writes directly to disk, rather than an in-memory buffer. `KSXMLWriter` itself already adopts the protocol too, so you could chain multiple writers together if it took your fancy. I'm very interested in adding any new writers people come up with to the project.
+
+###XML Entity Escaping###
+As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It's what `-[KSXMLWriter writeText:]` is using internally.
+
+This is probably an area of the project that needs cleaning up though: better method naming (`ks` as a prefix or similar), documentation, and improved efficiency.
+
+Licensing
+=========
+
+The usual BSD license. Use in any way you like; please credit us!
+
+Thanks for reading.
