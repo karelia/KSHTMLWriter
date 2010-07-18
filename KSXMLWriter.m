@@ -8,8 +8,6 @@
 
 #import "KSXMLWriter.h"
 
-#import "KSStringXMLEntityEscaping.h"
-
 #import "NSString+Karelia.h"
 
 
