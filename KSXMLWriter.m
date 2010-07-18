@@ -43,7 +43,7 @@
     [self close];
     
     [_openElements release];
-    OBASSERT(!_writer);
+    //OBASSERT(!_writer);
     
     [super dealloc];
 }
@@ -333,7 +333,7 @@ static NSCharacterSet *charactersToEntityEscape;
 		// Process characters that need escaping
 		if (range.location != NSNotFound)
         {            
-            OBASSERT(range.length == 1);    // that's all we should deal with for HTML escaping
+            //OBASSERT(range.length == 1);    // that's all we should deal with for HTML escaping
 			
             unichar ch = [string characterAtIndex:range.location];
             switch (ch)
