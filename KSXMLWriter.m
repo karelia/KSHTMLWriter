@@ -203,31 +203,6 @@
     if (![self isWritingInline]) [self stopWritingInline];
 }
 
-#pragma mark Inline Writing
-
-/*! How it works:
- *
- *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
- *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
- *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
- */
-
-- (BOOL)isWritingInline;
-{
-    return ([self openElementsCount] >= _inlineWritingLevel);
-}
-
-- (void)startWritingInline;
-{
-    // Is it time to switch over to inline writing? (we may already be writing inline, so can ignore request)
-    if (_inlineWritingLevel >= NSNotFound || _inlineWritingLevel == 0)
-    {
-        _inlineWritingLevel = [self openElementsCount];
-    }
-}
-
-- (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
-
 #pragma mark Element Primitives
 
 - (void)openTag:(NSString *)element;        //  <tagName
@@ -281,6 +256,31 @@
     [self writeString:tagName];
     [self writeString:@">"];
 }
+
+#pragma mark Inline Writing
+
+/*! How it works:
+ *
+ *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
+ *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
+ *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
+ */
+
+- (BOOL)isWritingInline;
+{
+    return ([self openElementsCount] >= _inlineWritingLevel);
+}
+
+- (void)startWritingInline;
+{
+    // Is it time to switch over to inline writing? (we may already be writing inline, so can ignore request)
+    if (_inlineWritingLevel >= NSNotFound || _inlineWritingLevel == 0)
+    {
+        _inlineWritingLevel = [self openElementsCount];
+    }
+}
+
+- (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
 
 #pragma mark Primitive
 

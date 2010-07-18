@@ -82,13 +82,6 @@
 - (void)popElement;
 
 
-#pragma mark Inline Writing
-- (BOOL)isWritingInline;
-- (void)startWritingInline;
-- (void)stopWritingInline;
-- (BOOL)canWriteElementInline:(NSString *)tagName;
-
-
 #pragma mark Element Primitives
 
 //  <tagName
@@ -111,6 +104,13 @@
 - (void)closeEmptyElementTag;             
 
 - (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
+
+
+#pragma mark Inline Writing
+- (BOOL)isWritingInline;
+- (void)startWritingInline;
+- (void)stopWritingInline;
+- (BOOL)canWriteElementInline:(NSString *)tagName;
 
 
 #pragma mark Primitive
