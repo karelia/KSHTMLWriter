@@ -93,7 +93,8 @@
 
 //  <tagName
 //  Records the tag using -pushElement:. You must call -writeEndTag or -popElement later.
-- (void)openTag:(NSString *)elementName;
+- (void)openTag:(NSString *)element;
+- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
 
 //   attribute="value"
 - (void)writeAttribute:(NSString *)attribute

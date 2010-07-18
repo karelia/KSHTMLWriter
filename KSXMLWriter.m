@@ -230,21 +230,26 @@
 
 #pragma mark Element Primitives
 
-- (void)openTag:(NSString *)tagName;        //  <tagName
+- (void)openTag:(NSString *)element;        //  <tagName
+{
+    [self openTag:element writeInline:[self canWriteElementInline:element]];
+}
+
+- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
 {
     // Can only write suitable tags inline if containing element also allows it
-    if (![self canWriteElementInline:tagName])
+    if (!writeInline)
     {
         [self startNewline];
         [self stopWritingInline];
     }
     
-    tagName = [tagName lowercaseString];    // writes coming from the DOM are uppercase
+    element = [element lowercaseString];    // writes coming from the DOM are uppercase
     [self writeString:@"<"];
-    [self writeString:tagName];
+    [self writeString:element];
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:tagName];
+    [self pushElement:element];
 }
 
 - (void)writeAttribute:(NSString *)attribute
