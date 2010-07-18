@@ -116,8 +116,7 @@
 - (void)writeText:(NSString *)string;
 {
     // Quotes are acceptable characters outside of attribute values
-    NSString *html = [string stringByEscapingHTMLEntitiesWithQuot:NO];
-    [self writeString:html];
+    [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
 }
 
 - (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel
