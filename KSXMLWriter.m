@@ -284,6 +284,68 @@
 
 #pragma mark Primitive
 
+/*!	Escape & < > " ... does NOT escape anything else.  Need to deal with character set in subsequent pass.
+ Escaping " so that strings work within HTML tags
+ */
+
+// Explicitly escape, or don't escape, double-quots as &quot;
+// Within a tag like <foo attribute="%@"> then we have to escape it.
+// In just about all other contexts it's OK to NOT escape it, but many contexts we don't know if it's OK or not.
+// So I think we want to gradually shift over to being explicit when we know when it's OK or not.
+- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
+{
+    // Cache the characters to be escaped
+	static NSCharacterSet *escapedSet;
+    if (!escapedSet)
+    {
+        escapedSet = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
+    }
+	
+    
+    // Look for characters to escape. If there are none can bail out quick without having had to allocate anything. #78710
+    NSRange searchRange = NSMakeRange(0, [string length]);
+    NSRange range = [string rangeOfCharacterFromSet:escapedSet options:0 range:searchRange];
+    if (range.location == NSNotFound) return [self writeString:string];
+    
+    
+    while (searchRange.length)
+	{
+        // Characters not needing escaping can be appended straight off
+		NSRange unescapedRange = searchRange;
+        if (range.location != NSNotFound)
+        {
+            unescapedRange.length = range.location - searchRange.location;
+        }
+        [self writeString:[string substringWithRange:unescapedRange]];
+        
+        
+		// Process characters that need escaping
+		if (range.location != NSNotFound)
+        {            
+            OBASSERT(range.length == 1);    // that's all we should deal with for HTML escaping
+			
+            unichar ch = [string characterAtIndex:range.location];
+            switch (ch)
+            {
+                case '&':	[self writeString:@"&amp;"];    break;
+                case '<':	[self writeString:@"&lt;"];     break;
+                case '>':	[self writeString:@"&gt;"];     break;
+                case '"':	[self writeString:@"&quot;"];   break;
+            }
+		}
+        else
+        {
+            break;  // no escapable characters were found so we must be done
+        }
+        
+        
+        // Continue the search
+        searchRange.location = range.location + range.length;
+        searchRange.length = [string length] - searchRange.location;
+        range = [string rangeOfCharacterFromSet:escapedSet options:0 range:searchRange];
+	}	
+}
+
 - (void)writeString:(NSString *)string;
 {
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
