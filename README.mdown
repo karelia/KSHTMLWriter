@@ -60,7 +60,7 @@ This will neatly append the markup to the mutable string.
 You can easily expand support by adopting `KSWriter` in your own classes. For example, a class that writes directly to disk, rather than an in-memory buffer. `KSXMLWriter` itself already adopts the protocol too, so you could chain multiple writers together if it took your fancy. I'm very interested in adding any new writers people come up with to the project.
 
 ###XML Entity Escaping###
-As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It's what `-[KSXMLWriter writeText:]` is using internally.
+As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It exposes what `KSXMLWriter` is using internally whenever strings need escaping.
 
 This is probably an area of the project that needs cleaning up though: better method naming (`ks` as a prefix or similar), documentation, and improved efficiency.
 
