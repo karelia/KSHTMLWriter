@@ -313,13 +313,16 @@ static NSCharacterSet *charactersToEntityEscape;
     
     while (searchRange.length)
 	{
-        // Characters not needing escaping can be appended straight off
+        // Write characters not needing to be escaped. Don't bother if there aren't any
 		NSRange unescapedRange = searchRange;
         if (range.location != NSNotFound)
         {
             unescapedRange.length = range.location - searchRange.location;
         }
-        [self writeString:[string substringWithRange:unescapedRange]];
+        if (unescapedRange.length)
+        {
+            [self writeString:[string substringWithRange:unescapedRange]];
+        }
         
         
 		// Process characters that need escaping
