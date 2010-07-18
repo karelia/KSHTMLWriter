@@ -284,6 +284,17 @@
 
 #pragma mark Primitive
 
+static NSCharacterSet *charactersToEntityEscape;
+
++ (void)initialize
+{
+    // Cache the characters to be escaped. Doing it in +initialize should be threadsafe
+	if (!charactersToEntityEscape)
+    {
+        charactersToEntityEscape = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
+    }
+}
+
 /*!	Escape & < > " ... does NOT escape anything else.  Need to deal with character set in subsequent pass.
  Escaping " so that strings work within HTML tags
  */
@@ -294,17 +305,9 @@
 // So I think we want to gradually shift over to being explicit when we know when it's OK or not.
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
 {
-    // Cache the characters to be escaped
-	static NSCharacterSet *escapedSet;
-    if (!escapedSet)
-    {
-        escapedSet = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
-    }
-	
-    
     // Look for characters to escape. If there are none can bail out quick without having had to allocate anything. #78710
     NSRange searchRange = NSMakeRange(0, [string length]);
-    NSRange range = [string rangeOfCharacterFromSet:escapedSet options:0 range:searchRange];
+    NSRange range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
     if (range.location == NSNotFound) return [self writeString:string];
     
     
@@ -342,7 +345,7 @@
         // Continue the search
         searchRange.location = range.location + range.length;
         searchRange.length = [string length] - searchRange.location;
-        range = [string rangeOfCharacterFromSet:escapedSet options:0 range:searchRange];
+        range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
 	}	
 }
 
