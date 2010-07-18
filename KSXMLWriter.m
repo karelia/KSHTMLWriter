@@ -134,7 +134,7 @@
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
 {
     [self openComment];
-    [self writeString:[comment stringByEscapingHTMLEntities]];
+    [self writeStringByEscapingXMLEntities:comment escapeQuot:YES];
     [self closeComment];
 }
 
