@@ -240,7 +240,7 @@
     [self writeString:@" "];
     [self writeString:attribute];
     [self writeString:@"=\""];
-    [self writeString:[value stringByEscapingHTMLEntitiesWithQuot:YES]];	// make sure to escape the quote mark
+    [self writeStringByEscapingXMLEntities:value escapeQuot:YES];	// make sure to escape the quote mark
     [self writeString:@"\""];
 }
 
