@@ -13,6 +13,14 @@
 #import "NSString+Karelia.h"
 
 
+@interface KSXMLWriter ()
+- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
+@end
+
+
+#pragma mark -
+
+
 @implementation KSXMLWriter
 
 #pragma mark Init & Dealloc
