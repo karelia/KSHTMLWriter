@@ -8,8 +8,6 @@
 
 #import "KSStringXMLEntityEscaping.h"
 
-#import "KSXMLWriter.h"
-
 
 @interface KSXMLWriter (KSXMLWriterSecretsIKnow)
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
@@ -90,7 +88,7 @@
 
 @implementation KSEscapedXMLEntitiesWriter
 
-- (id)initWithOutputWriter:(id <KSWriter>)output;	// designated initializer
+- (id)initWithOutputXMLWriter:(id <KSWriter>)output;	// designated initializer
 {
     [self init];
     _output = [output retain];
@@ -105,7 +103,7 @@
 
 - (void)writeString:(NSString *)string;
 {
-    [_output writeString:[string stringByEscapingHTMLEntities]];
+    [_output writeText:string];
 }
 
 - (void)close;

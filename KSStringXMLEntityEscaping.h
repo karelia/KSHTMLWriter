@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KSWriter.h"
+#import "KSXMLWriter.h"
 
 
 @interface NSString (KSStringXMLEntityEscaping)
@@ -34,10 +34,10 @@
 @interface KSEscapedXMLEntitiesWriter : NSObject <KSWriter>
 {
 @private
-    id <KSWriter>   _output;
+    KSXMLWriter *_output;
 }
 
-- (id)initWithOutputWriter:(id <KSWriter>)output;
+- (id)initWithOutputXMLWriter:(KSXMLWriter *)output;
 - (void)close;  // releases output writer
 
 @end
