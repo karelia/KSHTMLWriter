@@ -333,7 +333,7 @@ static NSCharacterSet *charactersToEntityEscape;
 		// Process characters that need escaping
 		if (range.location != NSNotFound)
         {            
-            //OBASSERT(range.length == 1);    // that's all we should deal with for HTML escaping
+            NSAssert(range.length == 1, @"trying to escaping non-single character string");    // that's all we should deal with for HTML escaping
 			
             unichar ch = [string characterAtIndex:range.location];
             switch (ch)
