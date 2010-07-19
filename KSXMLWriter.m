@@ -63,6 +63,7 @@
 - (void)startDocument:(NSString *)DTD;  // at present, expect DTD to be complete tag
 {
     [self writeString:DTD];
+    [self startNewline];
 }
 
 #pragma mark Elements
