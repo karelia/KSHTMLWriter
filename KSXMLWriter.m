@@ -43,7 +43,7 @@
     [self close];
     
     [_openElements release];
-    //OBASSERT(!_writer);
+    NSAssert(!_writer, @"-close failed to dispose of output writer");
     
     [super dealloc];
 }
