@@ -33,18 +33,15 @@
 #pragma mark -
 
 
-@interface KSHTMLWriter ()
-- (DOMNode *)_writeDOMElement:(DOMElement *)element; // returns the next sibling to write
-@end
-
-
 @implementation KSHTMLWriter (DOM)
 
 #pragma mark High Level
 
 - (void)writeDOMElement:(DOMElement *)element;  // like -outerHTML
 {
-    [self _writeDOMElement:element];
+    [self startElement:[element tagName] withDOMElement:element];
+    [self writeInnerOfDOMNode:element];
+    [self endElementWithDOMElement:element];
 }
 
 - (void)writeInnerOfDOMNode:(DOMNode *)element;  // like -innerHTML
@@ -59,14 +56,6 @@
 }
 
 #pragma mark Implementation
-
-- (DOMNode *)_writeDOMElement:(DOMElement *)element;
-{
-    // Pretty straightforward!
-    [self startElement:[element tagName] withDOMElement:element];
-    [self writeInnerOfDOMNode:element];
-    return [self endElementWithDOMElement:element];
-}
 
 - (void)writeInnerOfDOMNode:(DOMNode *)element startAtChild:(DOMNode *)aNode;
 {
@@ -204,7 +193,9 @@
     DOMNode *node = [writer willWriteDOMElement:self];
     if (node == self)
     {
-        return [writer _writeDOMElement:self];
+        [writer startElement:[self tagName] withDOMElement:self];
+        [writer writeInnerOfDOMNode:self];
+        return [writer endElementWithDOMElement:self];
     }
     else
     {
