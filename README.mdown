@@ -5,6 +5,8 @@ KSHTMLWriter is a set of classes for generating HTML and XML markup programmatic
 
 Another benefit is that markup is generated in a stream-like fashion, potentially cutting down on memory overhead. You can think of it as the opposite of `NSXMLParser` etc.
 
+KSHTMLWriter instances are safe to use on any thread, but should only be accessed by a single thread at a time.
+
 Adding KSHTMLWriter to your project
 ====================================
 
