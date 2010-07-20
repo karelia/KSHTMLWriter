@@ -8,7 +8,7 @@ Another benefit is that markup is generated in a stream-like fashion, potentiall
 Adding KSHTMLWriter to your project
 ====================================
 
-The simplest way to add KSHTMLWriter to your project is to directly add all the source files to your project. If you only need XML writing, it's fine to omit the `KSHTMLWriter` class itself.
+The simplest way to add KSHTMLWriter to your project is to directly add all the top-level source files to your project. If you only need XML writing, it's fine to omit the `KSHTMLWriter` class itself. If you want DOM integration, add the contents the `DOM` directory too.
 
 Potentially KSHTMLWriter could be built into a framework or static library instead. If you want to do this, feel free to make a fork and add this support; I'll be happy to pull it back into the master.
 
@@ -64,15 +64,12 @@ As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It exposes what `KSXMLWri
 
 This is probably an area of the project that needs cleaning up though: better method naming (`ks` as a prefix or similar), documentation, and improved efficiency.
 
+###DOM Integration###
+In `DOM/KSHTMLWriter+DOM` you'll find code that takes a `DOMElement` (using WebKit.framework, so no iOS support, sorry!) and breaks it up into a series of commands for `KSHTMLWriter`. This is a lot like `-[DOMElement outerHTML]` etc., but more flexible as you can subclass to get hooks into the process if you wish.
+
 iOS
 ===
 iOS support would be nice in the project. There's nothing to stop it that I can see (indeed, it may actually work at the moment for all I know!), but it's not a priority for us right now. If you do want this support, fork, and again I'll be more than happy to pull back into the main project.
-
-DOM Integration
-===============
-We have nearly finished code here that takes a `DOMElement` (using WebKit.framework, so no iOS support, sorry!) and breaks it up into a series of commands for `KSHTMLWriter`. This is a lot like `-[DOMElement outerHTML]` etc., but more flexible as you can subclass to get hooks into the process if you wish.
-
-It'll be published soon, but if you want early access, drop us a line.
 
 Licensing
 =========
