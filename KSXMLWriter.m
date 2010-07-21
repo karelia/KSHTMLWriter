@@ -98,7 +98,7 @@
     
     
     // Write the tag itself.
-    if (_elementIsEmpty)
+    if (_elementIsEmpty && [self elementCanBeEmpty:[self topElement]])
     {
         [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
         [self closeEmptyElementTag];
@@ -262,6 +262,8 @@
     [self writeString:tagName];
     [self writeString:@">"];
 }
+
+- (BOOL)elementCanBeEmpty:(NSString *)tagName; { return YES; }
 
 #pragma mark Inline Writing
 

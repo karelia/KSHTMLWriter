@@ -105,6 +105,8 @@
 
 - (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
 
+- (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
+
 
 #pragma mark Inline Writing
 - (BOOL)isWritingInline;
