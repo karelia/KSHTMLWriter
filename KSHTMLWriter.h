@@ -85,10 +85,12 @@
                         media:(NSString *)media;
 
 
-#pragma mark Script
+#pragma mark Scripts
+- (void)writeScriptWithSrc:(NSString *)src;
 - (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
 			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
 			  useCDATA:(BOOL)useCDATA;
+
 
 #pragma mark Style
 - (void)startStyleElementWithType:(NSString *)type;

@@ -149,12 +149,24 @@
     [self writeLinkWithHref:href type:@"text/css" rel:@"stylesheet" title:title media:media];
 }
 
-#pragma mark javascript
+#pragma mark Scripts
+
+- (void)writeScriptWithSrc:(NSString *)src;
+{
+    [self startElement:@"script" attribute:@"src" value:src];
+    [self endElement];
+}
 
 - (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
 			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
 			  useCDATA:(BOOL)useCDATA;
 {
+    // Use clean API when possible…
+    if (src && !contents) return [self writeScriptWithSrc:src];
+    
+    
+    // …otherwise bodge it:
+    
     [self openTag:@"script"];
     
     [self writeAttribute:@"type" value:@"text/javascript"];
