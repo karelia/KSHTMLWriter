@@ -164,11 +164,7 @@
     [self startJavascriptElementWithSrc:nil];
     
     if (useCDATA) [self startJavascriptCDATA];
-    
-    [self writeString:@"\n"];
     [self writeString:script];
-    [self writeString:@"\n"];
-    
     if (useCDATA) [self endJavascriptCDATA];
     
     [self endElement];
