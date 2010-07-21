@@ -149,6 +149,28 @@
     [self writeLinkWithHref:href type:@"text/css" rel:@"stylesheet" title:title media:media];
 }
 
+#pragma mark javascript
+
+- (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
+			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
+			  useCDATA:(BOOL)useCDATA;
+{
+    [self openTag:@"script"];
+    
+    [self writeAttribute:@"type" value:@"text/javascript"];
+    if (src) [self writeAttribute:@"src" value:src];
+    [self didStartElement];
+    if (contents)
+	{
+		// DO NOT USE startNewline since we don't want indentation
+		[self writeString:useCDATA ? @"\n/* <![CDATA[ */\n" : @"\n"];
+		[self writeString:contents];
+		[self writeString:useCDATA ? @"\n/* ]]> */\n" : @"\n"];
+	}
+    
+    [self endElement];
+}
+
 #pragma mark Style
 
 - (void)startStyleElementWithType:(NSString *)type;
