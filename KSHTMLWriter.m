@@ -153,6 +153,8 @@
 
 - (void)writeJavascriptWithSrc:(NSString *)src;
 {
+    NSParameterAssert(src);
+    
     [self openTag:@"script"];
     [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
     [self writeAttribute:@"src" value:src];
