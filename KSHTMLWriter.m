@@ -180,6 +180,9 @@
     [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
     if (src) [self writeAttribute:@"src" value:src];
     [self didStartElement];
+    
+    // Embedded scripts should start on their own line for clarity
+    if (!src) [self writeString:@"\n"];
 }
 
 - (void)startJavascriptCDATA;
