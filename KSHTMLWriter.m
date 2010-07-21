@@ -161,6 +161,20 @@
     [self endElement];
 }
 
+- (void)startJavascriptCDATA;
+{
+    [self writeString:@"\n/* "];
+    [self startCDATA];
+    [self writeString:@" */"];
+}
+
+- (void)endJavascriptCDATA;
+{
+    [self writeString:@"\n/* "];
+    [self endCDATA];
+    [self writeString:@" */\n"];
+}
+
 - (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
 			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
 			  useCDATA:(BOOL)useCDATA;

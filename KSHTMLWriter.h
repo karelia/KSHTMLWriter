@@ -86,7 +86,13 @@
 
 
 #pragma mark Scripts
+
 - (void)writeJavascriptWithSrc:(NSString *)src;
+
+// Like -startCDATA and -endCDATA, but wrapped in a javascript comment so don't risk tripping up a browser's interpreter
+- (void)startJavascriptCDATA;
+- (void)endJavascriptCDATA;
+
 - (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
 			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
 			  useCDATA:(BOOL)useCDATA;
