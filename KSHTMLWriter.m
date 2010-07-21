@@ -189,7 +189,23 @@
     return result;
 }
 
-#pragma mark Inline Writing
+#pragma mark (X)HTML
+
+- (BOOL)elementCanBeEmpty:(NSString *)tagName;
+{
+    if ([tagName caseInsensitiveCompare:@"BR"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"IMG"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"HR"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"META"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"LINK"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"INPUT"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"BASE"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"BASEFONT"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"PARAM"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"AREA"] == NSOrderedSame) return YES;
+    
+    return NO;
+}
 
 - (BOOL)canWriteElementInline:(NSString *)tagName;
 {
