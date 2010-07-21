@@ -88,6 +88,7 @@
 #pragma mark Scripts
 
 - (void)writeJavascriptWithSrc:(NSString *)src;
+- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 
 // Like -startCDATA and -endCDATA, but wrapped in a javascript comment so don't risk tripping up a browser's interpreter
 - (void)startJavascriptCDATA;

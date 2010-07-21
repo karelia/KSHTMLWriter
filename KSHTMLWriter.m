@@ -161,6 +161,23 @@
     [self endElement];
 }
 
+- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
+{
+    [self openTag:@"script"];
+    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    [self didStartElement];
+    
+    if (useCDATA) [self startJavascriptCDATA];
+    
+    [self writeString:@"\n"];
+    [self writeString:script];
+    [self writeString:@"\n"];
+    
+    if (useCDATA) [self endJavascriptCDATA];
+    
+    [self endElement];
+}
+
 - (void)startJavascriptCDATA;
 {
     [self writeString:@"\n/* "];
