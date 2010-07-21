@@ -193,23 +193,13 @@
     if (contents)
 	{
 		// DO NOT USE startNewline since we don't want indentation
-        if (useCDATA)
-        {
-            [self writeString:@"\n/* "];
-            [self startCDATA];
-            [self writeString:@" */"];
-        }
+        if (useCDATA) [self startJavascriptCDATA];
         
         [self writeString:@"\n"];
 		[self writeString:contents];
 		[self writeString:@"\n"];
         
-        if (useCDATA)
-        {
-            [self writeString:@"\n/* "];
-            [self endCDATA];
-            [self writeString:@" */\n"];
-        }
+        if (useCDATA) [self endJavascriptCDATA];
 	}
     
     [self endElement];
