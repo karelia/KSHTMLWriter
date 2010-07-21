@@ -179,9 +179,23 @@
     if (contents)
 	{
 		// DO NOT USE startNewline since we don't want indentation
-		[self writeString:useCDATA ? @"\n/* <![CDATA[ */\n" : @"\n"];
+        if (useCDATA)
+        {
+            [self writeString:@"\n/* "];
+            [self startCDATA];
+            [self writeString:@" */"];
+        }
+        
+        [self writeString:@"\n"];
 		[self writeString:contents];
-		[self writeString:useCDATA ? @"\n/* ]]> */\n" : @"\n"];
+		[self writeString:@"\n"];
+        
+        if (useCDATA)
+        {
+            [self writeString:@"\n/* "];
+            [self endCDATA];
+            [self writeString:@" */\n"];
+        }
 	}
     
     [self endElement];
