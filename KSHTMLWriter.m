@@ -151,9 +151,13 @@
 
 #pragma mark Scripts
 
-- (void)writeScriptWithSrc:(NSString *)src;
+- (void)writeJavascriptWithSrc:(NSString *)src;
 {
-    [self startElement:@"script" attribute:@"src" value:src];
+    [self openTag:@"script"];
+    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    [self writeAttribute:@"src" value:src];
+    [self didStartElement];
+    
     [self endElement];
 }
 
@@ -162,7 +166,7 @@
 			  useCDATA:(BOOL)useCDATA;
 {
     // Use clean API when possible…
-    if (src && !contents) return [self writeScriptWithSrc:src];
+    if (src && !contents) return [self writeJavascriptWithSrc:src];
     
     
     // …otherwise bodge it:
