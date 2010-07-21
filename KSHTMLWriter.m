@@ -155,19 +155,13 @@
 {
     NSParameterAssert(src);
     
-    [self openTag:@"script"];
-    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    [self writeAttribute:@"src" value:src];
-    [self didStartElement];
-    
+    [self startJavascriptElementWithSrc:src];
     [self endElement];
 }
 
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 {
-    [self openTag:@"script"];
-    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    [self didStartElement];
+    [self startJavascriptElementWithSrc:nil];
     
     if (useCDATA) [self startJavascriptCDATA];
     
@@ -178,6 +172,14 @@
     if (useCDATA) [self endJavascriptCDATA];
     
     [self endElement];
+}
+
+- (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
+{
+    [self openTag:@"script"];
+    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    if (src) [self writeAttribute:@"src" value:src];
+    [self didStartElement];
 }
 
 - (void)startJavascriptCDATA;

@@ -89,6 +89,7 @@
 
 - (void)writeJavascriptWithSrc:(NSString *)src;
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
+- (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 
 // Like -startCDATA and -endCDATA, but wrapped in a javascript comment so don't risk tripping up a browser's interpreter
 - (void)startJavascriptCDATA;
