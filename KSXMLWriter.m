@@ -147,6 +147,18 @@
     [self writeString:@"-->"];
 }
 
+#pragma mark CDATA
+
+- (void)startCDATA;
+{
+    [self writeString:@"<![CDATA["];
+}
+
+- (void)endCDATA;
+{
+    [self writeString:@"]]>"];
+}
+
 #pragma mark Indentation
 
 @synthesize indentationLevel = _indentation;

@@ -62,6 +62,11 @@
 - (void)closeComment;
 
 
+#pragma mark CDATA
+- (void)startCDATA;
+- (void)endCDATA;
+
+
 #pragma mark Indentation
 // Setting the indentation level does not write to the context in any way. It is up to methods that actually do some writing to respect the indent level. e.g. starting a new line should indent that line to match.
 @property(nonatomic) NSInteger indentationLevel;
