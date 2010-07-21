@@ -182,7 +182,11 @@
     [self didStartElement];
     
     // Embedded scripts should start on their own line for clarity
-    if (!src) [self writeString:@"\n"];
+    if (!src)
+    {
+        [self writeString:@"\n"];
+        [self stopWritingInline];
+    }
 }
 
 - (void)startJavascriptCDATA;
