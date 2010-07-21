@@ -199,36 +199,6 @@
     [self writeString:@" */\n"];
 }
 
-- (void)writeScriptSrc:(NSString *)src			// Note: You should either use src OR contents, not both.
-			orContents:(NSString *)contents	// However you can specify contents for comments, which is OK.
-			  useCDATA:(BOOL)useCDATA;
-{
-    // Use clean API when possible…
-    if (src && !contents) return [self writeJavascriptWithSrc:src];
-    
-    
-    // …otherwise bodge it:
-    
-    [self openTag:@"script"];
-    
-    [self writeAttribute:@"type" value:@"text/javascript"];
-    if (src) [self writeAttribute:@"src" value:src];
-    [self didStartElement];
-    if (contents)
-	{
-		// DO NOT USE startNewline since we don't want indentation
-        if (useCDATA) [self startJavascriptCDATA];
-        
-        [self writeString:@"\n"];
-		[self writeString:contents];
-		[self writeString:@"\n"];
-        
-        if (useCDATA) [self endJavascriptCDATA];
-	}
-    
-    [self endElement];
-}
-
 #pragma mark Style
 
 - (void)startStyleElementWithType:(NSString *)type;
