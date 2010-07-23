@@ -24,4 +24,13 @@
     [self writeString:ID];
 }
 
+- (void)writeDeclarationBlock:(NSString *)declarations;
+{
+    [self writeString:@" {"];
+    [self writeString:declarations];
+    [self writeString:@"}"];
+    
+    // Could be smarter and analyze declarations for newlines
+}
+
 @end

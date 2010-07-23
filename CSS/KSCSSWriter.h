@@ -15,5 +15,6 @@
 - (void)writeCSSString:(NSString *)cssString;
 
 - (void)writeIDSelector:(NSString *)ID;
+- (void)writeDeclarationBlock:(NSString *)declarations;
 
 @end
