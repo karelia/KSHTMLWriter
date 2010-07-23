@@ -292,14 +292,19 @@
 
 - (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
 
-static NSCharacterSet *charactersToEntityEscape;
+static NSCharacterSet *sCharactersToEntityEscapeWithQuot;
+static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 + (void)initialize
 {
     // Cache the characters to be escaped. Doing it in +initialize should be threadsafe
-	if (!charactersToEntityEscape)
+	if (!sCharactersToEntityEscapeWithQuot)
     {
-        charactersToEntityEscape = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
+        sCharactersToEntityEscapeWithQuot = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
+    }
+    if (!sCharactersToEntityEscapeWithoutQuot)
+    {
+        sCharactersToEntityEscapeWithoutQuot = [[NSCharacterSet characterSetWithCharactersInString:@"&<>"] retain];
     }
 }
 
@@ -313,6 +318,10 @@ static NSCharacterSet *charactersToEntityEscape;
 // So I think we want to gradually shift over to being explicit when we know when it's OK or not.
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
 {
+    NSCharacterSet *charactersToEntityEscape = (escapeQuotes ?
+                                                sCharactersToEntityEscapeWithQuot :
+                                                sCharactersToEntityEscapeWithoutQuot);
+    
     // Look for characters to escape. If there are none can bail out quick without having had to allocate anything. #78710
     NSRange searchRange = NSMakeRange(0, [string length]);
     NSRange range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
