@@ -18,4 +18,10 @@
     [self writeString:@"\n"];
 }
 
+- (void)writeIDSelector:(NSString *)ID;
+{
+    [self writeString:@"#"];
+    [self writeString:ID];
+}
+
 @end
