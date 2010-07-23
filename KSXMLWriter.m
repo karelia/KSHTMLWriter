@@ -23,28 +23,18 @@
 
 #pragma mark Init & Dealloc
 
-- (id)initWithOutputWriter:(id <KSWriter>)stream; // designated initializer
+- (id)initWithOutputWriter:(id <KSWriter>)output; // designated initializer
 {
-    [super init];
+    [super initWithOutputWriter:output];
     
-    _writer = [stream retain];
     _openElements = [[NSMutableArray alloc] init];
     
     return self;
 }
 
-- (id)init;
-{
-    return [self initWithOutputWriter:nil];
-}
-
 - (void)dealloc
-{
-    [self close];
-    
+{    
     [_openElements release];
-    NSAssert(!_writer, @"-close failed to dispose of output writer");
-    
     [super dealloc];
 }
 
@@ -53,7 +43,7 @@
 - (void)close;
 {
     [self flush];
-    [_writer release]; _writer = nil;
+    [super close];
 }
 
 - (void)flush; { }
@@ -302,8 +292,6 @@
 
 - (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
 
-#pragma mark Primitive
-
 static NSCharacterSet *charactersToEntityEscape;
 
 + (void)initialize
@@ -381,7 +369,7 @@ static NSCharacterSet *charactersToEntityEscape;
         [self closeStartTag];
     }
     
-    [_writer writeString:string];
+    [super writeString:string];
 }
 
 @end

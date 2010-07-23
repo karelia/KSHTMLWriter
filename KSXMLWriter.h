@@ -6,26 +6,18 @@
 //  Copyright 2010 Karelia Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "KSWriter.h"
+#import "KSForwardingWriter.h"
 
 
-@interface KSXMLWriter : NSObject <KSWriter>
+@interface KSXMLWriter : KSForwardingWriter
 {
   @private
-    id <KSWriter> _writer;
-    
     NSMutableArray  *_openElements;
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
     
     NSInteger       _indentation;
 }
-
-#pragma mark Creating an XML Writer
-- (id)initWithOutputWriter:(id <KSWriter>)stream; // designated initializer
-- (id)init; // calls -initWithOutputWriter with nil. Handy for iteration & deriving info, but not a lot else
-
 
 #pragma mark Writer Status
 - (void)close;  // calls -flush, then releases most ivars such as _writer
@@ -118,11 +110,6 @@
 - (void)startWritingInline;
 - (void)stopWritingInline;
 - (BOOL)canWriteElementInline:(NSString *)tagName;
-
-
-#pragma mark Primitive
-
-- (void)writeString:(NSString *)string; // calls -writeString: on our string stream. Override to customize raw writing
 
 
 @end
