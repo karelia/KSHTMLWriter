@@ -10,10 +10,6 @@
 
 
 @interface KSCSSWriter : KSForwardingWriter
-{
-  @private
-    id <KSWriter>   _output;
-}
 
 // Writes the string followed enough newlines to carry on writing
 - (void)writeCSSString:(NSString *)cssString;
