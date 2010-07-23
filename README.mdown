@@ -73,6 +73,10 @@ iOS
 ===
 iOS support would be nice in the project. There's nothing to stop it that I can see (indeed, it may actually work at the moment for all I know!), but it's not a priority for us right now. If you do want this support, fork, and again I'll be more than happy to pull back into the main project.
 
+CSS
+===
+It would be nice to apply a similar technique to generating CSS if appropriate. We don't particularly need it at that moment, but there is a placeholder for getting started with in the `CSS` directory.
+
 Licensing
 =========
 
