@@ -201,6 +201,13 @@
 
 #pragma mark Style
 
+- (void)writeStyleElementWithCSSString:(NSString *)css;
+{
+    [self startStyleElementWithType:@"text/css"];
+    [self writeString:css]; // browsers don't expect styles to be XML escaped
+    [self endElement];
+}
+
 - (void)startStyleElementWithType:(NSString *)type;
 {
     [self openTag:@"style"];

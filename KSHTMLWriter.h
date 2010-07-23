@@ -97,6 +97,7 @@
 
 
 #pragma mark Style
+- (void)writeStyleElementWithCSSString:(NSString *)css;
 - (void)startStyleElementWithType:(NSString *)type;
 
 
