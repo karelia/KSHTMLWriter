@@ -88,7 +88,7 @@
     
     
     // Write the tag itself.
-    if (_elementIsEmpty && [self elementCanBeEmpty:[self topElement]])
+    if (_elementIsEmpty)
     {
         [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
         [self closeEmptyElementTag];
@@ -247,7 +247,9 @@
 
 - (void)didStartElement;
 {
-    _elementIsEmpty = YES;
+    // For elements which can't be empty, might as well go ahead and close the start tag now
+    _elementIsEmpty = [self elementCanBeEmpty:[self topElement]];
+    if (!_elementIsEmpty) [self closeStartTag];
 }
 
 - (void)closeStartTag;
