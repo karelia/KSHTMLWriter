@@ -61,6 +61,13 @@ This will neatly append the markup to the mutable string.
 
 You can easily expand support by adopting `KSWriter` in your own classes. For example, a class that writes directly to disk, rather than an in-memory buffer. `KSXMLWriter` itself already adopts the protocol too, so you could chain multiple writers together if it took your fancy. I'm very interested in adding any new writers people come up with to the project.
 
+###KSStringWriter###
+`KSStringWriter` is a great example of a simple class that implements `KSWriter`. It provides an internal buffer for storing the incoming strings. You can then retrieve the currently written text with a call to `-string`.
+
+This isn't all that different to writing directly to an `NSMutableString` though, so `KSStringWriter` has a trick up its sleeve. The most expensive aspect of building up a long string is reallocating the underlying buffer to meet demand. `KSStringWriter` lets you work around this by recycling the same writer object. After it's done generating the first string, call `-removeAllCharacters` to reset the written string. It will return to empty, but not free up memory from the old string. The next sequence of writes can be performed quickly into the pre-allocated space, saving time.
+
+If you do need to reclaim the memory, a call to `-close` will do so.
+
 ###XML Entity Escaping###
 As a bonus, we expose `KSStringXMLEntityEscaping.h/m`. It exposes what `KSXMLWriter` is using internally whenever strings need escaping.
 
