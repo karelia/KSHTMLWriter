@@ -66,6 +66,13 @@
 
 #pragma mark Elements
 
+- (void)writeElement:(NSString *)elementName text:(NSString *)text;
+{
+    [self startElement:elementName attributes:nil];
+    [self writeText:text];
+    [self endElement];
+}
+
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 {
     [self openTag:elementName];

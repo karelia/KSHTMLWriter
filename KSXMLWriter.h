@@ -35,6 +35,9 @@
 
 #pragma mark Elements
 
+// Convenience for writing <tag>text</tag>
+- (void)writeElement:(NSString *)elementName text:(NSString *)text;
+
 // Calls -openTag:. Then -writeAttribute:value: for each entry in the dictionary. Finishes with -didStartElement. Others are variations on the design for convenience
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 - (void)startElement:(NSString *)name attribute:(NSString *)attr value:(NSString *)attrValue;
