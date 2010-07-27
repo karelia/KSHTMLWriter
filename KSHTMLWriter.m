@@ -85,8 +85,8 @@
 
 - (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 {
-    if (idName) [self addAttribute:@"id" value:idName];
-    if (className) [self addAttribute:@"class" value:className];
+    if (idName) [self addElementAttribute:@"id" value:idName];
+    if (className) [self addElementAttribute:@"class" value:className];
     
     [self startElement:tagName];
 }
@@ -103,10 +103,10 @@
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
-	if (href) [self addAttribute:@"href" value:href];
-	if (targetString) [self addAttribute:@"target" value:targetString];
-	if (titleString) [self addAttribute:@"title" value:titleString];
-	if (relString) [self addAttribute:@"rel" value:relString];
+	if (href) [self addElementAttribute:@"href" value:href];
+	if (targetString) [self addElementAttribute:@"target" value:targetString];
+	if (titleString) [self addElementAttribute:@"title" value:titleString];
+	if (relString) [self addElementAttribute:@"rel" value:relString];
 	
     [self startElement:@"a"];
 }
@@ -119,13 +119,13 @@
                       height:(NSString *)height;
 {
     
-    if (idName) [self addAttribute:@"id" value:idName];
-    if (className) [self addAttribute:@"class" value:className];
+    if (idName) [self addElementAttribute:@"id" value:idName];
+    if (className) [self addElementAttribute:@"class" value:className];
     
-    [self addAttribute:@"src" value:src];
-    [self addAttribute:@"alt" value:alt];
-    if (width) [self addAttribute:@"width" value:width];
-    if (height) [self addAttribute:@"height" value:height];
+    [self addElementAttribute:@"src" value:src];
+    [self addElementAttribute:@"alt" value:alt];
+    if (width) [self addElementAttribute:@"width" value:width];
+    if (height) [self addElementAttribute:@"height" value:height];
     
     [self startElement:@"img"];
     [self endElement];
@@ -141,11 +141,11 @@
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    if (rel) [self addAttribute:@"rel" value:rel];
-    if (type) [self addAttribute:@"type" value:type];
-    [self addAttribute:@"href" value:href];
-    if (title) [self addAttribute:@"title" value:title];
-    if (media) [self addAttribute:@"media" value:media];
+    if (rel) [self addElementAttribute:@"rel" value:rel];
+    if (type) [self addElementAttribute:@"type" value:type];
+    [self addElementAttribute:@"href" value:href];
+    if (title) [self addElementAttribute:@"title" value:title];
+    if (media) [self addElementAttribute:@"media" value:media];
     
     [self startElement:@"link"];
     [self endElement];
@@ -181,8 +181,8 @@
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
-    [self addAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    if (src) [self addAttribute:@"src" value:src];
+    [self addElementAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    if (src) [self addElementAttribute:@"src" value:src];
     
     [self startElement:@"script"];
     
@@ -219,7 +219,7 @@
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    if (type) [self addAttribute:@"type" value:type];
+    if (type) [self addElementAttribute:@"type" value:type];
     [self startElement:@"style"];
 }
 
@@ -298,7 +298,7 @@
     {
         NSString *class = [_classNames componentsJoinedByString:@" "];
         [_classNames removeAllObjects];
-        [self addAttribute:@"class" value:class];
+        [self addElementAttribute:@"class" value:class];
     }
     
     [super startElement:elementName writeInline:writeInline];
