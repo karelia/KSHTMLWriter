@@ -68,10 +68,6 @@
 
 - (void)startElement:(NSString *)elementName withDOMElement:(DOMElement *)element;    // open the tag and write attributes
 {
-    // Open tag
-    [self openTag:[element tagName]];
-    
-    
     // Write attributes
     if ([element hasAttributes]) // -[DOMElement attributes] is slow as it has to allocate an object. #78691
     {
@@ -80,12 +76,12 @@
         for (index = 0; index < [attributes length]; index++)
         {
             DOMAttr *anAttribute = (DOMAttr *)[attributes item:index];
-            [self writeAttribute:[anAttribute name] value:[anAttribute value]];
+            [self addAttribute:[anAttribute name] value:[anAttribute value]];
         }
     }
     
     
-    [self didStartElement];
+    [self startElement:[element tagName]];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
@@ -208,8 +204,7 @@
     // Bit of a special case. When a DOM range ends at the start of an element 
     if ([range endContainer] == self && [range endOffset] == 0)
     {
-        [writer openTag:@"br"];
-        [writer closeEmptyElementTag];
+        [writer writeLineBreak];
         return nil;
     }
     
