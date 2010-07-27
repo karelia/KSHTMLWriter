@@ -86,7 +86,6 @@
 
 
 #pragma mark Element Primitives
-- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
 - (void)closeEmptyElementTag;             
 
 

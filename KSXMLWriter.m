@@ -105,7 +105,31 @@
 
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
 {
-    [self openTag:elementName writeInline:writeInline];
+    // Can only write suitable tags inline if containing element also allows it
+    if (!writeInline)
+    {
+        [self startNewline];
+        [self stopWritingInline];
+    }
+    
+    elementName = [elementName lowercaseString];    // writes coming from the DOM are uppercase
+    [self writeString:@"<"];
+    [self writeString:elementName];
+    
+    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
+    [self pushElement:elementName];
+    
+    
+    // Write attributes
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [self writeAttribute:attribute value:value];
+    }
+    [_attributes removeAllObjects];
+    
+    
     [self didStartElement];
 }
 
@@ -251,33 +275,6 @@
 }
 
 #pragma mark Element Primitives
-
-- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
-{
-    // Can only write suitable tags inline if containing element also allows it
-    if (!writeInline)
-    {
-        [self startNewline];
-        [self stopWritingInline];
-    }
-    
-    element = [element lowercaseString];    // writes coming from the DOM are uppercase
-    [self writeString:@"<"];
-    [self writeString:element];
-    
-    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:element];
-    
-    
-    // Write attributes
-    for (int i = 0; i < [_attributes count]; i+=2)
-    {
-        NSString *attribute = [_attributes objectAtIndex:i];
-        NSString *value = [_attributes objectAtIndex:i+1];
-        [self writeAttribute:attribute value:value];
-    }
-    [_attributes removeAllObjects];
-}
 
 - (void)writeAttribute:(NSString *)attribute
                  value:(NSString *)value;

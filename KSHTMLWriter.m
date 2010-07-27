@@ -291,7 +291,7 @@
 
 #pragma mark Element Primitives
 
-- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 {
     // Add in any pre-written classes
     if ([_classNames count])
@@ -301,7 +301,7 @@
         [self addAttribute:@"class" value:class];
     }
     
-    [super openTag:element writeInline:writeInline];
+    [super startElement:elementName writeInline:writeInline];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML
