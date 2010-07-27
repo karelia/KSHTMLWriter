@@ -56,6 +56,14 @@
     [self startNewline];
 }
 
+#pragma mark Text
+
+- (void)writeText:(NSString *)string;
+{
+    // Quotes are acceptable characters outside of attribute values
+    [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
+}
+
 #pragma mark Elements
 
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
@@ -98,14 +106,6 @@
         [self writeEndTag:[self topElement]];
         [self popElement];
     }
-}
-
-#pragma mark High-level Writing
-
-- (void)writeText:(NSString *)string;
-{
-    // Quotes are acceptable characters outside of attribute values
-    [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
 }
 
 - (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel

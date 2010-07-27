@@ -28,6 +28,11 @@
 - (void)startDocument:(NSString *)DTD;  // at present, expect DTD to be complete tag
 
 
+#pragma mark Text
+//  Escapes the string and calls -writeString:. NOT intended for writing text-like strings e.g. element attributed
+- (void)writeText:(NSString *)string;
+
+
 #pragma mark Elements
 
 // Calls -openTag:. Then -writeAttribute:value: for each entry in the dictionary. Finishes with -didStartElement. Others are variations on the design for convenience
@@ -37,12 +42,6 @@
 //  </tagName>
 //  The start tag must have been written by -openTag: or one of the higher-level methods that calls through to it, otherwise won't know what to write
 - (void)endElement;
-
-
-#pragma mark Basic Writing
-
-//  Escapes the string and calls -writeString:. NOT intended for writing text-like strings e.g. element attributed
-- (void)writeText:(NSString *)string;
 
 //  Writes a newline character and the tabs to match -indentationLevel. Nornally newlines are automatically written for you; call this if you need an extra one.
 - (void)startNewline;
