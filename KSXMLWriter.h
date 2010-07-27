@@ -39,7 +39,10 @@
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
-- (void)addElementAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
+// You can build up a list of attributes. They are then applied to the next element started
+- (void)addElementAttribute:(NSString *)attribute value:(NSString *)value;
+- (NSDictionary *)elementAttributes;
+
 - (void)startElement:(NSString *)elementName;
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 

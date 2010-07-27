@@ -140,6 +140,20 @@
     [_attributes addObject:value];
 }
 
+- (NSDictionary *)elementAttributes;
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [result setObject:value forKey:attribute];
+    }
+    
+    return result;
+}
+
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 {
     for (NSString *aName in attributes)
