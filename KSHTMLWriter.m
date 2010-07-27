@@ -85,10 +85,10 @@
 
 - (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 {
-    [self openTag:tagName];
-    if (idName) [self writeAttribute:@"id" value:idName];
-    if (className) [self writeAttribute:@"class" value:className];
-    [self didStartElement];
+    if (idName) [self addAttribute:@"id" value:idName];
+    if (className) [self addAttribute:@"class" value:className];
+    
+    [self startElement:tagName];
 }
 
 #pragma mark Line Break
@@ -103,12 +103,12 @@
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
-	[self openTag:@"a"];
-	if (href) [self writeAttribute:@"href" value:href];
-	if (targetString) [self writeAttribute:@"target" value:targetString];
-	if (titleString) [self writeAttribute:@"title" value:titleString];
-	if (relString) [self writeAttribute:@"rel" value:relString];
-	[self didStartElement];
+	if (href) [self addAttribute:@"href" value:href];
+	if (targetString) [self addAttribute:@"target" value:targetString];
+	if (titleString) [self addAttribute:@"title" value:titleString];
+	if (relString) [self addAttribute:@"rel" value:relString];
+	
+    [self startElement:@"a"];
 }
 
 - (void)writeImageWithIdName:(NSString *)idName
@@ -118,17 +118,16 @@
                        width:(NSString *)width
                       height:(NSString *)height;
 {
-    [self openTag:@"img"];
     
-    if (idName) [self writeAttribute:@"id" value:idName];
-    if (className) [self writeAttribute:@"class" value:className];
+    if (idName) [self addAttribute:@"id" value:idName];
+    if (className) [self addAttribute:@"class" value:className];
     
-    [self writeAttribute:@"src" value:src];
-    [self writeAttribute:@"alt" value:alt];
-    if (width) [self writeAttribute:@"width" value:width];
-    if (height) [self writeAttribute:@"height" value:height];
+    [self addAttribute:@"src" value:src];
+    [self addAttribute:@"alt" value:alt];
+    if (width) [self addAttribute:@"width" value:width];
+    if (height) [self addAttribute:@"height" value:height];
     
-    [self didStartElement];
+    [self startElement:@"img"];
     [self endElement];
 }
 
@@ -142,15 +141,13 @@
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    [self openTag:@"link"];
+    if (rel) [self addAttribute:@"rel" value:rel];
+    if (type) [self addAttribute:@"type" value:type];
+    [self addAttribute:@"href" value:href];
+    if (title) [self addAttribute:@"title" value:title];
+    if (media) [self addAttribute:@"media" value:media];
     
-    if (rel) [self writeAttribute:@"rel" value:rel];
-    if (type) [self writeAttribute:@"type" value:type];
-    [self writeAttribute:@"href" value:href];
-    if (title) [self writeAttribute:@"title" value:title];
-    if (media) [self writeAttribute:@"media" value:media];
-    
-    [self didStartElement];
+    [self startElement:@"link"];
     [self endElement];
 }
 
@@ -184,10 +181,10 @@
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
-    [self openTag:@"script"];
-    [self writeAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    if (src) [self writeAttribute:@"src" value:src];
-    [self didStartElement];
+    [self addAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    if (src) [self addAttribute:@"src" value:src];
+    
+    [self startElement:@"script"];
     
     // Embedded scripts should start on their own line for clarity
     if (!src)
@@ -222,9 +219,8 @@
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    [self openTag:@"style"];
-    if (type) [self writeAttribute:@"type" value:type];
-    [self didStartElement];
+    if (type) [self addAttribute:@"type" value:type];
+    [self startElement:@"style"];
 }
 
 #pragma mark Elements Stack
@@ -297,15 +293,15 @@
 
 - (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
 {
-    [super openTag:element writeInline:writeInline];
-    
     // Add in any pre-written classes
     if ([_classNames count])
     {
         NSString *class = [_classNames componentsJoinedByString:@" "];
         [_classNames removeAllObjects];
-        [self writeAttribute:@"class" value:class];
+        [self addAttribute:@"class" value:class];
     }
+    
+    [super openTag:element writeInline:writeInline];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML

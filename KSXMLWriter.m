@@ -12,7 +12,33 @@
 
 
 @interface KSXMLWriter ()
+
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
+
+#pragma mark Element Primitives
+
+//  <tagName
+//  Records the tag using -pushElement:. You must call -writeEndTag or -popElement later.
+- (void)openTag:(NSString *)element;
+
+//   attribute="value"
+- (void)writeAttribute:(NSString *)attribute
+                 value:(NSString *)value;
+
+//  Starts tracking -writeString: calls to see if element is empty
+- (void)didStartElement;
+
+//  >
+//  Then increases indentation level
+- (void)closeStartTag;
+
+//   />
+- (void)closeEmptyElementTag;             
+
+- (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
+
+- (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
+
 @end
 
 
