@@ -61,11 +61,6 @@
 
 #pragma mark General
 
-- (void)startElement:(NSString *)tagName;
-{
-    [self startElement:tagName className:nil];
-}
-
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
 {
     [self startElement:tagName idName:nil className:className];

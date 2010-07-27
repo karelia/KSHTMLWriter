@@ -73,6 +73,12 @@
     [self endElement];
 }
 
+- (void)startElement:(NSString *)elementName;
+{
+    [self openTag:elementName];
+    [self didStartElement];
+}
+
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 {
     [self openTag:elementName];

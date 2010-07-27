@@ -41,7 +41,6 @@
 //  <tagName id="idName" class="className">
 //  Pretty standard convenience methods
 
-- (void)startElement:(NSString *)tagName;
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
 
 - (void)startElement:(NSString *)tagName   
