@@ -17,10 +17,6 @@
 
 #pragma mark Element Primitives
 
-//  <tagName
-//  Records the tag using -pushElement:. You must call -writeEndTag or -popElement later.
-- (void)openTag:(NSString *)element;
-
 //   attribute="value"
 - (void)writeAttribute:(NSString *)attribute
                  value:(NSString *)value;
@@ -104,7 +100,12 @@
 
 - (void)startElement:(NSString *)elementName;
 {
-    [self openTag:elementName];
+    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
+}
+
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
+{
+    [self openTag:elementName writeInline:writeInline];
     [self didStartElement];
 }
 
@@ -250,11 +251,6 @@
 }
 
 #pragma mark Element Primitives
-
-- (void)openTag:(NSString *)element;        //  <tagName
-{
-    [self openTag:element writeInline:[self canWriteElementInline:element]];
-}
 
 - (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
 {
