@@ -59,6 +59,16 @@
     [_classNames addObject:className];
 }
 
+- (NSString *)className;
+{
+    NSString *result = nil;
+    if ([_classNames count])
+    {
+        result = [_classNames componentsJoinedByString:@" "];
+    }
+    return result;
+}
+
 #pragma mark HTML Fragments
 
 - (void)writeHTMLString:(NSString *)html;
@@ -294,9 +304,9 @@
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 {
     // Add in any pre-written classes
-    if ([_classNames count])
+    NSString *class = [self className];
+    if (class)
     {
-        NSString *class = [_classNames componentsJoinedByString:@" "];
         [_classNames removeAllObjects];
         [self addElementAttribute:@"class" value:class];
     }

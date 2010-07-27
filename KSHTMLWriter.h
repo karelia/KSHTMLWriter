@@ -36,6 +36,7 @@
 #pragma mark CSS Class Name
 // Class names are accumulated and written automatically as an attribute of the next element started
 - (void)addClassName:(NSString *)className;
+- (NSString *)className;
 
 
 #pragma mark HTML Fragments
