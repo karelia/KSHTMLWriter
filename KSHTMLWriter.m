@@ -16,7 +16,10 @@
 - (id)initWithOutputWriter:(id <KSWriter>)stream;
 {
     [super initWithOutputWriter:stream];
+    
     _isXHTML = YES;
+    _classNames = [[NSMutableArray alloc] init];
+    
     return self;
 }
 
@@ -30,6 +33,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [_classNames release];
+    
+    [super dealloc];
+}
+
 #pragma mark XHTML
 
 @synthesize XHTML = _isXHTML;
@@ -40,6 +50,13 @@
 {
     _isXHTML = isXHTML;
     [self startDocument:DTD];
+}
+
+#pragma mark CSS Class Name
+
+- (void)addClassName:(NSString *)className;
+{
+    [_classNames addObject:className];
 }
 
 #pragma mark HTML Fragments
@@ -277,6 +294,19 @@
 }
 
 #pragma mark Element Primitives
+
+- (void)openTag:(NSString *)element writeInline:(BOOL)writeInline;
+{
+    [super openTag:element writeInline:writeInline];
+    
+    // Add in any pre-written classes
+    if ([_classNames count])
+    {
+        NSString *class = [_classNames componentsJoinedByString:@" "];
+        [_classNames removeAllObjects];
+        [self writeAttribute:@"class" value:class];
+    }
+}
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML
 {

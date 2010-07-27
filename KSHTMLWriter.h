@@ -14,6 +14,8 @@
 {
   @private
     BOOL    _isXHTML;
+    
+    NSMutableArray  *_classNames;
 }
 
 #pragma mark Creating an HTML Writer
@@ -29,6 +31,11 @@
 
 #pragma mark Document
 - (void)startDocument:(NSString *)DTD isXHTML:(BOOL)isXHTML;
+
+
+#pragma mark CSS Class Name
+// Class names are accumulated and written automatically as an attribute of the next element started
+- (void)addClassName:(NSString *)className;
 
 
 #pragma mark HTML Fragments
