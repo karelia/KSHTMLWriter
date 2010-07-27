@@ -69,6 +69,20 @@
     return result;
 }
 
+- (NSDictionary *)elementAttributes;
+{
+    id result = [super elementAttributes];
+    
+    NSString *class = [self className];
+    if (class)
+    {
+        result = [NSMutableDictionary dictionaryWithDictionary:result];
+        [result setObject:class forKey:@"class"];
+    }
+    
+    return result;
+}
+
 #pragma mark HTML Fragments
 
 - (void)writeHTMLString:(NSString *)html;
