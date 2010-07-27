@@ -28,6 +28,7 @@
     [super initWithOutputWriter:output];
     
     _openElements = [[NSMutableArray alloc] init];
+    _attributes = [[NSMutableArray alloc] initWithCapacity:2];
     
     return self;
 }
@@ -35,6 +36,8 @@
 - (void)dealloc
 {    
     [_openElements release];
+    [_attributes release];
+    
     [super dealloc];
 }
 
@@ -79,26 +82,22 @@
     [self didStartElement];
 }
 
+- (void)addAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
+{
+    NSParameterAssert(value);
+    [_attributes addObject:attribute];
+    [_attributes addObject:value];
+}
+
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 {
-    [self openTag:elementName];
-    
     for (NSString *aName in attributes)
     {
         NSString *aValue = [attributes objectForKey:aName];
-        [self writeAttribute:aName value:aValue];
+        [self addAttribute:aName value:aValue];
     }
     
-    [self didStartElement];
-}
-
-- (void)startElement:(NSString *)elementName
-           attribute:(NSString *)attr
-               value:(NSString *)attrValue;
-{
-    [self openTag:elementName];
-    [self writeAttribute:attr value:attrValue];
-    [self didStartElement];
+    [self startElement:elementName];
 }
 
 - (void)endElement;
@@ -246,6 +245,16 @@
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
     [self pushElement:element];
+    
+    
+    // Write attributes
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [self writeAttribute:attribute value:value];
+    }
+    [_attributes removeAllObjects];
 }
 
 - (void)writeAttribute:(NSString *)attribute

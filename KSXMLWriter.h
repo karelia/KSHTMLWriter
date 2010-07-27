@@ -13,6 +13,7 @@
 {
   @private
     NSMutableArray  *_openElements;
+    NSMutableArray  *_attributes;
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
     
@@ -39,10 +40,10 @@
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
 - (void)startElement:(NSString *)elementName;
+- (void)addAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
 
-// Calls -openTag:. Then -writeAttribute:value: for each entry in the dictionary. Finishes with -didStartElement. Others are variations on the design for convenience
+// Convenience methods for if you already have attributes in a dictionary form
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-- (void)startElement:(NSString *)name attribute:(NSString *)attr value:(NSString *)attrValue;
 
 //  </tagName>
 //  The start tag must have been written by -openTag: or one of the higher-level methods that calls through to it, otherwise won't know what to write
