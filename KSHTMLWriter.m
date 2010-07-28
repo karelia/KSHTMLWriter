@@ -54,12 +54,12 @@
 
 #pragma mark CSS Class Name
 
-- (void)addClassName:(NSString *)className;
+- (void)pushElementClassName:(NSString *)className;
 {
     [_classNames addObject:className];
 }
 
-- (NSString *)className;
+- (NSString *)elementClassName;
 {
     NSString *result = nil;
     if ([_classNames count])
@@ -73,7 +73,7 @@
 {
     id result = [super elementAttributes];
     
-    NSString *class = [self className];
+    NSString *class = [self elementClassName];
     if (class)
     {
         result = [NSMutableDictionary dictionaryWithDictionary:result];
@@ -109,8 +109,8 @@
 
 - (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 {
-    if (idName) [self addElementAttribute:@"id" value:idName];
-    if (className) [self addElementAttribute:@"class" value:className];
+    if (idName) [self pushElementAttribute:@"id" value:idName];
+    if (className) [self pushElementAttribute:@"class" value:className];
     
     [self startElement:tagName];
 }
@@ -127,10 +127,10 @@
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
-	if (href) [self addElementAttribute:@"href" value:href];
-	if (targetString) [self addElementAttribute:@"target" value:targetString];
-	if (titleString) [self addElementAttribute:@"title" value:titleString];
-	if (relString) [self addElementAttribute:@"rel" value:relString];
+	if (href) [self pushElementAttribute:@"href" value:href];
+	if (targetString) [self pushElementAttribute:@"target" value:targetString];
+	if (titleString) [self pushElementAttribute:@"title" value:titleString];
+	if (relString) [self pushElementAttribute:@"rel" value:relString];
 	
     [self startElement:@"a"];
 }
@@ -143,13 +143,13 @@
                       height:(NSString *)height;
 {
     
-    if (idName) [self addElementAttribute:@"id" value:idName];
-    if (className) [self addElementAttribute:@"class" value:className];
+    if (idName) [self pushElementAttribute:@"id" value:idName];
+    if (className) [self pushElementAttribute:@"class" value:className];
     
-    [self addElementAttribute:@"src" value:src];
-    [self addElementAttribute:@"alt" value:alt];
-    if (width) [self addElementAttribute:@"width" value:width];
-    if (height) [self addElementAttribute:@"height" value:height];
+    [self pushElementAttribute:@"src" value:src];
+    [self pushElementAttribute:@"alt" value:alt];
+    if (width) [self pushElementAttribute:@"width" value:width];
+    if (height) [self pushElementAttribute:@"height" value:height];
     
     [self startElement:@"img"];
     [self endElement];
@@ -165,11 +165,11 @@
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    if (rel) [self addElementAttribute:@"rel" value:rel];
-    if (type) [self addElementAttribute:@"type" value:type];
-    [self addElementAttribute:@"href" value:href];
-    if (title) [self addElementAttribute:@"title" value:title];
-    if (media) [self addElementAttribute:@"media" value:media];
+    if (rel) [self pushElementAttribute:@"rel" value:rel];
+    if (type) [self pushElementAttribute:@"type" value:type];
+    [self pushElementAttribute:@"href" value:href];
+    if (title) [self pushElementAttribute:@"title" value:title];
+    if (media) [self pushElementAttribute:@"media" value:media];
     
     [self startElement:@"link"];
     [self endElement];
@@ -205,8 +205,8 @@
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
-    [self addElementAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    if (src) [self addElementAttribute:@"src" value:src];
+    [self pushElementAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    if (src) [self pushElementAttribute:@"src" value:src];
     
     [self startElement:@"script"];
     
@@ -243,7 +243,7 @@
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    if (type) [self addElementAttribute:@"type" value:type];
+    if (type) [self pushElementAttribute:@"type" value:type];
     [self startElement:@"style"];
 }
 
@@ -318,11 +318,11 @@
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 {
     // Add in any pre-written classes
-    NSString *class = [self className];
+    NSString *class = [self elementClassName];
     if (class)
     {
         [_classNames removeAllObjects];
-        [self addElementAttribute:@"class" value:class];
+        [self pushElementAttribute:@"class" value:class];
     }
     
     [super startElement:elementName writeInline:writeInline];

@@ -76,7 +76,7 @@
         for (index = 0; index < [attributes length]; index++)
         {
             DOMAttr *anAttribute = (DOMAttr *)[attributes item:index];
-            [self addElementAttribute:[anAttribute name] value:[anAttribute value]];
+            [self pushElementAttribute:[anAttribute name] value:[anAttribute value]];
         }
     }
     
