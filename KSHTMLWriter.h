@@ -70,12 +70,10 @@
 
 #pragma mark Images
 //  <img src="..." alt="..." width="..." height="..." />
-- (void)writeImageWithIdName:(NSString *)idName
-                   className:(NSString *)className
-                         src:(NSString *)src
-                         alt:(NSString *)alt
-                       width:(NSString *)width
-                      height:(NSString *)height;
+- (void)writeImageWithSrc:(NSString *)src
+                      alt:(NSString *)alt
+                    width:(NSString *)width
+                   height:(NSString *)height;
 
 
 #pragma mark Link

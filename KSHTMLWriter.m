@@ -147,17 +147,11 @@
     [self startElement:@"a"];
 }
 
-- (void)writeImageWithIdName:(NSString *)idName
-                   className:(NSString *)className
-                         src:(NSString *)src
-                         alt:(NSString *)alt
-                       width:(NSString *)width
-                      height:(NSString *)height;
+- (void)writeImageWithSrc:(NSString *)src
+                      alt:(NSString *)alt
+                    width:(NSString *)width
+                   height:(NSString *)height;
 {
-    
-    if (idName) [self pushElementAttribute:@"id" value:idName];
-    if (className) [self pushElementAttribute:@"class" value:className];
-    
     [self pushElementAttribute:@"src" value:src];
     [self pushElementAttribute:@"alt" value:alt];
     if (width) [self pushElementAttribute:@"width" value:width];
