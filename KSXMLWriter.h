@@ -39,20 +39,22 @@
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
-// You can build up a list of attributes. They are then applied to the next element started
+// These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
+- (void)startElement:(NSString *)elementName;
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
+- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
+- (void)endElement;
+
+/*  You can also gain finer-grained control over element attributes. KSXMLWriter maintains a list of attributes that will be applied when you *next* call one of the -startElement: methods. This has several advantages:
+ *      - Attributes are written in exactly the order you specify
+ *      - More efficient than building up a temporary dictionary object
+ *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
+ */
 - (void)addElementAttribute:(NSString *)attribute value:(NSString *)value;
 - (NSDictionary *)elementAttributes;
 
-- (void)startElement:(NSString *)elementName;
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 
-// Convenience methods for if you already have attributes in a dictionary form
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-
-//  </tagName>
-//  The start tag must have been written by -openTag: or one of the higher-level methods that calls through to it, otherwise won't know what to write
-- (void)endElement;
-
+#pragma mark Whitespace
 //  Writes a newline character and the tabs to match -indentationLevel. Nornally newlines are automatically written for you; call this if you need an extra one.
 - (void)startNewline;
 

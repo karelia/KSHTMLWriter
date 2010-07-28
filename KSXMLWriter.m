@@ -133,27 +133,6 @@
     [self didStartElement];
 }
 
-- (void)addElementAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
-{
-    NSParameterAssert(value);
-    [_attributes addObject:attribute];
-    [_attributes addObject:value];
-}
-
-- (NSDictionary *)elementAttributes;
-{
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    
-    for (int i = 0; i < [_attributes count]; i+=2)
-    {
-        NSString *attribute = [_attributes objectAtIndex:i];
-        NSString *value = [_attributes objectAtIndex:i+1];
-        [result setObject:value forKey:attribute];
-    }
-    
-    return result;
-}
-
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 {
     for (NSString *aName in attributes)
@@ -184,6 +163,29 @@
         [self popElement];
     }
 }
+
+- (void)addElementAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
+{
+    NSParameterAssert(value);
+    [_attributes addObject:attribute];
+    [_attributes addObject:value];
+}
+
+- (NSDictionary *)elementAttributes;
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [result setObject:value forKey:attribute];
+    }
+    
+    return result;
+}
+
+#pragma mark Whitespace
 
 - (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel
 {
