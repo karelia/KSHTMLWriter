@@ -69,6 +69,18 @@
     return result;
 }
 
+- (void)pushElementAttribute:(NSString *)attribute value:(NSString *)value;
+{
+    if ([attribute isEqualToString:@"class"])
+    {
+        [self pushElementClassName:value];
+    }
+    else
+    {
+        [super pushElementAttribute:attribute value:value];
+    }
+}
+
 - (NSDictionary *)elementAttributes;
 {
     id result = [super elementAttributes];
@@ -322,7 +334,7 @@
     if (class)
     {
         [_classNames removeAllObjects];
-        [self pushElementAttribute:@"class" value:class];
+        [super pushElementAttribute:@"class" value:class];
     }
     
     [super startElement:elementName writeInline:writeInline];

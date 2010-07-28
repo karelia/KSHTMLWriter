@@ -35,6 +35,7 @@
 
 #pragma mark CSS Class Name
 // Class names are accumulated and written automatically as an attribute of the next element started
+// You can also push a class name using -pushElementAttribute:value: if attribute is 'class'
 - (void)pushElementClassName:(NSString *)className;
 - (NSString *)elementClassName;
 
