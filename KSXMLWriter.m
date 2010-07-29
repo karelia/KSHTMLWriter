@@ -144,6 +144,16 @@
     [self startElement:elementName];
 }
 
+- (void)popElement;
+{
+    _elementIsEmpty = NO;
+    
+    [_openElements removeLastObject];
+    
+    // Time to cancel inline writing?
+    if (![self isWritingInline]) [self stopWritingInline];
+}
+
 - (void)endElement;
 {
     // Handle whitespace
@@ -278,16 +288,6 @@
 {
     [_openElements addObject:tagName];
     [self startWritingInline];
-}
-
-- (void)popElement;
-{
-    _elementIsEmpty = NO;
-    
-    [_openElements removeLastObject];
-    
-    // Time to cancel inline writing?
-    if (![self isWritingInline]) [self stopWritingInline];
 }
 
 #pragma mark Element Primitives
