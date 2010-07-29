@@ -85,9 +85,6 @@
 
 - (NSString *)topElement;
 
-// Element writing methods automatically call these, but you can also manipulate the stack manually.
-- (void)pushElement:(NSString *)tagName;
-
 
 #pragma mark Element Primitives
 - (void)closeEmptyElementTag;             

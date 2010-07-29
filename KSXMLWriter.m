@@ -117,7 +117,8 @@
     [self writeString:elementName];
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:elementName];
+    [_openElements addObject:elementName];
+    [self startWritingInline];
     
     
     // Write attributes
@@ -282,12 +283,6 @@
 - (NSString *)topElement;
 {
     return [_openElements lastObject];
-}
-
-- (void)pushElement:(NSString *)tagName;
-{
-    [_openElements addObject:tagName];
-    [self startWritingInline];
 }
 
 #pragma mark Element Primitives
