@@ -36,3 +36,6 @@
 - (void)flushOnNextWrite;   // calls -flush at next write. Can still use -discardBuffer to effectively cancel this
 
 @end
+
+
+extern NSString *KSStringWriterWillFlushNotification;

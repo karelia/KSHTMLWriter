@@ -9,6 +9,9 @@
 #import "KSStringWriter.h"
 
 
+NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
+
+
 @implementation KSStringWriter
 
 - (id)init;
@@ -116,6 +119,10 @@
 
 - (void)flush;
 {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:KSStringWriterWillFlushNotification
+     object:self];
+    
     // Ditch all buffer points except the one currently marking -insertionPoint
     for (NSUInteger i = [_bufferPoints count]-1; i > 0; i--)
     {
