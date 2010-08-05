@@ -133,4 +133,13 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
 
 - (void)flushOnNextWrite; { _flushOnNextWrite = YES; }
 
+#pragma mark Debug
+
+- (NSString *)debugDescription;
+{
+    NSString *result = [self description];
+    result = [result stringByAppendingFormat:@" %@", [_buffer substringToIndex:[self insertionPoint]]];
+    return result;
+}
+
 @end
