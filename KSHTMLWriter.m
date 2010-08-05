@@ -46,10 +46,10 @@
 
 #pragma mark Document
 
-- (void)startDocument:(NSString *)DTD isXHTML:(BOOL)isXHTML;
+- (void)startDocument:(NSString *)DTD encoding:(NSStringEncoding)encoding isXHTML:(BOOL)isXHTML;
 {
     _isXHTML = isXHTML;
-    [self startDocument:DTD];
+    [self startDocument:DTD encoding:encoding];
 }
 
 #pragma mark CSS Class Name

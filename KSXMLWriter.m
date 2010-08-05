@@ -96,10 +96,12 @@
 
 #pragma mark Document
 
-- (void)startDocument:(NSString *)DTD;  // at present, expect DTD to be complete tag
+- (void)startDocument:(NSString *)DTD   // at present, expect DTD to be complete tag
+             encoding:(NSStringEncoding)encoding;
 {
     [self writeString:DTD];
     [self startNewline];
+    _encoding = encoding;
 }
 
 #pragma mark Text

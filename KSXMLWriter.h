@@ -33,7 +33,8 @@
 
 
 #pragma mark Document
-- (void)startDocument:(NSString *)DTD;  // at present, expect DTD to be complete tag
+- (void)startDocument:(NSString *)DTD   // at present, expect DTD to be complete tag
+             encoding:(NSStringEncoding)encoding;
 
 
 #pragma mark Text
