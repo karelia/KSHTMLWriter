@@ -133,6 +133,8 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
 
 - (void)flushOnNextWrite; { _flushOnNextWrite = YES; }
 
+- (void)cancelFlushOnNextWrite; { _flushOnNextWrite = NO; }
+
 #pragma mark Debug
 
 - (NSString *)debugDescription;

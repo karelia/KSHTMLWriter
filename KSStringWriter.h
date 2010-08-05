@@ -25,15 +25,12 @@
 
 #pragma mark Buffering
 
-// Can be called multiple times to set up a stack of buffers.
-- (void)beginBuffering;
-
-// Discards the most recent buffer. If there's a lower one in the stack, that is restored
-- (void)discardBuffer;
-
-- (void)flush;
+- (void)beginBuffering; // can be called multiple times to set up a stack of buffers.
+- (void)discardBuffer;  // discards the most recent buffer
+- (void)flush;          // end buffering by pushing all buffers through to main string
 
 - (void)flushOnNextWrite;   // calls -flush at next write. Can still use -discardBuffer to effectively cancel this
+- (void)cancelFlushOnNextWrite;
 
 @end
 
