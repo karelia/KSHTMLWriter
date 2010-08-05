@@ -17,8 +17,15 @@
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
     
-    NSInteger       _indentation;
+    NSInteger   _indentation;
+    
+    NSStringEncoding    _encoding;
+    NSCharacterSet      *_illegalCharacters;
 }
+
+#pragma mark Creating an XML Writer
+- (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
+
 
 #pragma mark Writer Status
 - (void)close;  // calls -flush, then releases most ivars such as _writer
@@ -95,6 +102,12 @@
 - (void)startWritingInline;
 - (void)stopWritingInline;
 - (BOOL)canWriteElementInline:(NSString *)tagName;
+
+
+#pragma mark String Encoding
+@property(nonatomic, readonly) NSStringEncoding encoding;   // default is UTF-8
+- (NSCharacterSet *)legalCharacterSet;  // can override. caller takes responsibility for caching
+- (void)writeString:(NSString *)string; // anything outside -legalCharacterSet gets escaped
 
 
 @end

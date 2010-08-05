@@ -51,6 +51,26 @@
     
     _openElements = [[NSMutableArray alloc] init];
     _attributes = [[NSMutableArray alloc] initWithCapacity:2];
+    _encoding = NSUTF8StringEncoding;
+    
+    return self;
+}
+
+- (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
+{
+    if ( ! (	encoding == NSASCIIStringEncoding
+			||	encoding == NSUTF8StringEncoding
+			||	encoding == NSISOLatin1StringEncoding
+			||	encoding == NSUnicodeStringEncoding ) )
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Unsupported character encoding"];
+    }
+	
+    
+	if (self = [self initWithOutputWriter:output])
+    {
+        _encoding = encoding;
+    }
     
     return self;
 }
@@ -59,6 +79,7 @@
 {    
     [_openElements release];
     [_attributes release];
+    [_illegalCharacters release];
     
     [super dealloc];
 }
@@ -423,6 +444,37 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	}	
 }
 
+#pragma mark String Encoding
+
+@synthesize encoding = _encoding;
+
+- (NSCharacterSet *)legalCharacterSet;  // can override. caller takes responsibility for caching
+{
+    NSMutableCharacterSet *result = [[[NSMutableCharacterSet alloc] init] autorelease];
+	
+	switch ([self encoding])
+	{
+		case NSUTF8StringEncoding:
+		case NSUnicodeStringEncoding:	// Everything above 0x100 too..  Not sure about > 32 bit codes, though.
+			[result addCharactersInRange:NSMakeRange(0,0x100)];
+			[result invert];		// easier to create items we don't want, then invert
+                                    // FALL THROUGH
+            
+		case NSISOLatin1StringEncoding:	// 0xA0 through 0xFF
+			[result addCharactersInRange:NSMakeRange(0xA0, 0x100 - 0xA0)];
+			// FALL THROUGH
+			
+		case NSASCIIStringEncoding:		// only 0x20 through 0x7F
+			[result addCharactersInRange:NSMakeRange(0x20, 0x80 - 0x20)];
+			break;
+	}
+	
+	// Allow white space to pass through normally
+	[result addCharactersInString:@"\r\n\t"];
+    
+    return result;
+}
+
 - (void)writeString:(NSString *)string;
 {
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
@@ -432,7 +484,52 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         [self closeStartTag];
     }
     
-    [super writeString:string];
+    
+    if (!_illegalCharacters)
+    {
+        // first make the set of legal characters
+        NSCharacterSet *legalSet = [self legalCharacterSet];
+	
+        // From now on we're working with the inverse -- all illegal characters
+        _illegalCharacters = [[legalSet invertedSet] copy];
+	}
+    
+    
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	[scanner setCharactersToBeSkipped:nil];
+	while (![scanner isAtEnd])
+	{
+		NSString *unescaped = nil;
+		BOOL found = [scanner scanUpToCharactersFromSet:_illegalCharacters intoString:&unescaped];
+		if (found)
+		{
+			[super writeString:unescaped];
+		}
+		// Process characters that need escaping
+		if (![scanner isAtEnd])
+		{
+			NSString *toEscape = nil;
+			[scanner scanCharactersFromSet:_illegalCharacters intoString:&toEscape];
+			NSInteger anIndex, length = [toEscape length];
+			for( anIndex = 0; anIndex < length; anIndex++ )
+			{
+				unichar ch = [toEscape characterAtIndex:anIndex];
+				switch (ch)
+				{
+                    // If we encounter a special character with a symbolic entity, use that
+					case 160:	[super writeString:@"&nbsp;"];      break;
+					case 169:	[super writeString:@"&copy;"];      break;
+					case 174:	[super writeString:@"&reg;"];       break;
+					case 8211:	[super writeString:@"&ndash;"];     break;
+					case 8212:	[super writeString:@"&mdash;"];     break;
+					case 8364:	[super writeString:@"&euro;"];      break;
+						
+                        // Otherwise, use the decimal unicode value.
+					default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
+				}
+			}
+		}
+	}	    
 }
 
 @end
