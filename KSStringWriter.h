@@ -13,12 +13,26 @@
 {
   @private
     NSMutableString *_buffer;
-    NSUInteger      _length;
+    NSPointerArray  *_bufferPoints; // stored in reverse order for efficiency
+    BOOL            _flushOnNextWrite;
 }
 
 - (NSString *)string;
 
 - (void)removeAllCharacters;    // reset, but cunningly keeps memory allocated for speed
 - (void)close;                  // no effect on output/state, but frees any unused memory
+
+
+#pragma mark Buffering
+
+// Can be called multiple times to set up a stack of buffers.
+- (void)beginBuffering;
+
+// Discards the most recent buffer. If there's a lower one in the stack, that is restored
+- (void)discardBuffer;
+
+- (void)flush;
+
+- (void)flushOnNextWrite;   // calls -flush at next write. Can still use -discardBuffer to effectively cancel this
 
 @end

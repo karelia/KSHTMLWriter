@@ -17,19 +17,27 @@
     
     _buffer = [[NSMutableString alloc] init];
     
+    _bufferPoints = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsIntegerPersonality];
+    [_bufferPoints addPointer:0];
+    
     return self;
 }
 
 - (void)dealloc
 {
     [_buffer release];
+    [_bufferPoints release];
+    
     [super dealloc];
 }
 
 #pragma mark NSString Primitives
-// Not really used onn the whole, but theoretically this class could be an NSString subclass
+// Not really used on the whole, but theoretically this class could be an NSString subclass
 
-- (NSUInteger)length; { return _length; }
+- (NSUInteger)length;
+{
+    return (NSUInteger)[_bufferPoints pointerAtIndex:([_bufferPoints count] - 1)];
+}
 
 - (unichar)characterAtIndex:(NSUInteger)index;
 {
@@ -45,6 +53,8 @@
 
 #pragma mark Writing
 
+- (NSUInteger)insertionPoint; { return (NSUInteger)[_bufferPoints pointerAtIndex:0]; }
+
 - (NSString *)string;
 {
     return [_buffer substringToIndex:[self length]];
@@ -52,14 +62,23 @@
 
 - (void)writeString:(NSString *)string;
 {
+    // Flush if needed
     NSUInteger length = [string length];
-    NSUInteger unusedCapacity = [_buffer length] - [self length];
+    if (_flushOnNextWrite && length)
+    {
+        [self flush];
+    }
+    
     
     // Replace existing characters where possible
-    NSRange range = NSMakeRange([self length], MIN(length, unusedCapacity));
+    NSUInteger insertionPoint = [self insertionPoint];
+    NSUInteger unusedCapacity = [_buffer length] - insertionPoint;
+    
+    NSRange range = NSMakeRange(insertionPoint, MIN(length, unusedCapacity));
     [_buffer replaceCharactersInRange:range withString:string];
     
-    _length += length;
+    insertionPoint = (insertionPoint + length);
+    [_bufferPoints replacePointerAtIndex:0 withPointer:(void *)insertionPoint];
 }
 
 - (void)close;
@@ -74,6 +93,37 @@
     }
 }
 
-- (void)removeAllCharacters; { _length = 0; }
+- (void)removeAllCharacters;
+{
+    [_bufferPoints release]; _bufferPoints = [[NSPointerArray alloc]
+                                              initWithOptions:NSPointerFunctionsIntegerPersonality];
+    [_bufferPoints addPointer:0];
+}
+
+#pragma mark Buffering
+
+// Can be called multiple times to set up a stack of buffers.
+- (void)beginBuffering;
+{
+    [_bufferPoints insertPointer:(void *)[self insertionPoint] atIndex:0];
+}
+
+// Discards the most recent buffer. If there's a lower one in the stack, that is restored
+- (void)discardBuffer;  
+{
+    [_bufferPoints removePointerAtIndex:0];
+}
+
+- (void)flush;
+{
+    // Ditch all buffer points except the one currently marking -insertionPoint
+    for (NSUInteger i = [_bufferPoints count]-1; i > 0; i--)
+    {
+        [_bufferPoints removePointerAtIndex:i];
+    }
+    _flushOnNextWrite = NO;
+}
+
+- (void)flushOnNextWrite; { _flushOnNextWrite = YES; }
 
 @end
