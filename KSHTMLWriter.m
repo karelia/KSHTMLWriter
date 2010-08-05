@@ -13,9 +13,9 @@
 
 #pragma mark Creating an HTML Writer
 
-- (id)initWithOutputWriter:(id <KSWriter>)stream;
+- (id)initWithOutputWriter:(id <KSWriter>)output;
 {
-    [super initWithOutputWriter:stream];
+    [super initWithOutputWriter:output];
     
     _isXHTML = YES;
     _classNames = [[NSMutableArray alloc] init];
@@ -23,9 +23,9 @@
     return self;
 }
 
-- (id)initWithOutputWriter:(id <KSWriter>)stream isXHTML:(BOOL)isXHTML;
+- (id)initWithOutputWriter:(id <KSWriter>)output isXHTML:(BOOL)isXHTML;
 {
-    if (self = [self initWithOutputWriter:stream])
+    if (self = [self initWithOutputWriter:output])
     {
         _isXHTML = isXHTML;
     }

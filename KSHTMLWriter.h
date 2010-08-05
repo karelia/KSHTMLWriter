@@ -20,7 +20,7 @@
 
 #pragma mark Creating an HTML Writer
 // For if you desperately need to set a doctype before calling -startDocument:isXHTML: (perhaps because you're not going to call it!)
-- (id)initWithOutputWriter:(id <KSWriter>)stream isXHTML:(BOOL)isXHTML;
+- (id)initWithOutputWriter:(id <KSWriter>)output isXHTML:(BOOL)isXHTML;
 
 
 #pragma mark XHTML
