@@ -114,6 +114,7 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
 // Discards the most recent buffer. If there's a lower one in the stack, that is restored
 - (void)discardBuffer;  
 {
+    NSParameterAssert([_bufferPoints count] > 1);
     [_bufferPoints removePointerAtIndex:0];
 }
 
