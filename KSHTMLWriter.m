@@ -258,7 +258,8 @@
 - (BOOL)topElementIsList;
 {
     NSString *tagName = [self topElement];
-    BOOL result = [tagName isEqualToString:@"UL"] || [tagName isEqualToString:@"OL"];
+    BOOL result = ([tagName caseInsensitiveCompare:@"UL"] == NSOrderedSame ||
+                   [tagName caseInsensitiveCompare:@"OL"] == NSOrderedSame);
     return result;
 }
 
