@@ -136,6 +136,23 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
 
 - (void)cancelFlushOnNextWrite; { _flushOnNextWrite = NO; }
 
+#pragma mark Special
+
+- (void)insertString:(NSString *)aString atIndex:(NSUInteger)anIndex
+{
+    NSParameterAssert(anIndex <= [self length]);
+    
+    [_buffer insertString:aString atIndex:anIndex];
+    
+    NSUInteger i, count = [_bufferPoints count];
+    for (i = 0; i < count; i++)
+    {
+        NSUInteger anIndex = (NSUInteger)[_bufferPoints pointerAtIndex:i];
+        anIndex += [aString length];
+        [_bufferPoints replacePointerAtIndex:i withPointer:(void *)anIndex];
+    }
+}
+
 #pragma mark Debug
 
 - (NSString *)debugDescription;
