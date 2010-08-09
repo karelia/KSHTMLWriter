@@ -20,7 +20,7 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
     
     _buffer = [[NSMutableString alloc] init];
     
-    _bufferPoints = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsIntegerPersonality];
+    _bufferPoints = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsIntegerPersonality | NSPointerFunctionsOpaqueMemory];
     [_bufferPoints addPointer:0];
     
     return self;
@@ -99,7 +99,7 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
 - (void)removeAllCharacters;
 {
     [_bufferPoints release]; _bufferPoints = [[NSPointerArray alloc]
-                                              initWithOptions:NSPointerFunctionsIntegerPersonality];
+                                              initWithOptions:NSPointerFunctionsIntegerPersonality | NSPointerFunctionsOpaqueMemory];
     [_bufferPoints addPointer:0];
 }
 
