@@ -17,6 +17,7 @@
     BOOL            _flushOnNextWrite;
 }
 
+- (NSUInteger)length;
 - (NSString *)string;
 
 - (void)removeAllCharacters;    // reset, but cunningly keeps memory allocated for speed
