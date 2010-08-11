@@ -238,6 +238,16 @@
     [self writeString:@" */\n"];
 }
 
+#pragma mark Param
+
+- (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
+{
+	if (type) [self pushElementAttribute:@"name" value:name];
+	if (type) [self pushElementAttribute:@"value" value:value];
+    [self startElement:@"param"];
+    [self endElement];
+}
+
 #pragma mark Style
 
 - (void)writeStyleElementWithCSSString:(NSString *)css;

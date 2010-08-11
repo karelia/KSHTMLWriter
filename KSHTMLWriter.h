@@ -101,6 +101,9 @@
 - (void)startJavascriptCDATA;
 - (void)endJavascriptCDATA;
 
+#pragma mark Param
+
+- (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
 
 #pragma mark Style
 - (void)writeStyleElementWithCSSString:(NSString *)css;
