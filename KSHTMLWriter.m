@@ -242,8 +242,8 @@
 
 - (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
 {
-	if (type) [self pushElementAttribute:@"name" value:name];
-	if (type) [self pushElementAttribute:@"value" value:value];
+	if (name) [self pushElementAttribute:@"name" value:name];
+	if (value) [self pushElementAttribute:@"value" value:value];
     [self startElement:@"param"];
     [self endElement];
 }
