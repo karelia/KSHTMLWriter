@@ -81,7 +81,7 @@
     }
     
     
-    [self startElement:[element tagName]];
+    [self startElement:elementName];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
@@ -189,7 +189,7 @@
     DOMNode *node = [writer willWriteDOMElement:self];
     if (node == self)
     {
-        [writer startElement:[self tagName] withDOMElement:self];
+        [writer startElement:[[self tagName] lowercaseString] withDOMElement:self];
         [writer writeInnerOfDOMNode:self];
         return [writer endElementWithDOMElement:self];
     }
@@ -218,7 +218,7 @@
     
     
     // Start the element
-    [writer startElement:[self tagName] withDOMElement:self];
+    [writer startElement:[[self tagName] lowercaseString] withDOMElement:self];
     
     // Child nodes
     DOMNode *result = [super ks_writeHTML:writer fromRange:range];

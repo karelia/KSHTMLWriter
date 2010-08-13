@@ -135,7 +135,6 @@
         [self stopWritingInline];
     }
     
-    elementName = [elementName lowercaseString];    // writes coming from the DOM are uppercase
     [self writeString:@"<"];
     [self writeString:elementName];
     
@@ -295,7 +294,7 @@
     // Seek an open element, matching case insensitively
     for (NSString *anElement in _openElements)
     {
-        if ([anElement caseInsensitiveCompare:tagName] == NSOrderedSame)
+        if ([anElement isEqualToString:tagName])
         {
             return YES;
         }

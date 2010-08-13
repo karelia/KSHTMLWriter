@@ -268,8 +268,8 @@
 - (BOOL)topElementIsList;
 {
     NSString *tagName = [self topElement];
-    BOOL result = ([tagName caseInsensitiveCompare:@"UL"] == NSOrderedSame ||
-                   [tagName caseInsensitiveCompare:@"OL"] == NSOrderedSame);
+    BOOL result = ([tagName isEqualToString:@"ul"] ||
+                   [tagName isEqualToString:@"ol"]);
     return result;
 }
 
@@ -277,17 +277,17 @@
 
 - (BOOL)elementCanBeEmpty:(NSString *)tagName;
 {
-    if ([tagName caseInsensitiveCompare:@"BR"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"IMG"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"HR"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"META"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"LINK"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"INPUT"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"BASE"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"BASEFONT"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"PARAM"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"AREA"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"SOURCE"] == NSOrderedSame		) return YES;
+    if ([tagName isEqualToString:@"br"] ||
+        [tagName isEqualToString:@"img"] ||
+        [tagName isEqualToString:@"hr"] ||
+        [tagName isEqualToString:@"meta"] ||
+        [tagName isEqualToString:@"link"] ||
+        [tagName isEqualToString:@"input"] ||
+        [tagName isEqualToString:@"base"] ||
+        [tagName isEqualToString:@"basefont"] ||
+        [tagName isEqualToString:@"param"] ||
+        [tagName isEqualToString:@"area"] ||
+        [tagName isEqualToString:@"source"]) return YES;
     
     return NO;
 }
@@ -297,34 +297,34 @@
     switch ([tagName length])
     {
         case 1:
-            if ([tagName caseInsensitiveCompare:@"A"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"B"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"I"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"a"] ||
+                [tagName isEqualToString:@"b"] ||
+                [tagName isEqualToString:@"i"]) return YES;
             break;
             
         case 2:
-            if ([tagName caseInsensitiveCompare:@"BR"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"EM"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"br"] ||
+                [tagName isEqualToString:@"em"]) return YES;
             break;
             
         case 3:
-            if ([tagName caseInsensitiveCompare:@"IMG"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"SUP"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"SUB"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"BIG"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"img"] ||
+                [tagName isEqualToString:@"sup"] ||
+                [tagName isEqualToString:@"sub"] ||
+                [tagName isEqualToString:@"big"]) return YES;
             break;
             
         case 4:
-            if ([tagName caseInsensitiveCompare:@"SPAN"] == NSOrderedSame ||
-                [tagName caseInsensitiveCompare:@"FONT"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"span"] ||
+                [tagName isEqualToString:@"font"]) return YES;
             break;
             
         case 5:
-            if ([tagName caseInsensitiveCompare:@"SMALL"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"small"]) return YES;
             break;
             
         case 6:
-            if ([tagName caseInsensitiveCompare:@"STRONG"] == NSOrderedSame) return YES;
+            if ([tagName isEqualToString:@"strong"]) return YES;
             break;
     }
     
