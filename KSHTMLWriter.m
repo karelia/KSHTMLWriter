@@ -335,6 +335,9 @@
 
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 {
+    NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
+    
+    
     // Add in any pre-written classes
     NSString *class = [self elementClassName];
     if (class)
