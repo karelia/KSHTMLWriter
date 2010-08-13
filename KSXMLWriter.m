@@ -289,7 +289,7 @@
     return [_openElements count];
 }
 
-- (BOOL)hasOpenElementWithTagName:(NSString *)tagName;
+- (BOOL)hasOpenElement:(NSString *)tagName;
 {
     // Seek an open element, matching case insensitively
     for (NSString *anElement in _openElements)

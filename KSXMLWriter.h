@@ -89,7 +89,7 @@
 // XMLWriter maintains a stack of the open elements so it knows how to end them
 
 - (NSUInteger)openElementsCount;
-- (BOOL)hasOpenElementWithTagName:(NSString *)tagName;
+- (BOOL)hasOpenElement:(NSString *)tagName;
 
 - (NSString *)topElement;
 
