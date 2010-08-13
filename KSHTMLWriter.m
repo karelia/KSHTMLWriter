@@ -286,7 +286,8 @@
         [tagName caseInsensitiveCompare:@"BASE"] == NSOrderedSame ||
         [tagName caseInsensitiveCompare:@"BASEFONT"] == NSOrderedSame ||
         [tagName caseInsensitiveCompare:@"PARAM"] == NSOrderedSame ||
-        [tagName caseInsensitiveCompare:@"AREA"] == NSOrderedSame) return YES;
+        [tagName caseInsensitiveCompare:@"AREA"] == NSOrderedSame ||
+        [tagName caseInsensitiveCompare:@"SOURCE"] == NSOrderedSame		) return YES;
     
     return NO;
 }

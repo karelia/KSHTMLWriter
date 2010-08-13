@@ -236,7 +236,7 @@
 	
 	if (!sTagsThatCanBeSelfClosed)
 	{
-		sTagsThatCanBeSelfClosed = [[NSSet alloc] initWithObjects:@"img", @"br", @"hr", @"p", @"meta", @"link", @"base", @"param", nil];
+		sTagsThatCanBeSelfClosed = [[NSSet alloc] initWithObjects:@"img", @"br", @"hr", @"p", @"meta", @"link", @"base", @"param", @"source", nil];
 	}
 	
     
