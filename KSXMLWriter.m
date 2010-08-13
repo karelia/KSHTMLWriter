@@ -11,6 +11,20 @@
 #import "NSString+Karelia.h"
 
 
+@interface KSXMLElementContentsProxy : NSProxy
+{
+  @private
+    id          _target;        // weak ref
+    KSXMLWriter *_XMLWriter;    // weak ref
+    NSUInteger  _elementsCount;
+}
+- (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
+@end
+
+
+#pragma mark -
+
+
 @interface KSXMLWriter ()
 
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
@@ -52,6 +66,8 @@
     _openElements = [[NSMutableArray alloc] init];
     _attributes = [[NSMutableArray alloc] initWithCapacity:2];
     _encoding = NSUTF8StringEncoding;
+    
+    _contentsProxy = [KSXMLElementContentsProxy alloc];
     
     return self;
 }
@@ -113,6 +129,14 @@
 }
 
 #pragma mark Elements
+
+- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+{
+    [self startElement:elementName];
+    
+    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
+    return _contentsProxy;
+}
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
@@ -534,3 +558,36 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 }
 
 @end
+
+
+#pragma mark -
+
+
+@implementation KSXMLElementContentsProxy
+
+- (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
+{
+    _target = target;
+    _XMLWriter = writer;
+    _elementsCount = [writer openElementsCount];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
+{
+    return [_target methodSignatureForSelector:sel];
+}
+
+- (void)forwardInvocation:(NSInvocation *)invocation;
+{
+    // Forward on
+    [invocation invokeWithTarget:_target];
+    _target = nil;
+    
+    // End element
+    NSAssert([_XMLWriter openElementsCount] == _elementsCount, @"Writing element contents did not end the same number of sub-elements as it started");
+    [_XMLWriter endElement];
+    _XMLWriter = nil;
+}
+
+@end
+
