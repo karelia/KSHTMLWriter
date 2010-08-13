@@ -155,6 +155,7 @@
     
     
     [self didStartElement];
+    [self increaseIndentationLevel];
 }
 
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
@@ -330,7 +331,6 @@
 - (void)closeStartTag;
 {
     [self writeString:@">"];
-    [self increaseIndentationLevel];
 }
 
 - (void)closeEmptyElementTag; { [self writeString:@" />"]; }
