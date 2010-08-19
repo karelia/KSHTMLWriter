@@ -172,7 +172,7 @@
                     media:(NSString *)media;
 {
     if (rel) [self pushElementAttribute:@"rel" value:rel];
-    if (type) [self pushElementAttribute:@"type" value:type];
+    if (!type) type = @"text/css";  [self pushElementAttribute:@"type" value:type];
     [self pushElementAttribute:@"href" value:href];
     if (title) [self pushElementAttribute:@"title" value:title];
     if (media) [self pushElementAttribute:@"media" value:media];
@@ -185,7 +185,7 @@
                         title:(NSString *)title
                         media:(NSString *)media;
 {
-    [self writeLinkWithHref:href type:@"text/css" rel:@"stylesheet" title:title media:media];
+    [self writeLinkWithHref:href type:nil rel:@"stylesheet" title:title media:media];
 }
 
 #pragma mark Scripts

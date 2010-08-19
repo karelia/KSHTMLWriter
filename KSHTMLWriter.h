@@ -81,7 +81,7 @@
 //  <link>
 //  Goes in <head> to link to scripts, CSS, etc.
 - (void)writeLinkWithHref:(NSString *)href
-                     type:(NSString *)type
+                     type:(NSString *)type  // if nil, default is "text/css"
                       rel:(NSString *)rel
                     title:(NSString *)title
                     media:(NSString *)media;
