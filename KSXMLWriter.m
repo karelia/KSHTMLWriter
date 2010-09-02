@@ -186,7 +186,7 @@
     for (NSString *aName in attributes)
     {
         NSString *aValue = [attributes objectForKey:aName];
-        [self pushElementAttribute:aName value:aValue];
+        [self pushAttribute:aName value:aValue];
     }
     
     [self startElement:elementName];
@@ -222,7 +222,7 @@
     }
 }
 
-- (void)pushElementAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
+- (void)pushAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
 {
     NSParameterAssert(value);
     [_attributes addObject:attribute];
