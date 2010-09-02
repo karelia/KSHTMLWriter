@@ -54,7 +54,7 @@
 
 #pragma mark CSS Class Name
 
-- (void)pushElementClassName:(NSString *)className;
+- (void)pushClassName:(NSString *)className;
 {
     [_classNames addObject:className];
 }
@@ -73,7 +73,7 @@
 {
     if ([attribute isEqualToString:@"class"])
     {
-        [self pushElementClassName:value];
+        [self pushClassName:value];
     }
     else
     {
