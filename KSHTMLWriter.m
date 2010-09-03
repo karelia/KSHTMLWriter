@@ -18,6 +18,7 @@
     [super initWithOutputWriter:output];
     
     _isXHTML = YES;
+    _IDs = [[NSMutableSet alloc] init];
     _classNames = [[NSMutableArray alloc] init];
     
     return self;
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+    [_IDs release];
     [_classNames release];
     
     [super dealloc];
@@ -54,7 +56,7 @@
 
 #pragma mark CSS Class Name
 
-- (void)pushElementClassName:(NSString *)className;
+- (void)pushClassName:(NSString *)className;
 {
     [_classNames addObject:className];
 }
@@ -69,16 +71,16 @@
     return result;
 }
 
-- (void)pushElementAttribute:(NSString *)attribute value:(NSString *)value;
+- (void)pushAttribute:(NSString *)attribute value:(NSString *)value;
 {
     if ([attribute isEqualToString:@"class"])
     {
-        [self pushElementClassName:value];
+        return [self pushClassName:value];
     }
-    else
-    {
-        [super pushElementAttribute:attribute value:value];
-    }
+    
+    // Keep track of IDs in use
+    if ([attribute isEqualToString:@"id"]) [_IDs addObject:value];
+    [super pushAttribute:attribute value:value];
 }
 
 - (NSDictionary *)elementAttributes;
@@ -121,10 +123,16 @@
 
 - (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 {
-    if (idName) [self pushElementAttribute:@"id" value:idName];
-    if (className) [self pushElementAttribute:@"class" value:className];
+    if (idName) [self pushAttribute:@"id" value:idName];
+    if (className) [self pushAttribute:@"class" value:className];
     
     [self startElement:tagName];
+}
+
+- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
+{
+    BOOL result = ![_IDs containsObject:anID];
+    return result;
 }
 
 #pragma mark Line Break
@@ -139,10 +147,10 @@
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
-	if (href) [self pushElementAttribute:@"href" value:href];
-	if (targetString) [self pushElementAttribute:@"target" value:targetString];
-	if (titleString) [self pushElementAttribute:@"title" value:titleString];
-	if (relString) [self pushElementAttribute:@"rel" value:relString];
+	if (href) [self pushAttribute:@"href" value:href];
+	if (targetString) [self pushAttribute:@"target" value:targetString];
+	if (titleString) [self pushAttribute:@"title" value:titleString];
+	if (relString) [self pushAttribute:@"rel" value:relString];
 	
     [self startElement:@"a"];
 }
@@ -152,10 +160,10 @@
                     width:(NSString *)width
                    height:(NSString *)height;
 {
-    [self pushElementAttribute:@"src" value:src];
-    [self pushElementAttribute:@"alt" value:alt];
-    if (width) [self pushElementAttribute:@"width" value:width];
-    if (height) [self pushElementAttribute:@"height" value:height];
+    [self pushAttribute:@"src" value:src];
+    [self pushAttribute:@"alt" value:alt];
+    if (width) [self pushAttribute:@"width" value:width];
+    if (height) [self pushAttribute:@"height" value:height];
     
     [self startElement:@"img"];
     [self endElement];
@@ -171,11 +179,11 @@
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    if (rel) [self pushElementAttribute:@"rel" value:rel];
-    if (!type) type = @"text/css";  [self pushElementAttribute:@"type" value:type];
-    [self pushElementAttribute:@"href" value:href];
-    if (title) [self pushElementAttribute:@"title" value:title];
-    if (media) [self pushElementAttribute:@"media" value:media];
+    if (rel) [self pushAttribute:@"rel" value:rel];
+    if (!type) type = @"text/css";  [self pushAttribute:@"type" value:type];
+    [self pushAttribute:@"href" value:href];
+    if (title) [self pushAttribute:@"title" value:title];
+    if (media) [self pushAttribute:@"media" value:media];
     
     [self startElement:@"link"];
     [self endElement];
@@ -211,8 +219,8 @@
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
-    [self pushElementAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
-    if (src) [self pushElementAttribute:@"src" value:src];
+    [self pushAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    if (src) [self pushAttribute:@"src" value:src];
     
     [self startElement:@"script"];
     
@@ -242,8 +250,8 @@
 
 - (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
 {
-	if (name) [self pushElementAttribute:@"name" value:name];
-	if (value) [self pushElementAttribute:@"value" value:value];
+	if (name) [self pushAttribute:@"name" value:name];
+	if (value) [self pushAttribute:@"value" value:value];
     [self startElement:@"param"];
     [self endElement];
 }
@@ -259,7 +267,7 @@
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    if (type) [self pushElementAttribute:@"type" value:type];
+    if (type) [self pushAttribute:@"type" value:type];
     [self startElement:@"style"];
 }
 
@@ -343,7 +351,7 @@
     if (class)
     {
         [_classNames removeAllObjects];
-        [super pushElementAttribute:@"class" value:class];
+        [super pushAttribute:@"class" value:class];
     }
     
     [super startElement:elementName writeInline:writeInline];

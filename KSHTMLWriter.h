@@ -13,7 +13,8 @@
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
-    BOOL    _isXHTML;
+    BOOL            _isXHTML;
+    NSMutableSet    *_IDs;
     
     NSMutableArray  *_classNames;
 }
@@ -35,8 +36,8 @@
 
 #pragma mark CSS Class Name
 // Class names are accumulated and written automatically as an attribute of the next element started
-// You can also push a class name using -pushElementAttribute:value: if attribute is 'class'
-- (void)pushElementClassName:(NSString *)className;
+// You can also push a class name using -pushAttribute:value: if attribute is 'class'
+- (void)pushClassName:(NSString *)className;
 - (NSString *)elementClassName;
 
 
@@ -55,6 +56,8 @@
 - (void)startElement:(NSString *)tagName   
               idName:(NSString *)idName
            className:(NSString *)className;
+
+- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
 
 
 #pragma mark Line Break
