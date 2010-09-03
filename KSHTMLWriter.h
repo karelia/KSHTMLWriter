@@ -13,7 +13,8 @@
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
-    BOOL    _isXHTML;
+    BOOL            _isXHTML;
+    NSMutableSet    *_IDs;
     
     NSMutableArray  *_classNames;
 }
@@ -55,6 +56,8 @@
 - (void)startElement:(NSString *)tagName   
               idName:(NSString *)idName
            className:(NSString *)className;
+
+- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
 
 
 #pragma mark Line Break

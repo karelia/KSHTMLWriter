@@ -18,6 +18,7 @@
     [super initWithOutputWriter:output];
     
     _isXHTML = YES;
+    _IDs = [[NSMutableSet alloc] init];
     _classNames = [[NSMutableArray alloc] init];
     
     return self;
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+    [_IDs release];
     [_classNames release];
     
     [super dealloc];
@@ -73,12 +75,12 @@
 {
     if ([attribute isEqualToString:@"class"])
     {
-        [self pushClassName:value];
+        return [self pushClassName:value];
     }
-    else
-    {
-        [super pushAttribute:attribute value:value];
-    }
+    
+    // Keep track of IDs in use
+    if ([attribute isEqualToString:@"id"]) [_IDs addObject:value];
+    [super pushAttribute:attribute value:value];
 }
 
 - (NSDictionary *)elementAttributes;
@@ -125,6 +127,12 @@
     if (className) [self pushAttribute:@"class" value:className];
     
     [self startElement:tagName];
+}
+
+- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
+{
+    BOOL result = ![_IDs containsObject:anID];
+    return result;
 }
 
 #pragma mark Line Break
