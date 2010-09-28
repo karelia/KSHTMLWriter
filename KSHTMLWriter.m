@@ -204,6 +204,8 @@
     if (title) [self pushAttribute:@"title" value:title];
     if (media) [self pushAttribute:@"media" value:media];
     
+	[self pushAttribute:@"UTF-8" value:@"charset"];
+
     [self startElement:@"link"];
     [self endElement];
 }
@@ -240,7 +242,8 @@
 {
     [self pushAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
     if (src) [self pushAttribute:@"src" value:src];
-    
+	[self pushAttribute:@"charset" value:@"UTF-8"];
+
     [self startElement:@"script"];
     
     // Embedded scripts should start on their own line for clarity
