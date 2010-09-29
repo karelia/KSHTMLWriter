@@ -90,7 +90,7 @@
     return result;
 }
 
-- (void)pushAttribute:(NSString *)attribute value:(NSString *)value;
+- (void)pushAttribute:(NSString *)attribute value:(id)value;
 {
     if ([attribute isEqualToString:@"class"])
     {
@@ -176,8 +176,8 @@
 
 - (void)writeImageWithSrc:(NSString *)src
                       alt:(NSString *)alt
-                    width:(NSString *)width
-                   height:(NSString *)height;
+                    width:(id)width
+                   height:(id)height;
 {
     [self pushAttribute:@"src" value:src];
     [self pushAttribute:@"alt" value:alt];

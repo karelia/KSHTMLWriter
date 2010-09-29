@@ -52,7 +52,7 @@
 
 //   attribute="value"
 - (void)writeAttribute:(NSString *)attribute
-                 value:(NSString *)value;
+                 value:(id)value;
 
 //  Starts tracking -writeString: calls to see if element is empty
 - (void)didStartElement;
@@ -241,7 +241,7 @@
     }
 }
 
-- (void)pushAttribute:(NSString *)attribute value:(NSString *)value; // call before -startElement:
+- (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
     NSParameterAssert(value);
     [_attributes addObject:attribute];
@@ -354,12 +354,14 @@
 #pragma mark Element Primitives
 
 - (void)writeAttribute:(NSString *)attribute
-                 value:(NSString *)value;
+                 value:(id)value;
 {
+	NSString *valueString = [value description];
+	
     [self writeString:@" "];
     [self writeString:attribute];
     [self writeString:@"=\""];
-    [self writeStringByEscapingXMLEntities:value escapeQuot:YES];	// make sure to escape the quote mark
+    [self writeStringByEscapingXMLEntities:valueString escapeQuot:YES];	// make sure to escape the quote mark
     [self writeString:@"\""];
 }
 

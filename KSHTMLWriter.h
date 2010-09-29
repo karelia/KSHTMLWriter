@@ -94,8 +94,8 @@
 //  <img src="..." alt="..." width="..." height="..." />
 - (void)writeImageWithSrc:(NSString *)src
                       alt:(NSString *)alt
-                    width:(NSString *)width
-                   height:(NSString *)height;
+                    width:(id)width
+                   height:(id)height;
 
 
 #pragma mark Link

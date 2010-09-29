@@ -96,7 +96,7 @@
  *      - More efficient than building up a temporary dictionary object
  *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
  */
-- (void)pushAttribute:(NSString *)attribute value:(NSString *)value;
+- (void)pushAttribute:(NSString *)attribute value:(id)value;
 - (NSDictionary *)elementAttributes;
 
 
