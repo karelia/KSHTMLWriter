@@ -1,5 +1,5 @@
 //
-//  KSDOMToHTMLWriter.h
+//  KSXMLWriterDOMAdapter.h
 //  Sandvox
 //
 //  Created by Mike on 25/06/2010.
@@ -9,11 +9,11 @@
 #import "KSHTMLWriter.h"
 
 
-@protocol KSDOMToHTMLWriterDelegate;
-@interface KSDOMToHTMLWriter : KSHTMLWriter
+@protocol KSXMLWriterDOMAdapterDelegate;
+@interface KSXMLWriterDOMAdapter : KSHTMLWriter
 {
   @private
-    id <KSDOMToHTMLWriterDelegate>   _delegate;
+    id <KSXMLWriterDOMAdapterDelegate>   _delegate;
 }
 
 
@@ -38,7 +38,7 @@
 
 
 #pragma mark Delegate
-@property(nonatomic, assign) id <KSDOMToHTMLWriterDelegate> delegate;
+@property(nonatomic, assign) id <KSXMLWriterDOMAdapterDelegate> delegate;
 
 @end
 
@@ -46,6 +46,6 @@
 #pragma mark -
 
 
-@protocol KSDOMToHTMLWriterDelegate <NSObject>
-- (DOMNode *)HTMLWriter:(KSDOMToHTMLWriter *)writer willWriteDOMElement:(DOMElement *)element;
+@protocol KSXMLWriterDOMAdapterDelegate <NSObject>
+- (DOMNode *)HTMLWriter:(KSXMLWriterDOMAdapter *)writer willWriteDOMElement:(DOMElement *)element;
 @end
