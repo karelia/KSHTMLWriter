@@ -6,15 +6,22 @@
 //  Copyright 2010 Karelia Software. All rights reserved.
 //
 
-#import "KSHTMLWriter.h"
+#import "KSXMLWriter.h"
 
 
 @protocol KSXMLWriterDOMAdapterDelegate;
-@interface KSXMLWriterDOMAdapter : KSHTMLWriter
+@interface KSXMLWriterDOMAdapter : NSObject
 {
   @private
+    KSXMLWriter *_writer;
+    
     id <KSXMLWriterDOMAdapterDelegate>   _delegate;
 }
+
+
+#pragma mark Init
+- (id)initWithXMLWriter:(KSXMLWriter *)writer;
+@property(nonatomic, retain, readonly) KSXMLWriter *XMLWriter;
 
 
 #pragma mark High Level
