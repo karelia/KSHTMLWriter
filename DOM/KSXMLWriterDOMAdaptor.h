@@ -54,5 +54,5 @@
 
 
 @protocol KSXMLWriterDOMAdaptorDelegate <NSObject>
-- (DOMNode *)HTMLWriter:(KSXMLWriterDOMAdaptor *)writer willWriteDOMElement:(DOMElement *)element;
+- (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMElement:(DOMElement *)element;
 @end
