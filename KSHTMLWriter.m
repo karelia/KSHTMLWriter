@@ -204,7 +204,7 @@
     if (title) [self pushAttribute:@"title" value:title];
     if (media) [self pushAttribute:@"media" value:media];
     
-	[self pushAttribute:@"UTF-8" value:@"charset"];
+	[self pushAttribute:@"charset" value:@"UTF-8"];
 
     [self startElement:@"link"];
     [self endElement];
