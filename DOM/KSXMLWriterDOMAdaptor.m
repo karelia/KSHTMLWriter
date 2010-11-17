@@ -111,7 +111,7 @@
 {
     if ([self delegate])
     {
-        return [[self delegate] HTMLWriter:self willWriteDOMElement:element];
+        return [[self delegate] DOMAdaptor:self willWriteDOMElement:element];
     }
     else
     {
