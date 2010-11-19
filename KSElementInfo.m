@@ -75,7 +75,7 @@
     [result setName:[self name]];
     [result setAttributesAsDictionary:[self attributesAsDictionary]];
     
-    return [result autorelease];
+    return result;
 }
 
 @end
