@@ -71,6 +71,11 @@
 @end
 
 
+@interface KSElementInfo (KSXMLWriter)
+- (void)writeAttributes:(KSXMLWriter *)writer;
+@end
+
+
 #pragma mark -
 
 
@@ -82,8 +87,8 @@
 {
     [super initWithOutputWriter:output];
     
+    _currentElement = [[KSElementInfo alloc] init];
     _openElements = [[NSMutableArray alloc] init];
-    _attributes = [[NSMutableArray alloc] initWithCapacity:2];
     _encoding = NSUTF8StringEncoding;
     
     _contentsProxy = [KSXMLElementContentsProxy alloc];
@@ -113,7 +118,7 @@
 - (void)dealloc
 {    
     [_openElements release];
-    [_attributes release];
+    [_currentElement release];
     [_illegalCharacters release];
     
     [super dealloc];
@@ -187,13 +192,8 @@
     
     
     // Write attributes
-    for (int i = 0; i < [_attributes count]; i+=2)
-    {
-        NSString *attribute = [_attributes objectAtIndex:i];
-        NSString *value = [_attributes objectAtIndex:i+1];
-        [self writeAttribute:attribute value:value];
-    }
-    [_attributes removeAllObjects];
+    [_currentElement writeAttributes:self];
+    [_currentElement close];
     
     
     [self didStartElement];
@@ -245,29 +245,12 @@
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
-    NSParameterAssert(value);
-    [_attributes addObject:attribute];
-    [_attributes addObject:value];
-}
-
-- (NSDictionary *)elementAttributes;
-{
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    
-    for (int i = 0; i < [_attributes count]; i+=2)
-    {
-        NSString *attribute = [_attributes objectAtIndex:i];
-        NSString *value = [_attributes objectAtIndex:i+1];
-        [result setObject:value forKey:attribute];
-    }
-    
-    return result;
+    [_currentElement addAttribute:attribute value:value];
 }
 
 - (KSElementInfo *)currentElementInfo;
 {
-    KSElementInfo *result = [[[KSElementInfo alloc] init] autorelease];
-    [result setAttributesAsDictionary:[self elementAttributes]];
+    KSElementInfo *result = [[_currentElement copy] autorelease];
     return result;
 }
 
@@ -588,6 +571,25 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 }
 
 @end
+
+
+#pragma mark -
+
+
+@implementation KSElementInfo (KSXMLWriter)
+
+- (void)writeAttributes:(KSXMLWriter *)writer;
+{
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [writer writeAttribute:attribute value:value];
+    }
+}
+
+@end
+
 
 
 #pragma mark -

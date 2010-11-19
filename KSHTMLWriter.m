@@ -27,6 +27,8 @@
 
 #import "KSHTMLWriter.h"
 
+#import "KSElementInfo.h"
+
 
 @implementation KSHTMLWriter
 
@@ -102,16 +104,13 @@
     [super pushAttribute:attribute value:value];
 }
 
-- (NSDictionary *)elementAttributes;
+- (KSElementInfo *)currentElementInfo;
 {
-    id result = [super elementAttributes];
+    KSElementInfo *result = [super currentElementInfo];
     
+    // Add in buffered class info
     NSString *class = [self elementClassName];
-    if (class)
-    {
-        result = [NSMutableDictionary dictionaryWithDictionary:result];
-        [result setObject:class forKey:@"class"];
-    }
+    if (class) [result addAttribute:@"class" value:class];
     
     return result;
 }
