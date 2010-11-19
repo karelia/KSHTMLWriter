@@ -13,11 +13,13 @@
 {
   @private
     NSString        *_elementName;
-    NSDictionary    *_attributes;
+    NSMutableArray  *_attributes;
 }
 
 @property(nonatomic, copy) NSString *name;
 
 @property(nonatomic, copy) NSDictionary *attributesAsDictionary;
+- (void)addAttribute:(NSString *)attribute value:(id)value;
+
 
 @end

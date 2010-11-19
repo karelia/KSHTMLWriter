@@ -11,6 +11,13 @@
 
 @implementation KSElementInfo
 
+- (id)init;
+{
+    [super init];
+    _attributes = [[NSMutableArray alloc] initWithCapacity:2];
+    return self;
+}
+
 - (void)dealloc;
 {
     [_elementName release];
@@ -20,6 +27,37 @@
 }
 
 @synthesize name = _elementName;
-@synthesize attributesAsDictionary = _attributes;
+
+- (NSDictionary *)attributesAsDictionary;
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        NSString *value = [_attributes objectAtIndex:i+1];
+        [result setObject:value forKey:attribute];
+    }
+    
+    return result;
+}
+
+- (void)setAttributesAsDictionary:(NSDictionary *)dictionary;
+{
+    for (NSString *anAttribute in dictionary)
+    {
+        [self addAttribute:anAttribute value:[dictionary objectForKey:anAttribute]];
+    }
+}
+
+- (void)addAttribute:(NSString *)attribute value:(id)value;
+{
+    NSParameterAssert(value);
+    
+    // TODO: Ignore if the attribute is already present
+    
+    [_attributes addObject:attribute];
+    [_attributes addObject:value];
+}
 
 @end
