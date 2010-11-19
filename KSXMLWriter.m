@@ -241,6 +241,8 @@
     }
 }
 
+#pragma mark Current Element
+
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
     NSParameterAssert(value);

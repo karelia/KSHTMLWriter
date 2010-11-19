@@ -91,6 +91,8 @@
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 - (void)endElement;
 
+
+#pragma mark Current Element
 /*  You can also gain finer-grained control over element attributes. KSXMLWriter maintains a list of attributes that will be applied when you *next* call one of the -startElement: methods. This has several advantages:
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
