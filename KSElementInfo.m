@@ -60,4 +60,16 @@
     [_attributes addObject:value];
 }
 
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone;
+{
+    KSElementInfo *result = [[[self class] alloc] init];
+    
+    [result setName:[self name]];
+    [result setAttributesAsDictionary:[self attributesAsDictionary]];
+    
+    return [result autorelease];
+}
+
 @end

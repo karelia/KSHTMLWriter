@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface KSElementInfo : NSObject
+@interface KSElementInfo : NSObject <NSCopying>
 {
   @private
     NSString        *_elementName;
