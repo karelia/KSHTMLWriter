@@ -77,12 +77,7 @@
 
 #pragma mark CSS Class Name
 
-- (void)pushClassName:(NSString *)className;
-{
-    [_classNames addObject:className];
-}
-
-- (NSString *)elementClassName;
+- (NSString *)currentElementClassName;
 {
     NSString *result = nil;
     if ([_classNames count])
@@ -90,6 +85,11 @@
         result = [_classNames componentsJoinedByString:@" "];
     }
     return result;
+}
+
+- (void)pushClassName:(NSString *)className;
+{
+    [_classNames addObject:className];
 }
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
@@ -109,7 +109,7 @@
     KSElementInfo *result = [super currentElementInfo];
     
     // Add in buffered class info
-    NSString *class = [self elementClassName];
+    NSString *class = [self currentElementClassName];
     if (class) [result addAttribute:@"class" value:class];
     
     return result;
@@ -368,7 +368,7 @@
     
     
     // Add in any pre-written classes
-    NSString *class = [self elementClassName];
+    NSString *class = [self currentElementClassName];
     if (class)
     {
         [_classNames removeAllObjects];
