@@ -264,6 +264,13 @@
     return result;
 }
 
+- (KSElementInfo *)currentElementInfo;
+{
+    KSElementInfo *result = [[[KSElementInfo alloc] init] autorelease];
+    [result setAttributesAsDictionary:[self elementAttributes]];
+    return result;
+}
+
 #pragma mark Whitespace
 
 - (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel

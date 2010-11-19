@@ -28,7 +28,7 @@
 #import "KSForwardingWriter.h"
 
 
-@class KSXMLElementContentsProxy;
+@class KSElementInfo, KSXMLElementContentsProxy;
 
 
 @interface KSXMLWriter : KSForwardingWriter
@@ -100,6 +100,7 @@
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 - (NSDictionary *)elementAttributes;
+- (KSElementInfo *)currentElementInfo;
 
 
 #pragma mark Whitespace
