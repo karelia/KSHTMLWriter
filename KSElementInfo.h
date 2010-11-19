@@ -21,5 +21,7 @@
 @property(nonatomic, copy) NSDictionary *attributesAsDictionary;
 - (void)addAttribute:(NSString *)attribute value:(id)value;
 
+- (void)close;  // sets name to nil and removes all attributes
+
 
 @end

@@ -60,6 +60,12 @@
     [_attributes addObject:value];
 }
 
+- (void)close;  // sets name to nil and removes all attributes
+{
+    [self setName:nil];
+    [_attributes removeAllObjects];
+}
+
 #pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone;
