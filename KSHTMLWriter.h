@@ -107,6 +107,7 @@
                     title:(NSString *)title
                     media:(NSString *)media;
 
+// Note: If a title is set, it is considered an *alternate* stylesheet. http://www.alistapart.com/articles/alternate/
 - (void)writeLinkToStylesheet:(NSString *)href
                         title:(NSString *)title
                         media:(NSString *)media;
