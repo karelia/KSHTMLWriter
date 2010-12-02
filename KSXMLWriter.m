@@ -91,7 +91,7 @@
     _openElements = [[NSMutableArray alloc] init];
     _encoding = NSUTF8StringEncoding;
     
-    _contentsProxy = [KSXMLElementContentsProxy alloc];
+    _contentsProxy = [KSXMLElementContentsProxy alloc]; // it's a proxy without an -init method
     
     return self;
 }
@@ -120,6 +120,7 @@
     [_openElements release];
     [_currentElement release];
     [_illegalCharacters release];
+    [_contentsProxy release];
     
     [super dealloc];
 }
