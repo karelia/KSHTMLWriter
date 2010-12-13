@@ -166,9 +166,9 @@ NSString *KSStringWriterWillFlushNotification = @"KSStringWriterWillFlush";
     NSUInteger i, count = [_bufferPoints count];
     for (i = 0; i < count; i++)
     {
-        NSUInteger anIndex = (NSUInteger)[_bufferPoints pointerAtIndex:i];
-        anIndex += [aString length];
-        [_bufferPoints replacePointerAtIndex:i withPointer:(void *)anIndex];
+        NSUInteger ind = (NSUInteger)[_bufferPoints pointerAtIndex:i];
+        ind += [aString length];
+        [_bufferPoints replacePointerAtIndex:i withPointer:(void *)ind];
     }
 }
 
