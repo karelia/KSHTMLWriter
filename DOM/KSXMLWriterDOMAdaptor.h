@@ -34,6 +34,7 @@
 - (void)writeInnerOfDOMNode:(DOMNode *)node startAtChild:(DOMNode *)aNode;
 - (void)startElement:(NSString *)elementName withDOMElement:(DOMElement *)element;    // open the tag and write attributes
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
+- (DOMNode *)writeComment:(NSString *)comment withDOMComment:(DOMComment *)commentNode;
 
 
 #pragma mark Pseudo-delegate

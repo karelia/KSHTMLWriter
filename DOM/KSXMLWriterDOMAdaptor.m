@@ -99,6 +99,12 @@
     return [element nextSibling];
 }
 
+- (DOMNode *)writeComment:(NSString *)comment withDOMComment:(DOMComment *)commentNode;
+{
+    [[self XMLWriter] writeComment:comment];
+    return [commentNode nextSibling];
+}
+
 #pragma mark Pseudo-delegate
 
 - (DOMNode *)didWriteDOMText:(DOMText *)textNode nextNode:(DOMNode *)nextNode;
@@ -341,8 +347,7 @@
 
 - (DOMNode *)writeData:(NSString *)data toHTMLWriter:(KSXMLWriterDOMAdaptor *)adaptor;
 {
-	[[adaptor XMLWriter] writeComment:data];
-    return [self nextSibling];
+	return [adaptor writeComment:data withDOMComment:self];
 }
 
 @end
