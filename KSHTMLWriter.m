@@ -187,8 +187,6 @@
     [self endElement];
 }
 
-// TODO: disable indentation & newlines when we are in an anchor tag, somehow.
-
 #pragma mark Link
 
 - (void)writeLinkWithHref:(NSString *)href
