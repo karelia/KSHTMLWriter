@@ -68,6 +68,8 @@
 
 - (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
 
+@property(nonatomic, readwrite) NSStringEncoding encoding;   // default is UTF-8
+
 @end
 
 
@@ -98,18 +100,9 @@
 
 - (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
 {
-    if ( ! (	encoding == NSASCIIStringEncoding
-			||	encoding == NSUTF8StringEncoding
-			||	encoding == NSISOLatin1StringEncoding
-			||	encoding == NSUnicodeStringEncoding ) )
+    if (self = [self initWithOutputWriter:output])
     {
-        [NSException raise:NSInvalidArgumentException format:@"Unsupported character encoding"];
-    }
-	
-    
-	if (self = [self initWithOutputWriter:output])
-    {
-        _encoding = encoding;
+        [self setEncoding:encoding];
     }
     
     return self;
@@ -142,7 +135,7 @@
 {
     [self writeString:DTD];
     [self startNewline];
-    _encoding = encoding;
+    [self setEncoding:encoding];
 }
 
 #pragma mark Text
@@ -487,6 +480,19 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 #pragma mark String Encoding
 
 @synthesize encoding = _encoding;
+- (void)setEncoding:(NSStringEncoding)encoding;
+{
+    if ( ! (	encoding == NSASCIIStringEncoding
+			||	encoding == NSUTF8StringEncoding
+			||	encoding == NSISOLatin1StringEncoding
+			||	encoding == NSUnicodeStringEncoding ) )
+    {
+        [NSException raise:NSInvalidArgumentException format:@"Unsupported character encoding"];
+    }
+	
+    
+	_encoding = encoding;
+}
 
 - (NSCharacterSet *)legalCharacterSet;  // can override. caller takes responsibility for caching
 {
