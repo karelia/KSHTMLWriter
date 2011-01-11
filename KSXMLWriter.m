@@ -531,51 +531,55 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
     
     
-    if (!_illegalCharacters)
+    CFIndex length = CFStringGetLength((CFStringRef)string);
+    
+    CFIndex usedBufLen;
+    CFIndex written = CFStringGetBytes((CFStringRef)string,
+                                       CFRangeMake(0, length),
+                                       CFStringConvertNSStringEncodingToEncoding([self encoding]),
+                                       0,                   // don't convert invalid characters
+                                       NO,
+                                       NULL,                // not interested in actually getting the bytes
+                                       0,
+                                       &usedBufLen);
+    
+    if (written < length)
     {
-        // first make the set of legal characters
-        NSCharacterSet *legalSet = [self legalCharacterSet];
-	
-        // From now on we're working with the inverse -- all illegal characters
-        _illegalCharacters = [[legalSet invertedSet] copy];
-	}
-    
-    
-	NSScanner *scanner = [NSScanner scannerWithString:string];
-	[scanner setCharactersToBeSkipped:nil];
-	while (![scanner isAtEnd])
-	{
-		NSString *unescaped = nil;
-		BOOL found = [scanner scanUpToCharactersFromSet:_illegalCharacters intoString:&unescaped];
-		if (found)
-		{
-			[super writeString:unescaped];
-		}
-		// Process characters that need escaping
-		if (![scanner isAtEnd])
-		{
-			NSString *toEscape = nil;
-			[scanner scanCharactersFromSet:_illegalCharacters intoString:&toEscape];
-			NSInteger anIndex, length = [toEscape length];
-			for( anIndex = 0; anIndex < length; anIndex++ )
-			{
-				unichar ch = [toEscape characterAtIndex:anIndex];
-				switch (ch)
-				{
-                    // If we encounter a special character with a symbolic entity, use that
-					case 160:	[super writeString:@"&nbsp;"];      break;
-					case 169:	[super writeString:@"&copy;"];      break;
-					case 174:	[super writeString:@"&reg;"];       break;
-					case 8211:	[super writeString:@"&ndash;"];     break;
-					case 8212:	[super writeString:@"&mdash;"];     break;
-					case 8364:	[super writeString:@"&euro;"];      break;
-						
-                        // Otherwise, use the decimal unicode value.
-					default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
-				}
-			}
-		}
-	}	    
+        // There was an invalid character
+        
+        // Write what is valid
+        if (written)
+        {
+            [super writeString:[string substringToIndex:written]];
+        }
+        
+        // Convert the invalid char
+        unichar ch = [string characterAtIndex:written];
+        switch (ch)
+        {
+                // If we encounter a special character with a symbolic entity, use that
+            case 160:	[super writeString:@"&nbsp;"];      break;
+            case 169:	[super writeString:@"&copy;"];      break;
+            case 174:	[super writeString:@"&reg;"];       break;
+            case 8211:	[super writeString:@"&ndash;"];     break;
+            case 8212:	[super writeString:@"&mdash;"];     break;
+            case 8364:	[super writeString:@"&euro;"];      break;
+                
+                // Otherwise, use the decimal unicode value.
+            default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
+        }
+        
+        // Convert the rest
+        written++;
+        if (written < length)
+        {
+            [self writeString:[string substringFromIndex:written]];
+        }
+    }
+    else
+    {
+        [super writeString:string];
+    }	    
 }
 
 @end
