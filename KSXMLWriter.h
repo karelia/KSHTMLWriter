@@ -46,7 +46,6 @@
     NSInteger   _indentation;
     
     NSStringEncoding    _encoding;
-    NSCharacterSet      *_illegalCharacters;
 }
 
 #pragma mark Creating an XML Writer
@@ -153,8 +152,7 @@
 
 #pragma mark String Encoding
 @property(nonatomic, readonly) NSStringEncoding encoding;   // default is UTF-8
-- (NSCharacterSet *)legalCharacterSet;  // can override. caller takes responsibility for caching
-- (void)writeString:(NSString *)string; // anything outside -legalCharacterSet gets escaped
+- (void)writeString:(NSString *)string; // anything outside .encoding gets escaped
 
 
 @end

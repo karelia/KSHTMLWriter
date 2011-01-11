@@ -388,17 +388,4 @@
     }
 }
 
-#pragma mark String Encoding
-
-// NBSP is special -- for HTML, we usually want to encode it, for XML, no.
-- (NSCharacterSet *)legalCharacterSet;
-{
-    NSMutableCharacterSet *result = [[[super legalCharacterSet] mutableCopy] autorelease];
-	
-	// Take out special characters which we ALWAYS want to escape
-    [result removeCharactersInRange:NSMakeRange(160,1)];		// nbsp ... since they are hard to spot!
-    
-    return result;
-}
-
 @end

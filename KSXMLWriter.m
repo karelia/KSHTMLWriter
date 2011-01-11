@@ -112,7 +112,6 @@
 {    
     [_openElements release];
     [_currentElement release];
-    [_illegalCharacters release];
     [_contentsProxy release];
     
     [super dealloc];
@@ -492,33 +491,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	
     
 	_encoding = encoding;
-}
-
-- (NSCharacterSet *)legalCharacterSet;  // can override. caller takes responsibility for caching
-{
-    NSMutableCharacterSet *result = [[[NSMutableCharacterSet alloc] init] autorelease];
-	
-	switch ([self encoding])
-	{
-		case NSUTF8StringEncoding:
-		case NSUnicodeStringEncoding:	// Everything above 0x100 too..  Not sure about > 32 bit codes, though.
-			[result addCharactersInRange:NSMakeRange(0,0x100)];
-			[result invert];		// easier to create items we don't want, then invert
-                                    // FALL THROUGH
-            
-		case NSISOLatin1StringEncoding:	// 0xA0 through 0xFF
-			[result addCharactersInRange:NSMakeRange(0xA0, 0x100 - 0xA0)];
-			// FALL THROUGH
-			
-		case NSASCIIStringEncoding:		// only 0x20 through 0x7F
-			[result addCharactersInRange:NSMakeRange(0x20, 0x80 - 0x20)];
-			break;
-	}
-	
-	// Allow white space to pass through normally
-	[result addCharactersInString:@"\r\n\t"];
-    
-    return result;
 }
 
 - (void)writeString:(NSString *)string;
