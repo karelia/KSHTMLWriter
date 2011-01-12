@@ -495,6 +495,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)writeString:(NSString *)string;
 {
+	NSParameterAssert(nil != string); 
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_elementIsEmpty && [string length])
     {
