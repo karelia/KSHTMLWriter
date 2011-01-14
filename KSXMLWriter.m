@@ -503,54 +503,66 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
     
     
-    CFIndex length = CFStringGetLength((CFStringRef)string);
+    CFRange range = CFRangeMake(0, CFStringGetLength((CFStringRef)string));
     
-    CFIndex written = CFStringGetBytes((CFStringRef)string,
-                                       CFRangeMake(0, length),
-                                       CFStringConvertNSStringEncodingToEncoding([self encoding]),
-                                       0,                   // don't convert invalid characters
-                                       NO,
-                                       NULL,                // not interested in actually getting the bytes
-                                       0,
-                                       NULL);
-    
-    if (written < length)
+    while (range.length)
     {
-        // There was an invalid character
+        CFIndex written = CFStringGetBytes((CFStringRef)string,
+                                           range,
+                                           CFStringConvertNSStringEncodingToEncoding([self encoding]),
+                                           0,                   // don't convert invalid characters
+                                           NO,
+                                           NULL,                // not interested in actually getting the bytes
+                                           0,
+                                           NULL);
         
-        // Write what is valid
-        if (written)
+        if (written < range.length) // there was an invalid character
         {
-            [super writeString:[string substringToIndex:written]];
+            // Write what is valid
+            if (written)
+            {
+                NSRange validRange = NSMakeRange(range.location, written);
+                [super writeString:[string substringWithRange:validRange]];
+            }
+            
+            // Convert the invalid char
+            unichar ch = [string characterAtIndex:(range.location + written)];
+            switch (ch)
+            {
+                    // If we encounter a special character with a symbolic entity, use that
+                case 160:	[super writeString:@"&nbsp;"];      break;
+                case 169:	[super writeString:@"&copy;"];      break;
+                case 174:	[super writeString:@"&reg;"];       break;
+                case 8211:	[super writeString:@"&ndash;"];     break;
+                case 8212:	[super writeString:@"&mdash;"];     break;
+                case 8364:	[super writeString:@"&euro;"];      break;
+                    
+                    // Otherwise, use the decimal unicode value.
+                default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
+            }
+            
+            // Convert the rest
+            NSUInteger increment = written + 1;
+            range.location += increment; range.length -= increment;
         }
-        
-        // Convert the invalid char
-        unichar ch = [string characterAtIndex:written];
-        switch (ch)
+        else if (range.location == 0)
         {
-                // If we encounter a special character with a symbolic entity, use that
-            case 160:	[super writeString:@"&nbsp;"];      break;
-            case 169:	[super writeString:@"&copy;"];      break;
-            case 174:	[super writeString:@"&reg;"];       break;
-            case 8211:	[super writeString:@"&ndash;"];     break;
-            case 8212:	[super writeString:@"&mdash;"];     break;
-            case 8364:	[super writeString:@"&euro;"];      break;
-                
-                // Otherwise, use the decimal unicode value.
-            default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
+            // Efficient route for if entire string can be written
+            [super writeString:string];
+            break;
         }
-        
-        // Convert the rest
-        written++;
-        if (written < length)
+        else
         {
-            [self writeString:[string substringFromIndex:written]];
+            // Use CFStringCreateWithSubstring() rather than -substringWithRange: since:
+            // A) Can dispose of it straight away rather than filling autorelease pool
+            // B) range doesn't need casting
+            CFStringRef substring = CFStringCreateWithSubstring(NULL, (CFStringRef)string, range);
+            [super writeString:(NSString *)substring];
+            CFRelease(substring);
+            
+            break;
         }
     }
-    else
-    {
-        [super writeString:string];
-    }	    
 }
 
 @end
