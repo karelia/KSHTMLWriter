@@ -505,7 +505,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     CFIndex length = CFStringGetLength((CFStringRef)string);
     
-    CFIndex usedBufLen;
     CFIndex written = CFStringGetBytes((CFStringRef)string,
                                        CFRangeMake(0, length),
                                        CFStringConvertNSStringEncodingToEncoding([self encoding]),
@@ -513,7 +512,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
                                        NO,
                                        NULL,                // not interested in actually getting the bytes
                                        0,
-                                       &usedBufLen);
+                                       NULL);
     
     if (written < length)
     {
