@@ -595,6 +595,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
 {
+    OBPRECONDITION(writer);
+    
     _target = target;
     _XMLWriter = writer;
     _elementsCount = [writer openElementsCount];
@@ -607,13 +609,16 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)forwardInvocation:(NSInvocation *)invocation;
 {
+    KSXMLWriter *writer = _XMLWriter;           // copy to local vars since invocation may fire off another
+    NSUInteger elementsCount = _elementsCount;  // invocation internally, resetting these ivars. #103849
+    
     // Forward on
     [invocation invokeWithTarget:_target];
     _target = nil;
     
     // End element
-    NSAssert([_XMLWriter openElementsCount] == _elementsCount, @"Writing element contents did not end the same number of sub-elements as it started");
-    [_XMLWriter endElement];
+    NSAssert([writer openElementsCount] == elementsCount, @"Writing element contents did not end the same number of sub-elements as it started");
+    [writer endElement];
     _XMLWriter = nil;
 }
 
