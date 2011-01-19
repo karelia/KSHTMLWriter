@@ -8,6 +8,8 @@
 
 #import "KSElementInfo.h"
 
+#import "KSXMLWriter.h"
+
 
 @implementation KSElementInfo
 
@@ -74,6 +76,24 @@
     
     [result setName:[self name]];
     [result setAttributesAsDictionary:[self attributesAsDictionary]];
+    
+    return result;
+}
+
+#pragma mark Description
+
+- (NSString *)description;
+{
+    NSMutableString *result = [NSMutableString stringWithString:[super description]];
+    
+    KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:result];
+    [writer writeString:@" "];
+    
+    [writer startElement:(self.name ? self.name : @"")
+              attributes:[self attributesAsDictionary]];
+    [writer endElement];
+    
+    [writer release];
     
     return result;
 }
