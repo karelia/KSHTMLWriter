@@ -461,6 +461,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
                 case '<':	[self writeString:@"&lt;"];     break;
                 case '>':	[self writeString:@"&gt;"];     break;
                 case '"':	[self writeString:@"&quot;"];   break;
+                default:    [self writeString:[NSString stringWithFormat:@"&#%d;",ch]];
             }
 		}
         else
