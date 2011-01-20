@@ -406,7 +406,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     // Cache the characters to be escaped. Doing it in +initialize should be threadsafe
 	if (!sCharactersToEntityEscapeWithQuot)
     {
-        // Don't to escape apostrophes for HTML, but do for Javascript
+        // Don't want to escape apostrophes for HTML, but do for Javascript
         sCharactersToEntityEscapeWithQuot = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\"'"] retain];
     }
     if (!sCharactersToEntityEscapeWithoutQuot)
