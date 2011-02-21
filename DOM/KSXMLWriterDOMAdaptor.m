@@ -313,7 +313,7 @@
 - (DOMNode *)writeData:(NSString *)data toHTMLWriter:(KSXMLWriterDOMAdaptor *)adaptor;
 {
     //  The text to write is passed in (rather than calling [self data]) so as to handle writing a subset of it
-    [[adaptor XMLWriter] writeText:data];
+    [[adaptor XMLWriter] writeCharacters:data];
     return [super ks_writeHTML:adaptor];
 }
 

@@ -139,7 +139,7 @@
 
 #pragma mark Text
 
-- (void)writeText:(NSString *)string;
+- (void)writeCharacters:(NSString *)string;
 {
     // Quotes are acceptable characters outside of attribute values
     [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
@@ -158,7 +158,7 @@
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
     [self startElement:elementName attributes:nil];
-    [self writeText:text];
+    [self writeCharacters:text];
     [self endElement];
 }
 

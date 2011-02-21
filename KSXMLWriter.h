@@ -68,7 +68,7 @@
 
 #pragma mark Text
 //  Escapes the string and calls -writeString:. NOT intended for writing text-like strings e.g. element attributed
-- (void)writeText:(NSString *)string;
+- (void)writeCharacters:(NSString *)string;
 
 
 #pragma mark Elements

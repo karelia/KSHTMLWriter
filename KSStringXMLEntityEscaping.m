@@ -122,7 +122,7 @@
 
 - (void)writeString:(NSString *)string;
 {
-    [_output writeText:string];
+    [_output writeCharacters:string];
 }
 
 - (void)close;
