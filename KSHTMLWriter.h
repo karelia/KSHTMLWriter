@@ -25,8 +25,17 @@
 //
 
 
-
 #import "KSXMLWriter.h"
+
+
+extern NSString *KSHTMLWriterDocTypeHTML_4_01_Strict;
+extern NSString *KSHTMLWriterDocTypeHTML_4_01_Transitional;
+extern NSString *KSHTMLWriterDocTypeHTML_4_01_Frameset;
+extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Strict;
+extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Transitional;
+extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Frameset;
+extern NSString *KSHTMLWriterDocTypeXHTML_1_1;
+extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 
 @interface KSHTMLWriter : KSXMLWriter
