@@ -25,7 +25,7 @@ Usage
 you'd do:
 
     [writer startElement:@"foo" attributes:nil];
-    [writer writeText:@"bar"];
+    [writer writeCharacters:@"bar"];
     [writer endElement];
 
 Simples! As you can probably see there's easy support for writing element attributes if you need it. Other features:
@@ -54,7 +54,7 @@ You provide the XML writer with a suitable output writer at initialization time.
     KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:xml];
     
     [writer startElement:@"foo" attributes:nil];
-    [writer writeText:@"bar"];
+    [writer writeCharacters:@"bar"];
     [writer endElement];
 
 This will neatly append the markup to the mutable string.
