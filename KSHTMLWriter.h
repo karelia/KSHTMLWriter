@@ -61,6 +61,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 // Whether empty elements should be written as <FOO> or <FOO />
 // Default is YES. There's no setter method; instead, specify with -startDocumentWithDocType:encoding: or when initializing.
 - (BOOL)isXHTML;
++ (BOOL)isDocTypeXHTML:(NSString *)docType;
 
 
 #pragma mark CSS Class Name

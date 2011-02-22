@@ -92,12 +92,18 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     docType = [docType copy];
     [_docType release]; _docType = docType;
     
-    _isXHTML = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
-                 [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
-                 [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Frameset]);
+    _isXHTML = [[self class] isDocTypeXHTML:docType];
 }
 
 - (BOOL)isXHTML; { return _isXHTML; }
+
++ (BOOL)isDocTypeXHTML:(NSString *)docType;
+{
+    BOOL result = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
+                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
+                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Frameset]);
+    return result;
+}
 
 #pragma mark CSS Class Name
 
