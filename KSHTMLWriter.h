@@ -50,7 +50,7 @@
 
 
 #pragma mark Document
-- (void)startDocument:(NSString *)DTD encoding:(NSStringEncoding)encoding isXHTML:(BOOL)isXHTML;
+- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding isXHTML:(BOOL)isXHTML;
 
 
 #pragma mark CSS Class Name

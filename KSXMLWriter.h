@@ -62,8 +62,8 @@
 
 
 #pragma mark Document
-- (void)startDocument:(NSString *)DTD   // at present, expect DTD to be complete tag
-             encoding:(NSStringEncoding)encoding;
+// e.g. docType of @"html" for HTML 5
+- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 
 
 #pragma mark Text

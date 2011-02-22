@@ -129,11 +129,13 @@
 
 #pragma mark Document
 
-- (void)startDocument:(NSString *)DTD   // at present, expect DTD to be complete tag
-             encoding:(NSStringEncoding)encoding;
+- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 {
-    [self writeString:DTD];
+    [self writeString:@"<!DOCTYPE "];
+    [self writeString:docType];
+    [self writeString:@">"];
     [self startNewline];
+    
     [self setEncoding:encoding];
 }
 
