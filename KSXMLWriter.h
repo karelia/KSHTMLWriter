@@ -62,7 +62,7 @@
 
 
 #pragma mark Document
-// e.g. docType of @"html" for HTML 5
+// e.g. docType of @"html" for HTML 5. KSHTMLWriter declares many such constants
 - (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 
 
