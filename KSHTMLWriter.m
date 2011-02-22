@@ -40,6 +40,11 @@ NSString *KSHTMLWriterDocTypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//
 NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 
+@interface KSHTMLWriter ()
+@property(nonatomic, copy, readwrite) NSString *docType;
+@end
+
+
 @implementation KSHTMLWriter
 
 #pragma mark Creating an HTML Writer
@@ -48,18 +53,18 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 {
     [super initWithOutputWriter:output];
     
-    _isXHTML = YES;
+    [self setDocType:KSHTMLWriterDocTypeHTML_5];
     _IDs = [[NSMutableSet alloc] init];
     _classNames = [[NSMutableArray alloc] init];
     
     return self;
 }
 
-- (id)initWithOutputWriter:(id <KSWriter>)output isXHTML:(BOOL)isXHTML;
+- (id)initWithOutputWriter:(id <KSWriter>)output docType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 {
-    if (self = [self initWithOutputWriter:output])
+    if (self = [self initWithOutputWriter:output encoding:encoding])
     {
-        _isXHTML = isXHTML;
+        [self setDocType:docType];
     }
     
     return self;
@@ -73,17 +78,26 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [super dealloc];
 }
 
-#pragma mark XHTML
+#pragma mark DTD
 
-@synthesize XHTML = _isXHTML;
-
-#pragma mark Document
-
-- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding isXHTML:(BOOL)isXHTML;
+- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 {
-    _isXHTML = isXHTML;
-    [self startDocumentWithDocType:docType encoding:encoding];
+    [self setDocType:docType];
+    [super startDocumentWithDocType:docType encoding:encoding];
 }
+
+@synthesize docType = _docType;
+- (void)setDocType:(NSString *)docType;
+{
+    docType = [docType copy];
+    [_docType release]; _docType = docType;
+    
+    _isXHTML = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
+                 [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
+                 [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Frameset]);
+}
+
+- (BOOL)isXHTML; { return _isXHTML; }
 
 #pragma mark CSS Class Name
 

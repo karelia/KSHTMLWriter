@@ -41,6 +41,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
+    NSString        *_docType;
     BOOL            _isXHTML;
     NSMutableSet    *_IDs;
     
@@ -49,17 +50,17 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 #pragma mark Creating an HTML Writer
 // For if you desperately need to set a doctype before calling -startDocument:isXHTML: (perhaps because you're not going to call it!)
-- (id)initWithOutputWriter:(id <KSWriter>)output isXHTML:(BOOL)isXHTML;
+- (id)initWithOutputWriter:(id <KSWriter>)output docType:(NSString *)docType encoding:(NSStringEncoding)encoding;
 
 
-#pragma mark XHTML
+#pragma mark DTD
+
+// Default is HTML5
+@property(nonatomic, copy, readonly) NSString *docType;
+
 // Whether empty elements should be written as <FOO> or <FOO />
-// Default is YES. There's no setter method; instead, specify with -startDocument:isXHTML: or when initializing.
-@property(nonatomic, readonly, getter=isXHTML) BOOL XHTML;
-
-
-#pragma mark Document
-- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding isXHTML:(BOOL)isXHTML;
+// Default is YES. There's no setter method; instead, specify with -startDocumentWithDocType:encoding: or when initializing.
+- (BOOL)isXHTML;
 
 
 #pragma mark CSS Class Name
