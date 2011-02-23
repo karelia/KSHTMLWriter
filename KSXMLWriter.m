@@ -182,7 +182,7 @@
     [self writeString:elementName];
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [_openElements addObject:elementName];
+    [self pushElement:elementName];
     [self startWritingInline];
     
     
@@ -206,16 +206,6 @@
     [self startElement:elementName];
 }
 
-- (void)popElement;
-{
-    _elementIsEmpty = NO;
-    
-    [_openElements removeLastObject];
-    
-    // Time to cancel inline writing?
-    if (![self isWritingInline]) [self stopWritingInline];
-}
-
 - (void)endElement;
 {
     // Handle whitespace
@@ -234,6 +224,22 @@
         [self writeEndTag:[self topElement]];
         [self popElement];
     }
+}
+
+- (void)pushElement:(NSString *)element;
+{
+    // Private method so that Sandvox can work for now
+    [_openElements addObject:element];
+}
+
+- (void)popElement;
+{
+    _elementIsEmpty = NO;
+    
+    [_openElements removeLastObject];
+    
+    // Time to cancel inline writing?
+    if (![self isWritingInline]) [self stopWritingInline];
 }
 
 #pragma mark Current Element
