@@ -48,7 +48,7 @@
 
 - (void)writeDOMElement:(DOMElement *)element;  // like -outerHTML
 {
-    [self startElement:[element tagName] withDOMElement:element];
+    [self startElement:[[element tagName] lowercaseString] withDOMElement:element];
     [self writeInnerOfDOMNode:element];
     [self endElementWithDOMElement:element];
 }
