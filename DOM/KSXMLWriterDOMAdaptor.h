@@ -6,6 +6,7 @@
 //  Copyright 2010 Karelia Software. All rights reserved.
 //
 
+
 #import "KSXMLWriter.h"
 
 
@@ -17,6 +18,10 @@
     
     id <KSXMLWriterDOMAdaptorDelegate>   _delegate;
 }
+
+
+#pragma mark Convenience
++ (NSString *)outerHTMLOfDOMElement:(DOMElement *)element;
 
 
 #pragma mark Init

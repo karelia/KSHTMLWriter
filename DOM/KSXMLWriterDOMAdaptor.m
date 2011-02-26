@@ -13,7 +13,7 @@
 
 @interface DOMNode (KSDOMToHTMLWriter)
 
-// All nodes can be written. We just don't really want to expose this implementation detail. DOMElement uses it recurse down through element contents.
+// All nodes can be written. We just don't really want to expose this implementation detail. DOMElement uses it to recurse down through element contents.
 - (DOMNode *)ks_writeHTML:(KSXMLWriterDOMAdaptor *)writer;
 - (DOMNode *)ks_writeHTML:(KSXMLWriterDOMAdaptor *)writer fromRange:(DOMRange *)range;
 
@@ -43,6 +43,23 @@
 }
 
 @synthesize XMLWriter = _writer;
+
+#pragma mark Convenience
+
++ (NSString *)outerHTMLOfDOMElement:(DOMElement *)element;
+{
+    NSMutableString *result = [NSMutableString string];
+    KSHTMLWriter *htmlWriter = [[KSHTMLWriter alloc] initWithOutputWriter:result];
+    KSXMLWriterDOMAdaptor *adaptor = [[self alloc] initWithXMLWriter:htmlWriter];
+    
+    [adaptor writeDOMElement:element];
+    
+    [adaptor release];
+    [htmlWriter close];
+    [htmlWriter release];
+    
+    return result;
+}
 
 #pragma mark High Level
 
