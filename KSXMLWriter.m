@@ -415,7 +415,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	if (!sCharactersToEntityEscapeWithQuot)
     {
         // Don't want to escape apostrophes for HTML, but do for Javascript
-        sCharactersToEntityEscapeWithQuot = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\"'"] retain];
+        sCharactersToEntityEscapeWithQuot = [[NSCharacterSet characterSetWithCharactersInString:@"&<>\""] retain];
     }
     if (!sCharactersToEntityEscapeWithoutQuot)
     {
