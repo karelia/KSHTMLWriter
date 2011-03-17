@@ -108,7 +108,7 @@
 
 
 #pragma mark Whitespace
-//  Writes a newline character and the tabs to match -indentationLevel. Nornally newlines are automatically written for you; call this if you need an extra one.
+//  Writes a newline character and the tabs to match -indentationLevel. Normally newlines are automatically written for you; call this if you need an extra one.
 - (void)startNewline;
 
 
