@@ -91,7 +91,11 @@
     
     _currentElement = [[KSElementInfo alloc] init];
     _openElements = [[NSMutableArray alloc] init];
-    _encoding = NSUTF8StringEncoding;
+    
+    // Inherit encoding where possible
+    _encoding = ([output respondsToSelector:@selector(encoding)] ?
+                 [(KSXMLWriter *)output encoding] :
+                 NSUTF8StringEncoding);
     
     _contentsProxy = [KSXMLElementContentsProxy alloc]; // it's a proxy without an -init method
     

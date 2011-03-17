@@ -50,8 +50,9 @@
 
 #pragma mark Creating an XML Writer
 
-- (id)initWithOutputWriter:(id <KSWriter>)output; // designated initializer
-                                                  
+// If output responds to -encoding, that is used as the default encoding. Designated initializer
+- (id)initWithOutputWriter:(id <KSWriter>)output;
+
 // Use this if you need to set encoding up-front, rather than by starting document
 - (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
 
