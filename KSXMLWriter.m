@@ -270,6 +270,36 @@
     return result;
 }
 
+#pragma mark Attributes
+
+- (void)writeAttributeValue:(NSString *)value;
+{
+    [self writeStringByEscapingXMLEntities:value escapeQuot:YES];	// make sure to escape the quote mark
+}
+
++ (NSString *)stringFromAttributeValue:(NSString *)value;
+{
+    NSMutableString *result = [NSMutableString string];
+    
+    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
+    [writer writeAttributeValue:value];
+    [writer release];
+    
+    return result;
+}
+
+- (void)writeAttribute:(NSString *)attribute
+                 value:(id)value;
+{
+	NSString *valueString = [value description];
+	
+    [self writeString:@" "];
+    [self writeString:attribute];
+    [self writeString:@"=\""];
+    [self writeAttributeValue:valueString];
+    [self writeString:@"\""];
+}
+
 #pragma mark Whitespace
 
 - (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel
@@ -360,18 +390,6 @@
 }
 
 #pragma mark Element Primitives
-
-- (void)writeAttribute:(NSString *)attribute
-                 value:(id)value;
-{
-	NSString *valueString = [value description];
-	
-    [self writeString:@" "];
-    [self writeString:attribute];
-    [self writeString:@"=\""];
-    [self writeStringByEscapingXMLEntities:valueString escapeQuot:YES];	// make sure to escape the quote mark
-    [self writeString:@"\""];
-}
 
 - (void)didStartElement;
 {

@@ -112,6 +112,11 @@
 - (KSElementInfo *)currentElementInfo;  // modifying this object will not affect writing
 
 
+#pragma mark Attributes
+// Like +stringFromCharacters: but for attributes, where quotes need to be escaped
++ (NSString *)stringFromAttributeValue:(NSString *)value;
+
+
 #pragma mark Whitespace
 //  Writes a newline character and the tabs to match -indentationLevel. Normally newlines are automatically written for you; call this if you need an extra one.
 - (void)startNewline;

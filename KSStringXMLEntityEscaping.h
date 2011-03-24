@@ -39,10 +39,6 @@
 - (NSString *)stringByUnescapingXMLEntities:(NSDictionary *)entities;
 
 
-#pragma mark HTML
-- (NSString *)stringByEscapingHTMLEntitiesWithQuot:(BOOL)escapeQuotes;
-
-
 @end
 
 

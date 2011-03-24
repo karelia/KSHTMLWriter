@@ -80,20 +80,6 @@
 #endif
 }
 
-#pragma mark HTML
-
-- (NSString *)stringByEscapingHTMLEntitiesWithQuot:(BOOL)escapeQuotes
-{
-    NSMutableString *result = [NSMutableString string];
-    
-    KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:result];
-    [writer writeStringByEscapingXMLEntities:self escapeQuot:escapeQuotes];
-    [writer release];
-    
-    return result;
-}
-
-
 @end
 
 
