@@ -32,6 +32,7 @@
 @interface NSString (KSStringXMLEntityEscaping)
 
 #pragma mark XML
+
 #if !TARGET_OS_IPHONE
 - (NSString *)stringByEscapingXMLEntities:(NSDictionary *)entities;
 #endif
@@ -39,7 +40,6 @@
 
 
 #pragma mark HTML
-- (NSString *)stringByEscapingHTMLEntities;
 - (NSString *)stringByEscapingHTMLEntitiesWithQuot:(BOOL)escapeQuotes;
 
 

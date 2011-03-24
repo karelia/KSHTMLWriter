@@ -94,11 +94,6 @@
 }
 
 
-- (NSString *)stringByEscapingHTMLEntities;
-{
-	return [self stringByEscapingHTMLEntitiesWithQuot:YES];	// default to escaping the quot as before.
-}
-
 @end
 
 

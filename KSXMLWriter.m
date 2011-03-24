@@ -143,12 +143,23 @@
     [self setEncoding:encoding];
 }
 
-#pragma mark Text
+#pragma mark Characters
 
 - (void)writeCharacters:(NSString *)string;
 {
     // Quotes are acceptable characters outside of attribute values
     [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
+}
+
++ (NSString *)stringFromCharacters:(NSString *)string;
+{
+	NSMutableString *result = [NSMutableString string];
+    
+    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
+    [writer writeCharacters:string];
+    [writer release];
+    
+    return result;
 }
 
 #pragma mark Elements
