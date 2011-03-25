@@ -267,7 +267,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
-    [self pushAttribute:@"type" value:@"text/javascript"]; // in theory, HTML5 pages could omit this
+    // HTML5 doesn't need the script type specified, but older doc types do for standards-compliance
+    if (![[self docType] isEqualToString:KSHTMLWriterDocTypeHTML_5])
+    {
+        [self pushAttribute:@"type" value:@"text/javascript"];
+    }
+    
+    // Script
     if (src) [self pushAttribute:@"src" value:src];
 	[self pushAttribute:@"charset" value:@"UTF-8"];
 
