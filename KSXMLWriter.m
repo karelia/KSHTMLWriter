@@ -528,7 +528,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 			||	encoding == NSISOLatin1StringEncoding
 			||	encoding == NSUnicodeStringEncoding ) )
     {
-        [NSException raise:NSInvalidArgumentException format:@"Unsupported character encoding"];
+        NSString *encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(encoding));
+        
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Unsupported character encoding %@ (%u)", encodingName, encoding];
     }
 	
     
