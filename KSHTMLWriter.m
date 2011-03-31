@@ -274,8 +274,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     }
     
     // Script
-    if (src) [self pushAttribute:@"src" value:src];
-	[self pushAttribute:@"charset" value:@"UTF-8"];
+    if (src)
+	{
+		[self pushAttribute:@"src" value:src];
+		[self pushAttribute:@"charset" value:@"UTF-8"];	// ensure that remotely load source is UTF-8
+	}
 
     [self startElement:@"script"];
     
