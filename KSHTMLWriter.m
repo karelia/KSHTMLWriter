@@ -246,10 +246,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Scripts
 
-- (void)writeJavascriptWithSrc:(NSString *)src;
+- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
 {
     NSParameterAssert(src);
     
+    if (charset) [self pushAttribute:@"charset" value:charset];
     [self startJavascriptElementWithSrc:src];
     [self endElement];
 }
@@ -277,9 +278,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     if (src)
 	{
 		[self pushAttribute:@"src" value:src];
-		[self pushAttribute:@"charset" value:@"UTF-8"];	// ensure that remotely load source is UTF-8
 	}
-
+    
     [self startElement:@"script"];
     
     // Embedded scripts should start on their own line for clarity
