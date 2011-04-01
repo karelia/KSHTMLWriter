@@ -246,6 +246,18 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Scripts
 
+- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding;
+{
+    // According to the HTML spec, charset only needs to be specified if the script is a different encoding to the document
+    NSString *charset = nil;
+    if (encoding != [self encoding])
+    {
+        charset = (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(encoding));
+    }
+    
+    [self writeJavascriptWithSrc:src charset:charset];
+}
+
 - (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
 {
     NSParameterAssert(src);

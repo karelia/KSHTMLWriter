@@ -126,6 +126,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 #pragma mark Scripts
 
+- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding;
 - (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
