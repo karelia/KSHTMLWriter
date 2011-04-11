@@ -258,10 +258,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self writeJavascriptWithSrc:src charset:charset];
 }
 
-- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
-{
-    NSParameterAssert(src);
-    
+- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;	// src may be nil
+{    
     if (charset) [self pushAttribute:@"charset" value:charset];
     [self startJavascriptElementWithSrc:src];
     [self endElement];
