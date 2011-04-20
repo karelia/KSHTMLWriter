@@ -27,8 +27,6 @@
 
 #import "KSXMLWriter.h"
 
-#import "NSString+Karelia.h"
-
 
 @interface KSXMLElementContentsProxy : NSProxy
 {
