@@ -363,6 +363,8 @@
     return (_inlineWritingLevel == 0);
 }
 
+- (NSArray *)openElements; { return [[_openElements copy] autorelease]; }
+
 - (NSUInteger)openElementsCount;
 {
     return [_openElements count];
