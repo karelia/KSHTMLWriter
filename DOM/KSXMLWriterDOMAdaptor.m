@@ -124,6 +124,8 @@
 
 #pragma mark Pseudo-delegate
 
+- (DOMNode *)willWriteDOMText:(DOMText *)text; { return text; }
+
 - (DOMNode *)didWriteDOMText:(DOMText *)textNode nextNode:(DOMNode *)nextNode;
 {
     //  For subclasses to override
@@ -372,10 +374,13 @@
 
 @implementation DOMText (KSDOMToHTMLWriter)
 
-- (DOMNode *)ks_writeHTML:(KSXMLWriterDOMAdaptor *)writer;
+- (DOMNode *)ks_writeHTML:(KSXMLWriterDOMAdaptor *)adaptor;
 {
-    DOMNode *result = [super ks_writeHTML:writer];
-    result = [writer didWriteDOMText:self nextNode:result];
+    DOMNode *result = [adaptor willWriteDOMText:self];
+    if (result != self) return result;
+    
+    result = [super ks_writeHTML:adaptor];
+    result = [adaptor didWriteDOMText:self nextNode:result];
     
     return result;
 }

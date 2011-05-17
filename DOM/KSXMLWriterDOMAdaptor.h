@@ -47,6 +47,7 @@
 // Default implementation returns element. To customise writing, subclass method to do its own writing and return the node to write instead (generally the element's next sibling)
 - (DOMNode *)willWriteDOMElement:(DOMElement *)element;
 
+- (DOMNode *)willWriteDOMText:(DOMText *)text;
 - (DOMNode *)didWriteDOMText:(DOMText *)text nextNode:(DOMNode *)nextNode;  // for any post-processing
 
 
