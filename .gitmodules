@@ -1,0 +1,3 @@
+[submodule "KSWriter"]
+	path = KSWriter
+	url = git@github.com:karelia/KSWriter.git
