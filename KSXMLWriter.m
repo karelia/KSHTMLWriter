@@ -191,6 +191,9 @@
         [self stopWritingInline];
     }
     
+    // Warn of impending start
+    [self willStartElement:elementName];
+    
     [self writeString:@"<"];
     [self writeString:elementName];
     
@@ -218,6 +221,8 @@
     
     [self startElement:elementName];
 }
+
+- (void)willStartElement:(NSString *)element; { /* for subclassers */ }
 
 - (void)endElement;
 {

@@ -87,6 +87,8 @@
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 - (void)endElement;
 
+- (void)willStartElement:(NSString *)element;
+
 
 #pragma mark Being Too Clever For Your Own Good
 //  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
