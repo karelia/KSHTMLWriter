@@ -20,6 +20,16 @@
     return self;
 }
 
+- (id)initWithElementInfo:(KSElementInfo *)info;
+{
+    self = [self init];
+    
+    [self setName:[info name]];
+    _attributes = [info->_attributes mutableCopy];
+    
+    return self;
+}
+
 - (void)dealloc;
 {
     [_elementName release];
@@ -72,12 +82,7 @@
 
 - (id)copyWithZone:(NSZone *)zone;
 {
-    KSElementInfo *result = [[[self class] alloc] init];
-    
-    [result setName:[self name]];
-    [result setAttributesAsDictionary:[self attributesAsDictionary]];
-    
-    return result;
+    return [[[self class] alloc] initWithElementInfo:self];
 }
 
 #pragma mark Description

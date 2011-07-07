@@ -16,6 +16,8 @@
     NSMutableArray  *_attributes;
 }
 
+- (id)initWithElementInfo:(KSElementInfo *)info;
+
 @property(nonatomic, copy) NSString *name;
 
 @property(nonatomic, copy) NSDictionary *attributesAsDictionary;
