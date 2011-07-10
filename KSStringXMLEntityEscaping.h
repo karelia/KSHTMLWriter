@@ -34,6 +34,7 @@
 #pragma mark XML
 
 #if !TARGET_OS_IPHONE
+// Do NOT use this method for HTML. It is XML ONLY, since XML allows &apos; and HTML, techncially, does not. Modern browsers cope with &apos; fine, but IE7 displays literally as &apos;
 - (NSString *)stringByEscapingXMLEntities:(NSDictionary *)entities;
 #endif
 - (NSString *)stringByUnescapingXMLEntities:(NSDictionary *)entities;
