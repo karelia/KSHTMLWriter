@@ -27,7 +27,7 @@
 
 #import "KSForwardingWriter.h"
 
-#import "KSElementInfo.h"
+#import "KSXMLAttributes.h"
 
 
 @class KSXMLElementContentsProxy;
@@ -36,7 +36,7 @@
 @interface KSXMLWriter : KSForwardingWriter
 {
   @private
-    KSElementInfo   *_currentElement;
+    KSXMLAttributes   *_attributes;
     NSMutableArray  *_openElements;
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
@@ -113,7 +113,7 @@
  *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
-- (KSElementInfo *)currentElementInfo;  // modifying this object will not affect writing
+- (KSXMLAttributes *)currentAttributes;  // modifying this object will not affect writing
 
 
 #pragma mark Attributes

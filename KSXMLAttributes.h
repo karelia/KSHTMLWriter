@@ -1,5 +1,5 @@
 //
-//  KSElementInfo.h
+//  KSXMLAttributes.h
 //  Sandvox
 //
 //  Created by Mike on 19/11/2010.
@@ -9,21 +9,18 @@
 #import <Foundation/Foundation.h>
 
 
-@interface KSElementInfo : NSObject <NSCopying>
+@interface KSXMLAttributes : NSObject <NSCopying>
 {
   @private
-    NSString        *_elementName;
     NSMutableArray  *_attributes;
 }
 
-- (id)initWithElementInfo:(KSElementInfo *)info;
-
-@property(nonatomic, copy) NSString *name;
+- (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 
 @property(nonatomic, copy) NSDictionary *attributesAsDictionary;
 - (void)addAttribute:(NSString *)attribute value:(id)value;
 
-- (void)close;  // sets name to nil and removes all attributes
+- (void)close;  // removes all attributes
 
 
 @end

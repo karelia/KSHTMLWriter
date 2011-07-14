@@ -71,7 +71,7 @@
 @end
 
 
-@interface KSElementInfo (KSXMLWriter)
+@interface KSXMLAttributes (KSXMLWriter)
 - (void)writeAttributes:(KSXMLWriter *)writer;
 @end
 
@@ -87,7 +87,7 @@
 {
     [super initWithOutputWriter:output];
     
-    _currentElement = [[KSElementInfo alloc] init];
+    _attributes = [[KSXMLAttributes alloc] init];
     _openElements = [[NSMutableArray alloc] init];
     
     // Inherit encoding where possible
@@ -113,7 +113,7 @@
 - (void)dealloc
 {    
     [_openElements release];
-    [_currentElement release];
+    [_attributes release];
     [_contentsProxy release];
     
     [super dealloc];
@@ -203,8 +203,8 @@
     
     
     // Write attributes
-    [_currentElement writeAttributes:self];
-    [_currentElement close];
+    [_attributes writeAttributes:self];
+    [_attributes close];
     
     
     [self didStartElement];
@@ -264,12 +264,12 @@
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
-    [_currentElement addAttribute:attribute value:value];
+    [_attributes addAttribute:attribute value:value];
 }
 
-- (KSElementInfo *)currentElementInfo;
+- (KSXMLAttributes *)currentAttributes;
 {
-    KSElementInfo *result = [[_currentElement copy] autorelease];
+    KSXMLAttributes *result = [[_attributes copy] autorelease];
     return result;
 }
 
@@ -622,7 +622,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 #pragma mark -
 
 
-@implementation KSElementInfo (KSXMLWriter)
+@implementation KSXMLAttributes (KSXMLWriter)
 
 - (void)writeAttributes:(KSXMLWriter *)writer;
 {

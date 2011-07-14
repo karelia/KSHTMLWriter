@@ -27,7 +27,7 @@
 
 #import "KSHTMLWriter.h"
 
-#import "KSElementInfo.h"
+#import "KSXMLAttributes.h"
 
 
 NSString *KSHTMLWriterDocTypeHTML_4_01_Strict = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"";
@@ -134,9 +134,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [super pushAttribute:attribute value:value];
 }
 
-- (KSElementInfo *)currentElementInfo;
+- (KSXMLAttributes *)currentAttributes;
 {
-    KSElementInfo *result = [super currentElementInfo];
+    KSXMLAttributes *result = [super currentAttributes];
     
     // Add in buffered class info
     NSString *class = [self currentElementClassName];

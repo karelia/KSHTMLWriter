@@ -1,17 +1,19 @@
 //
-//  KSElementInfo.m
+//  KSXMLAttributes.m
 //  Sandvox
 //
 //  Created by Mike on 19/11/2010.
 //  Copyright 2010 Karelia Software. All rights reserved.
 //
 
-#import "KSElementInfo.h"
+#import "KSXMLAttributes.h"
 
 #import "KSXMLWriter.h"
 
 
-@implementation KSElementInfo
+@implementation KSXMLAttributes
+
+#pragma mark Lifecycle
 
 - (id)init;
 {
@@ -20,11 +22,10 @@
     return self;
 }
 
-- (id)initWithElementInfo:(KSElementInfo *)info;
+- (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 {
     self = [self init];
     
-    [self setName:[info name]];
     _attributes = [info->_attributes mutableCopy];
     
     return self;
@@ -32,13 +33,10 @@
 
 - (void)dealloc;
 {
-    [_elementName release];
     [_attributes release];
     
     [super dealloc];
 }
-
-@synthesize name = _elementName;
 
 - (NSDictionary *)attributesAsDictionary;
 {
@@ -74,7 +72,6 @@
 
 - (void)close;  // sets name to nil and removes all attributes
 {
-    [self setName:nil];
     [_attributes removeAllObjects];
 }
 
@@ -82,7 +79,7 @@
 
 - (id)copyWithZone:(NSZone *)zone;
 {
-    return [[[self class] alloc] initWithElementInfo:self];
+    return [[[KSXMLAttributes class] alloc] initWithXMLAttributes:self];
 }
 
 #pragma mark Description
@@ -94,8 +91,7 @@
     KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:result];
     [writer writeString:@" "];
     
-    [writer startElement:(self.name ? self.name : @"")
-              attributes:[self attributesAsDictionary]];
+    [writer startElement:@"" attributes:[self attributesAsDictionary]];
     [writer endElement];
     
     [writer release];
