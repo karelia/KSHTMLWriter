@@ -24,7 +24,7 @@
 
 - (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 {
-    self = [self init];
+    self = [super init];    // call super, so _attributes is still nil
     
     _attributes = [info->_attributes mutableCopy];
     
