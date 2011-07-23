@@ -273,6 +273,11 @@
     return result;
 }
 
+- (BOOL)hasCurrentAttributes;
+{
+    return [_currentElement hasAttributes];
+}
+
 #pragma mark Attributes
 
 - (void)writeAttributeValue:(NSString *)value;

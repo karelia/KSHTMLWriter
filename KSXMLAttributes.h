@@ -18,6 +18,7 @@
 - (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 
 @property(nonatomic, copy) NSDictionary *attributesAsDictionary;
+- (BOOL)hasAttributes;
 - (void)addAttribute:(NSString *)attribute value:(id)value;
 
 - (void)close;  // removes all attributes

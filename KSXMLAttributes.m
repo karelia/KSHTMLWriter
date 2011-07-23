@@ -60,6 +60,11 @@
     }
 }
 
+- (BOOL)hasAttributes;
+{
+    return [_attributes count];
+}
+
 - (void)addAttribute:(NSString *)attribute value:(id)value;
 {
     NSParameterAssert(value);

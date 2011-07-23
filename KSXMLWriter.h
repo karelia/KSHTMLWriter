@@ -113,7 +113,8 @@
  *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
-- (KSXMLAttributes *)currentAttributes;  // modifying this object will not affect writing
+- (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
+- (BOOL)hasCurrentAttributes;           // faster than querying -currentAttributes
 
 
 #pragma mark Attributes
