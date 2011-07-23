@@ -112,6 +112,7 @@
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 - (KSElementInfo *)currentElementInfo;  // modifying this object will not affect writing
+- (BOOL)currentElementHasAttributes;    // faster than querying -currentElementInfo
 
 
 #pragma mark Attributes

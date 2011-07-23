@@ -145,6 +145,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return result;
 }
 
+- (BOOL)currentElementHasAttributes;
+{
+    return ([super currentElementHasAttributes] || [_classNames count]);
+}
+
 #pragma mark HTML Fragments
 
 - (void)writeHTMLString:(NSString *)html;
