@@ -275,7 +275,7 @@
 
 - (BOOL)hasCurrentAttributes;
 {
-    return [_currentElement hasAttributes];
+    return [_attributes hasAttributes];
 }
 
 #pragma mark Attributes
