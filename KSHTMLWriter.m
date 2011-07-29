@@ -119,6 +119,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)pushClassName:(NSString *)className;
 {
+#ifdef DEBUG
+    if ([_classNames containsObject:className])
+    {
+        NSLog(@"Adding class \"%@\" to an element twice", className);
+    }
+#endif
+    
     [_classNames addObject:className];
 }
 
