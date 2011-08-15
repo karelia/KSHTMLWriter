@@ -386,6 +386,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
             if ([tagName isEqualToString:@"a"] ||
                 [tagName isEqualToString:@"b"] ||
                 [tagName isEqualToString:@"i"] ||
+                [tagName isEqualToString:@"u"] ||
                 [tagName isEqualToString:@"q"]) return YES;
             break;
             
