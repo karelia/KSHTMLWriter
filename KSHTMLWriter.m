@@ -446,6 +446,21 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return [super canWriteElementInline:tagName];
 }
 
+- (BOOL)validateElement:(NSString *)element;
+{
+    if (![super validateElement:element]) return NO;
+    
+    // Lists can only contain list items
+    if ([self topElementIsList])
+    {
+        return [element isEqualToString:@"li"];
+    }
+    else
+    {
+        return YES;
+    }
+}
+
 #pragma mark Element Primitives
 
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
