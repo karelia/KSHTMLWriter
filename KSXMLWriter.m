@@ -365,6 +365,14 @@
     [self setIndentationLevel:[self indentationLevel] - 1];
 }
 
+#pragma mark Validation
+
+- (BOOL)validateElement:(NSString *)element;
+{
+    NSParameterAssert(element);
+    return YES;
+}
+
 #pragma mark Elements Stack
 
 - (BOOL)canWriteElementInline:(NSString *)tagName;
