@@ -377,7 +377,7 @@
 {
     NSParameterAssert(name);
     NSParameterAssert(element);
-    return YES;
+    return value;
 }
 
 #pragma mark Elements Stack
