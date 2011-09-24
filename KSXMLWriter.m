@@ -373,6 +373,13 @@
     return YES;
 }
 
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+{
+    NSParameterAssert(name);
+    NSParameterAssert(element);
+    return YES;
+}
+
 #pragma mark Elements Stack
 
 - (BOOL)canWriteElementInline:(NSString *)tagName;

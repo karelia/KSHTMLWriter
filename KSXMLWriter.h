@@ -148,6 +148,8 @@
 #pragma mark Validation
 // Default implementation returns YES. Subclasses can override to advise that the writing of an element would result in invalid markup
 - (BOOL)validateElement:(NSString *)element;
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+
 
 
 #pragma mark Elements Stack
