@@ -461,6 +461,20 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     }
 }
 
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+{
+    NSString *result = [super validateAttribute:name value:value ofElement:element];
+    if (!result) return nil;
+    
+    // value is only allowed as a list item attribute when in an ordered list
+    if ([element isEqualToString:@"li"] && [name isEqualToString:@"value"])
+    {
+        if (![[self topElement] isEqualToString:@"ol"]) result = nil;
+    }
+    
+    return result;
+}
+
 #pragma mark Element Primitives
 
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
