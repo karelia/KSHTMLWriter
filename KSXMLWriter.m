@@ -665,7 +665,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
 {
-    OBPRECONDITION(writer);
+    NSParameterAssert(writer);
     
     _target = target;
     _XMLWriter = writer;
