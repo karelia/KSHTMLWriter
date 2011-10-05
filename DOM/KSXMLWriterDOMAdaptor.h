@@ -7,6 +7,7 @@
 //
 
 
+#import <WebKit/WebKit.h>
 #import "KSXMLWriter.h"
 
 
