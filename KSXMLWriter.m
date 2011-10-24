@@ -286,14 +286,11 @@
 
 #pragma mark CDATA
 
-- (void)startCDATA;
+- (void)writeCDATAWithContent:(void (^)(void))content;
 {
-    [self writeString:@"<![CDATA["];
-}
-
-- (void)endCDATA;
-{
-    [self writeString:@"]]>"];
+    [self startCDATA];
+    content();
+    [self endCDATA];
 }
 
 #pragma mark Indentation
@@ -652,6 +649,16 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         [self writeEndTag:[self topElement]];
         [self popElement];
     }
+}
+
+- (void)startCDATA;
+{
+    [self writeString:@"<![CDATA["];
+}
+
+- (void)endCDATA;
+{
+    [self writeString:@"]]>"];
 }
 
 - (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;

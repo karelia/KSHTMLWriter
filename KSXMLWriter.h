@@ -116,8 +116,7 @@
 
 
 #pragma mark CDATA
-- (void)startCDATA;
-- (void)endCDATA;
+- (void)writeCDATAWithContent:(void (^)(void))content;
 
 
 #pragma mark Indentation
@@ -176,6 +175,9 @@
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 - (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
 - (void)endElement;
+
+- (void)startCDATA;
+- (void)endCDATA;
 
 //  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
 //
