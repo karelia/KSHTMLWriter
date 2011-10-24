@@ -79,8 +79,8 @@
 #pragma mark Elements
 
 // Need to force inline writing? Fall back to the old -startElement… API for now
-- (void)writeElement:(NSString *)name content:(void (^)(void))content;
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+- (void)writeElement:(NSString *)name contentBlock:(void (^)(void))content;
+- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes contentBlock:(void (^)(void))content;
 
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
@@ -116,7 +116,7 @@
 
 
 #pragma mark CDATA
-- (void)writeCDATAWithContent:(void (^)(void))content;
+- (void)writeCDATAWithContentBlock:(void (^)(void))content;
 
 
 #pragma mark Indentation
