@@ -162,12 +162,22 @@
 
 #pragma mark Elements
 
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+- (void)writeElement:(NSString *)name content:(void (^)(void))content;
 {
-    [self startElement:elementName];
+    [self startElement:name];
+    content();
+    [self endElement];
+}
+
+- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+{
+    for (NSString *aName in attributes)
+    {
+        NSString *aValue = [attributes objectForKey:aName];
+        [self pushAttribute:aName value:aValue];
+    }
     
-    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
-    return _contentsProxy;
+    [self writeElement:name content:content];
 }
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
@@ -177,72 +187,7 @@
     [self endElement];
 }
 
-- (void)startElement:(NSString *)elementName;
-{
-    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
-}
-
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
-{
-    // Can only write suitable tags inline if containing element also allows it
-    if (!writeInline)
-    {
-        [self startNewline];
-        [self stopWritingInline];
-    }
-    
-    // Warn of impending start
-    [self willStartElement:elementName];
-    
-    [self writeString:@"<"];
-    [self writeString:elementName];
-    
-    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:elementName];
-    [self startWritingInline];
-    
-    
-    // Write attributes
-    [_attributes writeAttributes:self];
-    [_attributes close];
-    
-    
-    [self didStartElement];
-    [self increaseIndentationLevel];
-}
-
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self startElement:elementName];
-}
-
 - (void)willStartElement:(NSString *)element; { /* for subclassers */ }
-
-- (void)endElement;
-{
-    // Handle whitespace
-	[self decreaseIndentationLevel];
-    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
-    
-    
-    // Write the tag itself.
-    if (_elementIsEmpty)
-    {
-        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
-        [self closeEmptyElementTag];
-    }
-    else
-    {
-        [self writeEndTag:[self topElement]];
-        [self popElement];
-    }
-}
 
 - (void)pushElement:(NSString *)element;
 {
@@ -634,6 +579,87 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             break;
         }
     }
+}
+
+@end
+
+
+#pragma mark -
+
+
+@implementation KSXMLWriter (PreBlocksSupport)
+
+- (void)startElement:(NSString *)elementName;
+{
+    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
+}
+
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
+{
+    // Can only write suitable tags inline if containing element also allows it
+    if (!writeInline)
+    {
+        [self startNewline];
+        [self stopWritingInline];
+    }
+    
+    // Warn of impending start
+    [self willStartElement:elementName];
+    
+    [self writeString:@"<"];
+    [self writeString:elementName];
+    
+    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
+    [self pushElement:elementName];
+    [self startWritingInline];
+    
+    
+    // Write attributes
+    [_attributes writeAttributes:self];
+    [_attributes close];
+    
+    
+    [self didStartElement];
+    [self increaseIndentationLevel];
+}
+
+- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
+{
+    for (NSString *aName in attributes)
+    {
+        NSString *aValue = [attributes objectForKey:aName];
+        [self pushAttribute:aName value:aValue];
+    }
+    
+    [self startElement:elementName];
+}
+
+- (void)endElement;
+{
+    // Handle whitespace
+	[self decreaseIndentationLevel];
+    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
+    
+    
+    // Write the tag itself.
+    if (_elementIsEmpty)
+    {
+        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
+        [self closeEmptyElementTag];
+    }
+    else
+    {
+        [self writeEndTag:[self topElement]];
+        [self popElement];
+    }
+}
+
+- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+{
+    [self startElement:elementName];
+    
+    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
+    return _contentsProxy;
 }
 
 @end
