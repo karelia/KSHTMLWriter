@@ -79,12 +79,9 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 //  <tagName id="idName" class="className">
 //  Pretty standard convenience methods
-
+- (void)writeElement:(NSString *)name idName:(NSString *)idName className:(NSString *)className content:(void (^)(void))content;
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
-
-- (void)startElement:(NSString *)tagName   
-              idName:(NSString *)idName
-           className:(NSString *)className;
+- (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 
 - (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
 

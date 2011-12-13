@@ -176,6 +176,14 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark General
 
+- (void)writeElement:(NSString *)name idName:(NSString *)idName className:(NSString *)className content:(void (^)(void))content;
+{
+    if (idName) [self pushAttribute:@"id" value:idName];
+    if (className) [self pushAttribute:@"class" value:className];
+    
+    [self writeElement:name content:content];
+}
+
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
 {
     [self startElement:tagName idName:nil className:className];
