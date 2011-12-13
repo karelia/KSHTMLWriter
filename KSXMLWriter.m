@@ -162,14 +162,14 @@
 
 #pragma mark Elements
 
-- (void)writeElement:(NSString *)name contentBlock:(void (^)(void))content;
+- (void)writeElement:(NSString *)name content:(void (^)(void))content;
 {
     [self startElement:name];
-    content();
+    if (content) content();
     [self endElement];
 }
 
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes contentBlock:(void (^)(void))content;
+- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
 {
     for (NSString *aName in attributes)
     {
@@ -177,7 +177,7 @@
         [self pushAttribute:aName value:aValue];
     }
     
-    [self writeElement:name contentBlock:content];
+    [self writeElement:name content:content];
 }
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
