@@ -144,8 +144,10 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 - (void)startStyleElementWithType:(NSString *)type;
 
 
-#pragma mark Elements Stack
+#pragma mark Lists
+- (BOOL)hasListOpen;
 - (BOOL)topElementIsList;
++ (BOOL)elementIsList:(NSString *)element;
 
 
 #pragma mark Element Primitives

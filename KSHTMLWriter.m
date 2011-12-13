@@ -351,11 +351,20 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Elements Stack
 
+- (BOOL)hasListOpen;
+{
+    return ([self hasOpenElement:@"ul"] || [self hasOpenElement:@"ol"]);
+}
+
 - (BOOL)topElementIsList;
 {
-    NSString *tagName = [self topElement];
-    BOOL result = ([tagName isEqualToString:@"ul"] ||
-                   [tagName isEqualToString:@"ol"]);
+    return [[self class] elementIsList:[self topElement]];
+}
+
++ (BOOL)elementIsList:(NSString *)element;
+{
+    BOOL result = ([element isEqualToString:@"ul"] ||
+                   [element isEqualToString:@"ol"]);
     return result;
 }
 
