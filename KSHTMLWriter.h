@@ -97,7 +97,11 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 #pragma mark Links
 //  <a href="...." target="..." rel="nofollow">
-- (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
+- (void)writeAnchorElementWithHref:(NSString *)href
+                             title:(NSString *)titleString
+                            target:(NSString *)targetString
+                               rel:(NSString *)relString
+                           content:(void (^)(void))content; // a block must provided - an empty anchor doesn't make sense!
 
 
 #pragma mark Images

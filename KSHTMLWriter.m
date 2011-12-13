@@ -203,10 +203,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self endElement];
 }
 
-#pragma mark Higher-level Tag Writing
+#pragma mark Anchors
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
+    // TODO: Remove this method once Sandvox no longer needs it
 	if (href) [self pushAttribute:@"href" value:href];
 	if (targetString) [self pushAttribute:@"target" value:targetString];
 	if (titleString) [self pushAttribute:@"title" value:titleString];
@@ -214,6 +215,15 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 	
     [self startElement:@"a"];
 }
+
+- (void)writeAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString content:(void (^)(void))content;
+{
+    [self startAnchorElementWithHref:href title:titleString target:targetString rel:relString];
+    content();
+    [self endElement];
+}
+
+#pragma mark Images
 
 - (void)writeImageWithSrc:(NSString *)src
                       alt:(NSString *)alt
