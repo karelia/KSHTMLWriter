@@ -220,7 +220,7 @@
 
 - (BOOL)hasCurrentAttributes;
 {
-    return [_attributes hasAttributes];
+    return [_attributes count];
 }
 
 #pragma mark Attributes

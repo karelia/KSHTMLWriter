@@ -13,6 +13,41 @@
 
 @implementation KSXMLAttributes
 
+#pragma mark Dictionary Primitives
+
+- (NSUInteger)count; { return [_attributes count] / 2; }
+
+- (id)objectForKey:(id)aKey;
+{
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        id value = [_attributes objectAtIndex:i+1];
+        
+        if ([attribute isEqual:aKey])   // not -isEqualToString: on the offchance someone's crazy enough to pass in non-string key
+        {
+            return value;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSEnumerator *)keyEnumerator;
+{
+    NSMutableArray *keys = [[NSMutableArray alloc] initWithCapacity:[self count]];
+    
+    for (int i = 0; i < [_attributes count]; i+=2)
+    {
+        NSString *attribute = [_attributes objectAtIndex:i];
+        [keys addObject:attribute];
+    }
+    
+    NSEnumerator *result = [keys objectEnumerator];
+    [keys release]; // the enumerator should retain the array
+    return result;
+}
+
 #pragma mark Lifecycle
 
 - (id)init;
@@ -38,31 +73,12 @@
     [super dealloc];
 }
 
-- (NSDictionary *)attributesAsDictionary;
-{
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
-    
-    for (int i = 0; i < [_attributes count]; i+=2)
-    {
-        NSString *attribute = [_attributes objectAtIndex:i];
-        NSString *value = [_attributes objectAtIndex:i+1];
-        [result setObject:value forKey:attribute];
-    }
-    
-    return result;
-}
-
 - (void)setAttributesAsDictionary:(NSDictionary *)dictionary;
 {
     for (NSString *anAttribute in dictionary)
     {
         [self addAttribute:anAttribute value:[dictionary objectForKey:anAttribute]];
     }
-}
-
-- (BOOL)hasAttributes;
-{
-    return [_attributes count];
 }
 
 - (void)addAttribute:(NSString *)attribute value:(id)value;
@@ -75,7 +91,7 @@
     [_attributes addObject:value];
 }
 
-- (void)close;  // sets name to nil and removes all attributes
+- (void)close;
 {
     [_attributes removeAllObjects];
 }
@@ -96,7 +112,7 @@
     KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:result];
     [writer writeString:@" "];
     
-    [writer startElement:@"" attributes:[self attributesAsDictionary]];
+    [writer startElement:@"" attributes:self];
     [writer endElement];
     
     [writer release];
