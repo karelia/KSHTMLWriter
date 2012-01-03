@@ -3,7 +3,7 @@
 //  Sandvox
 //
 //  Created by Mike on 19/11/2010.
-//  Copyright 2010 Karelia Software. All rights reserved.
+//  Copyright 2010-2012 Karelia Software. All rights reserved.
 //
 
 //  A subclass of NSDictionary that is slightly mutable, and preserves ordering
