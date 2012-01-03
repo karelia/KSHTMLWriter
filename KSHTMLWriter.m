@@ -1,7 +1,7 @@
 //
 //  KSHTMLWriter.m
 //
-//  Copyright (c) 2010, Mike Abdullah and Karelia Software
+//  Copyright 2010-2012, Mike Abdullah and Karelia Software
 //  All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without
@@ -176,6 +176,14 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark General
 
+- (void)writeElement:(NSString *)name idName:(NSString *)idName className:(NSString *)className content:(void (^)(void))content;
+{
+    if (idName) [self pushAttribute:@"id" value:idName];
+    if (className) [self pushAttribute:@"class" value:className];
+    
+    [self writeElement:name content:content];
+}
+
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
 {
     [self startElement:tagName idName:nil className:className];
@@ -203,10 +211,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self endElement];
 }
 
-#pragma mark Higher-level Tag Writing
+#pragma mark Anchors
 
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
+    // TODO: Remove this method once Sandvox no longer needs it
 	if (href) [self pushAttribute:@"href" value:href];
 	if (targetString) [self pushAttribute:@"target" value:targetString];
 	if (titleString) [self pushAttribute:@"title" value:titleString];
@@ -214,6 +223,15 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 	
     [self startElement:@"a"];
 }
+
+- (void)writeAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString content:(void (^)(void))content;
+{
+    [self startAnchorElementWithHref:href title:titleString target:targetString rel:relString];
+    content();
+    [self endElement];
+}
+
+#pragma mark Images
 
 - (void)writeImageWithSrc:(NSString *)src
                       alt:(NSString *)alt
@@ -351,11 +369,20 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Elements Stack
 
+- (BOOL)hasListOpen;
+{
+    return ([self hasOpenElement:@"ul"] || [self hasOpenElement:@"ol"]);
+}
+
 - (BOOL)topElementIsList;
 {
-    NSString *tagName = [self topElement];
-    BOOL result = ([tagName isEqualToString:@"ul"] ||
-                   [tagName isEqualToString:@"ol"]);
+    return [[self class] elementIsList:[self topElement]];
+}
+
++ (BOOL)elementIsList:(NSString *)element;
+{
+    BOOL result = ([element isEqualToString:@"ul"] ||
+                   [element isEqualToString:@"ol"]);
     return result;
 }
 
@@ -386,6 +413,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
             if ([tagName isEqualToString:@"a"] ||
                 [tagName isEqualToString:@"b"] ||
                 [tagName isEqualToString:@"i"] ||
+                [tagName isEqualToString:@"u"] ||
                 [tagName isEqualToString:@"q"]) return YES;
             break;
             
@@ -443,6 +471,35 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     }
     
     return [super canWriteElementInline:tagName];
+}
+
+- (BOOL)validateElement:(NSString *)element;
+{
+    if (![super validateElement:element]) return NO;
+    
+    // Lists can only contain list items
+    if ([self topElementIsList])
+    {
+        return [element isEqualToString:@"li"];
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+{
+    NSString *result = [super validateAttribute:name value:value ofElement:element];
+    if (!result) return nil;
+    
+    // value is only allowed as a list item attribute when in an ordered list
+    if ([element isEqualToString:@"li"] && [name isEqualToString:@"value"])
+    {
+        if (![[self topElement] isEqualToString:@"ol"]) result = nil;
+    }
+    
+    return result;
 }
 
 #pragma mark Element Primitives

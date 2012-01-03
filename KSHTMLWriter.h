@@ -1,7 +1,7 @@
 //
 //  KSHTMLWriter.h
 //
-//  Copyright (c) 2010, Mike Abdullah and Karelia Software
+//  Copyright 2010-2012, Mike Abdullah and Karelia Software
 //  All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without
@@ -79,12 +79,9 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 //  <tagName id="idName" class="className">
 //  Pretty standard convenience methods
-
+- (void)writeElement:(NSString *)name idName:(NSString *)idName className:(NSString *)className content:(void (^)(void))content;
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
-
-- (void)startElement:(NSString *)tagName   
-              idName:(NSString *)idName
-           className:(NSString *)className;
+- (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 
 - (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
 
@@ -97,7 +94,11 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 #pragma mark Links
 //  <a href="...." target="..." rel="nofollow">
-- (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
+- (void)writeAnchorElementWithHref:(NSString *)href
+                             title:(NSString *)titleString
+                            target:(NSString *)targetString
+                               rel:(NSString *)relString
+                           content:(void (^)(void))content; // a block must provided - an empty anchor doesn't make sense!
 
 
 #pragma mark Images
@@ -144,8 +145,10 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 - (void)startStyleElementWithType:(NSString *)type;
 
 
-#pragma mark Elements Stack
+#pragma mark Lists
+- (BOOL)hasListOpen;
 - (BOOL)topElementIsList;
++ (BOOL)elementIsList:(NSString *)element;
 
 
 #pragma mark Element Primitives

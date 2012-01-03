@@ -1,7 +1,7 @@
 //
 //  KSXMLWriter.h
 //
-//  Copyright (c) 2010, Mike Abdullah and Karelia Software
+//  Copyright 2010-2012, Mike Abdullah and Karelia Software
 //  All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without
@@ -78,32 +78,14 @@
 
 #pragma mark Elements
 
+// Need to force inline writing? Fall back to the old -startElement… API for now
+- (void)writeElement:(NSString *)name content:(void (^)(void))content;
+- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
-// These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
-- (void)startElement:(NSString *)elementName;
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-- (void)endElement;
-
 - (void)willStartElement:(NSString *)element;
-
-
-#pragma mark Being Too Clever For Your Own Good
-//  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
-//
-//      [[writer writeElement:@"foo" contentsInvocationTarget:self]
-//         writeFooContents];
-//
-//  Where if the -writeFooContents method writes another element and some text, you get this markup:
-//
-//      <foo>
-//          <bar>baz</baz>
-//      </foo>
-//
-//  This is about the same amount of code as calling -startElement: and -endElement: seperately. But, it can help make your code more readable, and will also sanity check to make sure the contents invocation balanced its calls to -startElement: and -endElement:
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
 
 
 #pragma mark Current Element
@@ -134,8 +116,7 @@
 
 
 #pragma mark CDATA
-- (void)startCDATA;
-- (void)endCDATA;
+- (void)writeCDATAWithContentBlock:(void (^)(void))content;
 
 
 #pragma mark Indentation
@@ -143,6 +124,13 @@
 @property(nonatomic) NSInteger indentationLevel;
 - (void)increaseIndentationLevel;
 - (void)decreaseIndentationLevel;
+
+
+#pragma mark Validation
+// Default implementation returns YES. Subclasses can override to advise that the writing of an element would result in invalid markup
+- (BOOL)validateElement:(NSString *)element;
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+
 
 
 #pragma mark Elements Stack
@@ -175,3 +163,35 @@
 
 
 @end
+
+
+#pragma mark -
+
+
+@interface KSXMLWriter (PreBlocksSupport)
+
+// These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
+- (void)startElement:(NSString *)elementName;
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
+- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
+- (void)endElement;
+
+- (void)startCDATA;
+- (void)endCDATA;
+
+//  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
+//
+//      [[writer writeElement:@"foo" contentsInvocationTarget:self]
+//         writeFooContents];
+//
+//  Where if the -writeFooContents method writes another element and some text, you get this markup:
+//
+//      <foo>
+//          <bar>baz</baz>
+//      </foo>
+//
+//  This is about the same amount of code as calling -startElement: and -endElement: seperately. But, it can help make your code more readable, and will also sanity check to make sure the contents invocation balanced its calls to -startElement: and -endElement:
+- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+
+@end
+

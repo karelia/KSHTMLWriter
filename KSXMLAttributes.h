@@ -6,10 +6,12 @@
 //  Copyright 2010-2012 Karelia Software. All rights reserved.
 //
 
+//  A subclass of NSDictionary that is slightly mutable, and preserves ordering
+
 #import <Foundation/Foundation.h>
 
 
-@interface KSXMLAttributes : NSObject <NSCopying>
+@interface KSXMLAttributes : NSDictionary
 {
   @private
     NSMutableArray  *_attributes;
@@ -17,8 +19,7 @@
 
 - (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 
-@property(nonatomic, copy) NSDictionary *attributesAsDictionary;
-- (BOOL)hasAttributes;
+// Unlike NSDictionary, no protection is provided against duplicate keys, to improve performance. If you do add the same key twice, it will appear twice while enumerating, but which value is reported for it is indeterminate
 - (void)addAttribute:(NSString *)attribute value:(id)value;
 
 - (void)close;  // removes all attributes

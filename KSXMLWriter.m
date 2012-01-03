@@ -1,7 +1,7 @@
 //
 //  KSXMLWriter.m
 //
-//  Copyright (c) 2010, Mike Abdullah and Karelia Software
+//  Copyright 2010-2012, Mike Abdullah and Karelia Software
 //  All rights reserved.
 //  
 //  Redistribution and use in source and binary forms, with or without
@@ -162,12 +162,22 @@
 
 #pragma mark Elements
 
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+- (void)writeElement:(NSString *)name content:(void (^)(void))content;
 {
-    [self startElement:elementName];
+    [self startElement:name];
+    if (content) content();
+    [self endElement];
+}
+
+- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+{
+    for (NSString *aName in attributes)
+    {
+        NSString *aValue = [attributes objectForKey:aName];
+        [self pushAttribute:aName value:aValue];
+    }
     
-    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
-    return _contentsProxy;
+    [self writeElement:name content:content];
 }
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
@@ -177,72 +187,7 @@
     [self endElement];
 }
 
-- (void)startElement:(NSString *)elementName;
-{
-    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
-}
-
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
-{
-    // Can only write suitable tags inline if containing element also allows it
-    if (!writeInline)
-    {
-        [self startNewline];
-        [self stopWritingInline];
-    }
-    
-    // Warn of impending start
-    [self willStartElement:elementName];
-    
-    [self writeString:@"<"];
-    [self writeString:elementName];
-    
-    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:elementName];
-    [self startWritingInline];
-    
-    
-    // Write attributes
-    [_attributes writeAttributes:self];
-    [_attributes close];
-    
-    
-    [self didStartElement];
-    [self increaseIndentationLevel];
-}
-
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self startElement:elementName];
-}
-
 - (void)willStartElement:(NSString *)element; { /* for subclassers */ }
-
-- (void)endElement;
-{
-    // Handle whitespace
-	[self decreaseIndentationLevel];
-    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
-    
-    
-    // Write the tag itself.
-    if (_elementIsEmpty)
-    {
-        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
-        [self closeEmptyElementTag];
-    }
-    else
-    {
-        [self writeEndTag:[self topElement]];
-        [self popElement];
-    }
-}
 
 - (void)pushElement:(NSString *)element;
 {
@@ -275,7 +220,7 @@
 
 - (BOOL)hasCurrentAttributes;
 {
-    return [_attributes hasAttributes];
+    return [_attributes count];
 }
 
 #pragma mark Attributes
@@ -341,14 +286,11 @@
 
 #pragma mark CDATA
 
-- (void)startCDATA;
+- (void)writeCDATAWithContentBlock:(void (^)(void))content;
 {
-    [self writeString:@"<![CDATA["];
-}
-
-- (void)endCDATA;
-{
-    [self writeString:@"]]>"];
+    [self startCDATA];
+    content();
+    [self endCDATA];
 }
 
 #pragma mark Indentation
@@ -363,6 +305,21 @@
 - (void)decreaseIndentationLevel;
 {
     [self setIndentationLevel:[self indentationLevel] - 1];
+}
+
+#pragma mark Validation
+
+- (BOOL)validateElement:(NSString *)element;
+{
+    NSParameterAssert(element);
+    return YES;
+}
+
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+{
+    NSParameterAssert(name);
+    NSParameterAssert(element);
+    return value;
 }
 
 #pragma mark Elements Stack
@@ -627,6 +584,97 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 #pragma mark -
 
 
+@implementation KSXMLWriter (PreBlocksSupport)
+
+- (void)startElement:(NSString *)elementName;
+{
+    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
+}
+
+- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
+{
+    // Can only write suitable tags inline if containing element also allows it
+    if (!writeInline)
+    {
+        [self startNewline];
+        [self stopWritingInline];
+    }
+    
+    // Warn of impending start
+    [self willStartElement:elementName];
+    
+    [self writeString:@"<"];
+    [self writeString:elementName];
+    
+    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
+    [self pushElement:elementName];
+    [self startWritingInline];
+    
+    
+    // Write attributes
+    [_attributes writeAttributes:self];
+    [_attributes close];
+    
+    
+    [self didStartElement];
+    [self increaseIndentationLevel];
+}
+
+- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
+{
+    for (NSString *aName in attributes)
+    {
+        NSString *aValue = [attributes objectForKey:aName];
+        [self pushAttribute:aName value:aValue];
+    }
+    
+    [self startElement:elementName];
+}
+
+- (void)endElement;
+{
+    // Handle whitespace
+	[self decreaseIndentationLevel];
+    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
+    
+    
+    // Write the tag itself.
+    if (_elementIsEmpty)
+    {
+        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
+        [self closeEmptyElementTag];
+    }
+    else
+    {
+        [self writeEndTag:[self topElement]];
+        [self popElement];
+    }
+}
+
+- (void)startCDATA;
+{
+    [self writeString:@"<![CDATA["];
+}
+
+- (void)endCDATA;
+{
+    [self writeString:@"]]>"];
+}
+
+- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
+{
+    [self startElement:elementName];
+    
+    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
+    return _contentsProxy;
+}
+
+@end
+
+
+#pragma mark -
+
+
 @implementation KSXMLAttributes (KSXMLWriter)
 
 - (void)writeAttributes:(KSXMLWriter *)writer;
@@ -650,7 +698,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
 {
-    OBPRECONDITION(writer);
+    NSParameterAssert(writer);
     
     _target = target;
     _XMLWriter = writer;
