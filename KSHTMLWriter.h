@@ -114,7 +114,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 //  <link>
 //  Goes in <head> to link to scripts, CSS, etc.
 - (void)writeLinkWithHref:(NSString *)href
-                     type:(NSString *)type  // if nil, default is "text/css"
+                     type:(NSString *)type
                       rel:(NSString *)rel
                     title:(NSString *)title
                     media:(NSString *)media;

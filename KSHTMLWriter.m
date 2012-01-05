@@ -256,7 +256,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                     media:(NSString *)media;
 {
     if (rel) [self pushAttribute:@"rel" value:rel];
-    if (!type) type = @"text/css";  [self pushAttribute:@"type" value:type];
+    if (type) [self pushAttribute:@"type" value:type];
     [self pushAttribute:@"href" value:href];
     if (title) [self pushAttribute:@"title" value:title];
     if (media) [self pushAttribute:@"media" value:media];
@@ -269,7 +269,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                         title:(NSString *)title
                         media:(NSString *)media;
 {
-    [self writeLinkWithHref:href type:nil rel:@"stylesheet" title:title media:media];
+    [self writeLinkWithHref:href type:@"text/css" rel:@"stylesheet" title:title media:media];
 }
 
 #pragma mark Scripts
