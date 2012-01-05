@@ -162,13 +162,9 @@
 - (void)writeString:(NSString *)string; // anything outside .encoding gets escaped
 
 
-@end
-
-
 #pragma mark -
-
-
-@interface KSXMLWriter (PreBlocksSupport)
+#pragma mark Pre-Blocks Support
+// Would be a category, but that confuses the compiler when looking for protocol-conformance in Sandvox
 
 // These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
 - (void)startElement:(NSString *)elementName;

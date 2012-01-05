@@ -578,13 +578,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
 }
 
-@end
-
-
 #pragma mark -
-
-
-@implementation KSXMLWriter (PreBlocksSupport)
+#pragma mark Pre-Blocks Support
 
 - (void)startElement:(NSString *)elementName;
 {
