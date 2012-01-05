@@ -479,7 +479,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         
         
         // Continue the search
-        searchRange.location = range.location + range.length;
+        searchRange.location = NSMaxRange(range);
         searchRange.length = [string length] - searchRange.location;
         range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
 	}	
