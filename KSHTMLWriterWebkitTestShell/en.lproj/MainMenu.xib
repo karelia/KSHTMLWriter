@@ -1304,7 +1304,7 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="WebView" id="107924003">
+						<object class="WebView" id="999201877">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">256</int>
 							<set class="NSMutableSet" key="NSDragTypes">
@@ -1346,6 +1346,7 @@
 					<string key="NSFrameSize">{480, 360}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="999201877"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -2044,17 +2045,49 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">webview</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="107924003"/>
+						<reference key="destination" ref="999201877"/>
 					</object>
 					<int key="connectionID">539</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">UIDelegate</string>
-						<reference key="source" ref="107924003"/>
+						<reference key="source" ref="999201877"/>
 						<reference key="destination" ref="976324537"/>
 					</object>
 					<int key="connectionID">538</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">resourceLoadDelegate</string>
+						<reference key="source" ref="999201877"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">540</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">policyDelegate</string>
+						<reference key="source" ref="999201877"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">541</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">frameLoadDelegate</string>
+						<reference key="source" ref="999201877"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">542</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">downloadDelegate</string>
+						<reference key="source" ref="999201877"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">543</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2581,7 +2614,7 @@
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="107924003"/>
+							<reference ref="999201877"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3060,7 +3093,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">536</int>
-						<reference key="object" ref="107924003"/>
+						<reference key="object" ref="999201877"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 				</array>
@@ -3226,7 +3259,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">539</int>
+			<int key="maxID">543</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

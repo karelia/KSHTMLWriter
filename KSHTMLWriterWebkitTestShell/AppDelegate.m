@@ -44,7 +44,18 @@
 {
     NSURL* url = [[NSBundle mainBundle] URLForResource:@"Stub" withExtension:@"html"];
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    [[self.webview webFrame] loadRequest:request];
+    [[self.webview mainFrame] loadRequest:request];
+}
+
+- (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
+{
+    NSLog(@"got title");
+    [self.window setTitle:title];
+}
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+{
+    NSLog(@"frame loaded");
 }
 
 @end
