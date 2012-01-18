@@ -468,7 +468,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriter/KSHTMLWriter-Prefix.pch";
+				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
 				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -480,7 +480,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriter/KSHTMLWriter-Prefix.pch";
+				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
 				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
