@@ -101,7 +101,7 @@
         NSUInteger index;
         for (index = 0; index < [attributes length]; index++)
         {
-            DOMAttr *anAttribute = (DOMAttr *)[attributes item:index];
+            DOMAttr *anAttribute = (DOMAttr *)[attributes item:(unsigned)index];
             [[self XMLWriter] pushAttribute:[anAttribute name] value:[anAttribute value]];
         }
     }
