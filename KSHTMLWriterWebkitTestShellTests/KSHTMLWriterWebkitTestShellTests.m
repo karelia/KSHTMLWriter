@@ -7,9 +7,13 @@
 //
 
 #import "KSHTMLWriterWebkitTestShellTests.h"
+#import "KSHTMLWriter.h"
+#import "KSStringWriter.h"
+#import "KSXMLWriterDOMAdaptor.h"
 
 #import "AppDelegate.h"
 #import "StubWindowController.h"
+#import <WebKit/WebKit.h>
 
 @implementation KSHTMLWriterWebkitTestShellTests
 
@@ -67,6 +71,26 @@
         NSError* error = nil;
         NSString* snippetHTML = [NSString stringWithContentsOfURL:snippetURL encoding:NSUTF8StringEncoding error:&error];
         [controller injectContent:snippetHTML];
+
+        KSStringWriter* output = [[KSStringWriter alloc] init];
+        KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+        KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer];
+        
+        DOMDocument* document = controller.webview.mainFrame.DOMDocument;
+        DOMElement* element = [document getElementById:@"content"];
+        [adaptor writeInnerOfDOMNode:element];
+
+        NSString* written = [output string];
+        NSLog(@"written %@", written);
+        STAssertTrue([written isEqualToString:snippetHTML], @"written html should match the original snippet");
+        
+        
+        [adaptor release];
+        [writer release];
+        
+        
+        [output release];
+        
     }
 
     STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");

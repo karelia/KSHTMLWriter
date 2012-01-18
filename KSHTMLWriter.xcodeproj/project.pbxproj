@@ -53,6 +53,9 @@
 		22C1948F14C7173A009A4406 /* StubWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1948E14C7173A009A4406 /* StubWindowController.m */; };
 		22C1949214C71774009A4406 /* StubWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C1949014C71774009A4406 /* StubWindow.xib */; };
 		22C194AA14C72D87009A4406 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C194A914C72D87009A4406 /* Snippets */; };
+		22C194AB14C73063009A4406 /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
+		22C194AC14C7307E009A4406 /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
+		22C194AD14C73090009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C194AB14C73063009A4406 /* libKSHTMLWriter.a in Frameworks */,
 				22C1948814C709A1009A4406 /* WebKit.framework in Frameworks */,
 				22C1945414C7012F009A4406 /* Cocoa.framework in Frameworks */,
 			);
@@ -172,6 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C194AD14C73090009A4406 /* WebKit.framework in Frameworks */,
+				22C194AC14C7307E009A4406 /* libKSHTMLWriter.a in Frameworks */,
 				22C1946D14C70130009A4406 /* SenTestingKit.framework in Frameworks */,
 				22C1946E14C70130009A4406 /* Cocoa.framework in Frameworks */,
 			);
