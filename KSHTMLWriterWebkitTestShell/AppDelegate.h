@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Webkit/WebKit.h>
+
+@class WindowController;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow* window;
-@property (assign) IBOutlet WebView* webview;
+@property (retain) IBOutlet WindowController* window;
 
 @end

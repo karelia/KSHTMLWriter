@@ -50,6 +50,8 @@
 		22C1947914C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */; };
 		22C1948414C70604009A4406 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C1948214C70604009A4406 /* Stub.html */; };
 		22C1948814C709A1009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
+		22C1948F14C7173A009A4406 /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1948E14C7173A009A4406 /* WindowController.m */; };
+		22C1949214C71774009A4406 /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C1949014C71774009A4406 /* Window.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,9 @@
 		22C1948114C70319009A4406 /* TESTS README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TESTS README.mdown"; sourceTree = "<group>"; };
 		22C1948314C70604009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Stub.html; sourceTree = "<group>"; };
 		22C1948714C709A1009A4406 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		22C1948D14C7173A009A4406 /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
+		22C1948E14C7173A009A4406 /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		22C1949114C71774009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Window.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +181,6 @@
 		22352B8514C6FCAF0031F5DD = {
 			isa = PBXGroup;
 			children = (
-				22C1948714C709A1009A4406 /* WebKit.framework */,
 				22352BD014C6FD260031F5DD /* README.mdown */,
 				22C1948114C70319009A4406 /* TESTS README.mdown */,
 				22352B9914C6FCB00031F5DD /* KSHTMLWriter */,
@@ -202,6 +206,7 @@
 		22352B9214C6FCB00031F5DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22C1948714C709A1009A4406 /* WebKit.framework */,
 				22352B9314C6FCB00031F5DD /* Cocoa.framework */,
 				22352BA514C6FCB00031F5DD /* SenTestingKit.framework */,
 				22352B9514C6FCB00031F5DD /* Other Frameworks */,
@@ -307,7 +312,10 @@
 			children = (
 				22C1946114C70130009A4406 /* AppDelegate.h */,
 				22C1946214C70130009A4406 /* AppDelegate.m */,
+				22C1948D14C7173A009A4406 /* WindowController.h */,
+				22C1948E14C7173A009A4406 /* WindowController.m */,
 				22C1946414C70130009A4406 /* MainMenu.xib */,
+				22C1949014C71774009A4406 /* Window.xib */,
 				22C1948214C70604009A4406 /* Stub.html */,
 				22C1945614C70130009A4406 /* Supporting Files */,
 			);
@@ -490,6 +498,7 @@
 				22C1946014C70130009A4406 /* Credits.rtf in Resources */,
 				22C1946614C70130009A4406 /* MainMenu.xib in Resources */,
 				22C1948414C70604009A4406 /* Stub.html in Resources */,
+				22C1949214C71774009A4406 /* Window.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +575,7 @@
 			files = (
 				22C1945C14C70130009A4406 /* main.m in Sources */,
 				22C1946314C70130009A4406 /* AppDelegate.m in Sources */,
+				22C1948F14C7173A009A4406 /* WindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +654,14 @@
 				22C1948314C70604009A4406 /* en */,
 			);
 			name = Stub.html;
+			sourceTree = "<group>";
+		};
+		22C1949014C71774009A4406 /* Window.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22C1949114C71774009A4406 /* en */,
+			);
+			name = Window.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -7,22 +7,13 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate()
-
-#pragma mark - Private Methods
-
-- (void)loadStubPage;
-
-@end
-
+#import "WindowController.h"
 
 @implementation AppDelegate
 
 #pragma mark - Properties
 
 @synthesize window = _window;
-@synthesize webview = _webview;
 
 #pragma mark - Object Lifecycle
 
@@ -35,27 +26,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [self loadStubPage];
+    self.window = [[[WindowController alloc] init] autorelease];
+    [self.window.window makeKeyAndOrderFront:self];
+    [self.window loadStubPage];
 }
 
-#pragma mark - Utilities
-
-- (void)loadStubPage
-{
-    NSURL* url = [[NSBundle mainBundle] URLForResource:@"Stub" withExtension:@"html"];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    [[self.webview mainFrame] loadRequest:request];
-}
-
-- (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
-{
-    NSLog(@"got title");
-    [self.window setTitle:title];
-}
-
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-{
-    NSLog(@"frame loaded");
-}
 
 @end

@@ -8,6 +8,8 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+@class WindowController;
+
 @interface KSHTMLWriterWebkitTestShellTests : SenTestCase
 
 @end
