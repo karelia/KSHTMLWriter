@@ -9,19 +9,19 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-@class WindowController;
+@class StubWindowController;
 
-@protocol StubDelegate <NSObject>
+@protocol StubWindowDelegate <NSObject>
 
-- (void)testWindowDidLoadStub:(WindowController*)window;
+- (void)stubWindowDidLoadStub:(StubWindowController*)window;
 
 @end
 
-@interface WindowController : NSWindowController
+@interface StubWindowController : NSWindowController
 
 @property (assign) IBOutlet WebView* webview;
 @property (assign) BOOL stubLoaded;
-@property (assign) id<StubDelegate> stubDelegate;
+@property (assign) id<StubWindowDelegate> stubDelegate;
 
 - (void)loadStubPage;
 - (void)injectContent:(NSString*)content;

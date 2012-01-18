@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "WindowController.h"
+#import "StubWindowController.h"
 
 #import <WebKit/WebKit.h>
 
-@interface WindowController()
+@interface StubWindowController()
 
 #pragma mark - Private Methods
 
@@ -18,7 +18,7 @@
 
 
 
-@implementation WindowController
+@implementation StubWindowController
 
 @synthesize stubDelegate;
 @synthesize stubLoaded;
@@ -26,7 +26,7 @@
 
 - (id)init
 {
-    self = [super initWithWindowNibName:@"Window"];
+    self = [super initWithWindowNibName:@"StubWindow"];
     if (self) 
     {
         // Initialization code here.
@@ -70,7 +70,7 @@
     self.stubLoaded = YES;
     if (stubDelegate)
     {
-        [stubDelegate testWindowDidLoadStub:self];
+        [stubDelegate stubWindowDidLoadStub:self];
     }
 }
 

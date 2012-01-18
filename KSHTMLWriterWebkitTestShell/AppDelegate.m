@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "WindowController.h"
+#import "StubWindowController.h"
 
 @implementation AppDelegate
 
@@ -26,13 +26,13 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.window = [[[WindowController alloc] init] autorelease];
+    self.window = [[[StubWindowController alloc] init] autorelease];
     self.window.stubDelegate = self;
     [self.window.window makeKeyAndOrderFront:self];
     [self.window loadStubPage];
 }
 
-- (void)testWindowDidLoadStub:(WindowController *)window
+- (void)stubWindowDidLoadStub:(StubWindowController *)window
 {
     [self.window injectContent:@"This is some injected content"];
 }

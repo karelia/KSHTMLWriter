@@ -9,7 +9,7 @@
 #import "KSHTMLWriterWebkitTestShellTests.h"
 
 #import "AppDelegate.h"
-#import "WindowController.h"
+#import "StubWindowController.h"
 
 @implementation KSHTMLWriterWebkitTestShellTests
 
@@ -33,7 +33,7 @@
 - (void)testStubLoading
 {
 
-    WindowController* controller = [[WindowController alloc] init];
+    StubWindowController* controller = [[StubWindowController alloc] init];
     [controller.window makeKeyAndOrderFront:self];
     [controller loadStubPage];
 

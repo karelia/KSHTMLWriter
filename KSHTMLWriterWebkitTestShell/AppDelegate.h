@@ -7,10 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "WindowController.h"
+#import "StubWindowController.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, StubDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, StubWindowDelegate>
 
-@property (retain) IBOutlet WindowController* window;
+@property (retain) IBOutlet StubWindowController* window;
 
 @end
