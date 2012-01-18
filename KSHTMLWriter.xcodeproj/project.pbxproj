@@ -1,0 +1,523 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
+		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
+		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
+		22352BAA14C6FCB00031F5DD /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
+		22352BB014C6FCB00031F5DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22352BAE14C6FCB00031F5DD /* InfoPlist.strings */; };
+		22352BB314C6FCB00031F5DD /* KSHTMLWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BB214C6FCB00031F5DD /* KSHTMLWriterTests.m */; };
+		22352BD114C6FD260031F5DD /* KSCSSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC014C6FD260031F5DD /* KSCSSWriter.h */; };
+		22352BD214C6FD260031F5DD /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
+		22352BD314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */; };
+		22352BD414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */; };
+		22352BD514C6FD260031F5DD /* KSHTMLWriter-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC614C6FD260031F5DD /* KSHTMLWriter-Prefix.pch */; };
+		22352BD614C6FD260031F5DD /* KSHTMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC714C6FD260031F5DD /* KSHTMLWriter.h */; };
+		22352BD714C6FD260031F5DD /* KSHTMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC814C6FD260031F5DD /* KSHTMLWriter.m */; };
+		22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */; };
+		22352BD914C6FD260031F5DD /* KSStringXMLEntityEscaping.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCA14C6FD260031F5DD /* KSStringXMLEntityEscaping.m */; };
+		22352BDA14C6FD260031F5DD /* KSXMLAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */; };
+		22352BDB14C6FD260031F5DD /* KSXMLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCD14C6FD260031F5DD /* KSXMLAttributes.m */; };
+		22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; };
+		22352BDD14C6FD260031F5DD /* KSXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCF14C6FD260031F5DD /* KSXMLWriter.m */; };
+		22C1943E14C6FE9D009A4406 /* KSBufferedWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */; };
+		22C1943F14C6FE9D009A4406 /* KSBufferedWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */; };
+		22C1944014C6FE9D009A4406 /* KSForwardingWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */; };
+		22C1944114C6FE9D009A4406 /* KSForwardingWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */; };
+		22C1944214C6FE9D009A4406 /* KSMutableDataWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */; };
+		22C1944314C6FE9D009A4406 /* KSMutableDataWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */; };
+		22C1944414C6FE9D009A4406 /* KSOutputStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */; };
+		22C1944514C6FE9D009A4406 /* KSOutputStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */; };
+		22C1944614C6FE9D009A4406 /* KSStringWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943A14C6FE9D009A4406 /* KSStringWriter.h */; };
+		22C1944714C6FE9D009A4406 /* KSStringWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943B14C6FE9D009A4406 /* KSStringWriter.m */; };
+		22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943C14C6FE9D009A4406 /* KSWriter.h */; };
+		22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22352BA814C6FCB00031F5DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22352B8714C6FCAF0031F5DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22352B8F14C6FCB00031F5DD;
+			remoteInfo = KSHTMLWriter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKSHTMLWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		22352B9314C6FCB00031F5DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		22352B9614C6FCB00031F5DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		22352B9714C6FCB00031F5DD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		22352B9814C6FCB00031F5DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSHTMLWriterTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22352BA514C6FCB00031F5DD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		22352BAD14C6FCB00031F5DD /* KSHTMLWriterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterTests-Info.plist"; sourceTree = "<group>"; };
+		22352BAF14C6FCB00031F5DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		22352BB114C6FCB00031F5DD /* KSHTMLWriterTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterTests.h; sourceTree = "<group>"; };
+		22352BB214C6FCB00031F5DD /* KSHTMLWriterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterTests.m; sourceTree = "<group>"; };
+		22352BC014C6FD260031F5DD /* KSCSSWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCSSWriter.h; sourceTree = "<group>"; };
+		22352BC114C6FD260031F5DD /* KSCSSWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSCSSWriter.m; sourceTree = "<group>"; };
+		22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSXMLWriterDOMAdaptor.h; sourceTree = "<group>"; };
+		22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterDOMAdaptor.m; sourceTree = "<group>"; };
+		22352BC614C6FD260031F5DD /* KSHTMLWriter-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSHTMLWriter-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		22352BC714C6FD260031F5DD /* KSHTMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriter.h; sourceTree = SOURCE_ROOT; };
+		22352BC814C6FD260031F5DD /* KSHTMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriter.m; sourceTree = SOURCE_ROOT; };
+		22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSStringXMLEntityEscaping.h; sourceTree = SOURCE_ROOT; };
+		22352BCA14C6FD260031F5DD /* KSStringXMLEntityEscaping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSStringXMLEntityEscaping.m; sourceTree = SOURCE_ROOT; };
+		22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSXMLAttributes.h; sourceTree = SOURCE_ROOT; };
+		22352BCD14C6FD260031F5DD /* KSXMLAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLAttributes.m; sourceTree = SOURCE_ROOT; };
+		22352BCE14C6FD260031F5DD /* KSXMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSXMLWriter.h; sourceTree = SOURCE_ROOT; };
+		22352BCF14C6FD260031F5DD /* KSXMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriter.m; sourceTree = SOURCE_ROOT; };
+		22352BD014C6FD260031F5DD /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = SOURCE_ROOT; };
+		22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBufferedWriter.h; sourceTree = "<group>"; };
+		22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBufferedWriter.m; sourceTree = "<group>"; };
+		22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSForwardingWriter.h; sourceTree = "<group>"; };
+		22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSForwardingWriter.m; sourceTree = "<group>"; };
+		22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMutableDataWriter.h; sourceTree = "<group>"; };
+		22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMutableDataWriter.m; sourceTree = "<group>"; };
+		22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSOutputStreamWriter.h; sourceTree = "<group>"; };
+		22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSOutputStreamWriter.m; sourceTree = "<group>"; };
+		22C1943A14C6FE9D009A4406 /* KSStringWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSStringWriter.h; sourceTree = "<group>"; };
+		22C1943B14C6FE9D009A4406 /* KSStringWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSStringWriter.m; sourceTree = "<group>"; };
+		22C1943C14C6FE9D009A4406 /* KSWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSWriter.h; sourceTree = "<group>"; };
+		22C1943D14C6FE9D009A4406 /* KSWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSWriter.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22352B8D14C6FCB00031F5DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22352BA014C6FCB00031F5DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */,
+				22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */,
+				22352BAA14C6FCB00031F5DD /* libKSHTMLWriter.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22352B8514C6FCAF0031F5DD = {
+			isa = PBXGroup;
+			children = (
+				22352BD014C6FD260031F5DD /* README.mdown */,
+				22352B9914C6FCB00031F5DD /* KSHTMLWriter */,
+				22352BAB14C6FCB00031F5DD /* KSHTMLWriterTests */,
+				22352B9214C6FCB00031F5DD /* Frameworks */,
+				22352B9114C6FCB00031F5DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		22352B9114C6FCB00031F5DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */,
+				22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22352B9214C6FCB00031F5DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22352B9314C6FCB00031F5DD /* Cocoa.framework */,
+				22352BA514C6FCB00031F5DD /* SenTestingKit.framework */,
+				22352B9514C6FCB00031F5DD /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22352B9514C6FCB00031F5DD /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22352B9614C6FCB00031F5DD /* AppKit.framework */,
+				22352B9714C6FCB00031F5DD /* CoreData.framework */,
+				22352B9814C6FCB00031F5DD /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		22352B9914C6FCB00031F5DD /* KSHTMLWriter */ = {
+			isa = PBXGroup;
+			children = (
+				22352BBF14C6FD260031F5DD /* CSS */,
+				22352BC214C6FD260031F5DD /* DOM */,
+				22352BC714C6FD260031F5DD /* KSHTMLWriter.h */,
+				22352BC814C6FD260031F5DD /* KSHTMLWriter.m */,
+				22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */,
+				22352BCA14C6FD260031F5DD /* KSStringXMLEntityEscaping.m */,
+				22352BCB14C6FD260031F5DD /* KSWriter */,
+				22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */,
+				22352BCD14C6FD260031F5DD /* KSXMLAttributes.m */,
+				22352BCE14C6FD260031F5DD /* KSXMLWriter.h */,
+				22352BCF14C6FD260031F5DD /* KSXMLWriter.m */,
+				22352B9A14C6FCB00031F5DD /* Supporting Files */,
+			);
+			path = KSHTMLWriter;
+			sourceTree = "<group>";
+		};
+		22352B9A14C6FCB00031F5DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22352BC614C6FD260031F5DD /* KSHTMLWriter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22352BAB14C6FCB00031F5DD /* KSHTMLWriterTests */ = {
+			isa = PBXGroup;
+			children = (
+				22352BB114C6FCB00031F5DD /* KSHTMLWriterTests.h */,
+				22352BB214C6FCB00031F5DD /* KSHTMLWriterTests.m */,
+				22352BAC14C6FCB00031F5DD /* Supporting Files */,
+			);
+			path = KSHTMLWriterTests;
+			sourceTree = "<group>";
+		};
+		22352BAC14C6FCB00031F5DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22352BAD14C6FCB00031F5DD /* KSHTMLWriterTests-Info.plist */,
+				22352BAE14C6FCB00031F5DD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22352BBF14C6FD260031F5DD /* CSS */ = {
+			isa = PBXGroup;
+			children = (
+				22352BC014C6FD260031F5DD /* KSCSSWriter.h */,
+				22352BC114C6FD260031F5DD /* KSCSSWriter.m */,
+			);
+			path = CSS;
+			sourceTree = SOURCE_ROOT;
+		};
+		22352BC214C6FD260031F5DD /* DOM */ = {
+			isa = PBXGroup;
+			children = (
+				22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */,
+				22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */,
+			);
+			path = DOM;
+			sourceTree = SOURCE_ROOT;
+		};
+		22352BCB14C6FD260031F5DD /* KSWriter */ = {
+			isa = PBXGroup;
+			children = (
+				22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */,
+				22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */,
+				22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */,
+				22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */,
+				22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */,
+				22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */,
+				22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */,
+				22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */,
+				22C1943A14C6FE9D009A4406 /* KSStringWriter.h */,
+				22C1943B14C6FE9D009A4406 /* KSStringWriter.m */,
+				22C1943C14C6FE9D009A4406 /* KSWriter.h */,
+				22C1943D14C6FE9D009A4406 /* KSWriter.m */,
+			);
+			path = KSWriter;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		22352B8E14C6FCB00031F5DD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352BD114C6FD260031F5DD /* KSCSSWriter.h in Headers */,
+				22352BD314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h in Headers */,
+				22352BD514C6FD260031F5DD /* KSHTMLWriter-Prefix.pch in Headers */,
+				22352BD614C6FD260031F5DD /* KSHTMLWriter.h in Headers */,
+				22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */,
+				22352BDA14C6FD260031F5DD /* KSXMLAttributes.h in Headers */,
+				22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */,
+				22C1943E14C6FE9D009A4406 /* KSBufferedWriter.h in Headers */,
+				22C1944014C6FE9D009A4406 /* KSForwardingWriter.h in Headers */,
+				22C1944214C6FE9D009A4406 /* KSMutableDataWriter.h in Headers */,
+				22C1944414C6FE9D009A4406 /* KSOutputStreamWriter.h in Headers */,
+				22C1944614C6FE9D009A4406 /* KSStringWriter.h in Headers */,
+				22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		22352B8F14C6FCB00031F5DD /* KSHTMLWriter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22352BB614C6FCB00031F5DD /* Build configuration list for PBXNativeTarget "KSHTMLWriter" */;
+			buildPhases = (
+				22352B8C14C6FCB00031F5DD /* Sources */,
+				22352B8D14C6FCB00031F5DD /* Frameworks */,
+				22352B8E14C6FCB00031F5DD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KSHTMLWriter;
+			productName = KSHTMLWriter;
+			productReference = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		22352BA314C6FCB00031F5DD /* KSHTMLWriterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22352BB914C6FCB00031F5DD /* Build configuration list for PBXNativeTarget "KSHTMLWriterTests" */;
+			buildPhases = (
+				22352B9F14C6FCB00031F5DD /* Sources */,
+				22352BA014C6FCB00031F5DD /* Frameworks */,
+				22352BA114C6FCB00031F5DD /* Resources */,
+				22352BA214C6FCB00031F5DD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22352BA914C6FCB00031F5DD /* PBXTargetDependency */,
+			);
+			name = KSHTMLWriterTests;
+			productName = KSHTMLWriterTests;
+			productReference = 22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22352B8714C6FCAF0031F5DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 22352B8A14C6FCAF0031F5DD /* Build configuration list for PBXProject "KSHTMLWriter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 22352B8514C6FCAF0031F5DD;
+			productRefGroup = 22352B9114C6FCB00031F5DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22352B8F14C6FCB00031F5DD /* KSHTMLWriter */,
+				22352BA314C6FCB00031F5DD /* KSHTMLWriterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22352BA114C6FCB00031F5DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352BB014C6FCB00031F5DD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22352BA214C6FCB00031F5DD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22352B8C14C6FCB00031F5DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352BD214C6FD260031F5DD /* KSCSSWriter.m in Sources */,
+				22352BD414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m in Sources */,
+				22352BD714C6FD260031F5DD /* KSHTMLWriter.m in Sources */,
+				22352BD914C6FD260031F5DD /* KSStringXMLEntityEscaping.m in Sources */,
+				22352BDB14C6FD260031F5DD /* KSXMLAttributes.m in Sources */,
+				22352BDD14C6FD260031F5DD /* KSXMLWriter.m in Sources */,
+				22C1943F14C6FE9D009A4406 /* KSBufferedWriter.m in Sources */,
+				22C1944114C6FE9D009A4406 /* KSForwardingWriter.m in Sources */,
+				22C1944314C6FE9D009A4406 /* KSMutableDataWriter.m in Sources */,
+				22C1944514C6FE9D009A4406 /* KSOutputStreamWriter.m in Sources */,
+				22C1944714C6FE9D009A4406 /* KSStringWriter.m in Sources */,
+				22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22352B9F14C6FCB00031F5DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22352BB314C6FCB00031F5DD /* KSHTMLWriterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22352BA914C6FCB00031F5DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22352B8F14C6FCB00031F5DD /* KSHTMLWriter */;
+			targetProxy = 22352BA814C6FCB00031F5DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		22352BAE14C6FCB00031F5DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22352BAF14C6FCB00031F5DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		22352BB414C6FCB00031F5DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		22352BB514C6FCB00031F5DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		22352BB714C6FCB00031F5DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22352BB814C6FCB00031F5DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		22352BBA14C6FCB00031F5DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSHTMLWriter/KSHTMLWriter-Prefix.pch";
+				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		22352BBB14C6FCB00031F5DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "KSHTMLWriter/KSHTMLWriter-Prefix.pch";
+				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22352B8A14C6FCAF0031F5DD /* Build configuration list for PBXProject "KSHTMLWriter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22352BB414C6FCB00031F5DD /* Debug */,
+				22352BB514C6FCB00031F5DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22352BB614C6FCB00031F5DD /* Build configuration list for PBXNativeTarget "KSHTMLWriter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22352BB714C6FCB00031F5DD /* Debug */,
+				22352BB814C6FCB00031F5DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22352BB914C6FCB00031F5DD /* Build configuration list for PBXNativeTarget "KSHTMLWriterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22352BBA14C6FCB00031F5DD /* Debug */,
+				22352BBB14C6FCB00031F5DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22352B8714C6FCAF0031F5DD /* Project object */;
+}
