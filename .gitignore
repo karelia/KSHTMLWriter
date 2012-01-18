@@ -1,11 +1,47 @@
-# Mac OS X
-*.DS_Store
+# A template for git ignore
 
-# Xcode
-*.pbxuser
+# Mac OS X Finder and whatnot
+.DS_Store
+
+
+# Sparkle distribution Private Key (Don't check me in!)
+dsa_priv.pem
+
+
+# XCode (and ancestors) per-user config (very noisy, and not relevant)
+*.mode1
 *.mode1v3
 *.mode2v3
+*.perspective
 *.perspectivev3
-*.xcuserstate
-project.xcworkspace/
-xcuserdata/
+*.pbxuser
+*xcuserdata*
+*.xcuserdatad
+
+# Generated files
+VersionX-revision.h
+
+
+# build products
+build/
+*.o
+
+# Other source repository archive directories (protects when importing)
+.hg
+.svn
+CVS
+
+# automatic backup files
+*~.nib
+*.swp
+*~
+*~.rtf
+*.orig
+*(Autosaved).rtfd/
+Backup[ ]of[ ]*.pages/
+Backup[ ]of[ ]*.key/
+Backup[ ]of[ ]*.numbers/
+
+
+# compiled python
+*.pyc
