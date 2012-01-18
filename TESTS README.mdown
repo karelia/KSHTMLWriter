@@ -24,6 +24,7 @@ Snippets
 --------
 
 The main application test does the following:
+
 - make a window with a web view in it
 - load a stub html document into the web view
 - run through a directory of html "snippets", doing the following
