@@ -8,6 +8,8 @@
 
 #import "WindowController.h"
 
+#import <WebKit/WebKit.h>
+
 @interface WindowController()
 
 #pragma mark - Private Methods
@@ -18,6 +20,7 @@
 
 @implementation WindowController
 
+@synthesize stubDelegate;
 @synthesize stubLoaded;
 @synthesize webview;
 
@@ -48,6 +51,15 @@
     [[self.webview mainFrame] loadRequest:request];
 }
 
+- (void)injectContent:(NSString *)content
+{
+    DOMDocument* document = [self.webview mainFrame].DOMDocument;
+    DOMHTMLElement* contentDiv = (DOMHTMLElement*) [document getElementById:@"content"];
+    [contentDiv setInnerHTML:content];
+}
+
+#pragma mark - Web View Delegate Methods
+
 - (void)webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
 {
     [self.window setTitle:title];
@@ -56,6 +68,10 @@
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     self.stubLoaded = YES;
+    if (stubDelegate)
+    {
+        [stubDelegate testWindowDidLoadStub:self];
+    }
 }
 
 @end

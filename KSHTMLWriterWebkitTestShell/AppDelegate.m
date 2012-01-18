@@ -27,9 +27,14 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.window = [[[WindowController alloc] init] autorelease];
+    self.window.stubDelegate = self;
     [self.window.window makeKeyAndOrderFront:self];
     [self.window loadStubPage];
 }
 
+- (void)testWindowDidLoadStub:(WindowController *)window
+{
+    [self.window injectContent:@"This is some injected content"];
+}
 
 @end

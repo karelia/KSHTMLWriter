@@ -23,11 +23,15 @@
     [super tearDown];
 }
 
-- (void)testStubLoaded
+- (void)testAppLoaded
 {
-    AppDelegate* app = [NSApplication sharedApplication].delegate;
+    AppDelegate* app = (AppDelegate*) [NSApplication sharedApplication].delegate;
     
     STAssertTrue(app != nil, @"Unit tests are not implemented yet in KSHTMLWriterWebkitTestShellTests");
+}
+
+- (void)testStubLoading
+{
 
     WindowController* controller = [[WindowController alloc] init];
     [controller.window makeKeyAndOrderFront:self];
@@ -38,7 +42,9 @@
     {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
     }
-    
+
+    STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
+
     [controller release];
 }
 
