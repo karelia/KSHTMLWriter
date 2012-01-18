@@ -7,6 +7,8 @@ The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies
 
 To run these, select the KSHTMLWriter scheme in Xcode, and choose "Test" from the "Product" menu.
 
+As it happens, there are no tests of this type at the moment. If there were though, this is where they would live.
+
 
 Application Tests
 -----------------

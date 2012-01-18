@@ -3,7 +3,7 @@
 //  KSHTMLWriterWebkitTestShellTests
 //
 //  Created by Sam Deane on 18/01/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
 #import "KSHTMLWriterWebkitTestShellTests.h"
