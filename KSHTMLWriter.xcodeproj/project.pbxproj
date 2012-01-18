@@ -119,7 +119,7 @@
 		22C1947514C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22C1947714C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterWebkitTestShellTests.h; sourceTree = "<group>"; };
 		22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterWebkitTestShellTests.m; sourceTree = "<group>"; };
-		22C1948014C7017D009A4406 /* TESTS.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = TESTS.mdown; sourceTree = "<group>"; };
+		22C1948114C70319009A4406 /* TESTS README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TESTS README.mdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				22352BD014C6FD260031F5DD /* README.mdown */,
-				22C1948014C7017D009A4406 /* TESTS.mdown */,
+				22C1948114C70319009A4406 /* TESTS README.mdown */,
 				22352B9914C6FCB00031F5DD /* KSHTMLWriter */,
 				22352BAB14C6FCB00031F5DD /* KSHTMLWriterTests */,
 				22C1945514C70130009A4406 /* KSHTMLWriterWebkitTestShell */,

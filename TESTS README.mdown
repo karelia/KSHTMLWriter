@@ -1,0 +1,19 @@
+There are two unit test targets in this project, and also an associated test shell application target.
+
+Logic Tests
+-----------
+
+The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies. 
+
+To run these, select the KSHTMLWriter scheme in Xcode, and choose "Test" from the "Product" menu.
+
+
+Application Tests
+-----------------
+
+The KSHTMLWriterWebkitTestShellTests target consists of tests that use the Webkit framework. 
+
+The Webkit tests need to run in the context of an application with a UI. This is the KSHTMLWriterWebkitTestShell target.
+
+To run these tests, select the KSHTMLWriteWebkitTestShell scheme in Xcode, and choose "Test" from the "Product" menu.
+
