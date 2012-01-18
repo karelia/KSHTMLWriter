@@ -1,7 +1,7 @@
 There are two unit test targets in this project, and also an associated test shell application target.
 
 Logic Tests
------------
+===========
 
 The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies. 
 
@@ -11,7 +11,7 @@ As it happens, there are no tests of this type at the moment. If there were thou
 
 
 Application Tests
------------------
+=================
 
 The KSHTMLWriterWebkitTestShellTests target consists of tests that use the Webkit framework. 
 
@@ -19,3 +19,23 @@ The Webkit tests need to run in the context of an application with a UI. This is
 
 To run these tests, select the KSHTMLWriteWebkitTestShell scheme in Xcode, and choose "Test" from the "Product" menu.
 
+
+Snippets
+--------
+
+The main application test does the following:
+- make a window with a web view in it
+- load a stub html document into the web view
+- run through a directory of html "snippets", doing the following
+-- insert the html from the snippet into a content <div> in the webview
+-- write out the resulting DOMElement using KSHTMLWriter
+-- compare the generated output against the original input snippet
+
+This test fails if any KSHTMLWriter fails to generate identical output for any of the snippets. 
+It is currently whitespace sensitive and does an exact string comparison, which may be overkill.
+
+Note that every snippet is currently tested within a single unit test. It would be nice to represent each snippet
+as a different test in the unit test output, but certainly the basic usage pattern of the unit test framework expects
+a one-to-one mapping between methods and unit tests, so I'd have to generate the methods dynamically based on the content
+of the snippets directory. That's do-able, but perhaps going a bit too far. I'll look into this as there may well be
+another way to get the unit test framework to run multiple instances of a test with different input parameters (which would be ideal).
