@@ -48,4 +48,30 @@
     [controller release];
 }
 
+- (void)testWritingSnippets
+{
+    
+    StubWindowController* controller = [[StubWindowController alloc] init];
+    [controller.window makeKeyAndOrderFront:self];
+    [controller loadStubPage];
+    
+    [NSRunLoop currentRunLoop];
+    while (controller.stubLoaded == NO)
+    {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    }
+    
+    NSArray* snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"html" subdirectory:@"Snippets"];
+    for (NSURL* snippetURL in snippets)
+    {
+        NSError* error = nil;
+        NSString* snippetHTML = [NSString stringWithContentsOfURL:snippetURL encoding:NSUTF8StringEncoding error:&error];
+        [controller injectContent:snippetHTML];
+    }
+
+    STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
+    
+    [controller release];
+}
+
 @end

@@ -52,7 +52,7 @@
 		22C1948814C709A1009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
 		22C1948F14C7173A009A4406 /* StubWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1948E14C7173A009A4406 /* StubWindowController.m */; };
 		22C1949214C71774009A4406 /* StubWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C1949014C71774009A4406 /* StubWindow.xib */; };
-		22C194A814C72AC2009A4406 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C194A614C72AC2009A4406 /* Snippets */; };
+		22C194AA14C72D87009A4406 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C194A914C72D87009A4406 /* Snippets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,7 +137,7 @@
 		22C1948D14C7173A009A4406 /* StubWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubWindowController.h; sourceTree = "<group>"; };
 		22C1948E14C7173A009A4406 /* StubWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubWindowController.m; sourceTree = "<group>"; };
 		22C1949114C71774009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/StubWindow.xib; sourceTree = "<group>"; };
-		22C194A714C72AC2009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en; path = en.lproj/Snippets; sourceTree = "<group>"; };
+		22C194A914C72D87009A4406 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,7 +319,7 @@
 				22C1946414C70130009A4406 /* MainMenu.xib */,
 				22C1949014C71774009A4406 /* StubWindow.xib */,
 				22C1948214C70604009A4406 /* Stub.html */,
-				22C194A614C72AC2009A4406 /* Snippets */,
+				22C194A914C72D87009A4406 /* Snippets */,
 				22C1945614C70130009A4406 /* Supporting Files */,
 			);
 			path = KSHTMLWriterWebkitTestShell;
@@ -502,7 +502,7 @@
 				22C1946614C70130009A4406 /* MainMenu.xib in Resources */,
 				22C1948414C70604009A4406 /* Stub.html in Resources */,
 				22C1949214C71774009A4406 /* StubWindow.xib in Resources */,
-				22C194A814C72AC2009A4406 /* Snippets in Resources */,
+				22C194AA14C72D87009A4406 /* Snippets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,14 +666,6 @@
 				22C1949114C71774009A4406 /* en */,
 			);
 			name = StubWindow.xib;
-			sourceTree = "<group>";
-		};
-		22C194A614C72AC2009A4406 /* Snippets */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C194A714C72AC2009A4406 /* en */,
-			);
-			name = Snippets;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
