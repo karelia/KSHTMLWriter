@@ -20,9 +20,13 @@
 
 @implementation StubWindowController
 
+#pragma mark - Properties
+
 @synthesize stubDelegate;
 @synthesize stubLoaded;
 @synthesize webview;
+
+#pragma mark - Object Lifecycle
 
 - (id)init
 {
@@ -34,6 +38,8 @@
     
     return self;
 }
+
+#pragma mark - Window Delegate
 
 - (void)windowDidLoad
 {
