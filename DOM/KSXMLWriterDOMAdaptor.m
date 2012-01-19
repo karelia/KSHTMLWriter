@@ -98,10 +98,10 @@
     if ([element hasAttributes]) // -[DOMElement attributes] is slow as it has to allocate an object. #78691
     {
         DOMNamedNodeMap *attributes = [element attributes];
-        NSUInteger index;
+        unsigned index;
         for (index = 0; index < [attributes length]; index++)
         {
-            DOMAttr *anAttribute = (DOMAttr *)[attributes item:(unsigned)index];
+            DOMAttr *anAttribute = (DOMAttr *)[attributes item:index];
             [[self XMLWriter] pushAttribute:[anAttribute name] value:[anAttribute value]];
         }
     }
