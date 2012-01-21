@@ -30,9 +30,6 @@
 #import "KSXMLAttributes.h"
 
 
-@class KSXMLElementContentsProxy;
-
-
 @interface KSXMLWriter : KSForwardingWriter
 {
   @private
@@ -40,9 +37,7 @@
     NSMutableArray  *_openElements;
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
-    
-    KSXMLElementContentsProxy   *_contentsProxy;
-    
+        
     NSInteger   _indentation;
     
     NSStringEncoding    _encoding;
@@ -174,20 +169,6 @@
 
 - (void)startCDATA;
 - (void)endCDATA;
-
-//  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
-//
-//      [[writer writeElement:@"foo" contentsInvocationTarget:self]
-//         writeFooContents];
-//
-//  Where if the -writeFooContents method writes another element and some text, you get this markup:
-//
-//      <foo>
-//          <bar>baz</baz>
-//      </foo>
-//
-//  This is about the same amount of code as calling -startElement: and -endElement: seperately. But, it can help make your code more readable, and will also sanity check to make sure the contents invocation balanced its calls to -startElement: and -endElement:
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
 
 @end
 
