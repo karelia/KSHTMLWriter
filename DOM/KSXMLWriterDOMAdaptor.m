@@ -31,8 +31,10 @@
 
 - (id)initWithXMLWriter:(KSXMLWriter *)writer;
 {
-    [self init];
-    _writer = [writer retain];
+    if (self = [self init])
+    {
+        _writer = [writer retain];
+    }
     return self;
 }
 

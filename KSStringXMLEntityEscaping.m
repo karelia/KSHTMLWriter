@@ -90,8 +90,10 @@
 
 - (id)initWithOutputXMLWriter:(id <KSWriter>)output;	// designated initializer
 {
-    [self init];
-    _output = [output retain];
+    if (self = [self init])
+    {
+        _output = [output retain];
+    }
     return self;
 }
 

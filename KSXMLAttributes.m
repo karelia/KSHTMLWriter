@@ -17,17 +17,19 @@
 
 - (id)init;
 {
-    [super init];
-    _attributes = [[NSMutableArray alloc] initWithCapacity:2];
+    if (self = [super init])
+    {
+        _attributes = [[NSMutableArray alloc] initWithCapacity:2];
+    }
     return self;
 }
 
 - (id)initWithXMLAttributes:(KSXMLAttributes *)info;
 {
-    self = [super init];    // call super, so _attributes is still nil
-    
-    _attributes = [info->_attributes mutableCopy];
-    
+    if (self = [super init])    // call super, so _attributes is still nil
+    {
+        _attributes = [info->_attributes mutableCopy];
+    }
     return self;
 }
 
