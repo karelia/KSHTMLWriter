@@ -51,11 +51,12 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (id)initWithOutputWriter:(id <KSWriter>)output;
 {
-    [super initWithOutputWriter:output];
-    
-    [self setDocType:KSHTMLWriterDocTypeHTML_5];
-    _IDs = [[NSMutableSet alloc] init];
-    _classNames = [[NSMutableArray alloc] init];
+    if (self = [super initWithOutputWriter:output])
+    {
+        [self setDocType:KSHTMLWriterDocTypeHTML_5];
+        _IDs = [[NSMutableSet alloc] init];
+        _classNames = [[NSMutableArray alloc] init];
+    }
     
     return self;
 }

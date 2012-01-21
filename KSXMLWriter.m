@@ -85,18 +85,18 @@
 
 - (id)initWithOutputWriter:(id <KSWriter>)output; // designated initializer
 {
-    [super initWithOutputWriter:output];
-    
-    _attributes = [[KSXMLAttributes alloc] init];
-    _openElements = [[NSMutableArray alloc] init];
-    
-    // Inherit encoding where possible
-    _encoding = ([output respondsToSelector:@selector(encoding)] ?
-                 [(KSXMLWriter *)output encoding] :
-                 NSUTF8StringEncoding);
-    
-    _contentsProxy = [KSXMLElementContentsProxy alloc]; // it's a proxy without an -init method
-    
+    if (self = [super initWithOutputWriter:output])
+    {
+        _attributes = [[KSXMLAttributes alloc] init];
+        _openElements = [[NSMutableArray alloc] init];
+        
+        // Inherit encoding where possible
+        _encoding = ([output respondsToSelector:@selector(encoding)] ?
+                     [(KSXMLWriter *)output encoding] :
+                     NSUTF8StringEncoding);
+        
+        _contentsProxy = [KSXMLElementContentsProxy alloc]; // it's a proxy without an -init method
+    }
     return self;
 }
 
@@ -578,13 +578,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
 }
 
-@end
-
-
 #pragma mark -
-
-
-@implementation KSXMLWriter (PreBlocksSupport)
+#pragma mark Pre-Blocks Support
 
 - (void)startElement:(NSString *)elementName;
 {
