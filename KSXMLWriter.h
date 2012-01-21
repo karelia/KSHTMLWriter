@@ -64,7 +64,7 @@
 
 #pragma mark Characters
 
-//  Escapes the string and calls -writeString:. NOT intended for writing text-like strings e.g. element attributed
+//  Escapes the string and calls -writeString:. NOT intended for other text-like strings such as element attributes
 - (void)writeCharacters:(NSString *)string;
 
 // Convenience to perform escaping without instantiating a writer
