@@ -133,7 +133,6 @@
 		22C1946C14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSHTMLWriterWebkitTestShellTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C1947314C70130009A4406 /* KSHTMLWriterWebkitTestShellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterWebkitTestShellTests-Info.plist"; sourceTree = "<group>"; };
 		22C1947514C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		22C1947714C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterWebkitTestShellTests.h; sourceTree = "<group>"; };
 		22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterWebkitTestShellTests.m; sourceTree = "<group>"; };
 		22C1948114C70319009A4406 /* TESTS README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TESTS README.mdown"; sourceTree = "<group>"; };
 		22C1948314C70604009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Stub.html; sourceTree = "<group>"; };
@@ -347,7 +346,6 @@
 		22C1947114C70130009A4406 /* KSHTMLWriterWebkitTestShellTests */ = {
 			isa = PBXGroup;
 			children = (
-				22C1947714C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.h */,
 				22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */,
 				22C1947214C70130009A4406 /* Supporting Files */,
 			);

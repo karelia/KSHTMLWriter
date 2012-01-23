@@ -6,14 +6,21 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "KSHTMLWriterWebkitTestShellTests.h"
 #import "KSHTMLWriter.h"
 #import "KSStringWriter.h"
 #import "KSXMLWriterDOMAdaptor.h"
 
 #import "AppDelegate.h"
 #import "StubWindowController.h"
+
+#import <SenTestingKit/SenTestingKit.h>
 #import <WebKit/WebKit.h>
+
+@class StubWindowController;
+
+@interface KSHTMLWriterWebkitTestShellTests : SenTestCase
+
+@end
 
 @implementation KSHTMLWriterWebkitTestShellTests
 
