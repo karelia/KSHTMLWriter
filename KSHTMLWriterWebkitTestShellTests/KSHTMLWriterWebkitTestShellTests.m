@@ -41,7 +41,6 @@
     [controller.window makeKeyAndOrderFront:self];
     [controller loadStubPage];
 
-    [NSRunLoop currentRunLoop];
     while (controller.stubLoaded == NO)
     {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
@@ -59,7 +58,6 @@
     [controller.window makeKeyAndOrderFront:self];
     [controller loadStubPage];
     
-    [NSRunLoop currentRunLoop];
     while (controller.stubLoaded == NO)
     {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
