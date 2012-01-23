@@ -30,9 +30,6 @@
 #import "KSXMLAttributes.h"
 
 
-@class KSXMLElementContentsProxy;
-
-
 @interface KSXMLWriter : KSForwardingWriter
 {
   @private
@@ -40,9 +37,7 @@
     NSMutableArray  *_openElements;
     BOOL            _elementIsEmpty;
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
-    
-    KSXMLElementContentsProxy   *_contentsProxy;
-    
+        
     NSInteger   _indentation;
     
     NSStringEncoding    _encoding;
@@ -69,7 +64,7 @@
 
 #pragma mark Characters
 
-//  Escapes the string and calls -writeString:. NOT intended for writing text-like strings e.g. element attributed
+//  Escapes the string and calls -writeString:. NOT intended for other text-like strings such as element attributes
 - (void)writeCharacters:(NSString *)string;
 
 // Convenience to perform escaping without instantiating a writer
@@ -162,13 +157,9 @@
 - (void)writeString:(NSString *)string; // anything outside .encoding gets escaped
 
 
-@end
-
-
 #pragma mark -
-
-
-@interface KSXMLWriter (PreBlocksSupport)
+#pragma mark Pre-Blocks Support
+// Would be a category, but that confuses the compiler when looking for protocol-conformance in Sandvox
 
 // These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
 - (void)startElement:(NSString *)elementName;
@@ -178,20 +169,6 @@
 
 - (void)startCDATA;
 - (void)endCDATA;
-
-//  Since we don't have blocks support yet, this is a slight approximation. You could do something like this:
-//
-//      [[writer writeElement:@"foo" contentsInvocationTarget:self]
-//         writeFooContents];
-//
-//  Where if the -writeFooContents method writes another element and some text, you get this markup:
-//
-//      <foo>
-//          <bar>baz</baz>
-//      </foo>
-//
-//  This is about the same amount of code as calling -startElement: and -endElement: seperately. But, it can help make your code more readable, and will also sanity check to make sure the contents invocation balanced its calls to -startElement: and -endElement:
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
 
 @end
 

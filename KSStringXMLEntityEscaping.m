@@ -50,8 +50,7 @@
 	NSString *result = NSMakeCollectable(CFXMLCreateStringByEscapingEntities(NULL,
                                                                              (CFStringRef)self,
                                                                              (CFMutableDictionaryRef)entities));
-	result = [result autorelease];
-	return result;
+	return [result autorelease];
 }
 
 #endif
@@ -74,8 +73,7 @@
 	NSString *result = NSMakeCollectable(CFXMLCreateStringByUnescapingEntities(NULL,
                                                                                (CFStringRef)self,
                                                                                (CFMutableDictionaryRef)entities));
-	result = [result autorelease];
-	return result;
+	return [result autorelease];
     
 #endif
 }
@@ -90,8 +88,10 @@
 
 - (id)initWithOutputXMLWriter:(id <KSWriter>)output;	// designated initializer
 {
-    [self init];
-    _output = [output retain];
+    if (self = [self init])
+    {
+        _output = [output retain];
+    }
     return self;
 }
 

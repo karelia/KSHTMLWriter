@@ -28,20 +28,6 @@
 #import "KSXMLWriter.h"
 
 
-@interface KSXMLElementContentsProxy : NSProxy
-{
-  @private
-    id          _target;        // weak ref
-    KSXMLWriter *_XMLWriter;    // weak ref
-    NSUInteger  _elementsCount;
-}
-- (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
-@end
-
-
-#pragma mark -
-
-
 @interface KSXMLWriter ()
 
 - (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
@@ -85,18 +71,16 @@
 
 - (id)initWithOutputWriter:(id <KSWriter>)output; // designated initializer
 {
-    [super initWithOutputWriter:output];
-    
-    _attributes = [[KSXMLAttributes alloc] init];
-    _openElements = [[NSMutableArray alloc] init];
-    
-    // Inherit encoding where possible
-    _encoding = ([output respondsToSelector:@selector(encoding)] ?
-                 [(KSXMLWriter *)output encoding] :
-                 NSUTF8StringEncoding);
-    
-    _contentsProxy = [KSXMLElementContentsProxy alloc]; // it's a proxy without an -init method
-    
+    if (self = [super initWithOutputWriter:output])
+    {
+        _attributes = [[KSXMLAttributes alloc] init];
+        _openElements = [[NSMutableArray alloc] init];
+        
+        // Inherit encoding where possible
+        _encoding = ([output respondsToSelector:@selector(encoding)] ?
+                     [(KSXMLWriter *)output encoding] :
+                     NSUTF8StringEncoding);
+    }
     return self;
 }
 
@@ -114,7 +98,6 @@
 {    
     [_openElements release];
     [_attributes release];
-    [_contentsProxy release];
     
     [super dealloc];
 }
@@ -578,13 +561,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
 }
 
-@end
-
-
 #pragma mark -
-
-
-@implementation KSXMLWriter (PreBlocksSupport)
+#pragma mark Pre-Blocks Support
 
 - (void)startElement:(NSString *)elementName;
 {
@@ -661,14 +639,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [self writeString:@"]]>"];
 }
 
-- (id)writeElement:(NSString *)elementName contentsInvocationTarget:(id)target;
-{
-    [self startElement:elementName];
-    
-    [_contentsProxy ks_prepareWithTarget:target XMLWriter:self];
-    return _contentsProxy;
-}
-
 @end
 
 
@@ -685,44 +655,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         NSString *value = [_attributes objectAtIndex:i+1];
         [writer writeAttribute:attribute value:value];
     }
-}
-
-@end
-
-
-
-#pragma mark -
-
-
-@implementation KSXMLElementContentsProxy
-
-- (void)ks_prepareWithTarget:(id)target XMLWriter:(KSXMLWriter *)writer;
-{
-    NSParameterAssert(writer);
-    
-    _target = target;
-    _XMLWriter = writer;
-    _elementsCount = [writer openElementsCount];
-}
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
-{
-    return [_target methodSignatureForSelector:sel];
-}
-
-- (void)forwardInvocation:(NSInvocation *)invocation;
-{
-    KSXMLWriter *writer = _XMLWriter;           // copy to local vars since invocation may fire off another
-    NSUInteger elementsCount = _elementsCount;  // invocation internally, resetting these ivars. #103849
-    
-    // Forward on
-    [invocation invokeWithTarget:_target];
-    _target = nil;
-    
-    // End element
-    NSAssert([writer openElementsCount] == elementsCount, @"Writing element contents did not end the same number of sub-elements as it started");
-    [writer endElement];
-    _XMLWriter = nil;
 }
 
 @end

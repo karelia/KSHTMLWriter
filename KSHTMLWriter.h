@@ -100,6 +100,9 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
                                rel:(NSString *)relString
                            content:(void (^)(void))content; // a block must provided - an empty anchor doesn't make sense!
 
+// Deprecated
+- (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
+
 
 #pragma mark Images
 //  <img src="..." alt="..." width="..." height="..." />
