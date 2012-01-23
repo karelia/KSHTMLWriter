@@ -35,4 +35,16 @@
     [output release];
 }
 
+- (void)testClearing
+{
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    [output writeString:@"test"];
+    STAssertTrue([[output string] isEqualToString:@"test"], @"string is correct");
+    
+    [output removeAllCharacters];
+    STAssertTrue([[output string] isEqualToString:@""], @"string is empty");
+    
+    [output release];
+}
+
 @end
