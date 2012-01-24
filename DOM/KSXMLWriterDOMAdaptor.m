@@ -31,9 +31,15 @@
 
 - (id)initWithXMLWriter:(KSXMLWriter *)writer;
 {
+    return [self initWithXMLWriter:writer options:NSXMLNodeOptionsNone];
+}
+
+- (id)initWithXMLWriter:(KSXMLWriter *)writer options:(KSXMLWriterDOMAdaptorOptions)options;
+{
     if (self = [self init])
     {
         _writer = [writer retain];
+        _options = options;
     }
     return self;
 }
@@ -45,6 +51,7 @@
 }
 
 @synthesize XMLWriter = _writer;
+@synthesize options = _options;
 
 #pragma mark Convenience
 
@@ -109,7 +116,8 @@
     }
     
     
-    [[self XMLWriter] startElement:elementName writeInline:YES];
+    BOOL prettyPrint = ([self options] & KSXMLWriterDOMAdaptorPrettyPrint);   // pretty printing leaves the writer to make whitespace
+    [[self XMLWriter] startElement:elementName writeInline:!prettyPrint];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
@@ -333,7 +341,19 @@
 
 - (DOMNode *)writeData:(NSString *)data toHTMLWriter:(KSXMLWriterDOMAdaptor *)adaptor;
 {
-    //  The text to write is passed in (rather than calling [self data]) so as to handle writing a subset of it
+    /*  The text to write is passed in (rather than calling [self data]) so as to handle writing a subset of it
+     */
+    
+    // Whitespace will be provided by the XML writer when pretty printing, rather than us
+    if ([adaptor options] & KSXMLWriterDOMAdaptorPrettyPrint)
+    {
+        data = [data stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        // Ignore nodes which are naught but whitespace
+        if ([data length] == 0) return [super ks_writeHTML:adaptor];
+    }
+    
+    
     [[adaptor XMLWriter] writeCharacters:data];
     return [super ks_writeHTML:adaptor];
 }
