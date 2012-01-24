@@ -11,11 +11,18 @@
 #import "KSXMLWriter.h"
 
 
+typedef enum {
+    KSXMLWriterOptionsNone = NSXMLNodeOptionsNone,
+    KSXMLWriterDOMAdaptorPrettyPrint = NSXMLNodePrettyPrint,
+} KSXMLWriterDOMAdaptorOptions;
+
+
 @protocol KSXMLWriterDOMAdaptorDelegate;
 @interface KSXMLWriterDOMAdaptor : NSObject
 {
   @private
     KSXMLWriter *_writer;
+    KSXMLWriterDOMAdaptorOptions    _options;
     
     id <KSXMLWriterDOMAdaptorDelegate>   _delegate;
 }
@@ -26,8 +33,11 @@
 
 
 #pragma mark Init
-- (id)initWithXMLWriter:(KSXMLWriter *)writer;
+- (id)initWithXMLWriter:(KSXMLWriter *)writer;  // no options
+- (id)initWithXMLWriter:(KSXMLWriter *)writer options:(KSXMLWriterDOMAdaptorOptions)options;
+
 @property(nonatomic, retain, readonly) KSXMLWriter *XMLWriter;
+@property(nonatomic, readonly) KSXMLWriterDOMAdaptorOptions options;
 
 
 #pragma mark High Level
