@@ -86,7 +86,7 @@
         [adaptor writeInnerOfDOMNode:element];
 
         NSString* written = [output string];
-        NSLog(@"written %@", written);
+        NSLog(@"written:\n%@", written);
         STAssertTrue([written isEqualToString:snippetHTML], @"written html should match the original snippet");
         
         
