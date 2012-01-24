@@ -165,9 +165,9 @@
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
-    [self startElement:elementName attributes:nil];
-    [self writeCharacters:text];
-    [self endElement];
+    [self writeElement:elementName content:^{
+        [self writeCharacters:text];
+    }];
 }
 
 - (void)willStartElement:(NSString *)element; { /* for subclassers */ }
