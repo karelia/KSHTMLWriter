@@ -598,17 +598,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [self increaseIndentationLevel];
 }
 
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self startElement:elementName];
-}
-
 - (void)endElement;
 {
     // Handle whitespace
