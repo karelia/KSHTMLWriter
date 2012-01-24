@@ -109,7 +109,7 @@
     }
     
     
-    [[self XMLWriter] startElement:elementName];
+    [[self XMLWriter] startElement:elementName writeInline:YES];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
