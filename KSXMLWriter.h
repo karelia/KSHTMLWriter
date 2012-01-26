@@ -78,9 +78,10 @@
 
 #pragma mark Elements
 
-// Need to force inline writing? Fall back to the old -startElement… API for now
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
 - (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+
+/* Need to force inline writing? Fall back to the old -startElement… API for now */
 
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
