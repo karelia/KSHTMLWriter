@@ -58,6 +58,31 @@
     [controller release];
 }
 
+- (BOOL)string:(NSString*)string1 matchesString:(NSString*)string2
+{
+    ;
+    
+    NSUInteger length = [string1 length];
+    BOOL match = ([string2 length] == length);
+    
+    if (match)
+    {
+        for (NSUInteger n = 0; n < length; ++n)
+        {
+            UniChar c1 = [string1 characterAtIndex:n];
+            UniChar c2 = [string2 characterAtIndex:n];
+            if (c1 != c2)
+            {
+                NSLog(@"Comparison failed at character %ld (0x%x '%c' vs 0x%x '%c') of '%@'", n, c1, c1, c2, c2, string1);
+                match = NO;
+                break;
+            }
+        }
+    }
+
+    return match;
+}
+
 - (void)testWritingSnippetsWithWriterClass:(Class)writerClass
 {
     
@@ -86,9 +111,8 @@
         [adaptor writeInnerOfDOMNode:element];
 
         NSString* written = [output string];
-        NSLog(@"written %@", written);
-        STAssertTrue([written isEqualToString:snippetHTML], @"written html should match the original snippet");
-        
+        NSLog(@"written '%@' expected '%@'", written, snippetHTML);
+        STAssertTrue([self string:written matchesString:snippetHTML], @"written html should match the original snippet");
         
         [adaptor release];
         [writer release];
