@@ -186,12 +186,16 @@
     [self assertString:generated matchesString:@"<foo><!--this is a comment-->this is not a comment<!--this is another comment--></foo>"];
 }
 
-#if TODO // TODO - list of initial things to test
-
-5. Combinations of the above, when nested inside elements 
-7. -startDocumentWithDocType:encoding:
-
-#endif
-
+- (void)testStartDocument
+{
+    [writer startDocumentWithDocType:@"some-type" encoding:NSUTF8StringEncoding];
+    [writer writeElement:@"foo" attributes:nil content:^{
+        [writer writeCharacters:@"bar"];
+    }];
+    
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:@"<!DOCTYPE some-type>\n<foo>bar</foo>"];
+    
+}
 
 @end
