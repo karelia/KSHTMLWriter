@@ -33,9 +33,9 @@
 {
     KSStringWriter* output = [[KSStringWriter alloc] init];
     KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
-    [writer startElement:@"foo" attributes:nil];
-    [writer writeCharacters:@"bar"];
-    [writer endElement];
+    [writer writeElement:@"foo" attributes:nil content:^{
+         [writer writeCharacters:@"bar"];
+     }];
     
     NSString* generated = [output string];
     [output release];

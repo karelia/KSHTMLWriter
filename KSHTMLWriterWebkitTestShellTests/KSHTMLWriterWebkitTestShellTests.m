@@ -58,7 +58,7 @@
     [controller release];
 }
 
-- (void)testWritingSnippets
+- (void)testWritingSnippetsWithWriterClass:(Class)writerClass
 {
     
     StubWindowController* controller = [[StubWindowController alloc] init];
@@ -78,7 +78,7 @@
         [controller injectContent:snippetHTML];
 
         KSStringWriter* output = [[KSStringWriter alloc] init];
-        KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+        KSXMLWriter* writer = [[writerClass alloc] initWithOutputWriter:output];
         KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer];
         
         DOMDocument* document = controller.webview.mainFrame.DOMDocument;
@@ -102,5 +102,16 @@
     
     [controller release];
 }
+
+- (void)testWritingSnippetsWithHTMLWriter
+{
+    [self testWritingSnippetsWithWriterClass:[KSHTMLWriter class]];
+}
+
+- (void)testWritingSnippetsWithXMLWriter
+{
+    [self testWritingSnippetsWithWriterClass:[KSXMLWriter class]];
+}
+
 
 @end
