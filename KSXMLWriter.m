@@ -165,9 +165,9 @@
 
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
-    [self startElement:elementName attributes:nil];
-    [self writeCharacters:text];
-    [self endElement];
+    [self writeElement:elementName content:^{
+        [self writeCharacters:text];
+    }];
 }
 
 - (void)willStartElement:(NSString *)element; { /* for subclassers */ }
@@ -596,17 +596,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     [self didStartElement];
     [self increaseIndentationLevel];
-}
-
-- (void)startElement:(NSString *)elementName attributes:(NSDictionary *)attributes;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self startElement:elementName];
 }
 
 - (void)endElement;

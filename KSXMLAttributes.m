@@ -105,21 +105,4 @@
     return [[[KSXMLAttributes class] alloc] initWithXMLAttributes:self];
 }
 
-#pragma mark Description
-
-- (NSString *)description;
-{
-    NSMutableString *result = [NSMutableString stringWithString:[super description]];
-    
-    KSXMLWriter *writer = [[KSXMLWriter alloc] initWithOutputWriter:result];
-    [writer writeString:@" "];
-    
-    [writer startElement:@"" attributes:self];
-    [writer endElement];
-    
-    [writer release];
-    
-    return result;
-}
-
 @end
