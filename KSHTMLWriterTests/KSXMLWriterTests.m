@@ -29,7 +29,7 @@
     STAssertTrue([generated isEqualToString:@""], @"generated string is empty");
 }
 
-- (void)testEmptyContent
+- (void)testWriteElementNoContent
 {
     KSStringWriter* output = [[KSStringWriter alloc] init];
     KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
@@ -39,6 +39,20 @@
     [output release];
     [writer release];
 
+    [self assertString:generated matchesString:@"<foo />"];
+}
+
+- (void)testWriteElementEmptyContent
+{
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+    [writer writeElement:@"foo" attributes:nil content:^{
+    }];
+    
+    NSString* generated = [output string];
+    [output release];
+    [writer release];
+    
     [self assertString:generated matchesString:@"<foo />"];
 }
 
