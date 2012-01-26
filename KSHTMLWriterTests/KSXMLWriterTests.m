@@ -152,14 +152,18 @@
 
 - (void)testWriteEscapedNonAsciiCharacters
 {
-    // some random non-ascii characters
-    // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
-    char nonAsciiChars[] = { 160, 180, 200, 0 };
-    NSString* nonAscii = [NSString stringWithCString:nonAsciiChars encoding:NSISOLatin1StringEncoding];
-    
+    // TODO could expand this to loop through all characters, but some of them will expand
+    // to unexpected things - e.g. see character 160 below...
+
     writer.encoding = NSASCIIStringEncoding;
     NSDictionary* attributes = [NSDictionary dictionary];
     [writer writeElement:@"foo" attributes:attributes content:^{
+        
+        // some random non-ascii characters
+        // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
+        static char nonAsciiChars[] = { 160, 180, 200, 0 };
+        NSString* nonAscii = [NSString stringWithCString:nonAsciiChars encoding:NSISOLatin1StringEncoding];
+
         [writer writeCharacters:nonAscii];
     }];
 
@@ -167,6 +171,10 @@
     [self assertString:generated matchesString:@"<foo>&nbsp; &#180; &#200;</foo>"];
 }
 
+- (void)testWriteComment
+{
+    
+}
 #if TODO // TODO - list of initial things to test
 
 4. -writeComment:
