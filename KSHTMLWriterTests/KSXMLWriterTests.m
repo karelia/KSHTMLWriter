@@ -147,6 +147,10 @@
     
     NSString* generated = [output string];
     [self assertString:generated matchesString:@"<foo>&lt; &amp; &gt;</foo>"];
+    
+    // test the raw escaping whilst we're at it
+    NSString* escaped = [KSXMLWriter stringFromCharacters:@"< & >"];
+    [self assertString:escaped matchesString:@"&lt; &amp; &gt;"];
 }
 
 - (void)testWriteEscapedNonAsciiCharacters
@@ -157,16 +161,16 @@
     writer.encoding = NSASCIIStringEncoding;
     [writer writeElement:@"foo" attributes:nil content:^{
         
-        // some random non-ascii characters
+        // write some random non-ascii characters
         // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
         static char nonAsciiChars[] = { 160, 180, 200, 0 };
         NSString* nonAscii = [NSString stringWithCString:nonAsciiChars encoding:NSISOLatin1StringEncoding];
-
         [writer writeCharacters:nonAscii];
     }];
 
     NSString* generated = [output string];
     [self assertString:generated matchesString:@"<foo>&nbsp;&#180;&#200;</foo>"];
+    
 }
 
 - (void)testWriteComment
@@ -185,7 +189,6 @@
 #if TODO // TODO - list of initial things to test
 
 5. Combinations of the above, when nested inside elements 
-6. -writeString: for a XML Writer using ASCII encoding, testing characters outside of ASCII's support to make sure they're escaped properly
 7. -startDocumentWithDocType:encoding:
 
 #endif

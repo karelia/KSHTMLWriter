@@ -59,6 +59,7 @@
 		22C194AD14C73090009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
 		22F1017114D1AACB006E2E95 /* KSHTMLWriterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */; };
 		22F1017214D1AACB006E2E95 /* KSHTMLWriterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */; };
+		22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,7 +144,7 @@
 		22C1948E14C7173A009A4406 /* StubWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubWindowController.m; sourceTree = "<group>"; };
 		22C1949114C71774009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/StubWindow.xib; sourceTree = "<group>"; };
 		22C194A914C72D87009A4406 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
-		22F1016F14D1AACB006E2E95 /* KSHTMLWriterTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; path = KSHTMLWriterTestCase.h; sourceTree = "<group>"; };
+		22F1016F14D1AACB006E2E95 /* KSHTMLWriterTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterTestCase.h; sourceTree = "<group>"; };
 		22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -591,6 +592,7 @@
 				228C7D2114CD74F000CC42FE /* KSStringWriterTests.m in Sources */,
 				228C7D2214CD74F000CC42FE /* KSXMLWriterTests.m in Sources */,
 				22F1017114D1AACB006E2E95 /* KSHTMLWriterTestCase.m in Sources */,
+				22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +755,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -762,6 +765,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
