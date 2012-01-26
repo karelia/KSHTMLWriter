@@ -24,15 +24,68 @@
 
 @implementation KSHTMLWriterWebkitTestShellTests
 
-- (void)setUp
+#pragma mark - Helpers
+
+- (void)checkString:(NSString*)string1 matchesString:(NSString*)string2
 {
-    [super setUp];
+    NSUInteger length1 = [string1 length];
+    NSUInteger length2 = [string2 length];
+    
+    STAssertTrue(length1 == length2, @"string lengths don't match: for %ld (%@) vs %ld (%@)", length1, string1, length2, string2); 
+    
+    for (NSUInteger n = 0; n < length1; ++n)
+    {
+        UniChar c1 = [string1 characterAtIndex:n];
+        UniChar c2 = [string2 characterAtIndex:n];
+        STAssertTrue(c1 == c2, @"Comparison failed at character %ld (0x%x '%c' vs 0x%x '%c') of '%@'", n, c1, c1, c2, c2, string1);
+    }
 }
 
-- (void)tearDown
+
+- (void)testWritingSnippetsWithWriterClass:(Class)writerClass
 {
-    [super tearDown];
+    
+    StubWindowController* controller = [[StubWindowController alloc] init];
+    [controller.window makeKeyAndOrderFront:self];
+    [controller loadStubPage];
+    
+    while (controller.stubLoaded == NO)
+    {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    }
+    
+    NSArray* snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"html" subdirectory:@"Snippets"];
+    for (NSURL* snippetURL in snippets)
+    {
+        NSError* error = nil;
+        NSString* snippetHTML = [NSString stringWithContentsOfURL:snippetURL encoding:NSUTF8StringEncoding error:&error];
+        [controller injectContent:snippetHTML];
+        
+        KSStringWriter* output = [[KSStringWriter alloc] init];
+        KSXMLWriter* writer = [[writerClass alloc] initWithOutputWriter:output];
+        KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer];
+        
+        DOMDocument* document = controller.webview.mainFrame.DOMDocument;
+        DOMElement* element = [document getElementById:@"content"];
+        [adaptor writeInnerOfDOMNode:element];
+        
+        NSString* written = [output string];
+        [self checkString:written matchesString:snippetHTML];
+        
+        [adaptor release];
+        [writer release];
+        
+        
+        [output release];
+        
+    }
+    
+    STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
+    
+    [controller release];
 }
+
+#pragma mark - Tests
 
 - (void)testAppLoaded
 {
@@ -55,75 +108,6 @@
 
     STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
 
-    [controller release];
-}
-
-- (BOOL)string:(NSString*)string1 matchesString:(NSString*)string2
-{
-    ;
-    
-    NSUInteger length = [string1 length];
-    BOOL match = ([string2 length] == length);
-    
-    if (match)
-    {
-        for (NSUInteger n = 0; n < length; ++n)
-        {
-            UniChar c1 = [string1 characterAtIndex:n];
-            UniChar c2 = [string2 characterAtIndex:n];
-            if (c1 != c2)
-            {
-                NSLog(@"Comparison failed at character %ld (0x%x '%c' vs 0x%x '%c') of '%@'", n, c1, c1, c2, c2, string1);
-                match = NO;
-                break;
-            }
-        }
-    }
-
-    return match;
-}
-
-- (void)testWritingSnippetsWithWriterClass:(Class)writerClass
-{
-    
-    StubWindowController* controller = [[StubWindowController alloc] init];
-    [controller.window makeKeyAndOrderFront:self];
-    [controller loadStubPage];
-    
-    while (controller.stubLoaded == NO)
-    {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-    }
-    
-    NSArray* snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"html" subdirectory:@"Snippets"];
-    for (NSURL* snippetURL in snippets)
-    {
-        NSError* error = nil;
-        NSString* snippetHTML = [NSString stringWithContentsOfURL:snippetURL encoding:NSUTF8StringEncoding error:&error];
-        [controller injectContent:snippetHTML];
-
-        KSStringWriter* output = [[KSStringWriter alloc] init];
-        KSXMLWriter* writer = [[writerClass alloc] initWithOutputWriter:output];
-        KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer];
-        
-        DOMDocument* document = controller.webview.mainFrame.DOMDocument;
-        DOMElement* element = [document getElementById:@"content"];
-        [adaptor writeInnerOfDOMNode:element];
-
-        NSString* written = [output string];
-        NSLog(@"written '%@' expected '%@'", written, snippetHTML);
-        STAssertTrue([self string:written matchesString:snippetHTML], @"written html should match the original snippet");
-        
-        [adaptor release];
-        [writer release];
-        
-        
-        [output release];
-        
-    }
-
-    STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
-    
     [controller release];
 }
 
