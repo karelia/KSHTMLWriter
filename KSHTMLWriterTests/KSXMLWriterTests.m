@@ -141,8 +141,7 @@
 - (void)testWriteEscapedEntities
 {
     // TODO could expand this to include a list of all entities
-    NSDictionary* attributes = [NSDictionary dictionary];
-    [writer writeElement:@"foo" attributes:attributes content:^{
+    [writer writeElement:@"foo" attributes:nil content:^{
         [writer writeCharacters:@"< & >"];
     }];
     
@@ -156,8 +155,7 @@
     // to unexpected things - e.g. see character 160 below...
 
     writer.encoding = NSASCIIStringEncoding;
-    NSDictionary* attributes = [NSDictionary dictionary];
-    [writer writeElement:@"foo" attributes:attributes content:^{
+    [writer writeElement:@"foo" attributes:nil content:^{
         
         // some random non-ascii characters
         // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
@@ -168,16 +166,24 @@
     }];
 
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo>&nbsp; &#180; &#200;</foo>"];
+    [self assertString:generated matchesString:@"<foo>&nbsp;&#180;&#200;</foo>"];
 }
 
 - (void)testWriteComment
 {
+    // TODO could expand this to include a list of all entities
+    [writer writeElement:@"foo" attributes:nil content:^{
+        [writer writeComment:@"this is a comment"];
+        [writer writeCharacters:@"this is not a comment"];
+        [writer writeComment:@"this is another comment"];
+    }];
     
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:@"<foo><!--this is a comment-->this is not a comment<!--this is another comment--></foo>"];
 }
+
 #if TODO // TODO - list of initial things to test
 
-4. -writeComment:
 5. Combinations of the above, when nested inside elements 
 6. -writeString: for a XML Writer using ASCII encoding, testing characters outside of ASCII's support to make sure they're escaped properly
 7. -startDocumentWithDocType:encoding:
