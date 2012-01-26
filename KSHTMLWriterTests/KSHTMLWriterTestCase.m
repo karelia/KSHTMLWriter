@@ -1,7 +1,7 @@
 //  Created by Sam Deane on 27/01/2012.
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 
-#import "TestUtilities.h"
+#import "KSHTMLWriterTestCase.h"
 
 @implementation KSHTMLWriterTestCase
 

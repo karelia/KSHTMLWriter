@@ -37,6 +37,16 @@
                ReferencedContainer = "container:KSHTMLWriter.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "22352BA314C6FCB00031F5DD"
+               BuildableName = "KSHTMLWriterTests.octest"
+               BlueprintName = "KSHTMLWriterTests"
+               ReferencedContainer = "container:KSHTMLWriter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
