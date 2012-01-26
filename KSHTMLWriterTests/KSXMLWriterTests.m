@@ -42,7 +42,7 @@
     [self assertString:generated matchesString:@"<foo />"];
 }
 
-- (void)testSimpleTag
+- (void)testWriteElementNoAttributes
 {
     KSStringWriter* output = [[KSStringWriter alloc] init];
     KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
@@ -57,7 +57,23 @@
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
 
-- (void)testSimpleTagWithAttributes
+- (void)testWriteElementEmptyAttributes
+{
+    NSDictionary* attributes = [NSDictionary dictionary];
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+    [writer writeElement:@"foo" attributes:attributes content:^{
+        [writer writeCharacters:@"bar"];
+    }];
+    
+    NSString* generated = [output string];
+    [output release];
+    [writer release];
+    
+    [self assertString:generated matchesString:@"<foo>bar</foo>"];
+}
+
+- (void)testWriteElementOneAttribute
 {
     NSDictionary* attributes = [NSDictionary dictionaryWithObject:@"wibble" forKey:@"wobble"];
     KSStringWriter* output = [[KSStringWriter alloc] init];
@@ -71,6 +87,22 @@
     [writer release];
     
     [self assertString:generated matchesString:@"<foo wobble=\"wibble\">bar</foo>"];
+}
+
+- (void)testWriteElementMultipleAttributes
+{
+    NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:@"o1", @"k1", @"o2", @"k2", nil];
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+    [writer writeElement:@"foo" attributes:attributes content:^{
+        [writer writeCharacters:@"bar"];
+    }];
+    
+    NSString* generated = [output string];
+    [output release];
+    [writer release];
+    
+    [self assertString:generated matchesString:@"<foo k2=\"o2\" k1=\"o1\">bar</foo>"];
 }
 
 #if TODO // TODO - list of initial things to test
