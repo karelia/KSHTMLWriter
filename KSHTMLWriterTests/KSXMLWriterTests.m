@@ -10,6 +10,20 @@
 #import "KSXMLWriter.h"
 #import "KSStringWriter.h"
 
+#pragma mark - KSXMLWriter Interface Shenanigans
+
+// We rudely explose a few bits of the private KSXMLWriter interface so that we can frig with them during
+// the unit tests
+//
+// Purists might argue that this is a no-no. They might be right.
+
+@interface KSXMLWriter(UnitTestInternalAccess)
+@property (nonatomic, assign, readwrite) NSStringEncoding encoding; 
+@end
+
+
+#pragma mark - Unit Tests Interface
+
 @interface KSXMLWriterTests : KSHTMLWriterTestCase
 {
     KSStringWriter* output;
@@ -17,6 +31,7 @@
 }
 @end
 
+#pragma mark - Unit Tests Implementation
 
 @implementation KSXMLWriterTests
 
@@ -35,7 +50,6 @@
 - (void)testNoAction
 {
     NSString* generated = [output string];
-    
     STAssertTrue([generated isEqualToString:@""], @"generated string is empty");
 }
 
@@ -44,7 +58,6 @@
     [writer writeElement:@"foo" attributes:nil content:nil];
     
     NSString* generated = [output string];
-
     [self assertString:generated matchesString:@"<foo />"];
 }
 
@@ -54,7 +67,6 @@
     }];
     
     NSString* generated = [output string];
-    
     [self assertString:generated matchesString:@"<foo />"];
 }
 
@@ -65,7 +77,6 @@
      }];
     
     NSString* generated = [output string];
-    
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
 
@@ -77,7 +88,6 @@
     }];
     
     NSString* generated = [output string];
-    
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
 
@@ -128,9 +138,37 @@
     STAssertEquals(attributeCount, (NSUInteger) 0, @"wrong number of attributes");
 }
 
+- (void)testWriteEscapedEntities
+{
+    // TODO could expand this to include a list of all entities
+    NSDictionary* attributes = [NSDictionary dictionary];
+    [writer writeElement:@"foo" attributes:attributes content:^{
+        [writer writeCharacters:@"< & >"];
+    }];
+    
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:@"<foo>&lt; &amp; &gt;</foo>"];
+}
+
+- (void)testWriteEscapedNonAsciiCharacters
+{
+    // some random non-ascii characters
+    // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
+    char nonAsciiChars[] = { 160, 180, 200, 0 };
+    NSString* nonAscii = [NSString stringWithCString:nonAsciiChars encoding:NSISOLatin1StringEncoding];
+    
+    writer.encoding = NSASCIIStringEncoding;
+    NSDictionary* attributes = [NSDictionary dictionary];
+    [writer writeElement:@"foo" attributes:attributes content:^{
+        [writer writeCharacters:nonAscii];
+    }];
+
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:@"<foo>&nbsp; &#180; &#200;</foo>"];
+}
+
 #if TODO // TODO - list of initial things to test
 
-3. -writeCharacters: including the special characters of '<' etc.
 4. -writeComment:
 5. Combinations of the above, when nested inside elements 
 6. -writeString: for a XML Writer using ASCII encoding, testing characters outside of ASCII's support to make sure they're escaped properly
