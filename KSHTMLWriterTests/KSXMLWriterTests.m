@@ -7,66 +7,64 @@
 //
 
 #import "KSHTMLWriterTestCase.h"
-
-@interface KSXMLWriterTests : KSHTMLWriterTestCase
-
-@end
-
 #import "KSXMLWriter.h"
 #import "KSStringWriter.h"
 
+@interface KSXMLWriterTests : KSHTMLWriterTestCase
+{
+    KSStringWriter* output;
+    KSXMLWriter* writer;
+}
+@end
+
+
 @implementation KSXMLWriterTests
+
+- (void)setUp
+{
+    output = [[KSStringWriter alloc] init];
+    writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+}
+
+- (void)tearDown
+{
+    [output release];
+    [writer release];
+}
 
 - (void)testNoAction
 {
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
-    
     NSString* generated = [output string];
-    [output release];
-    [writer release];
     
     STAssertTrue([generated isEqualToString:@""], @"generated string is empty");
 }
 
 - (void)testWriteElementNoContent
 {
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:nil content:nil];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
 
     [self assertString:generated matchesString:@"<foo />"];
 }
 
 - (void)testWriteElementEmptyContent
 {
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:nil content:^{
     }];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
     
     [self assertString:generated matchesString:@"<foo />"];
 }
 
 - (void)testWriteElementNoAttributes
 {
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:nil content:^{
          [writer writeCharacters:@"bar"];
      }];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
     
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
@@ -74,15 +72,11 @@
 - (void)testWriteElementEmptyAttributes
 {
     NSDictionary* attributes = [NSDictionary dictionary];
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:attributes content:^{
         [writer writeCharacters:@"bar"];
     }];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
     
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
@@ -90,38 +84,52 @@
 - (void)testWriteElementOneAttribute
 {
     NSDictionary* attributes = [NSDictionary dictionaryWithObject:@"wibble" forKey:@"wobble"];
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:attributes content:^{
         [writer writeCharacters:@"bar"];
     }];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
-    
     [self assertString:generated matchesString:@"<foo wobble=\"wibble\">bar</foo>"];
 }
 
 - (void)testWriteElementMultipleAttributes
 {
     NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:@"o1", @"k1", @"o2", @"k2", nil];
-    KSStringWriter* output = [[KSStringWriter alloc] init];
-    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
     [writer writeElement:@"foo" attributes:attributes content:^{
         [writer writeCharacters:@"bar"];
     }];
     
     NSString* generated = [output string];
-    [output release];
-    [writer release];
-    
     [self assertString:generated matchesString:@"<foo k2=\"o2\" k1=\"o1\">bar</foo>"];
+}
+
+- (void)testPushAttribute
+{
+    [writer pushAttribute:@"a1" value:@"v1"];
+    STAssertTrue([writer hasCurrentAttributes], @"has attributes");
+    STAssertNotNil([writer currentAttributes], @"has attributes");
+    NSUInteger attributeCount = [[writer currentAttributes] count];
+    STAssertEquals(attributeCount, (NSUInteger) 1 , @"wrong number of attributes");
+    
+    [writer pushAttribute:@"a2" value:@"v2"];
+    attributeCount = [[writer currentAttributes] count];
+    STAssertEquals(attributeCount, (NSUInteger) 2, @"wrong number of attributes");
+    
+    [writer writeElement:@"foo" attributes:nil content:^{
+        [writer writeCharacters:@"bar"];
+    }];
+        
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:@"<foo a1=\"v1\" a2=\"v2\">bar</foo>"];
+    
+    STAssertFalse([writer hasCurrentAttributes], @"has attributes");
+    STAssertNotNil([writer currentAttributes], @"has attributes");
+    attributeCount = [[writer currentAttributes] count];
+    STAssertEquals(attributeCount, (NSUInteger) 0, @"wrong number of attributes");
 }
 
 #if TODO // TODO - list of initial things to test
 
-2. -pushAttribute: (multiple calls), followed by -writeElement:content:
 3. -writeCharacters: including the special characters of '<' etc.
 4. -writeComment:
 5. Combinations of the above, when nested inside elements 
