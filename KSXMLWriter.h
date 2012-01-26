@@ -73,9 +73,10 @@
 
 #pragma mark Elements
 
-// Need to force inline writing? Fall back to the old -startElement… API for now
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
 - (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+
+/* Need to force inline writing? Fall back to the old -startElement… API for now */
 
 // Convenience for writing <tag>text</tag>
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
@@ -88,6 +89,8 @@
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
  *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
+ *
+ *  The stack is cleared for you each time an element starts, to save the trouble of manually managing that.
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 - (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
