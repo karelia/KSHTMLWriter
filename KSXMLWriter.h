@@ -94,6 +94,8 @@
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
  *      - Can sneak extra attributes in when using a convenience method (e.g. for HTML)
+ *
+ *  The stack is cleared for you each time an element starts, to save the trouble of manually managing that.
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 - (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
