@@ -57,6 +57,22 @@
     [self assertString:generated matchesString:@"<foo>bar</foo>"];
 }
 
+- (void)testSimpleTagWithAttributes
+{
+    NSDictionary* attributes = [NSDictionary dictionaryWithObject:@"wibble" forKey:@"wobble"];
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+    [writer writeElement:@"foo" attributes:attributes content:^{
+        [writer writeCharacters:@"bar"];
+    }];
+    
+    NSString* generated = [output string];
+    [output release];
+    [writer release];
+    
+    [self assertString:generated matchesString:@"<foo wobble=\"wibble\">bar</foo>"];
+}
+
 #if TODO // TODO - list of initial things to test
 
 2. -pushAttribute: (multiple calls), followed by -writeElement:content:
