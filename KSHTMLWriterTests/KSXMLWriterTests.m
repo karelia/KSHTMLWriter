@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import "KSHTMLWriterTestCase.h"
 
-@interface KSXMLWriterTests : SenTestCase
+@interface KSXMLWriterTests : KSHTMLWriterTestCase
 
 @end
 
