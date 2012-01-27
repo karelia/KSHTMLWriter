@@ -114,7 +114,7 @@
 		22352BD014C6FD260031F5DD /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = SOURCE_ROOT; };
 		228C7D1E14CD74F000CC42FE /* KSStringWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSStringWriterTests.m; sourceTree = "<group>"; };
 		228C7D2014CD74F000CC42FE /* KSXMLWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterTests.m; sourceTree = "<group>"; };
-		2291487B14CD7A0A00EFB4AB /* TESTS README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TESTS README.mdown"; sourceTree = "<group>"; };
+		2291487B14CD7A0A00EFB4AB /* TESTS README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; name = "TESTS README.mdown"; path = "Tests/TESTS README.mdown"; sourceTree = "<group>"; };
 		22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBufferedWriter.h; sourceTree = "<group>"; };
 		22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBufferedWriter.m; sourceTree = "<group>"; };
 		22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSForwardingWriter.h; sourceTree = "<group>"; };
@@ -275,7 +275,8 @@
 				22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */,
 				22352BAC14C6FCB00031F5DD /* Supporting Files */,
 			);
-			path = KSHTMLWriterTests;
+			name = KSHTMLWriterTests;
+			path = Tests/KSHTMLWriterTests;
 			sourceTree = "<group>";
 		};
 		22352BAC14C6FCB00031F5DD /* Supporting Files */ = {
@@ -349,7 +350,8 @@
 				22C194A914C72D87009A4406 /* Snippets */,
 				22C1945614C70130009A4406 /* Supporting Files */,
 			);
-			path = KSHTMLWriterWebkitTestShell;
+			name = KSHTMLWriterWebkitTestShell;
+			path = Tests/KSHTMLWriterWebkitTestShell;
 			sourceTree = "<group>";
 		};
 		22C1945614C70130009A4406 /* Supporting Files */ = {
@@ -370,7 +372,8 @@
 				22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */,
 				22C1947214C70130009A4406 /* Supporting Files */,
 			);
-			path = KSHTMLWriterWebkitTestShellTests;
+			name = KSHTMLWriterWebkitTestShellTests;
+			path = Tests/KSHTMLWriterWebkitTestShellTests;
 			sourceTree = "<group>";
 		};
 		22C1947214C70130009A4406 /* Supporting Files */ = {
@@ -784,7 +787,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -796,7 +799,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KSHTMLWriter-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterTests/KSHTMLWriterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -806,8 +809,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -817,8 +820,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -830,8 +833,8 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSHTMLWriterWebkitTestShell.app/Contents/MacOS/KSHTMLWriterWebkitTestShell";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -844,8 +847,8 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSHTMLWriterWebkitTestShell.app/Contents/MacOS/KSHTMLWriterWebkitTestShell";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
+				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
+				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
