@@ -6,6 +6,10 @@
 		<key>actions</key>
 		<array>
 			<dict>
+				<key>comment</key>
+				<string>blah</string>
+			</dict>
+			<dict>
 				<key>element</key>
 				<string>foo</string>
 				<key>attributes</key>
@@ -22,6 +26,23 @@
 					<dict>
 						<key>text</key>
 						<string>bar</string>
+						<key>element</key>
+						<string>sub</string>
+						<key>content</key>
+						<array>
+							<dict>
+								<key>comment</key>
+								<string>a comment</string>
+							</dict>
+							<dict>
+								<key>text</key>
+								<string>bar</string>
+							</dict>
+							<dict>
+								<key>comment</key>
+								<string>another comment</string>
+							</dict>
+						</array>
 					</dict>
 					<dict>
 						<key>comment</key>
@@ -29,9 +50,15 @@
 					</dict>
 				</array>
 			</dict>
+			<dict>
+				<key>comment</key>
+				<string>blah</string>
+			</dict>
 		</array>
 		<key>expected</key>
-		<string>&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/foo&gt;</string>
+		<string>&lt;!--blah--&gt;&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar
+	&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;
+&lt;/foo&gt;&lt;!--blah--&gt;</string>
 	</dict>
 </array>
 </plist>
