@@ -3,10 +3,35 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>text</key>
-		<string>test</string>
-		<key>type</key>
-		<string>element</string>
+		<key>actions</key>
+		<array>
+			<dict>
+				<key>element</key>
+				<string>foo</string>
+				<key>attributes</key>
+				<dict>
+					<key>test-attribute</key>
+					<string>test value</string>
+				</dict>
+				<key>content</key>
+				<array>
+					<dict>
+						<key>comment</key>
+						<string>a comment</string>
+					</dict>
+					<dict>
+						<key>text</key>
+						<string>bar</string>
+					</dict>
+					<dict>
+						<key>comment</key>
+						<string>another comment</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+		<key>expected</key>
+		<string>&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/foo&gt;</string>
 	</dict>
 </array>
 </plist>

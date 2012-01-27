@@ -23,43 +23,31 @@ typedef enum
 #pragma mark - Unit Tests Interface
 
 @interface KSXMLWriterCompoundTests : KSHTMLWriterTestCase
-{
-    KSStringWriter* output;
-    KSXMLWriter* writer;
-}
 @end
 
 #pragma mark - Unit Tests Implementation
 
 @implementation KSXMLWriterCompoundTests
 
-#pragma mark - Setup / Teardown
-
-- (void)setUp
-{
-    output = [[KSStringWriter alloc] init];
-    writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
-}
-
-- (void)tearDown
-{
-    [output release];
-    [writer release];
-}
-
 #pragma mark - Helpers
 
-- (void)writeWithActions:(NSArray*)actions
+- (void)writer:(KSXMLWriter*)writer performActions:(NSArray*)actions
 {
     for (NSDictionary* action in actions)
     {
-        NSArray* subactions = [action objectForKey:@"actions"];
+        NSArray* content = [action objectForKey:@"content"];
         NSDictionary* attributes = [action objectForKey:@"attributes"];
 
-        NSString* comment = [action objectForKey:@"pre-comment"];
+        NSString* comment = [action objectForKey:@"comment"];
         if (comment)
         {
             [writer writeComment:comment];
+        }
+
+        NSString* text = [action objectForKey:@"text"];
+        if (text)
+        {
+            [writer writeCharacters:text];
         }
 
         NSDictionary* push = [action objectForKey:@"push"];
@@ -75,21 +63,10 @@ typedef enum
         if (element)
         {
             [writer writeElement:element attributes:attributes content:^{
-                [self writeWithActions:subactions];
+                [self writer:writer performActions:content];
             }];
         }
 
-        NSString* text = [action objectForKey:@"text"];
-        if (text)
-        {
-            [writer writeCharacters:text];
-        }
-        
-        comment = [action objectForKey:@"post-comment"];
-        if (comment)
-        {
-            [writer writeComment:comment];
-        }
     }
 }
 
@@ -97,8 +74,22 @@ typedef enum
 
 - (void)testCompound
 {
-    NSURL* plist = [[NSBundle mainBundle] URLForResource:@"XML Tests" withExtension:@"plist"];
-    NSArray* actions = [NSArray arrayWithContentsOfURL:plist];
-    [self writeWithActions:actions];
+    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"XML Tests" withExtension:@"plist"];
+    NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
+    for (NSDictionary* test in tests)
+    {
+        KSStringWriter* output = [[KSStringWriter alloc] init];
+        KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+
+        NSArray* actions = [test objectForKey:@"actions"];
+        NSString* expected = [test objectForKey:@"expected"];
+        [self writer:writer performActions:actions];
+        
+        NSString* generated = [output string];
+        [self assertString:generated matchesString:expected];
+
+        [writer release];
+        [output release];
+    }
 }
 @end
