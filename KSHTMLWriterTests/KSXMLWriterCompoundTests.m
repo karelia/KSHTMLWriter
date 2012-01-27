@@ -1,24 +1,14 @@
 //
-//  KSHTMLWriterTests.m
+//  KSXMLWriterCompoundTests.m
 //  KSHTMLWriterTests
 //
-//  Created by Sam Deane on 18/01/2012.
+//  Created by Sam Deane on 27/01/2012.
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
 #import "KSHTMLWriterTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSStringWriter.h"
-
-#pragma mark - Helper Class - For Compound Tests
-
-typedef enum
-{
-    TestElement,
-    TestComment,
-    TestPush,
-} TestType;
-
 
 #pragma mark - Unit Tests Interface
 
@@ -92,4 +82,5 @@ typedef enum
         [output release];
     }
 }
+
 @end
