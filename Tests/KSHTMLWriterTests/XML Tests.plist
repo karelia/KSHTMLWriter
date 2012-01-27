@@ -236,5 +236,117 @@
 	&lt;/foo&gt;
 &lt;/foo&gt;</string>
 	</dict>
+	<dict>
+		<key>actions</key>
+		<array>
+			<dict>
+				<key>element</key>
+				<string>foo</string>
+				<key>content</key>
+				<array>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+						<key>content</key>
+						<array>
+							<dict>
+								<key>text</key>
+								<string>text</string>
+							</dict>
+						</array>
+					</dict>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+						<key>content</key>
+						<array>
+							<dict>
+								<key>text</key>
+								<string>text</string>
+							</dict>
+						</array>
+					</dict>
+				</array>
+			</dict>
+		</array>
+		<key>expected</key>
+		<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+&lt;/foo&gt;</string>
+	</dict>
+	<dict>
+		<key>actions</key>
+		<array>
+			<dict>
+				<key>element</key>
+				<string>foo</string>
+				<key>content</key>
+				<array>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+					</dict>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+					</dict>
+				</array>
+			</dict>
+		</array>
+		<key>expected</key>
+		<string>&lt;foo&gt;
+	&lt;foo /&gt;
+	&lt;foo /&gt;
+&lt;/foo&gt;</string>
+	</dict>
+	<dict>
+		<key>actions</key>
+		<array>
+			<dict>
+				<key>element</key>
+				<string>foo</string>
+				<key>content</key>
+				<array>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+						<key>content</key>
+						<array>
+							<dict>
+								<key>text</key>
+								<string>text</string>
+							</dict>
+						</array>
+					</dict>
+					<dict>
+						<key>element</key>
+						<string>foo</string>
+						<key>content</key>
+						<array>
+							<dict>
+								<key>element</key>
+								<string>foo</string>
+								<key>content</key>
+								<array>
+									<dict>
+										<key>text</key>
+										<string>text</string>
+									</dict>
+								</array>
+							</dict>
+						</array>
+					</dict>
+				</array>
+			</dict>
+		</array>
+		<key>expected</key>
+		<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;text&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+	</dict>
 </array>
 </plist>
