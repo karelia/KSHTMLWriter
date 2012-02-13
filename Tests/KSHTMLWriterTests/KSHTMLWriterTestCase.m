@@ -5,6 +5,17 @@
 
 @implementation KSHTMLWriterTestCase
 
+
+@synthesize testParam;
+
++ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param
+{
+    KSHTMLWriterTestCase* tc = [self testCaseWithSelector:selector];
+    tc.testParam = param;
+    
+    return tc;
+}
+
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
 {
     NSUInteger length1 = [string1 length];

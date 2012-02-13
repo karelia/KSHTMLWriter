@@ -83,4 +83,19 @@
     }
 }
 
+
++ (id) defaultTestSuite
+{
+    id result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
+    
+    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"XML Tests" withExtension:@"plist"];
+    NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
+    for (NSDictionary* test in tests)
+    {
+        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test]];
+    }
+    
+    return result;
+}
+
 @end

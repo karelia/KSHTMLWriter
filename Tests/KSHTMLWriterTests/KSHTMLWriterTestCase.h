@@ -5,6 +5,9 @@
 
 @interface KSHTMLWriterTestCase : SenTestCase
 
+@property (strong, nonatomic) id testParam;
+
++ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param;
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2;
 
 @end

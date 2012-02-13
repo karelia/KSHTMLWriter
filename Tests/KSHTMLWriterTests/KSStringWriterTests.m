@@ -13,6 +13,7 @@
 
 @interface KSStringWriterTests : KSHTMLWriterTestCase
 
+
 @end
 
 @implementation KSStringWriterTests
