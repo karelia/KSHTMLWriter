@@ -3,6 +3,8 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>name</key>
+		<string>AttributeWithComments</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -36,6 +38,8 @@
 		<string>&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>SingleComment</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -49,6 +53,8 @@
 		<string>&lt;!--just a comment--&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>JustText</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -62,6 +68,8 @@
 		<string>just some text</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>EmptyElement</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -75,6 +83,8 @@
 		<string>&lt;empty-element /&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>CommentAttributeComment</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -137,6 +147,8 @@
 &lt;/foo&gt;&lt;!--blah--&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>CompoundElement</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -168,6 +180,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>ElementContainingEmptyElement</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -192,6 +206,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>ThreeNestedElements</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -234,6 +250,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>EmptyElementNestedTwoElementsDeep</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -269,6 +287,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>TwoElementsInElement</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -313,6 +333,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>TwoEmptyElementsInElement</string>
 		<key>actions</key>
 		<array>
 			<dict>
@@ -343,6 +365,8 @@
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
+		<key>name</key>
+		<string>ElementsWithTextAtMultipleLevels</string>
 		<key>actions</key>
 		<array>
 			<dict>

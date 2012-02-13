@@ -118,11 +118,11 @@ typedef enum
     
     NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"Compound Tests" withExtension:@"plist"];
     NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
-    NSUInteger index = 0;
     for (NSDictionary* test in tests)
     {
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
+        NSString* name = [test objectForKey:@"name"];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:name]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:name]];
     }
     
     return result;
