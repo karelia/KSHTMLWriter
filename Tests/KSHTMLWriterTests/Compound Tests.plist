@@ -80,7 +80,7 @@
 		<key>expected</key>
 		<string>&lt;empty-element /&gt;</string>
 		<key>expected-html</key>
-		<string>&lt;empty-element /&gt;</string>
+		<string>&lt;empty-element&gt;&lt;/empty-element&gt;</string>
 	</dict>
 	<dict>
 		<key>name</key>
@@ -142,9 +142,7 @@
 	&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;
 &lt;/foo&gt;&lt;!--blah--&gt;</string>
 		<key>expected-html</key>
-		<string>&lt;!--blah--&gt;&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar
-	&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;
-&lt;/foo&gt;&lt;!--blah--&gt;</string>
+		<string>&lt;!--blah--&gt;&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;&lt;/foo&gt;&lt;!--blah--&gt;</string>
 	</dict>
 	<dict>
 		<key>name</key>
@@ -202,7 +200,7 @@
 &lt;/foo&gt;</string>
 		<key>expected-html</key>
 		<string>&lt;foo&gt;
-	&lt;foo /&gt;
+	&lt;foo&gt;&lt;/foo&gt;
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
@@ -282,7 +280,7 @@
 		<key>expected-html</key>
 		<string>&lt;foo&gt;
 	&lt;foo&gt;
-		&lt;foo /&gt;
+		&lt;foo&gt;&lt;/foo&gt;
 	&lt;/foo&gt;
 &lt;/foo&gt;</string>
 	</dict>
@@ -360,8 +358,8 @@
 &lt;/foo&gt;</string>
 		<key>expected-html</key>
 		<string>&lt;foo&gt;
-	&lt;foo /&gt;
-	&lt;foo /&gt;
+	&lt;foo&gt;&lt;/foo&gt;
+	&lt;foo&gt;&lt;/foo&gt;
 &lt;/foo&gt;</string>
 	</dict>
 	<dict>
