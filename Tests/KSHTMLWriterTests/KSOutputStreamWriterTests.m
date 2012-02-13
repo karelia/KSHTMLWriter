@@ -13,7 +13,7 @@
 
 @interface MockStream : NSOutputStream
 
-@property (assign, nonatomic) NSUInteger written;
+@property (strong, nonatomic) NSMutableString* written;
 
 @end
 
@@ -21,11 +21,18 @@
 
 @synthesize written;
 
-- (NSInteger)write:(const uint8_t *)buffer maxLength:(NSUInteger)len
+- (NSInteger)write:(const uint8_t *)bytes maxLength:(NSUInteger)len
 {
-    self.written += len;
+    if (!self.written)
+    {
+        self.written = [[[NSMutableString alloc] initWithCapacity:len] autorelease];
+    }
     
-    return written;
+    NSString* string = [[NSString alloc] initWithBytes:bytes length:len encoding:NSUTF8StringEncoding];
+    [self.written appendString:string];
+    [string release];
+    
+    return len;
 }
 
 @end
@@ -43,7 +50,7 @@
     MockStream* stream = [[MockStream alloc] init];
     KSOutputStreamWriter* output = [[KSOutputStreamWriter alloc] initWithOutputStream:stream];
 
-    STAssertEquals(stream.written, 0, @"nothing written initially");
+    [self assertString:stream.written matchesString:@""];
 
     [output release];
     [stream release];
@@ -55,12 +62,13 @@
     KSOutputStreamWriter* output = [[KSOutputStreamWriter alloc] initWithOutputStream:stream];
 
     [output writeString:@"test"];
-    //    STAssertTrue([[output string] isEqualToString:@"test"], @"string is correct");
+    [self assertString:stream.written matchesString:@"test"];
 
     [output writeString:@"test"];
-    //    STAssertTrue([[output string] isEqualToString:@"testtest"], @"string is correct");
+    [self assertString:stream.written matchesString:@"testtest"];
 
     [output release];
+    [stream release];
 }
 
 @end
