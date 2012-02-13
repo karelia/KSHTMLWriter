@@ -7,21 +7,36 @@ The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies
 
 To run these, select the KSHTMLWriter scheme in Xcode, and choose "Test" from the "Product" menu.
 
-As it happens, there are no tests of this type at the moment. If there were though, this is where they would live.
+Compound XML Tests
+------------------
+
+In addition to some basic tests on KSStringWriter and KSXMLWriter, there are also some compound xml tests.
+
+These test various permutations of writer calls to see if they generate the correct XML.
+
+The tests are driven from the "XML Tests.plist" file, which uses a simple NSDictionary based structure to
+describe a sequence of actions to perform to build up the xml. The actions include
+
+- add a comment
+- add some text
+- add some attributes to the current element
+- add a nested element
+
+The NSDictionary also includes the expected value of the generated XML, so that the test can check it.
 
 
 Application Tests
 =================
 
-The KSHTMLWriterWebkitTestShellTests target consists of tests that use the Webkit framework. 
+The KSHTMLWriterWebkitTestShellTests target consists of extra tests that use the Webkit framework. 
 
 The Webkit tests need to run in the context of an application with a UI. This is the KSHTMLWriterWebkitTestShell target.
 
 To run these tests, select the KSHTMLWriteWebkitTestShell scheme in Xcode, and choose "Test" from the "Product" menu.
 
 
-Snippets
---------
+Testing Web Snippets
+--------------------
 
 The main application test does the following:
 
