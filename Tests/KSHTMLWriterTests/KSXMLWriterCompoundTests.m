@@ -117,10 +117,10 @@ typedef enum
     id result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
     
     NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"Compound Tests" withExtension:@"plist"];
-    NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
-    for (NSDictionary* test in tests)
+    NSDictionary* tests = [NSDictionary dictionaryWithContentsOfURL:plist];
+    for (NSString* name in tests)
     {
-        NSString* name = [test objectForKey:@"name"];
+        NSDictionary* test = [tests objectForKey:name];
         [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:name]];
         [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:name]];
     }
