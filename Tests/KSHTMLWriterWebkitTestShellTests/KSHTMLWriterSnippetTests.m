@@ -48,24 +48,47 @@
 
 - (void)testWritingSnippetsWithWriterClass:(Class)class
 {
-    //    STAssertTrue([controller.window.title isEqualToString:@"Test Web Page"], @"window should have title set by the stub html");
-
     NSURL* snippetURL = self.dynamicTestParameter;
     
     NSError* error = nil;
     NSString* snippetHTML = [NSString stringWithContentsOfURL:snippetURL encoding:NSUTF8StringEncoding error:&error];
-    [controller injectContent:snippetHTML];
+    [self.controller injectContent:snippetHTML];
     
     KSStringWriter* output = [[KSStringWriter alloc] init];
     KSHTMLWriter* writer = [[class alloc] initWithOutputWriter:output];
     KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer];
     
-    DOMDocument* document = controller.webview.mainFrame.DOMDocument;
+    DOMDocument* document = self.controller.webview.mainFrame.DOMDocument;
     DOMElement* element = [document getElementById:@"content"];
     [adaptor writeInnerOfDOMNode:element];
     
     NSString* written = [output string];
     [self assertString:written matchesString:snippetHTML];
+    
+    [output release];
+    [adaptor release];
+    [writer release];
+}
+
+- (void)testPrettyPrintSnippetsWithWriterClass:(Class)class
+{
+    NSURL* snippetURL = self.dynamicTestParameter;
+    
+    NSError* error = nil;
+    NSString* inputHTML = [NSString stringWithContentsOfURL:[snippetURL URLByAppendingPathComponent:@"input.html"] encoding:NSUTF8StringEncoding error:&error];
+    NSString* outputHTML = [NSString stringWithContentsOfURL:[snippetURL URLByAppendingPathComponent:@"output.html"] encoding:NSUTF8StringEncoding error:&error];
+    [self.controller injectContent:inputHTML];
+    
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSHTMLWriter* writer = [[class alloc] initWithOutputWriter:output];
+    KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer options:KSXMLWriterDOMAdaptorPrettyPrint];
+    
+    DOMDocument* document = self.controller.webview.mainFrame.DOMDocument;
+    DOMElement* element = [document getElementById:@"content"];
+    [adaptor writeInnerOfDOMNode:element];
+    
+    NSString* written = [output string];
+    [self assertString:written matchesString:outputHTML];
     
     [output release];
     [adaptor release];
@@ -84,6 +107,11 @@
     [self testWritingSnippetsWithWriterClass:[KSXMLWriter class]];
 }
 
+- (void)testWritingSnippetWithXMLWriterPretty
+{
+    [self testPrettyPrintSnippetsWithWriterClass:[KSHTMLWriter class]];
+}
+
 + (id) defaultTestSuite
 {
     StubWindowController* controller = [[StubWindowController alloc] init];
@@ -97,13 +125,21 @@
 
     id result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
     
-    NSArray* snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"html" subdirectory:@"Snippets"];
+    // simple html tests
+    NSArray* snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"html" subdirectory:@"Snippets/Normal"];
     for (NSURL* snippetURL in snippets)
     {
         [result addTest:[self testCaseWithSelector:@selector(testWritingSnippetWithXMLWriter) url:snippetURL controller:controller]];
         [result addTest:[self testCaseWithSelector:@selector(testWritingSnippetWithHTMLWriter) url:snippetURL controller:controller]];
     }
 
+    // pretty printing tests
+    snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:nil subdirectory:@"Snippets/Pretty"];
+    for (NSURL* snippetURL in snippets)
+    {
+        [result addTest:[self testCaseWithSelector:@selector(testWritingSnippetWithXMLWriterPretty) url:snippetURL controller:controller]];
+    }
+    
     [controller release];
 
     return result;
