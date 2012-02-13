@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2234292A14E93F2900FCEFD4 /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */; };
 		2234292E14E95C5A00FCEFD4 /* KSMutableDataWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292D14E95C5A00FCEFD4 /* KSMutableDataWriterTests.m */; };
+		2234293014E960F600FCEFD4 /* KSOutputStreamWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292F14E960F600FCEFD4 /* KSOutputStreamWriterTests.m */; };
 		22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
 		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
@@ -93,6 +94,7 @@
 /* Begin PBXFileReference section */
 		2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterSnippetTests.m; sourceTree = "<group>"; };
 		2234292D14E95C5A00FCEFD4 /* KSMutableDataWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMutableDataWriterTests.m; sourceTree = "<group>"; };
+		2234292F14E960F600FCEFD4 /* KSOutputStreamWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSOutputStreamWriterTests.m; sourceTree = "<group>"; };
 		22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKSHTMLWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22352B9314C6FCB00031F5DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		22352B9614C6FCB00031F5DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -277,9 +279,10 @@
 				22F1016F14D1AACB006E2E95 /* KSHTMLWriterTestCase.h */,
 				22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */,
 				2234292D14E95C5A00FCEFD4 /* KSMutableDataWriterTests.m */,
+				2234292F14E960F600FCEFD4 /* KSOutputStreamWriterTests.m */,
 				228C7D1E14CD74F000CC42FE /* KSStringWriterTests.m */,
-				228C7D2014CD74F000CC42FE /* KSXMLWriterTests.m */,
 				22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */,
+				228C7D2014CD74F000CC42FE /* KSXMLWriterTests.m */,
 				22352BAC14C6FCB00031F5DD /* Supporting Files */,
 			);
 			name = KSHTMLWriterTests;
@@ -626,6 +629,7 @@
 				22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */,
 				22F1017614D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m in Sources */,
 				2234292E14E95C5A00FCEFD4 /* KSMutableDataWriterTests.m in Sources */,
+				2234293014E960F600FCEFD4 /* KSOutputStreamWriterTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
