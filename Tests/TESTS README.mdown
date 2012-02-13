@@ -35,23 +35,85 @@ The Webkit tests need to run in the context of an application with a UI. This is
 To run these tests, select the KSHTMLWriteWebkitTestShell scheme in Xcode, and choose "Test" from the "Product" menu.
 
 
-Testing Web Snippets
---------------------
+"Snippets" Tests
+----------------
 
-The main application test does the following:
+In addition to some basic tests, the majority of the application tests run through directories full of hmtl "snippets",
+performing some action on each snippet and then checking it against an expected outcome.
 
-- make a window with a web view in it
-- load a stub html document into the web view
-- run through a directory of html "snippets", doing the following
--- insert the html from the snippet into a content <div> in the webview
--- write out the resulting DOMElement using KSHTMLWriter
--- compare the generated output against the original input snippet
+Before running any of these tests the framework makes a window with a web view in it, and loads a stub html document into 
+the web view. The stub document (defined in Stub.html) is just an empty web page.
+
+The snippet tests use this web view as the host for testing each html stub. They first inject the stub into the
+document using WebKit DOM methods. They then grab back the DOM representation of the stub, and use a HSHTMLDOMAdaptor
+to write it back out as XML/HTML.
+
+This actual output is then compared against an expected output.
+
+There are two types of snippets that are tested. 
+
+The normal snippets (located in Snippets/Normal) are expected to be unchanged by a round trip through the KSHTMLWriter.
+
+The pretty print snippets (located in Snippets/Pretty) are expected to be cleaned up when pretty-printing is enabled. For
+these snippets, each item of the folder is a sub-folder containing two files: input.html and output.html. The input file
+is injected into the stub document, and the output is then compared against the output file.
 
 This test fails if any KSHTMLWriter fails to generate identical output for any of the snippets. 
 It is currently whitespace sensitive and does an exact string comparison, which may be overkill.
 
-Note that every snippet is currently tested within a single unit test. It would be nice to represent each snippet
-as a different test in the unit test output, but certainly the basic usage pattern of the unit test framework expects
-a one-to-one mapping between methods and unit tests, so I'd have to generate the methods dynamically based on the content
-of the snippets directory. That's do-able, but perhaps going a bit too far. I'll look into this as there may well be
-another way to get the unit test framework to run multiple instances of a test with different input parameters (which would be ideal).
+
+A Note About Dynamic Test Methods
+=================================
+
+Anyone familiar with the unit testing framework we're using (OCUnit/SenTestKit) will know that tests are generally defined
+as simple void methods taking no parameters, which get run once.
+
+These are fine in most cases, but there are some tests in our suite where we want to apply the same action repeatedly to
+each file in a folder, or each item in a plist.
+
+For these cases we do a little bit of extra work to ensure that the result of the testing of each file or plist item is
+reported as a separate result. 
+
+This gives us the change to see slightly nicer output if something goes wrong, and also a clearer idea about how many tests
+are actually run if everything goes well. 
+
+Because we effectively run the same test repeatedly, the default name of the test (which is the method name) isn't very useful,
+since it just appears in the output multiple times, leading to this sort of thing:
+
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+
+To try to improve this reporting, we override the name method of the test framework and attempt to return something more descriptive.
+Unfortunately, OCUnit seems to expect this name to be in a very rigid format, essentially: "-[Class method]".
+
+Any attempt to return something in a different format appears to break Xcode's reporting of the tests. As a result, our options for
+messing about with the name are somewhat limited. Essentially what we do is to append some more characters to the method name, ensuring
+that it stays as one word.
+
+In the case where we're iterating over files, we can append the file name, which results in something reasonably descriptive (note that
+this means that the test files need to have single word names):
+
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithXMLWriterSimple]' started.
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithXMLWriterSimple]' passed (0.018 seconds).
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterSimple]' started.
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterSimple]' passed (0.000 seconds).
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyDeepIndent]' started.
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyDeepIndent]' passed (0.001 seconds).
+Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyExtraNewlines]' started.
+etc...
+
+
+In the case where we're iterating over items in a plist, we currently just use the item index. Frankly this is of limited use:
+
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem0]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem0]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem1]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem1]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem2]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem2]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompoundItem3]' started.
+etc...

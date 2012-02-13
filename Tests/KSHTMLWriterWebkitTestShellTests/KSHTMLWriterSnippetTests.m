@@ -34,7 +34,7 @@
 
 + (id)testCaseWithSelector:(SEL)selector url:(NSURL*)url controller:(StubWindowController*)controller
 {
-    NSString* name = [[[url lastPathComponent] stringByDeletingPathExtension] capitalizedString];
+    NSString* name = [[url lastPathComponent] stringByDeletingPathExtension];
     KSHTMLWriterSnippetTests* test = [super testCaseWithSelector:selector param:url name:name];
     test.controller = controller;
 

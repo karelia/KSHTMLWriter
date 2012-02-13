@@ -93,7 +93,7 @@
     NSUInteger index = 0;
     for (NSDictionary* test in tests)
     {
-        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test name:[NSString stringWithFormat:@"%d", index++]]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
     }
     
     return result;
