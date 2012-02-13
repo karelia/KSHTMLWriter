@@ -64,7 +64,7 @@
 		22F1017214D1AACB006E2E95 /* KSHTMLWriterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */; };
 		22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 		22F1017614D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */; };
-		22F1017814D2E665006E2E95 /* XML Tests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F1017714D2E665006E2E95 /* XML Tests.plist */; };
+		22F1017814D2E665006E2E95 /* Compound Tests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F1017714D2E665006E2E95 /* Compound Tests.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,7 +157,7 @@
 		22F1016F14D1AACB006E2E95 /* KSHTMLWriterTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterTestCase.h; sourceTree = "<group>"; };
 		22F1017014D1AACB006E2E95 /* KSHTMLWriterTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterTestCase.m; sourceTree = "<group>"; };
 		22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterCompoundTests.m; sourceTree = "<group>"; };
-		22F1017714D2E665006E2E95 /* XML Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "XML Tests.plist"; sourceTree = "<group>"; };
+		22F1017714D2E665006E2E95 /* Compound Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Compound Tests.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,7 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				22352BAD14C6FCB00031F5DD /* KSHTMLWriterTests-Info.plist */,
-				22F1017714D2E665006E2E95 /* XML Tests.plist */,
+				22F1017714D2E665006E2E95 /* Compound Tests.plist */,
 				22352BAE14C6FCB00031F5DD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -541,7 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22352BB014C6FCB00031F5DD /* InfoPlist.strings in Resources */,
-				22F1017814D2E665006E2E95 /* XML Tests.plist in Resources */,
+				22F1017814D2E665006E2E95 /* Compound Tests.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

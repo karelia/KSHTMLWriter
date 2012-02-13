@@ -8,6 +8,7 @@
 
 #import "KSHTMLWriterTestCase.h"
 #import "KSXMLWriter.h"
+#import "KSHTMLWriter.h"
 #import "KSStringWriter.h"
 
 #pragma mark - Unit Tests Interface
@@ -62,38 +63,66 @@
 
 #pragma mark - Tests
 
-- (void)testCompound
+typedef enum
 {
-    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"XML Tests" withExtension:@"plist"];
-    NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
-    for (NSDictionary* test in tests)
+    TestXML,
+    TestHTML
+} TestType;
+
+- (void)testCompoundWithTestType:(TestType)type
+{
+    Class class;
+    NSString* expectedKey;
+    
+    switch (type) 
     {
-        KSStringWriter* output = [[KSStringWriter alloc] init];
-        KSXMLWriter* writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
-
-        NSArray* actions = [test objectForKey:@"actions"];
-        NSString* expected = [test objectForKey:@"expected"];
-        [self writer:writer performActions:actions];
-        
-        NSString* generated = [output string];
-        [self assertString:generated matchesString:expected];
-
-        [writer release];
-        [output release];
+        case TestXML:
+            class = [KSXMLWriter class];
+            expectedKey = @"expected";
+            break;
+            
+        default:
+            class = [KSHTMLWriter class];
+            expectedKey = @"expected-html";
+            break;
     }
+
+    NSDictionary* test = self.dynamicTestParameter;
+    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
+
+    NSArray* actions = [test objectForKey:@"actions"];
+    NSString* expected = [test objectForKey:expectedKey];
+    [self writer:writer performActions:actions];
+    
+    NSString* generated = [output string];
+    [self assertString:generated matchesString:expected];
+
+    [writer release];
+    [output release];
 }
 
+- (void)testCompoundXML
+{
+    [self testCompoundWithTestType:TestXML];
+}
+
+- (void)testCompoundHTML
+{
+    [self testCompoundWithTestType:TestHTML];
+}
 
 + (id) defaultTestSuite
 {
     id result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
     
-    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"XML Tests" withExtension:@"plist"];
+    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"Compound Tests" withExtension:@"plist"];
     NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
     NSUInteger index = 0;
     for (NSDictionary* test in tests)
     {
-        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:[NSString stringWithFormat:@"Item%d", index++]]];
     }
     
     return result;
