@@ -7,15 +7,23 @@ The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies
 
 To run these, select the KSHTMLWriter scheme in Xcode, and choose "Test" from the "Product" menu.
 
+Basic Tests
+-----------
+
+There are some basic tests exercising the following classes:
+- KSStringWriter
+- KSMutableDataWriter
+- KSOutputStreamWriter
+- KSXMLWriter
+
 Compound XML Tests
 ------------------
 
-In addition to some basic tests on KSStringWriter and KSXMLWriter, there are also some compound xml tests.
+In addition to the basic tests, there are also some "compound" xml tests. These test various permutations of
+writer calls to see if they generate the correct XML.
 
-These test various permutations of writer calls to see if they generate the correct XML.
-
-The tests are driven from the "XML Tests.plist" file, which uses a simple NSDictionary based structure to
-describe a sequence of actions to perform to build up the xml. The actions include
+The tests are driven from an array of NSDictionary based structures, each of which
+describes a sequence of actions to perform to build up the xml. The actions include
 
 - add a comment
 - add some text
@@ -23,6 +31,13 @@ describe a sequence of actions to perform to build up the xml. The actions inclu
 - add a nested element
 
 The NSDictionary also includes the expected value of the generated XML, so that the test can check it.
+
+In theory the NSDictionaries that drive the tests could be auto-generated to cover many permutations. The
+only problem with that idea is that the expected output would also have to be generated, which leads to a
+certain amount of chicken-egg problem (since generating XML is the thing we're trying to test in the
+first place).
+
+At the moment, the NSDictionaries are hand-written, and are read from the "XML Tests.plist" file.
 
 
 Application Tests
