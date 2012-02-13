@@ -107,7 +107,7 @@
     [self testWritingSnippetsWithWriterClass:[KSXMLWriter class]];
 }
 
-- (void)testWritingSnippetWithXMLWriterPretty
+- (void)testWritingSnippetWithHTMLWriterPretty
 {
     [self testPrettyPrintSnippetsWithWriterClass:[KSHTMLWriter class]];
 }
@@ -137,7 +137,7 @@
     snippets = [[NSBundle mainBundle] URLsForResourcesWithExtension:nil subdirectory:@"Snippets/Pretty"];
     for (NSURL* snippetURL in snippets)
     {
-        [result addTest:[self testCaseWithSelector:@selector(testWritingSnippetWithXMLWriterPretty) url:snippetURL controller:controller]];
+        [result addTest:[self testCaseWithSelector:@selector(testWritingSnippetWithHTMLWriterPretty) url:snippetURL controller:controller]];
     }
     
     [controller release];
