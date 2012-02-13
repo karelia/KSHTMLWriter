@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2234292A14E93F2900FCEFD4 /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */; };
 		22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
 		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
@@ -89,6 +90,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterSnippetTests.m; sourceTree = "<group>"; };
 		22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKSHTMLWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22352B9314C6FCB00031F5DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		22352B9614C6FCB00031F5DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -383,6 +385,7 @@
 			isa = PBXGroup;
 			children = (
 				22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */,
+				2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */,
 				22C1947214C70130009A4406 /* Supporting Files */,
 			);
 			name = KSHTMLWriterWebkitTestShellTests;
@@ -638,6 +641,7 @@
 			files = (
 				22C1947914C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m in Sources */,
 				22F1017214D1AACB006E2E95 /* KSHTMLWriterTestCase.m in Sources */,
+				2234292A14E93F2900FCEFD4 /* KSHTMLWriterSnippetTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

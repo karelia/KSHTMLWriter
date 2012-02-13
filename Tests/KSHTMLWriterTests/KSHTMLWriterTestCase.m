@@ -9,7 +9,7 @@
 @synthesize dynamicTestName;
 @synthesize dynamicTestParameter;
 
-+ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param
++ (id)testCaseWithSelector:(SEL)selector param:(id)param
 {
     KSHTMLWriterTestCase* tc = [self testCaseWithSelector:selector];
     tc.dynamicTestParameter = param;
@@ -17,7 +17,7 @@
     return tc;
 }
 
-+ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
++ (id)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
 {
     KSHTMLWriterTestCase* tc = [self testCaseWithSelector:selector];
     tc.dynamicTestParameter = param;
