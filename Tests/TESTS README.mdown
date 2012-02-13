@@ -20,24 +20,24 @@ Compound XML Tests
 ------------------
 
 In addition to the basic tests, there are also some "compound" xml tests. These test various permutations of
-writer calls to see if they generate the correct XML.
+writer calls to see if they generate the correct XML or HTML.
 
-The tests are driven from an array of NSDictionary based structures, each of which
-describes a sequence of actions to perform to build up the xml. The actions include
+The tests are driven from a dictionary of NSDictionary based structures, each of which
+describes a sequence of actions to perform to build up the xml/html. The actions include
 
 - add a comment
 - add some text
 - add some attributes to the current element
 - add a nested element
 
-The NSDictionary also includes the expected value of the generated XML, so that the test can check it.
+The NSDictionary also includes the expected value of the generated XML and HTML, so that the test can check it.
 
 In theory the NSDictionaries that drive the tests could be auto-generated to cover many permutations. The
 only problem with that idea is that the expected output would also have to be generated, which leads to a
-certain amount of chicken-egg problem (since generating XML is the thing we're trying to test in the
+case of the chicken-egg problem (since generating XML is the thing we're trying to test in the
 first place).
 
-At the moment, the NSDictionaries are hand-written, and are read from the "XML Tests.plist" file.
+At the moment, the NSDictionaries are hand-written, and are read from the "Compound Tests.plist" file.
 
 
 Application Tests
@@ -84,16 +84,17 @@ Anyone familiar with the unit testing framework we're using (OCUnit/SenTestKit) 
 as simple void methods taking no parameters, which get run once.
 
 These are fine in most cases, but there are some tests in our suite where we want to apply the same action repeatedly to
-each file in a folder, or each item in a plist.
+each file in a folder, or each item in a plist. We could do this in a loop inside the test, but then if any item in the 
+loop failed, we'd just see that the whole test had failed, which isn't that helpful.
 
-For these cases we do a little bit of extra work to ensure that the result of the testing of each file or plist item is
+So for these cases we do a little bit of extra work to ensure that the result of the testing of each file or plist item is
 reported as a separate result. 
 
 This gives us the change to see slightly nicer output if something goes wrong, and also a clearer idea about how many tests
-are actually run if everything goes well. 
+are actually run if everything goes well, since each iteration of each loop is counted as a test. 
 
-Because we effectively run the same test repeatedly, the default name of the test (which is the method name) isn't very useful,
-since it just appears in the output multiple times, leading to this sort of thing:
+Because we effectively run the same test repeatedly, the default name of the test (which is the method name) isn't very useful
+in the final reports, since it just appears multiple times, leading to this sort of thing:
 
 Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
 Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
@@ -110,25 +111,6 @@ messing about with the name are somewhat limited. Essentially what we do is to a
 that it stays as one word.
 
 In the case where we're iterating over files, we can append the file name, which results in something reasonably descriptive (note that
-this means that the test files need to have single word names):
+this means that the test files need to have single word names).
 
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithXMLWriterSimple]' started.
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithXMLWriterSimple]' passed (0.018 seconds).
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterSimple]' started.
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterSimple]' passed (0.000 seconds).
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyDeepIndent]' started.
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyDeepIndent]' passed (0.001 seconds).
-Test Case '-[KSHTMLWriterSnippetTests testWritingSnippetWithHTMLWriterPrettyExtraNewlines]' started.
-etc...
-
-
-In the case where we're iterating over items in a plist, we currently just use the item index. Frankly this is of limited use:
-
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem0]' started.
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem0]' passed (0.001 seconds).
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem1]' started.
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem1]' passed (0.001 seconds).
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem2]' started.
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem2]' passed (0.001 seconds).
-Test Case '-[KSXMLWriterCompoundTests testCompoundItem3]' started.
-etc...
+In the case where we're iterating over items in a plist, we use the key of each item as its name.
