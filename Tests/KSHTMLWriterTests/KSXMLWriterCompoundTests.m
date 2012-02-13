@@ -78,7 +78,7 @@ typedef enum
     {
         case TestXML:
             class = [KSXMLWriter class];
-            expectedKey = @"expected";
+            expectedKey = @"expected-xml";
             break;
             
         default:
