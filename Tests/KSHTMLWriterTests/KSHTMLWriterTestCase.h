@@ -5,9 +5,12 @@
 
 @interface KSHTMLWriterTestCase : SenTestCase
 
-@property (strong, nonatomic) id testParam;
+@property (strong, nonatomic) id dynamicTestParameter;
+@property (strong, nonatomic) NSString* dynamicTestName;
 
 + (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param;
++ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name;
+
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2;
 
 @end

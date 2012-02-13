@@ -90,9 +90,10 @@
     
     NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"XML Tests" withExtension:@"plist"];
     NSArray* tests = [NSArray arrayWithContentsOfURL:plist];
+    NSUInteger index = 0;
     for (NSDictionary* test in tests)
     {
-        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompound) param:test name:[NSString stringWithFormat:@"%d", index++]]];
     }
     
     return result;

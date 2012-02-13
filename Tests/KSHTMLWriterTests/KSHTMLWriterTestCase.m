@@ -6,14 +6,40 @@
 @implementation KSHTMLWriterTestCase
 
 
-@synthesize testParam;
+@synthesize dynamicTestName;
+@synthesize dynamicTestParameter;
 
 + (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param
 {
     KSHTMLWriterTestCase* tc = [self testCaseWithSelector:selector];
-    tc.testParam = param;
+    tc.dynamicTestParameter = param;
     
     return tc;
+}
+
++ (SenTestCase*)testCaseWithSelector:(SEL)selector param:(id)param name:(NSString*)name
+{
+    KSHTMLWriterTestCase* tc = [self testCaseWithSelector:selector];
+    tc.dynamicTestParameter = param;
+    tc.dynamicTestName = name;
+    
+    return tc;
+}
+
+- (NSString*)name
+{
+    NSString* result;
+    
+    if (self.dynamicTestName)
+    {
+        result = [NSString stringWithFormat:@"-[%@ %@%@]", NSStringFromClass([self class]), NSStringFromSelector(self.selector), self.dynamicTestName];
+    }
+    else 
+    {
+       result = [super name];
+    }
+    
+    return result;
 }
 
 - (void)assertString:(NSString*)string1 matchesString:(NSString*)string2
