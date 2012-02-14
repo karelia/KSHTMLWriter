@@ -116,8 +116,15 @@
     }
     
     
-    BOOL prettyPrint = ([self options] & KSXMLWriterDOMAdaptorPrettyPrint);   // pretty printing leaves the writer to make whitespace
-    [[self XMLWriter] startElement:elementName writeInline:!prettyPrint];
+    if ([self options] & KSXMLWriterDOMAdaptorPrettyPrint)
+    {
+        // pretty printing leaves the writer to make whitespace
+        [[self XMLWriter] startElement:elementName];
+    }
+    else
+    {
+        [[self XMLWriter] startElement:elementName writeInline:YES];
+    }
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
