@@ -406,72 +406,72 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return NO;
 }
 
-- (BOOL)canWriteElementInline:(NSString *)tagName;
+- (BOOL)canWriteElementInline:(NSString *)elementName;
 {
-    switch ([tagName length])
+    switch ([elementName length])
     {
         case 1:
-            if ([tagName isEqualToString:@"a"] ||
-                [tagName isEqualToString:@"b"] ||
-                [tagName isEqualToString:@"i"] ||
-                [tagName isEqualToString:@"u"] ||
-                [tagName isEqualToString:@"q"]) return YES;
+            if ([elementName isEqualToString:@"a"] ||
+                [elementName isEqualToString:@"b"] ||
+                [elementName isEqualToString:@"i"] ||
+                [elementName isEqualToString:@"u"] ||
+                [elementName isEqualToString:@"q"]) return YES;
             break;
             
         case 2:
-            if ([tagName isEqualToString:@"br"] ||
-                [tagName isEqualToString:@"em"] ||
-                [tagName isEqualToString:@"tt"]) return YES;
+            if ([elementName isEqualToString:@"br"] ||
+                [elementName isEqualToString:@"em"] ||
+                [elementName isEqualToString:@"tt"]) return YES;
             break;
             
         case 3:
-            if ([tagName isEqualToString:@"img"] ||
-                [tagName isEqualToString:@"sup"] ||
-                [tagName isEqualToString:@"sub"] ||
-                [tagName isEqualToString:@"big"] ||
-                [tagName isEqualToString:@"del"] ||
-                [tagName isEqualToString:@"ins"] ||
-                [tagName isEqualToString:@"dfn"] ||
-                [tagName isEqualToString:@"map"] ||
-                [tagName isEqualToString:@"var"] ||
-                [tagName isEqualToString:@"bdo"] ||
-                [tagName isEqualToString:@"kbd"]) return YES;
+            if ([elementName isEqualToString:@"img"] ||
+                [elementName isEqualToString:@"sup"] ||
+                [elementName isEqualToString:@"sub"] ||
+                [elementName isEqualToString:@"big"] ||
+                [elementName isEqualToString:@"del"] ||
+                [elementName isEqualToString:@"ins"] ||
+                [elementName isEqualToString:@"dfn"] ||
+                [elementName isEqualToString:@"map"] ||
+                [elementName isEqualToString:@"var"] ||
+                [elementName isEqualToString:@"bdo"] ||
+                [elementName isEqualToString:@"kbd"]) return YES;
             break;
             
         case 4:
-            if ([tagName isEqualToString:@"span"] ||
-                [tagName isEqualToString:@"font"] ||
-                [tagName isEqualToString:@"abbr"] ||
-                [tagName isEqualToString:@"cite"] ||
-                [tagName isEqualToString:@"code"] ||
-                [tagName isEqualToString:@"samp"]) return YES;
+            if ([elementName isEqualToString:@"span"] ||
+                [elementName isEqualToString:@"font"] ||
+                [elementName isEqualToString:@"abbr"] ||
+                [elementName isEqualToString:@"cite"] ||
+                [elementName isEqualToString:@"code"] ||
+                [elementName isEqualToString:@"samp"]) return YES;
             break;
             
         case 5:
-            if ([tagName isEqualToString:@"small"] ||
-                [tagName isEqualToString:@"input"] ||
-                [tagName isEqualToString:@"label"]) return YES;
+            if ([elementName isEqualToString:@"small"] ||
+                [elementName isEqualToString:@"input"] ||
+                [elementName isEqualToString:@"label"]) return YES;
             break;
             
         case 6:
-            if ([tagName isEqualToString:@"strong"] ||
-                [tagName isEqualToString:@"select"] ||
-                [tagName isEqualToString:@"button"] ||
-                [tagName isEqualToString:@"object"] ||
-                [tagName isEqualToString:@"applet"] ||
-                [tagName isEqualToString:@"script"]) return YES;
+            if ([elementName isEqualToString:@"strong"] ||
+                [elementName isEqualToString:@"select"] ||
+                [elementName isEqualToString:@"button"] ||
+                [elementName isEqualToString:@"object"] ||
+                [elementName isEqualToString:@"applet"] ||
+                [elementName isEqualToString:@"script"]) return YES;
             break;
             
         case 7:
-            if ([tagName isEqualToString:@"acronym"]) return YES;
+            if ([elementName isEqualToString:@"acronym"]) return YES;
             break;
             
         case 8:
-            if ([tagName isEqualToString:@"textarea"]) return YES;
+            if ([elementName isEqualToString:@"textarea"]) return YES;
             break;
     }
     
-    return [super canWriteElementInline:tagName];
+    return [super canWriteElementInline:elementName];
 }
 
 - (BOOL)validateElement:(NSString *)element;
