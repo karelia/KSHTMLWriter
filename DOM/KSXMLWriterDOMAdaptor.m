@@ -351,10 +351,46 @@
     /*  The text to write is passed in (rather than calling [self data]) so as to handle writing a subset of it
      */
     
+    
     // Whitespace will be provided by the XML writer when pretty printing, rather than us
     if ([adaptor options] & KSXMLWriterDOMAdaptorPrettyPrint)
     {
-        data = [data stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        static NSCharacterSet *nonWhitespace;
+        if (!nonWhitespace) nonWhitespace = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] copy];
+        
+        
+        BOOL isFirst = [self previousSibling] == nil;
+        BOOL isLast = [self nextSibling] == nil;
+        
+        if (isFirst)
+        {
+            if (isLast)
+            {
+                data = [data stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            }
+            else
+            {
+                // Trim off starting whitespace; ignore complete whitespace
+                NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
+                if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
+                if (nonWhitespaceStart.location > 0) data = [data substringFromIndex:nonWhitespaceStart.location];
+            }
+        }
+        else if (isLast)
+        {
+            // Trim off ending whitespace; ignore complete whitespace
+            NSRange nonWhitespaceEnd = [data rangeOfCharacterFromSet:nonWhitespace options:NSBackwardsSearch];
+            if (nonWhitespaceEnd.location == NSNotFound) return [super ks_writeHTML:adaptor];
+            
+            nonWhitespaceEnd.location++;
+            if (nonWhitespaceEnd.location < [data length]) data = [data substringToIndex:nonWhitespaceEnd.location];
+        }
+        else
+        {
+            // Ignore complete whitespace, but let all else through
+            NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
+            if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
+        }
         
         // Ignore nodes which are naught but whitespace
         if ([data length] == 0) return [super ks_writeHTML:adaptor];
