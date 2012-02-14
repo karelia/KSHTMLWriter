@@ -119,7 +119,7 @@
     if ([self options] & KSXMLWriterDOMAdaptorPrettyPrint)
     {
         // pretty printing leaves the writer to make whitespace
-        [[self XMLWriter] startElement:elementName writeInline:NO];
+        [[self XMLWriter] startElement:elementName];
     }
     else
     {
