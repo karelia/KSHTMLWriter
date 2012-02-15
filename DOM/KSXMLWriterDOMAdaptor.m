@@ -145,7 +145,44 @@
 
 - (DOMNode *)didWriteDOMText:(DOMText *)textNode nextNode:(DOMNode *)nextNode;
 {
-    //  For subclasses to override
+    // Is the next node also text? If so, normalize by appending to textNode.
+    if ([self options] & KSXMLWriterDOMAdaptorNormalize)
+    {
+        if ([nextNode nodeType] == DOM_TEXT_NODE)
+        {
+            // Do usual writing. Produces correct output, and handles possibility of a chain of unnormalized text nodes
+            DOMNode *nodeToAppend = nextNode;
+            nextNode = [nodeToAppend ks_writeHTML:self];
+            
+            
+            // Maintain selection
+            /*WebView *webView = [[[textNode ownerDocument] webFrame] webView];
+            DOMRange *selection = [webView selectedDOMRange];
+            NSSelectionAffinity affinity = [webView selectionAffinity];
+            
+            NSUInteger length = [textNode length];
+            NSIndexPath *startPath = [[selection ks_startIndexPathFromNode:nodeToAppend] indexPathByAddingToLastIndex:length];
+            
+            NSIndexPath *endPath = [[selection ks_endIndexPathFromNode:nodeToAppend] indexPathByAddingToLastIndex:length];
+            if (!endPath)
+            {
+                // When selection is at end of textNode, WebKit extends selection to cover all of appended text. #136170
+                endPath = [selection ks_endIndexPathFromNode:textNode];
+            }*/
+            
+            
+            // Delete node by appending to ourself
+            [textNode appendData:[nodeToAppend nodeValue]];
+            [[nodeToAppend parentNode] removeChild:nodeToAppend];
+            
+            
+            // Restore selection
+            /*if (startPath) [selection ks_setStartWithIndexPath:startPath fromNode:textNode];
+            if (endPath) [selection ks_setEndWithIndexPath:endPath fromNode:textNode];
+            if (startPath || endPath) [webView setSelectedDOMRange:selection affinity:affinity];*/
+        }
+    }
+    
     return nextNode;
 }
 
