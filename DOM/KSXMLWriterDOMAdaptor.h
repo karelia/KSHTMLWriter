@@ -14,6 +14,7 @@
 typedef enum {
     KSXMLWriterOptionsNone = NSXMLNodeOptionsNone,
     KSXMLWriterDOMAdaptorPrettyPrint = NSXMLNodePrettyPrint,
+    KSXMLWriterDOMAdaptorNormalize = 1 << 31,
 } KSXMLWriterDOMAdaptorOptions;
 
 
