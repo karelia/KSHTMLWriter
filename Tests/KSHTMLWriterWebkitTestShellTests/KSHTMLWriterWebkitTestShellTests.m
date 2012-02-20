@@ -12,7 +12,7 @@
 
 #import "AppDelegate.h"
 #import "StubWindowController.h"
-#import "KSHTMLWriterTestCase.h"
+#import "KSWriterTestCase.h"
 
 
 #import <SenTestingKit/SenTestingKit.h>
@@ -20,7 +20,7 @@
 
 @class StubWindowController;
 
-@interface KSHTMLWriterWebkitTestShellTests : KSHTMLWriterTestCase
+@interface KSHTMLWriterWebkitTestShellTests : KSWriterTestCase
 
 @end
 

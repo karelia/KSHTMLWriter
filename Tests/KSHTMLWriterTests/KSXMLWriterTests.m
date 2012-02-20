@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "KSHTMLWriterTestCase.h"
+#import "KSWriterTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSStringWriter.h"
 
@@ -24,7 +24,7 @@
 
 #pragma mark - Unit Tests Interface
 
-@interface KSXMLWriterTests : KSHTMLWriterTestCase
+@interface KSXMLWriterTests : KSWriterTestCase
 {
     KSStringWriter* output;
     KSXMLWriter* writer;
