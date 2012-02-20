@@ -129,7 +129,6 @@
 		224EBE8C14F2974C0051B7BB /* README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
 		228C7D2014CD74F000CC42FE /* KSXMLWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterTests.m; sourceTree = "<group>"; };
 		2291487B14CD7A0A00EFB4AB /* README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.mdown; path = Tests/README.mdown; sourceTree = "<group>"; };
-		22C18C0114D3001700AE57DA /* ocunit2junit.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22C18C0314D3001700AE57DA /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
 		22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBufferedWriter.h; sourceTree = "<group>"; };
 		22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBufferedWriter.m; sourceTree = "<group>"; };
@@ -387,7 +386,6 @@
 		22C18C0014D3001700AE57DA /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				22C18C0114D3001700AE57DA /* ocunit2junit.rb */,
 				22C18C0314D3001700AE57DA /* test.sh */,
 			);
 			name = Scripts;
