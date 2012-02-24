@@ -11,8 +11,6 @@
 		22094E5714F2928200DAF5F7 /* KSOutputStreamWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22094E4C14F291A400DAF5F7 /* KSOutputStreamWriterTests.m */; };
 		22094E5814F2928200DAF5F7 /* KSStringWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22094E4D14F291A400DAF5F7 /* KSStringWriterTests.m */; };
 		22094E5914F2928200DAF5F7 /* KSWriterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22094E4F14F291A400DAF5F7 /* KSWriterTestCase.m */; };
-		22094E5A14F292F500DAF5F7 /* KSWriterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22094E4F14F291A400DAF5F7 /* KSWriterTestCase.m */; };
-		2234292A14E93F2900FCEFD4 /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */; };
 		22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
 		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
@@ -46,27 +44,9 @@
 		22C1944714C6FE9D009A4406 /* KSStringWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943B14C6FE9D009A4406 /* KSStringWriter.m */; };
 		22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943C14C6FE9D009A4406 /* KSWriter.h */; };
 		22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
-		22C1945414C7012F009A4406 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
-		22C1945A14C70130009A4406 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22C1945814C70130009A4406 /* InfoPlist.strings */; };
-		22C1945C14C70130009A4406 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1945B14C70130009A4406 /* main.m */; };
-		22C1946014C70130009A4406 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 22C1945E14C70130009A4406 /* Credits.rtf */; };
-		22C1946314C70130009A4406 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1946214C70130009A4406 /* AppDelegate.m */; };
-		22C1946614C70130009A4406 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C1946414C70130009A4406 /* MainMenu.xib */; };
-		22C1946D14C70130009A4406 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
-		22C1946E14C70130009A4406 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
-		22C1947614C70130009A4406 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22C1947414C70130009A4406 /* InfoPlist.strings */; };
-		22C1947914C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */; };
-		22C1948414C70604009A4406 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C1948214C70604009A4406 /* Stub.html */; };
-		22C1948814C709A1009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
-		22C1948F14C7173A009A4406 /* StubWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1948E14C7173A009A4406 /* StubWindowController.m */; };
-		22C1949214C71774009A4406 /* StubWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C1949014C71774009A4406 /* StubWindow.xib */; };
-		22C194AA14C72D87009A4406 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C194A914C72D87009A4406 /* Snippets */; };
-		22C194AB14C73063009A4406 /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
-		22C194AC14C7307E009A4406 /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
-		22C194AD14C73090009A4406 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
-		22C91EF614F7B63800FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */; };
-		22C91EF814F7B6B700FCFF8F /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C1948214C70604009A4406 /* Stub.html */; };
-		22C91EF914F7BA8C00FCFF8F /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C194A914C72D87009A4406 /* Snippets */; };
+		22C91EFB14F7BB5D00FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91EFA14F7BB5D00FCFF8F /* KSHTMLWriterSnippetTests.m */; };
+		22C91EFD14F7BB8A00FCFF8F /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 22C91EFC14F7BB8A00FCFF8F /* Snippets */; };
+		22C91EFF14F7BB9400FCFF8F /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91EFE14F7BB9400FCFF8F /* Stub.html */; };
 		22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 		22F1017614D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */; };
 		22F1017814D2E665006E2E95 /* Compound Tests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F1017714D2E665006E2E95 /* Compound Tests.plist */; };
@@ -74,20 +54,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		22352BA814C6FCB00031F5DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22352B8714C6FCAF0031F5DD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 22352B8F14C6FCB00031F5DD;
-			remoteInfo = KSHTMLWriter;
-		};
-		22C1946F14C70130009A4406 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22352B8714C6FCAF0031F5DD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 22C1945114C7012F009A4406;
-			remoteInfo = KSHTMLWriterWebkitTestShell;
-		};
-		22C1948514C70996009A4406 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22352B8714C6FCAF0031F5DD /* Project object */;
 			proxyType = 1;
@@ -107,7 +73,6 @@
 		22094E5014F291A400DAF5F7 /* KSWriterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSWriterTests-Info.plist"; sourceTree = "<group>"; };
 		22094E5214F291A400DAF5F7 /* ocunit2junit.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22094E5314F291A400DAF5F7 /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
-		2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterSnippetTests.m; sourceTree = "<group>"; };
 		22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKSHTMLWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22352B9314C6FCB00031F5DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		22352B9614C6FCB00031F5DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -148,25 +113,10 @@
 		22C1943B14C6FE9D009A4406 /* KSStringWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSStringWriter.m; sourceTree = "<group>"; };
 		22C1943C14C6FE9D009A4406 /* KSWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSWriter.h; sourceTree = "<group>"; };
 		22C1943D14C6FE9D009A4406 /* KSWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSWriter.m; sourceTree = "<group>"; };
-		22C1945214C7012F009A4406 /* KSHTMLWriterWebkitTestShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KSHTMLWriterWebkitTestShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		22C1945714C70130009A4406 /* KSHTMLWriterWebkitTestShell-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterWebkitTestShell-Info.plist"; sourceTree = "<group>"; };
-		22C1945914C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		22C1945B14C70130009A4406 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		22C1945D14C70130009A4406 /* KSHTMLWriterWebkitTestShell-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KSHTMLWriterWebkitTestShell-Prefix.pch"; sourceTree = "<group>"; };
-		22C1945F14C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		22C1946114C70130009A4406 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		22C1946214C70130009A4406 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		22C1946514C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		22C1946C14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSHTMLWriterWebkitTestShellTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		22C1947314C70130009A4406 /* KSHTMLWriterWebkitTestShellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterWebkitTestShellTests-Info.plist"; sourceTree = "<group>"; };
-		22C1947514C70130009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterWebkitTestShellTests.m; sourceTree = "<group>"; };
-		22C1948314C70604009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Stub.html; sourceTree = "<group>"; };
 		22C1948714C709A1009A4406 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		22C1948D14C7173A009A4406 /* StubWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubWindowController.h; sourceTree = "<group>"; };
-		22C1948E14C7173A009A4406 /* StubWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubWindowController.m; sourceTree = "<group>"; };
-		22C1949114C71774009A4406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/StubWindow.xib; sourceTree = "<group>"; };
-		22C194A914C72D87009A4406 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
+		22C91EFA14F7BB5D00FCFF8F /* KSHTMLWriterSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterSnippetTests.m; sourceTree = "<group>"; };
+		22C91EFC14F7BB8A00FCFF8F /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
+		22C91EFE14F7BB9400FCFF8F /* Stub.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Stub.html; sourceTree = "<group>"; };
 		22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterCompoundTests.m; sourceTree = "<group>"; };
 		22F1017714D2E665006E2E95 /* Compound Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Compound Tests.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,27 +138,6 @@
 				22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */,
 				22352BAA14C6FCB00031F5DD /* libKSHTMLWriter.a in Frameworks */,
 				2278062214F7B4F7001205E1 /* WebKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1944F14C7012F009A4406 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C194AB14C73063009A4406 /* libKSHTMLWriter.a in Frameworks */,
-				22C1948814C709A1009A4406 /* WebKit.framework in Frameworks */,
-				22C1945414C7012F009A4406 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1946814C70130009A4406 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C194AD14C73090009A4406 /* WebKit.framework in Frameworks */,
-				22C194AC14C7307E009A4406 /* libKSHTMLWriter.a in Frameworks */,
-				22C1946D14C70130009A4406 /* SenTestingKit.framework in Frameworks */,
-				22C1946E14C70130009A4406 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +195,6 @@
 			children = (
 				22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */,
 				22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */,
-				22C1945214C7012F009A4406 /* KSHTMLWriterWebkitTestShell.app */,
-				22C1946C14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,6 +252,9 @@
 			children = (
 				22F1017514D2E4D0006E2E95 /* KSXMLWriterCompoundTests.m */,
 				228C7D2014CD74F000CC42FE /* KSXMLWriterTests.m */,
+				22C91EFA14F7BB5D00FCFF8F /* KSHTMLWriterSnippetTests.m */,
+				22C91EFE14F7BB9400FCFF8F /* Stub.html */,
+				22C91EFC14F7BB8A00FCFF8F /* Snippets */,
 				22352BAC14C6FCB00031F5DD /* Supporting Files */,
 			);
 			name = KSHTMLWriterTests;
@@ -384,8 +314,6 @@
 			children = (
 				2291487B14CD7A0A00EFB4AB /* README.mdown */,
 				22352BAB14C6FCB00031F5DD /* KSHTMLWriterTests */,
-				22C1947114C70130009A4406 /* KSHTMLWriterWebkitTestShellTests */,
-				22C1945514C70130009A4406 /* KSHTMLWriterWebkitTestShell */,
 				22C18C0014D3001700AE57DA /* Scripts */,
 			);
 			name = Tests;
@@ -398,55 +326,6 @@
 			);
 			name = Scripts;
 			path = Tests/Scripts;
-			sourceTree = "<group>";
-		};
-		22C1945514C70130009A4406 /* KSHTMLWriterWebkitTestShell */ = {
-			isa = PBXGroup;
-			children = (
-				22C1946114C70130009A4406 /* AppDelegate.h */,
-				22C1946214C70130009A4406 /* AppDelegate.m */,
-				22C1948D14C7173A009A4406 /* StubWindowController.h */,
-				22C1948E14C7173A009A4406 /* StubWindowController.m */,
-				22C1946414C70130009A4406 /* MainMenu.xib */,
-				22C1949014C71774009A4406 /* StubWindow.xib */,
-				22C1948214C70604009A4406 /* Stub.html */,
-				22C194A914C72D87009A4406 /* Snippets */,
-				22C1945614C70130009A4406 /* Supporting Files */,
-			);
-			name = KSHTMLWriterWebkitTestShell;
-			path = Tests/KSHTMLWriterWebkitTestShell;
-			sourceTree = "<group>";
-		};
-		22C1945614C70130009A4406 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				22C1945714C70130009A4406 /* KSHTMLWriterWebkitTestShell-Info.plist */,
-				22C1945814C70130009A4406 /* InfoPlist.strings */,
-				22C1945B14C70130009A4406 /* main.m */,
-				22C1945D14C70130009A4406 /* KSHTMLWriterWebkitTestShell-Prefix.pch */,
-				22C1945E14C70130009A4406 /* Credits.rtf */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		22C1947114C70130009A4406 /* KSHTMLWriterWebkitTestShellTests */ = {
-			isa = PBXGroup;
-			children = (
-				22C1947814C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m */,
-				2234292714E93EEC00FCEFD4 /* KSHTMLWriterSnippetTests.m */,
-				22C1947214C70130009A4406 /* Supporting Files */,
-			);
-			name = KSHTMLWriterWebkitTestShellTests;
-			path = Tests/KSHTMLWriterWebkitTestShellTests;
-			sourceTree = "<group>";
-		};
-		22C1947214C70130009A4406 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				22C1947314C70130009A4406 /* KSHTMLWriterWebkitTestShellTests-Info.plist */,
-				22C1947414C70130009A4406 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,43 +390,6 @@
 			productReference = 22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		22C1945114C7012F009A4406 /* KSHTMLWriterWebkitTestShell */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 22C1947A14C70130009A4406 /* Build configuration list for PBXNativeTarget "KSHTMLWriterWebkitTestShell" */;
-			buildPhases = (
-				22C1944E14C7012F009A4406 /* Sources */,
-				22C1944F14C7012F009A4406 /* Frameworks */,
-				22C1945014C7012F009A4406 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				22C1948614C70996009A4406 /* PBXTargetDependency */,
-			);
-			name = KSHTMLWriterWebkitTestShell;
-			productName = KSHTMLWriterWebkitTestShell;
-			productReference = 22C1945214C7012F009A4406 /* KSHTMLWriterWebkitTestShell.app */;
-			productType = "com.apple.product-type.application";
-		};
-		22C1946B14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 22C1947D14C70130009A4406 /* Build configuration list for PBXNativeTarget "KSHTMLWriterWebkitTestShellTests" */;
-			buildPhases = (
-				22C1946714C70130009A4406 /* Sources */,
-				22C1946814C70130009A4406 /* Frameworks */,
-				22C1946914C70130009A4406 /* Resources */,
-				22C1946A14C70130009A4406 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				22C1947014C70130009A4406 /* PBXTargetDependency */,
-			);
-			name = KSHTMLWriterWebkitTestShellTests;
-			productName = KSHTMLWriterWebkitTestShellTests;
-			productReference = 22C1946C14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -571,8 +413,6 @@
 			targets = (
 				22352B8F14C6FCB00031F5DD /* KSHTMLWriter */,
 				22352BA314C6FCB00031F5DD /* KSHTMLWriterTests */,
-				22C1945114C7012F009A4406 /* KSHTMLWriterWebkitTestShell */,
-				22C1946B14C70130009A4406 /* KSHTMLWriterWebkitTestShellTests */,
 			);
 		};
 /* End PBXProject section */
@@ -584,29 +424,8 @@
 			files = (
 				22352BB014C6FCB00031F5DD /* InfoPlist.strings in Resources */,
 				22F1017814D2E665006E2E95 /* Compound Tests.plist in Resources */,
-				22C91EF814F7B6B700FCFF8F /* Stub.html in Resources */,
-				22C91EF914F7BA8C00FCFF8F /* Snippets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1945014C7012F009A4406 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C1945A14C70130009A4406 /* InfoPlist.strings in Resources */,
-				22C1946014C70130009A4406 /* Credits.rtf in Resources */,
-				22C1946614C70130009A4406 /* MainMenu.xib in Resources */,
-				22C1948414C70604009A4406 /* Stub.html in Resources */,
-				22C1949214C71774009A4406 /* StubWindow.xib in Resources */,
-				22C194AA14C72D87009A4406 /* Snippets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1946914C70130009A4406 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C1947614C70130009A4406 /* InfoPlist.strings in Resources */,
+				22C91EFD14F7BB8A00FCFF8F /* Snippets in Resources */,
+				22C91EFF14F7BB9400FCFF8F /* Stub.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,20 +433,6 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		22352BA214C6FCB00031F5DD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-			showEnvVarsInLog = 0;
-		};
-		22C1946A14C70130009A4406 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -675,27 +480,7 @@
 				22094E5814F2928200DAF5F7 /* KSStringWriterTests.m in Sources */,
 				22094E5914F2928200DAF5F7 /* KSWriterTestCase.m in Sources */,
 				2278062014F7B233001205E1 /* KSWebkitNoUITests.m in Sources */,
-				22C91EF614F7B63800FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1944E14C7012F009A4406 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C1945C14C70130009A4406 /* main.m in Sources */,
-				22C1946314C70130009A4406 /* AppDelegate.m in Sources */,
-				22C1948F14C7173A009A4406 /* StubWindowController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		22C1946714C70130009A4406 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22C1947914C70130009A4406 /* KSHTMLWriterWebkitTestShellTests.m in Sources */,
-				2234292A14E93F2900FCEFD4 /* KSHTMLWriterSnippetTests.m in Sources */,
-				22094E5A14F292F500DAF5F7 /* KSWriterTestCase.m in Sources */,
+				22C91EFB14F7BB5D00FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,16 +491,6 @@
 			isa = PBXTargetDependency;
 			target = 22352B8F14C6FCB00031F5DD /* KSHTMLWriter */;
 			targetProxy = 22352BA814C6FCB00031F5DD /* PBXContainerItemProxy */;
-		};
-		22C1947014C70130009A4406 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 22C1945114C7012F009A4406 /* KSHTMLWriterWebkitTestShell */;
-			targetProxy = 22C1946F14C70130009A4406 /* PBXContainerItemProxy */;
-		};
-		22C1948614C70996009A4406 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 22352B8F14C6FCB00031F5DD /* KSHTMLWriter */;
-			targetProxy = 22C1948514C70996009A4406 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -734,54 +509,6 @@
 				22352BAF14C6FCB00031F5DD /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		22C1945814C70130009A4406 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1945914C70130009A4406 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		22C1945E14C70130009A4406 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1945F14C70130009A4406 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		22C1946414C70130009A4406 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1946514C70130009A4406 /* en */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		22C1947414C70130009A4406 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1947514C70130009A4406 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		22C1948214C70604009A4406 /* Stub.html */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1948314C70604009A4406 /* en */,
-			);
-			name = Stub.html;
-			sourceTree = "<group>";
-		};
-		22C1949014C71774009A4406 /* StubWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22C1949114C71774009A4406 /* en */,
-			);
-			name = StubWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -884,56 +611,6 @@
 			};
 			name = Release;
 		};
-		22C1947B14C70130009A4406 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		22C1947C14C70130009A4406 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		22C1947E14C70130009A4406 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSHTMLWriterWebkitTestShell.app/Contents/MacOS/KSHTMLWriterWebkitTestShell";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		22C1947F14C70130009A4406 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/KSHTMLWriterWebkitTestShell.app/Contents/MacOS/KSHTMLWriterWebkitTestShell";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tests/KSHTMLWriterWebkitTestShell/KSHTMLWriterWebkitTestShell-Prefix.pch";
-				INFOPLIST_FILE = "Tests/KSHTMLWriterWebkitTestShellTests/KSHTMLWriterWebkitTestShellTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -960,24 +637,6 @@
 			buildConfigurations = (
 				22352BBA14C6FCB00031F5DD /* Debug */,
 				22352BBB14C6FCB00031F5DD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		22C1947A14C70130009A4406 /* Build configuration list for PBXNativeTarget "KSHTMLWriterWebkitTestShell" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				22C1947B14C70130009A4406 /* Debug */,
-				22C1947C14C70130009A4406 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		22C1947D14C70130009A4406 /* Build configuration list for PBXNativeTarget "KSHTMLWriterWebkitTestShellTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				22C1947E14C70130009A4406 /* Debug */,
-				22C1947F14C70130009A4406 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
