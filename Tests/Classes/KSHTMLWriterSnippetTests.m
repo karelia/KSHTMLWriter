@@ -10,12 +10,12 @@
 #import "KSStringWriter.h"
 #import "KSXMLWriterDOMAdaptor.h"
 
-#import "KSWriterTestCase.h"
+#import "ECDynamicTestCase.h"
 
 #import <SenTestingKit/SenTestingKit.h>
 #import <WebKit/WebKit.h>
 
-@interface KSHTMLWriterSnippetTests : KSWriterTestCase
+@interface KSHTMLWriterSnippetTests : ECDynamicTestCase
 
 @property (assign, nonatomic) BOOL done;
 

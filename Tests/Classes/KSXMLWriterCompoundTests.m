@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "KSWriterTestCase.h"
+#import "ECDynamicTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSHTMLWriter.h"
 #import "KSStringWriter.h"
 
 #pragma mark - Unit Tests Interface
 
-@interface KSXMLWriterCompoundTests : KSWriterTestCase
+@interface KSXMLWriterCompoundTests : ECDynamicTestCase
 @end
 
 #pragma mark - Unit Tests Implementation
@@ -121,8 +121,8 @@ typedef enum
     for (NSString* name in tests)
     {
         NSDictionary* test = [tests objectForKey:name];
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:name]];
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:name]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:[NSString stringWithFormat:@"%@XML", name]]];
+        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:[NSString stringWithFormat:@"%@HTML", name]]];
     }
     
     return result;
