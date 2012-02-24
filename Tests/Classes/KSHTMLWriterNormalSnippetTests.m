@@ -26,6 +26,11 @@
     return @"Snippets/Normal";
 }
 
++(NSString*)snippetsExtension
+{
+    return @"html";
+}
+
 - (void)testWritingSnippetsWithWriterClass:(Class)class
 {
     NSURL* snippetURL = self.dynamicTestParameter;

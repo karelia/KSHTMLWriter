@@ -12,8 +12,6 @@
 
 @interface KSHTMLWriterSnippetTests : ECDynamicTestCase
 
-@property (assign, nonatomic) BOOL done;
-
 - (WebView*)webViewWithStubPage;
 
 @end

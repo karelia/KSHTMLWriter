@@ -12,11 +12,9 @@
 
 @implementation KSHTMLWriterSnippetTests
 
-@synthesize done;
-
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    done = YES;
+    [self timeToExitRunLoop];
 }    
 
 #pragma mark - Helpers
@@ -32,11 +30,8 @@
         result = [[WebView alloc] initWithFrame: NSMakeRect (0,0,640,480)];
         result.frameLoadDelegate = self;
         [[result mainFrame] loadRequest:[NSURLRequest requestWithURL:stubURL]];
-        
-        while (self.done == NO)
-        {
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
-        }
+ 
+        [self runUntilTimeToExit];
    }
     
     return [result autorelease];
@@ -47,17 +42,22 @@
     return nil;
 }
 
++(NSString*)snippetsExtension
+{
+    return nil;
+}
+
 + (NSDictionary*)dynamicTestData
 {
     NSMutableDictionary* result = nil;
     NSString* path = [self snippetsPath];
     if (path)
     {
-        NSArray* snippets = [[NSBundle bundleForClass:[self class]] URLsForResourcesWithExtension:@"html" subdirectory:[self snippetsPath]];
+        NSArray* snippets = [[NSBundle bundleForClass:[self class]] URLsForResourcesWithExtension:[self snippetsExtension] subdirectory:path];
         result = [NSMutableDictionary dictionaryWithCapacity:[snippets count]];
         for (NSURL* snippet in snippets)
         {
-            [result setObject:snippets forKey:[snippet lastPathComponent]];
+            [result setObject:snippet forKey:[snippet lastPathComponent]];
         }
     }
     
