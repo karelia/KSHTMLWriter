@@ -1,3 +1,6 @@
 [submodule "KSWriter"]
 	path = KSWriter
 	url = git@github.com:karelia/KSWriter.git
+[submodule "Tests/ECUnitTests"]
+	path = Tests/ECUnitTests
+	url = git://github.com/elegantchaos/ECUnitTests.git
