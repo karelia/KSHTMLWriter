@@ -1,20 +1,12 @@
-There are two unit test targets in this project, and also an associated test shell application target.
-
-Logic Tests
-===========
-
-The KSHTMLWriterTests target consists of logic tests, and has no UI dependencies. 
-
-To run these, select the KSHTMLWriter scheme in Xcode, and choose "Test" from the "Product" menu.
+To run these tests, choose "Test" from the "Product" menu.
 
 Basic Tests
 -----------
 
 There are some basic tests exercising the following classes:
-- KSStringWriter
-- KSMutableDataWriter
-- KSOutputStreamWriter
+
 - KSXMLWriter
+- (see also the tests in the KSWriter project)
 
 Compound XML Tests
 ------------------
@@ -40,24 +32,14 @@ first place).
 At the moment, the NSDictionaries are hand-written, and are read from the "Compound Tests.plist" file.
 
 
-Application Tests
-=================
-
-The KSHTMLWriterWebkitTestShellTests target consists of extra tests that use the Webkit framework. 
-
-The Webkit tests need to run in the context of an application with a UI. This is the KSHTMLWriterWebkitTestShell target.
-
-To run these tests, select the KSHTMLWriteWebkitTestShell scheme in Xcode, and choose "Test" from the "Product" menu.
-
-
 "Snippets" Tests
 ----------------
 
-In addition to some basic tests, the majority of the application tests run through directories full of hmtl "snippets",
-performing some action on each snippet and then checking it against an expected outcome.
+These tests run through directories full of hmtl "snippets", performing some action on each snippet
+and then checking it against an expected outcome.
 
-Before running any of these tests the framework makes a window with a web view in it, and loads a stub html document into 
-the web view. The stub document (defined in Stub.html) is just an empty web page.
+Before running any of these tests the framework loads a stub html document into a hidden web view. 
+The stub document (defined in Stub.html) is just an empty web page.
 
 The snippet tests use this web view as the host for testing each html stub. They first inject the stub into the
 document using WebKit DOM methods. They then grab back the DOM representation of the stub, and use a HSHTMLDOMAdaptor
@@ -107,10 +89,9 @@ To try to improve this reporting, we override the name method of the test framew
 Unfortunately, OCUnit seems to expect this name to be in a very rigid format, essentially: "-[Class method]".
 
 Any attempt to return something in a different format appears to break Xcode's reporting of the tests. As a result, our options for
-messing about with the name are somewhat limited. Essentially what we do is to append some more characters to the method name, ensuring
-that it stays as one word.
+messing about with the name are somewhat limited. Essentially what we do is to replace the method name with a single word.
 
-In the case where we're iterating over files, we can append the file name, which results in something reasonably descriptive (note that
+In the case where we're iterating over files, we can use the file name, which results in something reasonably descriptive (note that
 this means that the test files need to have single word names).
 
 In the case where we're iterating over items in a plist, we use the key of each item as its name.
