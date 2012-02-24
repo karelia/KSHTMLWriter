@@ -102,30 +102,14 @@ typedef enum
     [output release];
 }
 
-- (void)testCompoundXML
+- (void)dynamicTestCompoundXML
 {
     [self testCompoundWithTestType:TestXML];
 }
 
-- (void)testCompoundHTML
+- (void)dynamicTestCompoundHTML
 {
     [self testCompoundWithTestType:TestHTML];
-}
-
-+ (id) defaultTestSuite
-{
-    id result = [[[SenTestSuite alloc] initWithName:NSStringFromClass(self)] autorelease];
-    
-    NSURL* plist = [[NSBundle bundleForClass:[self class]] URLForResource:@"Compound Tests" withExtension:@"plist"];
-    NSDictionary* tests = [NSDictionary dictionaryWithContentsOfURL:plist];
-    for (NSString* name in tests)
-    {
-        NSDictionary* test = [tests objectForKey:name];
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundXML) param:test name:[NSString stringWithFormat:@"%@XML", name]]];
-        [result addTest:[self testCaseWithSelector:@selector(testCompoundHTML) param:test name:[NSString stringWithFormat:@"%@HTML", name]]];
-    }
-    
-    return result;
 }
 
 @end

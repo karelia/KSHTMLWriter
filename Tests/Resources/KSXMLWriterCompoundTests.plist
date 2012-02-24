@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>AttributeWithComments</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>attributes</key>
+					<dict>
+						<key>test-attribute</key>
+						<string>test value</string>
+					</dict>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>comment</key>
+							<string>a comment</string>
+						</dict>
+						<dict>
+							<key>text</key>
+							<string>bar</string>
+						</dict>
+						<dict>
+							<key>comment</key>
+							<string>another comment</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/foo&gt;</string>
+		</dict>
+		<key>SingleComment</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>just a comment</string>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;!--just a comment--&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;!--just a comment--&gt;</string>
+		</dict>
+		<key>JustText</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>text</key>
+					<string>just some text</string>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>just some text</string>
+			<key>expected-html</key>
+			<string>just some text</string>
+		</dict>
+		<key>EmptyElement</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>empty-element</string>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;empty-element /&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;empty-element&gt;&lt;/empty-element&gt;</string>
+		</dict>
+		<key>CommentAttributeComment</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>blah</string>
+				</dict>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>attributes</key>
+					<dict>
+						<key>test-attribute</key>
+						<string>test value</string>
+					</dict>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>comment</key>
+							<string>a comment</string>
+						</dict>
+						<dict>
+							<key>text</key>
+							<string>bar</string>
+							<key>element</key>
+							<string>sub</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>comment</key>
+									<string>a comment</string>
+								</dict>
+								<dict>
+									<key>text</key>
+									<string>bar</string>
+								</dict>
+								<dict>
+									<key>comment</key>
+									<string>another comment</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>comment</key>
+							<string>another comment</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>blah</string>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;!--blah--&gt;&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar
+	&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;
+&lt;/foo&gt;&lt;!--blah--&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;!--blah--&gt;&lt;foo test-attribute=&quot;test value&quot;&gt;&lt;!--a comment--&gt;bar&lt;sub&gt;&lt;!--a comment--&gt;bar&lt;!--another comment--&gt;&lt;/sub&gt;&lt;!--another comment--&gt;&lt;/foo&gt;&lt;!--blah--&gt;</string>
+		</dict>
+		<key>CompoundElement</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>text</key>
+									<string>text</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>ElementContainingEmptyElement</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo /&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>ThreeNestedElements</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>element</key>
+									<string>foo</string>
+									<key>content</key>
+									<array>
+										<dict>
+											<key>text</key>
+											<string>text</string>
+										</dict>
+									</array>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;text&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;text&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>EmptyElementNestedTwoElementsDeep</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>element</key>
+									<string>foo</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;
+		&lt;foo /&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>TwoElementsInElement</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>text</key>
+									<string>text</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>text</key>
+									<string>text</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>TwoEmptyElementsInElement</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+						</dict>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo /&gt;
+	&lt;foo /&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;&lt;/foo&gt;
+	&lt;foo&gt;&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+		<key>ElementsWithTextAtMultipleLevels</key>
+		<dict>
+			<key>actions</key>
+			<array>
+				<dict>
+					<key>element</key>
+					<string>foo</string>
+					<key>content</key>
+					<array>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>text</key>
+									<string>text</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>element</key>
+							<string>foo</string>
+							<key>content</key>
+							<array>
+								<dict>
+									<key>element</key>
+									<string>foo</string>
+									<key>content</key>
+									<array>
+										<dict>
+											<key>text</key>
+											<string>text</string>
+										</dict>
+									</array>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+			<key>expected-xml</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;text&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+			<key>expected-html</key>
+			<string>&lt;foo&gt;
+	&lt;foo&gt;text&lt;/foo&gt;
+	&lt;foo&gt;
+		&lt;foo&gt;text&lt;/foo&gt;
+	&lt;/foo&gt;
+&lt;/foo&gt;</string>
+		</dict>
+	</dict>
+</plist>
