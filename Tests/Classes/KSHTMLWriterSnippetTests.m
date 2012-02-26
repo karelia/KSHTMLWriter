@@ -47,7 +47,7 @@
     return nil;
 }
 
-+ (NSDictionary*)dynamicTestData
++ (NSDictionary*)parameterisedTestData
 {
     NSMutableDictionary* result = nil;
     NSString* path = [self snippetsPath];

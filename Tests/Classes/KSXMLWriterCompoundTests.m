@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "ECDynamicTestCase.h"
+#import "ECParameterisedTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSHTMLWriter.h"
 #import "KSStringWriter.h"
 
 #pragma mark - Unit Tests Interface
 
-@interface KSXMLWriterCompoundTests : ECDynamicTestCase
+@interface KSXMLWriterCompoundTests : ECParameterisedTestCase
 @end
 
 #pragma mark - Unit Tests Implementation
@@ -87,7 +87,7 @@ typedef enum
             break;
     }
 
-    NSDictionary* test = self.dynamicTestParameter;
+    NSDictionary* test = self.parameterisedTestDataItem;
     KSStringWriter* output = [[KSStringWriter alloc] init];
     KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
 
@@ -102,12 +102,12 @@ typedef enum
     [output release];
 }
 
-- (void)dynamicTestCompoundXML
+- (void)parameterisedTestCompoundXML
 {
     [self testCompoundWithTestType:TestXML];
 }
 
-- (void)dynamicTestCompoundHTML
+- (void)parameterisedTestCompoundHTML
 {
     [self testCompoundWithTestType:TestHTML];
 }

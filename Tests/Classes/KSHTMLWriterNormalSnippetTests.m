@@ -33,7 +33,7 @@
 
 - (void)testWritingSnippetsWithWriterClass:(Class)class
 {
-    NSURL* snippetURL = self.dynamicTestParameter;
+    NSURL* snippetURL = self.parameterisedTestDataItem;
 
     WebView* view = [self webViewWithStubPage];
     DOMDocument* document = view.mainFrame.DOMDocument;
@@ -61,12 +61,12 @@
 
 #pragma mark - Tests
 
-- (void)dynamicTestWritingSnippetWithHTMLWriter
+- (void)parameterisedTestWritingSnippetWithHTMLWriter
 {
     [self testWritingSnippetsWithWriterClass:[KSHTMLWriter class]];
 }
 
-- (void)dynamicTestWritingSnippetWithXMLWriter
+- (void)parameterisedTestWritingSnippetWithXMLWriter
 {
     [self testWritingSnippetsWithWriterClass:[KSXMLWriter class]];
 }

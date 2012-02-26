@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "ECDynamicTestCase.h"
+#import "ECParameterisedTestCase.h"
 
 @class WebView;
 
-@interface KSHTMLWriterSnippetTests : ECDynamicTestCase
+@interface KSHTMLWriterSnippetTests : ECParameterisedTestCase
 
 - (WebView*)webViewWithStubPage;
 

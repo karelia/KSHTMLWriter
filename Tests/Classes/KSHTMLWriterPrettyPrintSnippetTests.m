@@ -28,7 +28,7 @@
 
 - (void)testPrettyPrintSnippetsWithWriterClass:(Class)class
 {
-    NSURL* snippetURL = self.dynamicTestParameter;
+    NSURL* snippetURL = self.parameterisedTestDataItem;
     
     NSError* error = nil;
     NSString* inputHTML = [NSString stringWithContentsOfURL:[snippetURL URLByAppendingPathComponent:@"input.html"] encoding:NSUTF8StringEncoding error:&error];
@@ -54,7 +54,7 @@
     [writer release];
 }
 
-- (void)dynamicTestWritingSnippetWithHTMLWriterPretty
+- (void)parameterisedTestWritingSnippetWithHTMLWriterPretty
 {
     [self testPrettyPrintSnippetsWithWriterClass:[KSHTMLWriter class]];
 }

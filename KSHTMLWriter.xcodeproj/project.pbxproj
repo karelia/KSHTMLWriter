@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22222CB814F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */; };
 		22222CB914F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB614F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m */; };
+		223269E814FA8125003055A2 /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 223269E714FA8125003055A2 /* ECParameterisedTestCase.m */; };
 		22352B9414C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
 		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
@@ -61,7 +62,6 @@
 		22C91F3B14F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2714F7BDCB00FCFF8F /* input.html */; };
 		22C91F3C14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2814F7BDCB00FCFF8F /* output.html */; };
 		22C91F3D14F7BDCB00FCFF8F /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
-		22C91F4A14F7BEED00FCFF8F /* ECDynamicTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F4114F7BEED00FCFF8F /* ECDynamicTestCase.m */; };
 		22C91F4B14F7BEED00FCFF8F /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F4314F7BEED00FCFF8F /* ECTestCase.m */; };
 		22C91F4C14F7BEED00FCFF8F /* README in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4414F7BEED00FCFF8F /* README */; };
 		22C91F4D14F7BEED00FCFF8F /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4614F7BEED00FCFF8F /* Test.bundle */; };
@@ -84,6 +84,8 @@
 		22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterNormalSnippetTests.m; sourceTree = "<group>"; };
 		22222CB614F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterPrettyPrintSnippetTests.m; sourceTree = "<group>"; };
 		22222CB714F7E97F00210FBD /* KSHTMLWriterSnippetTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSHTMLWriterSnippetTests.h; sourceTree = "<group>"; };
+		223269E614FA8125003055A2 /* ECParameterisedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECParameterisedTestCase.h; sourceTree = "<group>"; };
+		223269E714FA8125003055A2 /* ECParameterisedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECParameterisedTestCase.m; sourceTree = "<group>"; };
 		22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKSHTMLWriter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22352B9314C6FCB00031F5DD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		22352B9614C6FCB00031F5DD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -142,8 +144,6 @@
 		22C91F2714F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
 		22C91F2814F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
 		22C91F2914F7BDCB00FCFF8F /* Stub.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Stub.html; sourceTree = "<group>"; };
-		22C91F4014F7BEED00FCFF8F /* ECDynamicTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDynamicTestCase.h; sourceTree = "<group>"; };
-		22C91F4114F7BEED00FCFF8F /* ECDynamicTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDynamicTestCase.m; sourceTree = "<group>"; };
 		22C91F4214F7BEED00FCFF8F /* ECTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
 		22C91F4314F7BEED00FCFF8F /* ECTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
 		22C91F4414F7BEED00FCFF8F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -433,8 +433,8 @@
 		22C91F3F14F7BEED00FCFF8F /* Generic */ = {
 			isa = PBXGroup;
 			children = (
-				22C91F4014F7BEED00FCFF8F /* ECDynamicTestCase.h */,
-				22C91F4114F7BEED00FCFF8F /* ECDynamicTestCase.m */,
+				223269E614FA8125003055A2 /* ECParameterisedTestCase.h */,
+				223269E714FA8125003055A2 /* ECParameterisedTestCase.m */,
 				22C91F4214F7BEED00FCFF8F /* ECTestCase.h */,
 				22C91F4314F7BEED00FCFF8F /* ECTestCase.m */,
 			);
@@ -625,10 +625,10 @@
 				22C91F0614F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */,
 				22C91F0814F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m in Sources */,
 				22C91F0914F7BDBC00FCFF8F /* KSXMLWriterTests.m in Sources */,
-				22C91F4A14F7BEED00FCFF8F /* ECDynamicTestCase.m in Sources */,
 				22C91F4B14F7BEED00FCFF8F /* ECTestCase.m in Sources */,
 				22222CB814F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m in Sources */,
 				22222CB914F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m in Sources */,
+				223269E814FA8125003055A2 /* ECParameterisedTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
