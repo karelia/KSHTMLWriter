@@ -1,0 +1,97 @@
+To run these tests, choose "Test" from the "Product" menu.
+
+Basic Tests
+-----------
+
+There are some basic tests exercising the following classes:
+
+- KSXMLWriter
+- (see also the tests in the KSWriter project)
+
+Compound XML Tests
+------------------
+
+In addition to the basic tests, there are also some "compound" xml tests. These test various permutations of
+writer calls to see if they generate the correct XML or HTML.
+
+The tests are driven from a dictionary of NSDictionary based structures, each of which
+describes a sequence of actions to perform to build up the xml/html. The actions include
+
+- add a comment
+- add some text
+- add some attributes to the current element
+- add a nested element
+
+The NSDictionary also includes the expected value of the generated XML and HTML, so that the test can check it.
+
+In theory the NSDictionaries that drive the tests could be auto-generated to cover many permutations. The
+only problem with that idea is that the expected output would also have to be generated, which leads to a
+case of the chicken-egg problem (since generating XML is the thing we're trying to test in the
+first place).
+
+At the moment, the NSDictionaries are hand-written, and are read from the "Compound Tests.plist" file.
+
+
+"Snippets" Tests
+----------------
+
+These tests run through directories full of hmtl "snippets", performing some action on each snippet
+and then checking it against an expected outcome.
+
+Before running any of these tests the framework loads a stub html document into a hidden web view. 
+The stub document (defined in Stub.html) is just an empty web page.
+
+The snippet tests use this web view as the host for testing each html stub. They first inject the stub into the
+document using WebKit DOM methods. They then grab back the DOM representation of the stub, and use a HSHTMLDOMAdaptor
+to write it back out as XML/HTML.
+
+This actual output is then compared against an expected output.
+
+There are two types of snippets that are tested. 
+
+The normal snippets (located in Snippets/Normal) are expected to be unchanged by a round trip through the KSHTMLWriter.
+
+The pretty print snippets (located in Snippets/Pretty) are expected to be cleaned up when pretty-printing is enabled. For
+these snippets, each item of the folder is a sub-folder containing two files: input.html and output.html. The input file
+is injected into the stub document, and the output is then compared against the output file.
+
+This test fails if any KSHTMLWriter fails to generate identical output for any of the snippets. 
+It is currently whitespace sensitive and does an exact string comparison, which may be overkill.
+
+
+A Note About Dynamic Test Methods
+=================================
+
+Anyone familiar with the unit testing framework we're using (OCUnit/SenTestKit) will know that tests are generally defined
+as simple void methods taking no parameters, which get run once.
+
+These are fine in most cases, but there are some tests in our suite where we want to apply the same action repeatedly to
+each file in a folder, or each item in a plist. We could do this in a loop inside the test, but then if any item in the 
+loop failed, we'd just see that the whole test had failed, which isn't that helpful.
+
+So for these cases we do a little bit of extra work to ensure that the result of the testing of each file or plist item is
+reported as a separate result. 
+
+This gives us the change to see slightly nicer output if something goes wrong, and also a clearer idea about how many tests
+are actually run if everything goes well, since each iteration of each loop is counted as a test. 
+
+Because we effectively run the same test repeatedly, the default name of the test (which is the method name) isn't very useful
+in the final reports, since it just appears multiple times, leading to this sort of thing:
+
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+Test Case '-[KSXMLWriterCompoundTests testCompound]' started.
+Test Case '-[KSXMLWriterCompoundTests testCompound]' passed (0.001 seconds).
+
+To try to improve this reporting, we override the name method of the test framework and attempt to return something more descriptive.
+Unfortunately, OCUnit seems to expect this name to be in a very rigid format, essentially: "-[Class method]".
+
+Any attempt to return something in a different format appears to break Xcode's reporting of the tests. As a result, our options for
+messing about with the name are somewhat limited. Essentially what we do is to replace the method name with a single word.
+
+In the case where we're iterating over files, we can use the file name, which results in something reasonably descriptive (note that
+this means that the test files need to have single word names).
+
+In the case where we're iterating over items in a plist, we use the key of each item as its name.
