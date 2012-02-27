@@ -63,7 +63,7 @@
 		22C91F3C14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2814F7BDCB00FCFF8F /* output.html */; };
 		22C91F3D14F7BDCB00FCFF8F /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
 		22C91F4B14F7BEED00FCFF8F /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F4314F7BEED00FCFF8F /* ECTestCase.m */; };
-		22C91F4C14F7BEED00FCFF8F /* README in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4414F7BEED00FCFF8F /* README */; };
+		22C91F4C14F7BEED00FCFF8F /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4414F7BEED00FCFF8F /* README.mdown */; };
 		22C91F4D14F7BEED00FCFF8F /* Test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4614F7BEED00FCFF8F /* Test.bundle */; };
 		22C91F4E14F7BEED00FCFF8F /* ocunit2junit.rb in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */; };
 		22C91F4F14F7BEED00FCFF8F /* test-common.sh in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4914F7BEED00FCFF8F /* test-common.sh */; };
@@ -146,7 +146,7 @@
 		22C91F2914F7BDCB00FCFF8F /* Stub.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Stub.html; sourceTree = "<group>"; };
 		22C91F4214F7BEED00FCFF8F /* ECTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
 		22C91F4314F7BEED00FCFF8F /* ECTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
-		22C91F4414F7BEED00FCFF8F /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		22C91F4414F7BEED00FCFF8F /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.mdown; path = ../README.mdown; sourceTree = "<group>"; };
 		22C91F4614F7BEED00FCFF8F /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22C91F4914F7BEED00FCFF8F /* test-common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
@@ -422,7 +422,7 @@
 		22C91F3E14F7BEED00FCFF8F /* ECUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				22C91F4414F7BEED00FCFF8F /* README */,
+				22C91F4414F7BEED00FCFF8F /* README.mdown */,
 				22C91F3F14F7BEED00FCFF8F /* Generic */,
 				22C91F4514F7BEED00FCFF8F /* Resources */,
 				22C91F4714F7BEED00FCFF8F /* Scripts */,
@@ -571,7 +571,7 @@
 				22C91F3B14F7BDCB00FCFF8F /* input.html in Resources */,
 				22C91F3C14F7BDCB00FCFF8F /* output.html in Resources */,
 				22C91F3D14F7BDCB00FCFF8F /* Stub.html in Resources */,
-				22C91F4C14F7BEED00FCFF8F /* README in Resources */,
+				22C91F4C14F7BEED00FCFF8F /* README.mdown in Resources */,
 				22C91F4D14F7BEED00FCFF8F /* Test.bundle in Resources */,
 				22C91F4E14F7BEED00FCFF8F /* ocunit2junit.rb in Resources */,
 				22C91F4F14F7BEED00FCFF8F /* test-common.sh in Resources */,
