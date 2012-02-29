@@ -70,6 +70,21 @@
     return result;
 }
 
++ (NSString *)outerXMLOfDOMElement:(DOMElement *)element options:(KSXMLWriterDOMAdaptorOptions)options;
+{
+    NSMutableString *result = [NSMutableString string];
+    KSXMLWriter *xmlWriter = [[KSXMLWriter alloc] initWithOutputWriter:result];
+    KSXMLWriterDOMAdaptor *adaptor = [[self alloc] initWithXMLWriter:xmlWriter options:options];
+    
+    [adaptor writeDOMElement:element];
+    
+    [adaptor release];
+    [xmlWriter close];
+    [xmlWriter release];
+    
+    return result;
+}
+
 #pragma mark High Level
 
 - (void)writeDOMElement:(DOMElement *)element;  // like -outerHTML
