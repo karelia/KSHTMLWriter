@@ -428,9 +428,23 @@
                 else
                 {
                     // Trim off starting whitespace; ignore complete whitespace
-                    NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
-                    if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
-                    if (nonWhitespaceStart.location > 0) data = [data substringFromIndex:nonWhitespaceStart.location];
+                    NSUInteger nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace].location;
+                    if (nonWhitespaceStart == NSNotFound) return [super ks_writeHTML:adaptor];
+                    if (nonWhitespaceStart > 0) data = [data substringFromIndex:nonWhitespaceStart];
+                    
+                    // Trailing whitespace should be a single space character; not a newline or similar
+                    NSRange nonWhitespaceEnd = [data rangeOfCharacterFromSet:nonWhitespace options:NSBackwardsSearch];
+                    if (NSMaxRange(nonWhitespaceEnd) < [data length])
+                    {
+                        NSUInteger length = [data length];
+                        NSUInteger whitespaceLength = length - NSMaxRange(nonWhitespaceEnd);
+                        
+                        if (whitespaceLength > 1 || [data characterAtIndex:length - 1] != ' ')
+                        {
+                            data = [data stringByReplacingCharactersInRange:NSMakeRange(NSMaxRange(nonWhitespaceEnd), whitespaceLength)
+                                                                 withString:@" "];
+                        }
+                    }
                 }
             }
             else if (isLast)
