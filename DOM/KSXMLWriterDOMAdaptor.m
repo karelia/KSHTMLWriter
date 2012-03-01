@@ -404,48 +404,54 @@
      */
     
     
-    // Whitespace will be provided by the XML writer when pretty printing, rather than us
     if ([adaptor options] & KSXMLWriterDOMAdaptorPrettyPrint)
     {
-        static NSCharacterSet *nonWhitespace;
-        if (!nonWhitespace) nonWhitespace = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] copy];
-        
-        
-        BOOL isFirst = [self previousSibling] == nil;
-        BOOL isLast = [self nextSibling] == nil;
-        
-        if (isFirst)
+        // Unecessary whitespace should be trimmed here
+        // For text inside HTML elements like <span>, whitespace has meaning, so domn't trim it
+        KSXMLWriter *writer = [adaptor XMLWriter];
+        NSString *parentElement = [writer topElement];
+        if (!parentElement || ![writer canWriteElementInline:parentElement])
         {
-            if (isLast)
+            static NSCharacterSet *nonWhitespace;
+            if (!nonWhitespace) nonWhitespace = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] copy];
+            
+            
+            BOOL isFirst = [self previousSibling] == nil;
+            BOOL isLast = [self nextSibling] == nil;
+            
+            if (isFirst)
             {
-                data = [data stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                if (isLast)
+                {
+                    data = [data stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                }
+                else
+                {
+                    // Trim off starting whitespace; ignore complete whitespace
+                    NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
+                    if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
+                    if (nonWhitespaceStart.location > 0) data = [data substringFromIndex:nonWhitespaceStart.location];
+                }
+            }
+            else if (isLast)
+            {
+                // Trim off ending whitespace; ignore complete whitespace
+                NSRange nonWhitespaceEnd = [data rangeOfCharacterFromSet:nonWhitespace options:NSBackwardsSearch];
+                if (nonWhitespaceEnd.location == NSNotFound) return [super ks_writeHTML:adaptor];
+                
+                nonWhitespaceEnd.location++;
+                if (nonWhitespaceEnd.location < [data length]) data = [data substringToIndex:nonWhitespaceEnd.location];
             }
             else
             {
-                // Trim off starting whitespace; ignore complete whitespace
+                // Ignore complete whitespace, but let all else through
                 NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
                 if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
-                if (nonWhitespaceStart.location > 0) data = [data substringFromIndex:nonWhitespaceStart.location];
             }
-        }
-        else if (isLast)
-        {
-            // Trim off ending whitespace; ignore complete whitespace
-            NSRange nonWhitespaceEnd = [data rangeOfCharacterFromSet:nonWhitespace options:NSBackwardsSearch];
-            if (nonWhitespaceEnd.location == NSNotFound) return [super ks_writeHTML:adaptor];
             
-            nonWhitespaceEnd.location++;
-            if (nonWhitespaceEnd.location < [data length]) data = [data substringToIndex:nonWhitespaceEnd.location];
+            // Ignore nodes which are naught but whitespace
+            if ([data length] == 0) return [super ks_writeHTML:adaptor];
         }
-        else
-        {
-            // Ignore complete whitespace, but let all else through
-            NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
-            if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
-        }
-        
-        // Ignore nodes which are naught but whitespace
-        if ([data length] == 0) return [super ks_writeHTML:adaptor];
     }
     
     
