@@ -428,9 +428,9 @@
                 else
                 {
                     // Trim off starting whitespace; ignore complete whitespace
-                    NSRange nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace options:0];
-                    if (nonWhitespaceStart.location == NSNotFound) return [super ks_writeHTML:adaptor];
-                    if (nonWhitespaceStart.location > 0) data = [data substringFromIndex:nonWhitespaceStart.location];
+                    NSUInteger nonWhitespaceStart = [data rangeOfCharacterFromSet:nonWhitespace].location;
+                    if (nonWhitespaceStart == NSNotFound) return [super ks_writeHTML:adaptor];
+                    if (nonWhitespaceStart > 0) data = [data substringFromIndex:nonWhitespaceStart];
                 }
             }
             else if (isLast)
