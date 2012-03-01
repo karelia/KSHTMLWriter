@@ -414,6 +414,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
             if ([elementName isEqualToString:@"a"] ||
                 [elementName isEqualToString:@"b"] ||
                 [elementName isEqualToString:@"i"] ||
+                [elementName isEqualToString:@"s"] ||
                 [elementName isEqualToString:@"u"] ||
                 [elementName isEqualToString:@"q"]) return YES;
             break;
@@ -459,7 +460,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                 [elementName isEqualToString:@"button"] ||
                 [elementName isEqualToString:@"object"] ||
                 [elementName isEqualToString:@"applet"] ||
-                [elementName isEqualToString:@"script"]) return YES;
+                [elementName isEqualToString:@"script"] ||
+                [elementName isEqualToString:@"strike"]) return YES;
             break;
             
         case 7:
