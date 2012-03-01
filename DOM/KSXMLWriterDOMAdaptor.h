@@ -31,6 +31,7 @@ typedef enum {
 
 #pragma mark Convenience
 + (NSString *)outerHTMLOfDOMElement:(DOMElement *)element;
++ (NSString *)outerXMLOfDOMElement:(DOMElement *)element options:(KSXMLWriterDOMAdaptorOptions)options;
 
 
 #pragma mark Init
