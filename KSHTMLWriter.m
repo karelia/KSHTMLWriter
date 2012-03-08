@@ -227,6 +227,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString content:(void (^)(void))content;
 {
+    NSParameterAssert(content);
+    
     [self startAnchorElementWithHref:href title:titleString target:targetString rel:relString];
     content();
     [self endElement];
