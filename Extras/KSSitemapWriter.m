@@ -66,3 +66,53 @@ NSString * const KSSitemapChangeMapFrequencyNever = @"never";
 }
 
 @end
+
+
+#pragma mark -
+
+
+@implementation KSSitemapIndexWriter
+
+- (id)initWithOutputWriter:(id <KSWriter>)output;
+{
+    if (self = [self init])
+    {
+        _writer = [[KSXMLWriter alloc] initWithOutputWriter:output encoding:NSUTF8StringEncoding];
+        [_writer writeString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
+        
+        [_writer pushAttribute:@"xmlns" value:@"http://www.sitemaps.org/schemas/sitemap/0.9"];
+        [_writer startElement:@"sitemapindex"];
+    }
+    
+    return self;
+}
+
+- (void)writeSitemapWithLocation:(NSURL *)loc modificationDate:(NSDate *)lastMod;
+{
+    [_writer writeElement:@"sitemap" content:^{
+        [_writer writeElement:@"loc" text:[loc absoluteString]];
+        
+        if (lastMod)
+        {
+            NSString *lastModText = [lastMod descriptionWithCalendarFormat:@"%Y-%m-%dT%H:%M:%SZ"
+                                                                  timeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]
+                                                                    locale:nil];
+            
+            [_writer writeElement:@"lastmod" text:lastModText];
+        }
+    }];
+}
+
+- (void)close;
+{
+    [_writer endElement];   // </urlset>
+    [_writer close];
+    [_writer release]; _writer = nil;
+}
+
+- (void)dealloc
+{
+    [self close];   // releases _writer
+}
+
+@end

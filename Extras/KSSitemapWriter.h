@@ -39,3 +39,23 @@ modificationDate:(NSDate *)lastMod
 - (void)close;
 
 @end
+
+
+#pragma mark -
+
+
+@interface KSSitemapIndexWriter : NSObject
+{
+  @private
+    KSXMLWriter *_writer;
+}
+
+- (id)initWithOutputWriter:(id <KSWriter>)output;
+
+// URL is compulsary; all else optional
+- (void)writeSitemapWithLocation:(NSURL *)loc modificationDate:(NSDate *)lastMod;
+
+// Call when done writing sitemaps to properly end the XML document
+- (void)close;
+
+@end
