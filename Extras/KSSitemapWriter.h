@@ -48,6 +48,10 @@ modificationDate:(NSDate *)lastMod
 #pragma mark -
 
 
+static NSUInteger KSSitemapIndexMaxNumberOfSitemaps = 50000;
+static NSUInteger KSSitemapIndexMaxFileSize = 10485760; // 10MB
+
+
 @interface KSSitemapIndexWriter : NSObject
 {
   @private
