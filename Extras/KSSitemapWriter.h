@@ -21,6 +21,7 @@ extern NSString * const KSSitemapChangeMapFrequencyYearly;
 extern NSString * const KSSitemapChangeMapFrequencyNever;
 
 static NSUInteger KSSitemapMaxURLLength = 2048;
+static NSUInteger KSSitemapMaxNumberOfURLs = 50000;
 
 
 @interface KSSitemapWriter : NSObject
