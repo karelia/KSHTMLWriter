@@ -22,7 +22,9 @@ extern NSString * const KSSitemapChangeMapFrequencyNever;
 
 static NSUInteger KSSitemapMaxURLLength = 2048;
 static NSUInteger KSSitemapMaxNumberOfURLs = 50000;
-static NSUInteger KSSitemapMaxFileSize = 10485760; // 10MB
+
+// The official spec is 10MB. However, Google say they accept up to 50MB <http://support.google.com/webmasters/bin/answer.py?hl=en&answer=183668&topic=8476&ctx=topic#1>
+static NSUInteger KSSitemapMaxFileSize = 10485760;
 
 
 @interface KSSitemapWriter : NSObject
