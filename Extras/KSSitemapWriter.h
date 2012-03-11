@@ -20,6 +20,8 @@ extern NSString * const KSSitemapChangeMapFrequencyMonthly;
 extern NSString * const KSSitemapChangeMapFrequencyYearly;
 extern NSString * const KSSitemapChangeMapFrequencyNever;
 
+static NSUInteger KSSitemapMaxURLLength = 2048;
+
 
 @interface KSSitemapWriter : NSObject
 {
@@ -30,7 +32,7 @@ extern NSString * const KSSitemapChangeMapFrequencyNever;
 - (id)initWithOutputWriter:(id <KSWriter>)output;
 
 // URL is compulsary; all else optional
-- (void)writeURL:(NSURL *)loc           // should be sub-path of the folder containing the sitemap
+- (void)writeURL:(NSURL *)loc           // should be sub-path of the folder containing the sitemap. avoid exceeding KSSitemapMaxURLLength
 modificationDate:(NSDate *)lastMod
  changeFrequency:(NSString *)changeFreq
         priority:(NSNumber *)priority;  // between 0 and 1. If nil, search engines assume 0.5
