@@ -22,6 +22,7 @@ extern NSString * const KSSitemapChangeMapFrequencyNever;
 
 static NSUInteger KSSitemapMaxURLLength = 2048;
 static NSUInteger KSSitemapMaxNumberOfURLs = 50000;
+static NSUInteger KSSitemapMaxFileSize = 10485760; // 10MB
 
 
 @interface KSSitemapWriter : NSObject
