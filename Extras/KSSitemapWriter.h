@@ -48,7 +48,7 @@ modificationDate:(NSDate *)lastMod
 #pragma mark -
 
 
-static NSUInteger KSSitemapIndexMaxNumberOfSitemaps = 50000;
+static NSUInteger KSSitemapIndexMaxNumberOfSitemaps = 50000;    // the FAQ <http://www.sitemaps.org/faq.html> claims 1,000 as the limit, but the protocol spec and everything else disagrees
 static NSUInteger KSSitemapIndexMaxFileSize = 10485760; // 10MB
 
 
