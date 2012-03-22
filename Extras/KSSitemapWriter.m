@@ -63,6 +63,7 @@ NSString * const KSSitemapChangeMapFrequencyNever = @"never";
 - (void)dealloc
 {
     [self close];   // releases _writer
+    [super dealloc];
 }
 
 @end
