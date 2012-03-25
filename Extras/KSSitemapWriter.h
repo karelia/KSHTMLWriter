@@ -20,11 +20,11 @@ extern NSString * const KSSitemapChangeMapFrequencyMonthly;
 extern NSString * const KSSitemapChangeMapFrequencyYearly;
 extern NSString * const KSSitemapChangeMapFrequencyNever;
 
-static NSUInteger KSSitemapMaxURLLength = 2048;
-static NSUInteger KSSitemapMaxNumberOfURLs = 50000;
+extern NSUInteger const KSSitemapMaxURLLength;
+extern NSUInteger const KSSitemapMaxNumberOfURLs;
 
-// The official spec is 10MB. However, Google say they accept up to 50MB <http://support.google.com/webmasters/bin/answer.py?hl=en&answer=183668&topic=8476&ctx=topic#1>
-static NSUInteger KSSitemapMaxFileSize = 10485760;
+// The official spec is 10MB which we declare here. However, Google say they accept up to 50MB <http://support.google.com/webmasters/bin/answer.py?hl=en&answer=183668&topic=8476&ctx=topic#1>
+extern NSUInteger const KSSitemapMaxFileSize;
 
 
 @interface KSSitemapWriter : NSObject
@@ -50,8 +50,8 @@ modificationDate:(NSDate *)lastMod
 #pragma mark -
 
 
-static NSUInteger KSSitemapIndexMaxNumberOfSitemaps = 50000;    // the FAQ <http://www.sitemaps.org/faq.html> claims 1,000 as the limit, but the protocol spec and everything else disagrees
-static NSUInteger KSSitemapIndexMaxFileSize = 10485760; // 10MB
+extern NSUInteger const KSSitemapIndexMaxNumberOfSitemaps;    // the FAQ <http://www.sitemaps.org/faq.html> claims 1,000 as the limit, but the protocol spec and everything else disagrees
+extern NSUInteger const KSSitemapIndexMaxFileSize; // 10MB
 
 
 @interface KSSitemapIndexWriter : NSObject

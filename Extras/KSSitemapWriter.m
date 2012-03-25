@@ -17,6 +17,13 @@ NSString * const KSSitemapChangeMapFrequencyMonthly = @"monthly";
 NSString * const KSSitemapChangeMapFrequencyYearly = @"yearly";
 NSString * const KSSitemapChangeMapFrequencyNever = @"never";
 
+NSUInteger const KSSitemapMaxURLLength = 2048;
+NSUInteger const KSSitemapMaxNumberOfURLs = 50000;
+NSUInteger const KSSitemapMaxFileSize = 10485760;
+
+NSUInteger const KSSitemapIndexMaxNumberOfSitemaps = 50000;
+NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
+
 
 @implementation KSSitemapWriter
 
