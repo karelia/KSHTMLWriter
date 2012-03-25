@@ -121,6 +121,7 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 - (void)dealloc
 {
     [self close];   // releases _writer
+    [super dealloc];
 }
 
 @end
