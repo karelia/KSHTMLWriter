@@ -157,6 +157,7 @@
 
 #pragma mark String Encoding
 @property(nonatomic, readonly) NSStringEncoding encoding;   // default is UTF-8
++ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present 
 - (void)writeString:(NSString *)string; // anything outside .encoding gets escaped
 
 

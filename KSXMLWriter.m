@@ -473,10 +473,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 @synthesize encoding = _encoding;
 - (void)setEncoding:(NSStringEncoding)encoding;
 {
-    if ( ! (	encoding == NSASCIIStringEncoding
-			||	encoding == NSUTF8StringEncoding
-			||	encoding == NSISOLatin1StringEncoding
-			||	encoding == NSUnicodeStringEncoding ) )
+    if (![[self class] isStringEncodingAvailable:encoding])
     {
         CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(encoding));
         
@@ -486,6 +483,14 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	
     
 	_encoding = encoding;
+}
+
++ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
+{
+    return (encoding == NSASCIIStringEncoding ||
+            encoding == NSUTF8StringEncoding ||
+			encoding == NSISOLatin1StringEncoding ||
+			encoding == NSUnicodeStringEncoding);
 }
 
 - (void)writeString:(NSString *)string;
