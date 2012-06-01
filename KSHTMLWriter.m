@@ -311,7 +311,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self startJavascriptElementWithSrc:nil];
     
     if (useCDATA) [self startJavascriptCDATA];
-    [self writeString:script];
+    [self writeHTMLString:script];
     if (useCDATA) [self endJavascriptCDATA];
     
     [self endElement];
@@ -338,7 +338,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
         
         if (!src)
         {
-            [self writeString:@"\n"];
+            [self startNewline];
             [self stopWritingInline];
         }
     }
