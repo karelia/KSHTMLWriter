@@ -319,15 +319,18 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     if (src)
 	{
 		[self pushAttribute:@"src" value:src];
+        [self startElement:@"script"];
 	}
-    
-    [self startElement:@"script"];
-    
-    // Embedded scripts should start on their own line for clarity
-    if (!src)
+    else
     {
-        [self writeString:@"\n"];
-        [self stopWritingInline];
+        // Embedded scripts should start on their own line for clarity
+        [self startElement:@"script" writeInline:NO];
+        
+        if (!src)
+        {
+            [self writeString:@"\n"];
+            [self stopWritingInline];
+        }
     }
 }
 
