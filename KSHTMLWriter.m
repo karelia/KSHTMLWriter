@@ -162,6 +162,16 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeHTMLString:(NSString *)html;
 {
+    NSUInteger indent = [self indentationLevel];
+    if (indent)
+    {
+        NSString *indentedNewline = [@"\n" stringByPaddingToLength:indent + 1
+                                                        withString:@"\t"
+                                                   startingAtIndex:0];
+        
+        html = [html stringByReplacingOccurrencesOfString:@"\n" withString:indentedNewline];
+    }
+    
     [self writeString:html];
 }
 

@@ -71,6 +71,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 
 #pragma mark HTML Fragments
+// Any newlines in the HTML will be adjusted to account for current indentation level, but that's all
 - (void)writeHTMLString:(NSString *)html;
 - (void)writeHTMLFormat:(NSString *)format , ...;
 
