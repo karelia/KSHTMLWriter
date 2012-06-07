@@ -421,7 +421,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return NO;
 }
 
-- (BOOL)canWriteElementInline:(NSString *)elementName;
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)elementName;
 {
     switch ([elementName length])
     {
@@ -488,7 +488,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
             break;
     }
     
-    return [super canWriteElementInline:elementName];
+    return [super shouldPrettyPrintElementInline:elementName];
 }
 
 - (BOOL)validateElement:(NSString *)element;
