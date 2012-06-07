@@ -309,11 +309,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 {
     [self startJavascriptElementWithSrc:nil];
-    
-    if (useCDATA) [self startJavascriptCDATA];
-    [self writeHTMLString:script];
-    if (useCDATA) [self endJavascriptCDATA];
-    
+    {{
+        if (useCDATA) [self startJavascriptCDATA];
+        [self writeHTMLString:script];
+        if (useCDATA) [self endJavascriptCDATA];
+        
+        [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
+    }}
     [self endElement];
 }
 
@@ -334,10 +336,12 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     else
     {
         // Embedded scripts should start on their own line for clarity
+        // Outdent the script comapred to wha'ts normal
         [self startElement:@"script" writeInline:NO];
         
         if (!src)
         {
+            [self decreaseIndentationLevel];
             [self startNewline];
             [self stopWritingInline];
         }
