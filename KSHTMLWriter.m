@@ -175,16 +175,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self writeString:html];
 }
 
-- (void)writeHTMLFormat:(NSString *)format , ...
-{
-	va_list argList;
-	va_start(argList, format);
-	NSString *aString = [[[NSString alloc] initWithFormat:format arguments:argList] autorelease];
-	va_end(argList);
-	
-    [self writeHTMLString:aString];
-}
-
 #pragma mark General
 
 - (void)writeElement:(NSString *)name idName:(NSString *)idName className:(NSString *)className content:(void (^)(void))content;
