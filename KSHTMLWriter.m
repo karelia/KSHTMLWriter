@@ -160,6 +160,20 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark HTML Fragments
 
+- (void)writeHTMLString:(NSString *)html withTerminatingNewline:(BOOL)terminatingNewline;
+{
+    if (terminatingNewline)
+    {
+        if (![html hasSuffix:@"\n"]) html = [html stringByAppendingString:@"\n"];
+    }
+    else
+    {
+        if ([html hasSuffix:@"\n"]) html = [html substringToIndex:[html length] - 1];
+    }
+    
+    [self writeHTMLString:html];
+}
+
 - (void)writeHTMLString:(NSString *)html;
 {
     NSUInteger indent = [self indentationLevel];
