@@ -478,7 +478,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(encoding));
         
         [NSException raise:NSInvalidArgumentException
-                    format:@"Unsupported character encoding %@ (%u)", encodingName, encoding];
+                    format:@"Unsupported character encoding %@ (%lu)", encodingName, (unsigned long) encoding];
     }
 	
     
