@@ -130,6 +130,12 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [_classNames addObject:className];
 }
 
+- (void)pushClassNames:(NSArray *)classNames;
+{
+    // TODO: Check for duplicates while debugging
+    [_classNames addObjectsFromArray:classNames];
+}
+
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 {
     if ([attribute isEqualToString:@"class"])
