@@ -307,10 +307,15 @@
 
 #pragma mark Elements Stack
 
-- (BOOL)canWriteElementInline:(NSString *)tagName;
+- (BOOL)canWriteElementInline:(NSString *)element;
 {
     // In standard XML, no elements can be inline, unless it's the start of the doc
-    return (_inlineWritingLevel == 0);
+    return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
+}
+
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
+{
+    return NO;
 }
 
 - (NSArray *)openElements; { return [[_openElements copy] autorelease]; }

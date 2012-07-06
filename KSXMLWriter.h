@@ -149,10 +149,14 @@
 
 
 #pragma mark Inline Writing
+
 - (BOOL)isWritingInline;
 - (void)startWritingInline;
 - (void)stopWritingInline;
-- (BOOL)canWriteElementInline:(NSString *)tagName;
+
+// Class method is a general rule; instance method takes into account current indent level etc.
+- (BOOL)canWriteElementInline:(NSString *)element;
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
 
 #pragma mark String Encoding

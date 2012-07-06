@@ -68,11 +68,13 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 // Class names are accumulated and written automatically as an attribute of the next element started
 // You can also push a class name using -pushAttribute:value: if attribute is 'class'
 - (void)pushClassName:(NSString *)className;
+- (void)pushClassNames:(NSArray *)classNames;
 
 
 #pragma mark HTML Fragments
-- (void)writeHTMLString:(NSString *)html;
-- (void)writeHTMLFormat:(NSString *)format , ...;
+// Any newlines in the HTML will be adjusted to account for current indentation level, but that's all
+// Terminating newline character will be added or removed if needed, as according to terminatingNewline argument
+- (void)writeHTMLString:(NSString *)html withTerminatingNewline:(BOOL)terminatingNewline;
 
 
 #pragma mark General

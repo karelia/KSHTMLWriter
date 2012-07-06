@@ -130,6 +130,12 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [_classNames addObject:className];
 }
 
+- (void)pushClassNames:(NSArray *)classNames;
+{
+    // TODO: Check for duplicates while debugging
+    [_classNames addObjectsFromArray:classNames];
+}
+
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 {
     if ([attribute isEqualToString:@"class"])
@@ -160,19 +166,33 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark HTML Fragments
 
-- (void)writeHTMLString:(NSString *)html;
+- (void)writeHTMLString:(NSString *)html withTerminatingNewline:(BOOL)terminatingNewline;
 {
-    [self writeString:html];
+    if (terminatingNewline)
+    {
+        if (![html hasSuffix:@"\n"]) html = [html stringByAppendingString:@"\n"];
+    }
+    else
+    {
+        if ([html hasSuffix:@"\n"]) html = [html substringToIndex:[html length] - 1];
+    }
+    
+    [self writeHTMLString:html];
 }
 
-- (void)writeHTMLFormat:(NSString *)format , ...
+- (void)writeHTMLString:(NSString *)html;
 {
-	va_list argList;
-	va_start(argList, format);
-	NSString *aString = [[[NSString alloc] initWithFormat:format arguments:argList] autorelease];
-	va_end(argList);
-	
-    [self writeHTMLString:aString];
+    NSUInteger indent = [self indentationLevel];
+    if (indent)
+    {
+        NSString *indentedNewline = [@"\n" stringByPaddingToLength:indent + 1
+                                                        withString:@"\t"
+                                                   startingAtIndex:0];
+        
+        html = [html stringByReplacingOccurrencesOfString:@"\n" withString:indentedNewline];
+    }
+    
+    [self writeString:html];
 }
 
 #pragma mark General
@@ -299,11 +319,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 {
     [self startJavascriptElementWithSrc:nil];
-    
-    if (useCDATA) [self startJavascriptCDATA];
-    [self writeString:script];
-    if (useCDATA) [self endJavascriptCDATA];
-    
+    {{
+        if (useCDATA) [self startJavascriptCDATA];
+        [self writeHTMLString:script];
+        if (useCDATA) [self endJavascriptCDATA];
+        
+        [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
+    }}
     [self endElement];
 }
 
@@ -319,15 +341,20 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     if (src)
 	{
 		[self pushAttribute:@"src" value:src];
+        [self startElement:@"script"];
 	}
-    
-    [self startElement:@"script"];
-    
-    // Embedded scripts should start on their own line for clarity
-    if (!src)
+    else
     {
-        [self writeString:@"\n"];
-        [self stopWritingInline];
+        // Embedded scripts should start on their own line for clarity
+        // Outdent the script comapred to wha'ts normal
+        [self startElement:@"script" writeInline:NO];
+        
+        if (!src)
+        {
+            [self decreaseIndentationLevel];
+            [self startNewline];
+            [self stopWritingInline];
+        }
     }
 }
 
@@ -408,7 +435,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return NO;
 }
 
-- (BOOL)canWriteElementInline:(NSString *)elementName;
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)elementName;
 {
     switch ([elementName length])
     {
@@ -475,7 +502,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
             break;
     }
     
-    return [super canWriteElementInline:elementName];
+    return [super shouldPrettyPrintElementInline:elementName];
 }
 
 - (BOOL)validateElement:(NSString *)element;
