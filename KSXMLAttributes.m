@@ -19,7 +19,7 @@
 
 - (id)objectForKey:(id)aKey;
 {
-    for (int i = 0; i < [_attributes count]; i+=2)
+    for (NSUInteger i = 0; i < [_attributes count]; i+=2)
     {
         NSString *attribute = [_attributes objectAtIndex:i];
         id value = [_attributes objectAtIndex:i+1];
@@ -37,7 +37,7 @@
 {
     NSMutableArray *keys = [[NSMutableArray alloc] initWithCapacity:[self count]];
     
-    for (int i = 0; i < [_attributes count]; i+=2)
+    for (NSInteger i = 0; i < [_attributes count]; i+=2)
     {
         NSString *attribute = [_attributes objectAtIndex:i];
         [keys addObject:attribute];
