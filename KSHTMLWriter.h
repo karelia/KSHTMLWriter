@@ -75,6 +75,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 // Any newlines in the HTML will be adjusted to account for current indentation level, but that's all
 // Terminating newline character will be added or removed if needed, as according to terminatingNewline argument
 - (void)writeHTMLString:(NSString *)html withTerminatingNewline:(BOOL)terminatingNewline;
+- (void)writeHTMLString:(NSString *)html;
 
 
 #pragma mark General
