@@ -242,7 +242,7 @@
 {
     [self writeString:@"\n"];
     
-    for (int i = 0; i < [self indentationLevel]; i++)
+    for (NSUInteger i = 0; i < [self indentationLevel]; i++)
     {
         [self writeString:@"\t"];
     }
@@ -483,7 +483,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(encoding));
         
         [NSException raise:NSInvalidArgumentException
-                    format:@"Unsupported character encoding %@ (%u)", encodingName, encoding];
+                    format:@"Unsupported character encoding %@ (%lu)", encodingName, (unsigned long) encoding];
     }
 	
     
@@ -648,7 +648,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)writeAttributes:(KSXMLWriter *)writer;
 {
-    for (int i = 0; i < [_attributes count]; i+=2)
+    for (NSUInteger i = 0; i < [_attributes count]; i+=2)
     {
         NSString *attribute = [_attributes objectAtIndex:i];
         NSString *value = [_attributes objectAtIndex:i+1];
