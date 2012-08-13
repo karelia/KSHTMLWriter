@@ -538,7 +538,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 {
+#ifdef DEBUG
     NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
+#endif
     
     
     // Add in any pre-written classes
