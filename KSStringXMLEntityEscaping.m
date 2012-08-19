@@ -72,7 +72,7 @@
     
 	NSString *result = NSMakeCollectable(CFXMLCreateStringByUnescapingEntities(NULL,
                                                                                (CFStringRef)self,
-                                                                               (CFMutableDictionaryRef)entities));
+                                                                               (CFDictionaryRef)entities));
 	return [result autorelease];
     
 #endif
