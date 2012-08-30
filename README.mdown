@@ -41,14 +41,12 @@ Usage
 
 you'd do:
 
-    [writer startElement:@"foo" attributes:nil];
-    [writer writeCharacters:@"bar"];
-    [writer endElement];
+    [writer writeElement:@"foo" content:^{
+		[writer writeCharacters:@"bar"];
+	}];
 
-Simples! As you can probably see there's easy support for writing element attributes if you need it. Other features:
+Simples! There's easy support for writing element attributes if you need it. Other features:
 
-- Call `-startElement:…` multiple times to nest elements inside of each other
-- `KSXMLWriter` keeps a stack so you can do `-endElement` and the correct end tag will be written
 - Nested elements are pretty printed with correct newlines and indentation
 - Empty elements are automatically written as `<foo />`
 - Built-in `-writeComment:` support
@@ -96,10 +94,6 @@ In `DOM/KSHTMLWriter+DOM` you'll find code that takes a `DOMElement` (using WebK
 iOS
 ===
 iOS support would be nice in the project. There's nothing to stop it that I can see (indeed, it may actually work at the moment for all I know!), but it's not a priority for us right now. If you do want this support, fork, and again I'll be more than happy to pull back into the main project.
-
-Blocks
-===
-Currently Sandvox targets pre-blocks OS releases, but we'd still like to get blocks support in one day. Something like `-[KSXMLWriter writeElement:attributes:contents:]`. Are you up to the task? Fork it!
 
 CSS
 ===
