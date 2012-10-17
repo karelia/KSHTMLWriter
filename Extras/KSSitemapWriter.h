@@ -9,7 +9,7 @@
 //
 
 
-#import "KSXMLWriter.h"
+#import <KSHTMLWriterFramework/KSHTMLWriterFramework.h>
 
 
 extern NSString * const KSSitemapChangeMapFrequencyAlways;
