@@ -11,11 +11,11 @@
 #import "KSXMLWriter.h"
 
 
-typedef enum {
+typedef NS_OPTIONS(NSInteger, KSXMLWriterDOMAdaptorOptions) {
     KSXMLWriterOptionsNone = NSXMLNodeOptionsNone,
     KSXMLWriterDOMAdaptorPrettyPrint = NSXMLNodePrettyPrint,
     KSXMLWriterDOMAdaptorNormalize = 1 << 31,
-} KSXMLWriterDOMAdaptorOptions;
+};
 
 
 @protocol KSXMLWriterDOMAdaptorDelegate;
