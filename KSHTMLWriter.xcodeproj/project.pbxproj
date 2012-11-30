@@ -43,7 +43,6 @@
 		22C91F0814F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0414F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m */; };
 		22C91F0914F7BDBC00FCFF8F /* KSXMLWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0514F7BDBC00FCFF8F /* KSXMLWriterTests.m */; };
 		22C91F2A14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */; };
-		22C91F2B14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0C14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist */; };
 		22C91F2C14F7BDCB00FCFF8F /* Simple.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0F14F7BDCB00FCFF8F /* Simple.html */; };
 		22C91F2D14F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1214F7BDCB00FCFF8F /* input.html */; };
 		22C91F2E14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1314F7BDCB00FCFF8F /* output.html */; };
@@ -629,7 +628,7 @@
 		22352B8714C6FCAF0031F5DD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "Karelia Software";
 			};
 			buildConfigurationList = 22352B8A14C6FCAF0031F5DD /* Build configuration list for PBXProject "KSHTMLWriter" */;
@@ -657,7 +656,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C91F2A14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist in Resources */,
-				22C91F2B14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist in Resources */,
 				22C91F2C14F7BDCB00FCFF8F /* Simple.html in Resources */,
 				22C91F2D14F7BDCB00FCFF8F /* input.html in Resources */,
 				22C91F2E14F7BDCB00FCFF8F /* output.html in Resources */,
@@ -843,6 +841,7 @@
 		22352BB714C6FCB00031F5DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -851,6 +850,7 @@
 		22352BB814C6FCB00031F5DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -859,6 +859,7 @@
 		22352BBA14C6FCB00031F5DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				INFOPLIST_FILE = Tests/Resources/KSHTMLWriterTests.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -869,6 +870,7 @@
 		22352BBB14C6FCB00031F5DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				INFOPLIST_FILE = Tests/Resources/KSHTMLWriterTests.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
