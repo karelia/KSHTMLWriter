@@ -224,6 +224,18 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     return result;
 }
 
+#pragma mark Document
+
+- (void)writeDocumentOfType:(NSString *)docType encoding:(NSStringEncoding)encoding head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+{
+    [self startDocumentWithDocType:docType encoding:encoding];
+    
+    [self writeElement:@"html" content:^{
+        if (headBlock) [self writeElement:@"head" content:headBlock];
+        [self writeElement:@"body" content:bodyBlock];
+    }];
+}
+
 #pragma mark Line Break
 
 - (void)writeLineBreak;

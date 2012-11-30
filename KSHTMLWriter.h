@@ -89,6 +89,12 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 - (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
 
 
+#pragma mark Document
+// Convenience to give you standard document structure
+// head is optional
+- (void)writeDocumentOfType:(NSString *)docType encoding:(NSStringEncoding)encoding head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+
+
 #pragma mark Line Break
 // <br />   OR  <br>
 // depends on isXHTML
