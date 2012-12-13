@@ -353,7 +353,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     else
     {
         // Embedded scripts should start on their own line for clarity
-        // Outdent the script comapred to wha'ts normal
+        // Outdent the script comapred to what's normal
         [self startElement:@"script" writeInline:NO];
         
         if (!src)
