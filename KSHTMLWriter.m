@@ -318,14 +318,21 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 {
-    [self startJavascriptElementWithSrc:nil];
-    {{
+    [self writeJavascriptWithContent:^{
+        
         if (useCDATA) [self startJavascriptCDATA];
         [self writeHTMLString:script];
         if (useCDATA) [self endJavascriptCDATA];
         
         [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
-    }}
+    }];
+}
+
+- (void)writeJavascriptWithContent:(void (^)(void))content;
+{
+    [self startJavascriptElementWithSrc:nil];
+    content();
+    [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
     [self endElement];
 }
 
