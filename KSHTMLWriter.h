@@ -137,7 +137,6 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 - (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
 - (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
 - (void)writeJavascriptWithContent:(void (^)(void))content;
-- (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 
 // Like -startCDATA and -endCDATA, but wrapped in a javascript comment so don't risk tripping up a browser's interpreter
 - (void)startJavascriptCDATA;
