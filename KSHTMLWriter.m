@@ -335,8 +335,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
         if (useCDATA) [self startJavascriptCDATA];
         [self writeHTMLString:script];
         if (useCDATA) [self endJavascriptCDATA];
-        
-        [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
     }];
 }
 
