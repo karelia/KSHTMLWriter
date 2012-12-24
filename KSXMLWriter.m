@@ -495,6 +495,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     return (encoding == NSASCIIStringEncoding ||
             encoding == NSUTF8StringEncoding ||
 			encoding == NSISOLatin1StringEncoding ||
+			encoding == NSWindowsCP1251StringEncoding ||
 			encoding == NSUnicodeStringEncoding);
 }
 
