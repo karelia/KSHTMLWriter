@@ -50,6 +50,7 @@
 #import <KSHTMLWriterFramework/KSHTMLWriter.h>
 
 // KSWriter
+#import <KSHTMLWriterFramework/KSBlockWriter.h>
 #import <KSHTMLWriterFramework/KSBufferedWriter.h>
 #import <KSHTMLWriterFramework/KSForwardingWriter.h>
 #import <KSHTMLWriterFramework/KSMutableDataWriter.h>
