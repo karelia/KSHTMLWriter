@@ -518,7 +518,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
                                            range,
                                            CFStringConvertNSStringEncodingToEncoding([self encoding]),
                                            0,                   // don't convert invalid characters
-                                           NO,
+                                           false,
                                            NULL,                // not interested in actually getting the bytes
                                            0,
                                            NULL);
