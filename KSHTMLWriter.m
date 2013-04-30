@@ -169,19 +169,36 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeHTMLString:(NSString *)html range:(NSRange)range;  // high-performance variant
 {
-    NSUInteger indent = [self indentationLevel];
-    if (indent)
+    NSUInteger indent = self.indentationLevel;
+    if (!indent) return [self writeString:html range:range];    // no need for work
+    
+    // Write line-by-line, injecting tabs as needed
+    while (range.length)
     {
-        NSString *indentedNewline = [@"\n" stringByPaddingToLength:indent + 1
-                                                        withString:@"\t"
-                                                   startingAtIndex:0];
+        NSRange newlineRange = [html rangeOfString:@"\n" options:0 range:range];
         
-        html = [[html substringWithRange:range] stringByReplacingOccurrencesOfString:@"\n" withString:indentedNewline];
-        [self writeString:html];
-    }
-    else
-    {
-        [self writeString:html range:range];
+        if (newlineRange.location == NSNotFound)
+        {
+            // Write the whole thing and be done with it!
+            [self writeString:html range:range];
+            return;
+        }
+        else
+        {
+            // Write the text up to and including the newline
+            NSRange toWrite = NSMakeRange(range.location, NSMaxRange(newlineRange) - range.location);
+            [self writeString:html range:toWrite];
+            
+            // Insert tabs
+            for (NSUInteger i=0; i<indent; i++)
+            {
+                [self writeString:@"\t"];
+            }
+            
+            // Carry on searching
+            range.location = NSMaxRange(newlineRange);
+            range.length -= toWrite.length;
+        }
     }
 }
 
