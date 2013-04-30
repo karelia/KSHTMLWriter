@@ -30,8 +30,6 @@
 
 @interface KSXMLWriter ()
 
-- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
-
 #pragma mark Element Primitives
 
 //   attribute="value"
@@ -129,7 +127,7 @@
 - (void)writeCharacters:(NSString *)string;
 {
     // Quotes are acceptable characters outside of attribute values
-    [self writeStringByEscapingXMLEntities:string escapeQuot:NO];
+    [self.class writeStringByEscapingXMLEntities:string to:self escapeQuotes:NO];
 }
 
 + (NSString *)stringFromCharacters:(NSString *)string;
@@ -210,11 +208,15 @@
 
 - (void)writeAttributeValue:(NSString *)value;
 {
-    [self writeStringByEscapingXMLEntities:value escapeQuot:YES];	// make sure to escape the quote mark
+    [self.class writeStringByEscapingXMLEntities:value to:self escapeQuotes:YES];	// make sure to escape the quote mark
 }
 
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 {
+    // On the basis that most values don't need escaping, it's quickest to take
+    // a shortcut when possible, so as to avoid allocating a writer
+    if (![self writeStringByEscapingXMLEntities:value to:nil escapeQuotes:YES]) return value;
+    
     NSMutableString *result = [NSMutableString string];
     
     KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
@@ -259,7 +261,7 @@
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
 {
     [self openComment];
-    [self writeStringByEscapingXMLEntities:comment escapeQuot:YES];
+    [self.class writeStringByEscapingXMLEntities:comment to:self escapeQuotes:YES];
     [self closeComment];
 }
 
@@ -425,7 +427,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 // Within a tag like <foo attribute="%@"> then we have to escape it.
 // In just about all other contexts it's OK to NOT escape it, but many contexts we don't know if it's OK or not.
 // So I think we want to gradually shift over to being explicit when we know when it's OK or not.
-- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
+//
+// Return value indicates whether any escaping actually needed doing
++ (BOOL)writeStringByEscapingXMLEntities:(NSString *)string to:(KSXMLWriter *)writer escapeQuotes:(BOOL)escapeQuotes;
 {
     NSCharacterSet *charactersToEntityEscape = (escapeQuotes ?
                                                 sCharactersToEntityEscapeWithQuot :
@@ -434,7 +438,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     // Look for characters to escape. If there are none can bail out quick without having had to allocate anything. #78710
     NSRange searchRange = NSMakeRange(0, [string length]);
     NSRange range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
-    if (range.location == NSNotFound) return [self writeString:string];
+    if (range.location == NSNotFound)
+    {
+        [writer writeString:string];
+        return NO;
+    }
     
     
     while (searchRange.length)
@@ -447,7 +455,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         }
         if (unescapedRange.length)
         {
-            [self writeString:[string substringWithRange:unescapedRange]];
+            [writer writeString:[string substringWithRange:unescapedRange]];
         }
         
         
@@ -459,11 +467,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             unichar ch = [string characterAtIndex:range.location];
             switch (ch)
             {
-                case '&':	[self writeString:@"&amp;"];    break;
-                case '<':	[self writeString:@"&lt;"];     break;
-                case '>':	[self writeString:@"&gt;"];     break;
-                case '"':	[self writeString:@"&quot;"];   break;
-                default:    [self writeString:[NSString stringWithFormat:@"&#%d;",ch]];
+                case '&':	[writer writeString:@"&amp;"];    break;
+                case '<':	[writer writeString:@"&lt;"];     break;
+                case '>':	[writer writeString:@"&gt;"];     break;
+                case '"':	[writer writeString:@"&quot;"];   break;
+                default:    [writer writeString:[NSString stringWithFormat:@"&#%d;",ch]];
             }
 		}
         else
@@ -476,7 +484,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         searchRange.location = NSMaxRange(range);
         searchRange.length = [string length] - searchRange.location;
         range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
-	}	
+	}
+    
+    return YES;
 }
 
 #pragma mark String Encoding
