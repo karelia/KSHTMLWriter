@@ -165,7 +165,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self writeHTMLString:html];
 }
 
-- (void)writeHTMLString:(NSString *)html;
+- (void)writeHTMLString:(NSString *)html; { [self writeHTMLString:html range:NSMakeRange(0, html.length)]; }
+
+- (void)writeHTMLString:(NSString *)html range:(NSRange)range;  // high-performance variant
 {
     NSUInteger indent = [self indentationLevel];
     if (indent)
@@ -174,10 +176,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                                                         withString:@"\t"
                                                    startingAtIndex:0];
         
-        html = [html stringByReplacingOccurrencesOfString:@"\n" withString:indentedNewline];
+        html = [[html substringWithRange:range] stringByReplacingOccurrencesOfString:@"\n" withString:indentedNewline];
+        [self writeString:html];
     }
-    
-    [self writeString:html];
+    else
+    {
+        [self writeString:html range:range];
+    }
 }
 
 #pragma mark General

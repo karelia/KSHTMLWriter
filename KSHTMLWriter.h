@@ -72,6 +72,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 // Terminating newline character will be added or removed if needed, as according to terminatingNewline argument
 - (void)writeHTMLString:(NSString *)html withTerminatingNewline:(BOOL)terminatingNewline;
 - (void)writeHTMLString:(NSString *)html;
+- (void)writeHTMLString:(NSString *)html range:(NSRange)range;  // high-performance variant
 
 
 #pragma mark General
