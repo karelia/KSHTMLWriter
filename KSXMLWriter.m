@@ -458,7 +458,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         }
         if (unescapedRange.length)
         {
-            [self writeString:[string substringWithRange:unescapedRange]];
+            [self writeString:string range:unescapedRange];
         }
         
         
