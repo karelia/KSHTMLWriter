@@ -549,8 +549,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
                     // Otherwise, use the decimal unicode value.
                 default:
 				{
-					NSString *string = [NSString stringWithFormat:@"&#%d;",ch];
-					[_output writeString:string];   break;
+					NSString *escaped = [NSString stringWithFormat:@"&#%d;",ch];
+					[_output writeString:escaped];   break;
 				}
             }
             
