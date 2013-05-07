@@ -46,8 +46,9 @@
 
 #pragma mark Creating an XML Writer
 
-// .encoding is taken from the writer. Designated initializer
-- (id)initWithOutputWriter:(KSWriter *)output __attribute((nonnull(1)));
+// .encoding is taken from the writer. If output writer is nil, defaults to UTF-8
+// Designated initializer
+- (id)initWithOutputWriter:(KSWriter *)output;
 
 // Use this if you need to specify a custom encoding
 + (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;

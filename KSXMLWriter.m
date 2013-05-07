@@ -66,14 +66,12 @@
 #pragma mark Init & Dealloc
 
 - (id)initWithOutputWriter:(KSWriter *)output;  // designated initializer
-{
-    NSParameterAssert(output);
-    
+{    
     if (self = [super init])
     {
         _output = [output retain];
         
-        _encoding = output.encoding;
+        _encoding = (output ? output.encoding : NSUTF8StringEncoding);
         if (![[self class] isStringEncodingAvailable:_encoding])
         {
             CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(_encoding));
@@ -88,10 +86,7 @@
     return self;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wnonnull"
 - (id)init; { return [self initWithOutputWriter:nil]; }
-#pragma clang diagnostic pop
 
 + (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
 {
