@@ -9,7 +9,7 @@
 #import "ECParameterisedTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSHTMLWriter.h"
-#import "KSStringWriter.h"
+#import "KSWriter.h"
 
 #pragma mark - Unit Tests Interface
 
@@ -88,7 +88,7 @@ typedef enum
     }
 
     NSDictionary* test = self.parameterisedTestDataItem;
-    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSWriter* output = [[KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding] retain];
     KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
 
     NSArray* actions = [test objectForKey:@"actions"];

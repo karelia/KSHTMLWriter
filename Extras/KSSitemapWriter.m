@@ -27,11 +27,13 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 
 @implementation KSSitemapWriter
 
-- (id)initWithOutputWriter:(id <KSWriter>)output;
+- (id)initWithOutputWriter:(KSWriter *)output;
 {
+    OBPRECONDITION(output.encoding == NSUTF8StringEncoding);
+    
     if (self = [self init])
     {
-        _writer = [[KSXMLWriter alloc] initWithOutputWriter:output encoding:NSUTF8StringEncoding];
+        _writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
         [_writer writeString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
         
         [_writer pushAttribute:@"xmlns" value:@"http://www.sitemaps.org/schemas/sitemap/0.9"];
@@ -81,11 +83,13 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 
 @implementation KSSitemapIndexWriter
 
-- (id)initWithOutputWriter:(id <KSWriter>)output;
+- (id)initWithOutputWriter:(KSWriter *)output;
 {
+    OBPRECONDITION(output.encoding == NSUTF8StringEncoding);
+    
     if (self = [self init])
     {
-        _writer = [[KSXMLWriter alloc] initWithOutputWriter:output encoding:NSUTF8StringEncoding];
+        _writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
         [_writer writeString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
         
         [_writer pushAttribute:@"xmlns" value:@"http://www.sitemaps.org/schemas/sitemap/0.9"];

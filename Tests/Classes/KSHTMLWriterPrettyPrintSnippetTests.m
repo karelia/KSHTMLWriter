@@ -9,7 +9,7 @@
 #import "KSHTMLWriterSnippetTests.h"
 
 #import "KSHTMLWriter.h"
-#import "KSStringWriter.h"
+#import "KSWriter.h"
 #import "KSXMLWriterDOMAdaptor.h"
 
 #import <SenTestingKit/SenTestingKit.h>
@@ -40,7 +40,7 @@
     
     [element setInnerHTML:inputHTML];
     
-    KSStringWriter* output = [[KSStringWriter alloc] init];
+    KSWriter* output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
     KSHTMLWriter* writer = [[class alloc] initWithOutputWriter:output];
     KSXMLWriterDOMAdaptor* adaptor = [[KSXMLWriterDOMAdaptor alloc] initWithXMLWriter:writer options:KSXMLWriterDOMAdaptorPrettyPrint];
     
@@ -49,7 +49,6 @@
     NSString* written = [output string];
     [self assertString:written matchesString:outputHTML];
     
-    [output release];
     [adaptor release];
     [writer release];
 }

@@ -25,10 +25,16 @@
 //
 
 
-#import "KSForwardingWriter.h"
+#import "KSWriter.h"
 
 
-@interface KSCSSWriter : KSForwardingWriter
+@interface KSCSSWriter : NSObject
+{
+  @private
+    KSWriter    *_output;
+}
+
+- initWithOutputWriter:(KSWriter *)output;
  
 // Writes the string followed enough newlines to carry on writing
 - (void)writeCSSString:(NSString *)cssString;

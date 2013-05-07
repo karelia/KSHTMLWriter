@@ -27,16 +27,6 @@
 		22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; };
 		22352BDD14C6FD260031F5DD /* KSXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCF14C6FD260031F5DD /* KSXMLWriter.m */; };
 		2278062214F7B4F7001205E1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
-		22C1943E14C6FE9D009A4406 /* KSBufferedWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */; };
-		22C1943F14C6FE9D009A4406 /* KSBufferedWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */; };
-		22C1944014C6FE9D009A4406 /* KSForwardingWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */; };
-		22C1944114C6FE9D009A4406 /* KSForwardingWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */; };
-		22C1944214C6FE9D009A4406 /* KSMutableDataWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */; };
-		22C1944314C6FE9D009A4406 /* KSMutableDataWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */; };
-		22C1944414C6FE9D009A4406 /* KSOutputStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */; };
-		22C1944514C6FE9D009A4406 /* KSOutputStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */; };
-		22C1944614C6FE9D009A4406 /* KSStringWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943A14C6FE9D009A4406 /* KSStringWriter.h */; };
-		22C1944714C6FE9D009A4406 /* KSStringWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943B14C6FE9D009A4406 /* KSStringWriter.m */; };
 		22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943C14C6FE9D009A4406 /* KSWriter.h */; };
 		22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 		22C91F0614F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0214F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m */; };
@@ -67,21 +57,12 @@
 		22C91F4E14F7BEED00FCFF8F /* ocunit2junit.rb in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */; };
 		22C91F4F14F7BEED00FCFF8F /* test-common.sh in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4914F7BEED00FCFF8F /* test-common.sh */; };
 		22F1017414D1C6DB006E2E95 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
-		271963EC1691C95000CCBA0B /* KSBlockWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 271963EA1691C95000CCBA0B /* KSBlockWriter.h */; settings = {ATTRIBUTES = (); }; };
-		271963ED1691C95000CCBA0B /* KSBlockWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 271963EA1691C95000CCBA0B /* KSBlockWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		271963EE1691C95000CCBA0B /* KSBlockWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 271963EB1691C95000CCBA0B /* KSBlockWriter.m */; };
-		271963EF1691C95000CCBA0B /* KSBlockWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 271963EB1691C95000CCBA0B /* KSBlockWriter.m */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
 		9FC4243E15F5801E001B9220 /* KSXMLWriterDOMAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */; };
 		9FC4243F15F5801E001B9220 /* KSHTMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC814C6FD260031F5DD /* KSHTMLWriter.m */; };
 		9FC4244015F5801E001B9220 /* KSStringXMLEntityEscaping.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCA14C6FD260031F5DD /* KSStringXMLEntityEscaping.m */; };
-		9FC4244115F5801E001B9220 /* KSBufferedWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */; };
-		9FC4244215F5801E001B9220 /* KSForwardingWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */; };
-		9FC4244315F5801E001B9220 /* KSMutableDataWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */; };
-		9FC4244415F5801E001B9220 /* KSOutputStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */; };
-		9FC4244515F5801E001B9220 /* KSStringWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943B14C6FE9D009A4406 /* KSStringWriter.m */; };
 		9FC4244615F5801E001B9220 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 		9FC4244715F5801E001B9220 /* KSXMLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCD14C6FD260031F5DD /* KSXMLAttributes.m */; };
 		9FC4244815F5801E001B9220 /* KSXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCF14C6FD260031F5DD /* KSXMLWriter.m */; };
@@ -90,11 +71,6 @@
 		9FC4244B15F5804A001B9220 /* KSXMLWriterDOMAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC4244C15F5804A001B9220 /* KSHTMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC714C6FD260031F5DD /* KSHTMLWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC4244D15F5804A001B9220 /* KSStringXMLEntityEscaping.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FC4244E15F5804A001B9220 /* KSBufferedWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FC4244F15F5804A001B9220 /* KSForwardingWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FC4245015F5804A001B9220 /* KSMutableDataWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FC4245115F5804A001B9220 /* KSOutputStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FC4245215F5804A001B9220 /* KSStringWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943A14C6FE9D009A4406 /* KSStringWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC4245315F5804A001B9220 /* KSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943C14C6FE9D009A4406 /* KSWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC4245415F5804A001B9220 /* KSXMLAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC4245515F5804A001B9220 /* KSXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,16 +116,6 @@
 		22352BD014C6FD260031F5DD /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = SOURCE_ROOT; };
 		2291487B14CD7A0A00EFB4AB /* README.mdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
 		22C18C0314D3001700AE57DA /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
-		22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBufferedWriter.h; sourceTree = "<group>"; };
-		22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBufferedWriter.m; sourceTree = "<group>"; };
-		22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSForwardingWriter.h; sourceTree = "<group>"; };
-		22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSForwardingWriter.m; sourceTree = "<group>"; };
-		22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMutableDataWriter.h; sourceTree = "<group>"; };
-		22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMutableDataWriter.m; sourceTree = "<group>"; };
-		22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSOutputStreamWriter.h; sourceTree = "<group>"; };
-		22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSOutputStreamWriter.m; sourceTree = "<group>"; };
-		22C1943A14C6FE9D009A4406 /* KSStringWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSStringWriter.h; sourceTree = "<group>"; };
-		22C1943B14C6FE9D009A4406 /* KSStringWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSStringWriter.m; sourceTree = "<group>"; };
 		22C1943C14C6FE9D009A4406 /* KSWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSWriter.h; sourceTree = "<group>"; };
 		22C1943D14C6FE9D009A4406 /* KSWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSWriter.m; sourceTree = "<group>"; };
 		22C1948714C709A1009A4406 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -182,8 +148,6 @@
 		22C91F4614F7BEED00FCFF8F /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22C91F4914F7BEED00FCFF8F /* test-common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
-		271963EA1691C95000CCBA0B /* KSBlockWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBlockWriter.h; sourceTree = "<group>"; };
-		271963EB1691C95000CCBA0B /* KSBlockWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBlockWriter.m; sourceTree = "<group>"; };
 		9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSHTMLWriterFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC4243115F57A0F001B9220 /* KSHTMLWriterFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterFramework-Info.plist"; sourceTree = "<group>"; };
 		9FC4243315F57A0F001B9220 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -318,18 +282,6 @@
 		22352BCB14C6FD260031F5DD /* KSWriter */ = {
 			isa = PBXGroup;
 			children = (
-				271963EA1691C95000CCBA0B /* KSBlockWriter.h */,
-				271963EB1691C95000CCBA0B /* KSBlockWriter.m */,
-				22C1943214C6FE9D009A4406 /* KSBufferedWriter.h */,
-				22C1943314C6FE9D009A4406 /* KSBufferedWriter.m */,
-				22C1943414C6FE9D009A4406 /* KSForwardingWriter.h */,
-				22C1943514C6FE9D009A4406 /* KSForwardingWriter.m */,
-				22C1943614C6FE9D009A4406 /* KSMutableDataWriter.h */,
-				22C1943714C6FE9D009A4406 /* KSMutableDataWriter.m */,
-				22C1943814C6FE9D009A4406 /* KSOutputStreamWriter.h */,
-				22C1943914C6FE9D009A4406 /* KSOutputStreamWriter.m */,
-				22C1943A14C6FE9D009A4406 /* KSStringWriter.h */,
-				22C1943B14C6FE9D009A4406 /* KSStringWriter.m */,
 				22C1943C14C6FE9D009A4406 /* KSWriter.h */,
 				22C1943D14C6FE9D009A4406 /* KSWriter.m */,
 			);
@@ -544,13 +496,7 @@
 				22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */,
 				22352BDA14C6FD260031F5DD /* KSXMLAttributes.h in Headers */,
 				22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */,
-				22C1943E14C6FE9D009A4406 /* KSBufferedWriter.h in Headers */,
-				22C1944014C6FE9D009A4406 /* KSForwardingWriter.h in Headers */,
-				22C1944214C6FE9D009A4406 /* KSMutableDataWriter.h in Headers */,
-				22C1944414C6FE9D009A4406 /* KSOutputStreamWriter.h in Headers */,
-				22C1944614C6FE9D009A4406 /* KSStringWriter.h in Headers */,
 				22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */,
-				271963EC1691C95000CCBA0B /* KSBlockWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,15 +509,9 @@
 				9FC4244B15F5804A001B9220 /* KSXMLWriterDOMAdaptor.h in Headers */,
 				9FC4244C15F5804A001B9220 /* KSHTMLWriter.h in Headers */,
 				9FC4244D15F5804A001B9220 /* KSStringXMLEntityEscaping.h in Headers */,
-				9FC4244E15F5804A001B9220 /* KSBufferedWriter.h in Headers */,
-				9FC4244F15F5804A001B9220 /* KSForwardingWriter.h in Headers */,
-				9FC4245015F5804A001B9220 /* KSMutableDataWriter.h in Headers */,
-				9FC4245115F5804A001B9220 /* KSOutputStreamWriter.h in Headers */,
-				9FC4245215F5804A001B9220 /* KSStringWriter.h in Headers */,
 				9FC4245315F5804A001B9220 /* KSWriter.h in Headers */,
 				9FC4245415F5804A001B9220 /* KSXMLAttributes.h in Headers */,
 				9FC4245515F5804A001B9220 /* KSXMLWriter.h in Headers */,
-				271963ED1691C95000CCBA0B /* KSBlockWriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,13 +669,7 @@
 				22352BD914C6FD260031F5DD /* KSStringXMLEntityEscaping.m in Sources */,
 				22352BDB14C6FD260031F5DD /* KSXMLAttributes.m in Sources */,
 				22352BDD14C6FD260031F5DD /* KSXMLWriter.m in Sources */,
-				22C1943F14C6FE9D009A4406 /* KSBufferedWriter.m in Sources */,
-				22C1944114C6FE9D009A4406 /* KSForwardingWriter.m in Sources */,
-				22C1944314C6FE9D009A4406 /* KSMutableDataWriter.m in Sources */,
-				22C1944514C6FE9D009A4406 /* KSOutputStreamWriter.m in Sources */,
-				22C1944714C6FE9D009A4406 /* KSStringWriter.m in Sources */,
 				22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */,
-				271963EE1691C95000CCBA0B /* KSBlockWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,15 +697,9 @@
 				9FC4243E15F5801E001B9220 /* KSXMLWriterDOMAdaptor.m in Sources */,
 				9FC4243F15F5801E001B9220 /* KSHTMLWriter.m in Sources */,
 				9FC4244015F5801E001B9220 /* KSStringXMLEntityEscaping.m in Sources */,
-				9FC4244115F5801E001B9220 /* KSBufferedWriter.m in Sources */,
-				9FC4244215F5801E001B9220 /* KSForwardingWriter.m in Sources */,
-				9FC4244315F5801E001B9220 /* KSMutableDataWriter.m in Sources */,
-				9FC4244415F5801E001B9220 /* KSOutputStreamWriter.m in Sources */,
-				9FC4244515F5801E001B9220 /* KSStringWriter.m in Sources */,
 				9FC4244615F5801E001B9220 /* KSWriter.m in Sources */,
 				9FC4244715F5801E001B9220 /* KSXMLAttributes.m in Sources */,
 				9FC4244815F5801E001B9220 /* KSXMLWriter.m in Sources */,
-				271963EF1691C95000CCBA0B /* KSBlockWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

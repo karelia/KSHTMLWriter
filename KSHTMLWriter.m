@@ -40,32 +40,17 @@ NSString *KSHTMLWriterDocTypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//
 NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 
-@interface KSHTMLWriter ()
-@property(nonatomic, copy, readwrite) NSString *docType;
-@end
-
-
 @implementation KSHTMLWriter
 
 #pragma mark Creating an HTML Writer
 
-- (id)initWithOutputWriter:(id <KSWriter>)output;
+- initWithOutputWriter:(KSWriter *)output;
 {
     if (self = [super initWithOutputWriter:output])
     {
         [self setDocType:KSHTMLWriterDocTypeHTML_5];
         _IDs = [[NSMutableSet alloc] init];
         _classNames = [[NSMutableArray alloc] init];
-    }
-    
-    return self;
-}
-
-- (id)initWithOutputWriter:(id <KSWriter>)output docType:(NSString *)docType encoding:(NSStringEncoding)encoding;
-{
-    if (self = [self initWithOutputWriter:output encoding:encoding])
-    {
-        [self setDocType:docType];
     }
     
     return self;
@@ -81,10 +66,10 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark DTD
 
-- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
+- (void)startDocumentWithDocType:(NSString *)docType;
 {
     [self setDocType:docType];
-    [super startDocumentWithDocType:docType encoding:encoding];
+    [super startDocumentWithDocType:docType];
 }
 
 @synthesize docType = _docType;
@@ -226,9 +211,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Document
 
-- (void)writeDocumentOfType:(NSString *)docType encoding:(NSStringEncoding)encoding head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
 {
-    [self startDocumentWithDocType:docType encoding:encoding];
+    [self startDocumentWithDocType:docType];
     
     [self writeElement:@"html" content:^{
         if (headBlock) [self writeElement:@"head" content:headBlock];

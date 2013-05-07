@@ -41,19 +41,3 @@
 
 
 @end
-
-
-#pragma mark -
-
-
-// Simply passes through strings, but escapes them first
-@interface KSEscapedXMLEntitiesWriter : NSObject <KSWriter>
-{
-@private
-    KSXMLWriter *_output;
-}
-
-- (id)initWithOutputXMLWriter:(KSXMLWriter *)output;
-- (void)close;  // releases output writer
-
-@end

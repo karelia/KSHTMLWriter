@@ -57,8 +57,8 @@
 
 + (NSString *)outerHTMLOfDOMElement:(DOMElement *)element;
 {
-    NSMutableString *result = [NSMutableString string];
-    KSHTMLWriter *htmlWriter = [[KSHTMLWriter alloc] initWithOutputWriter:result];
+    KSWriter *output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
+    KSHTMLWriter *htmlWriter = [[KSHTMLWriter alloc] initWithOutputWriter:output];
     KSXMLWriterDOMAdaptor *adaptor = [[self alloc] initWithXMLWriter:htmlWriter];
     
     [adaptor writeDOMElement:element];
@@ -67,13 +67,13 @@
     [htmlWriter close];
     [htmlWriter release];
     
-    return result;
+    return output.string;
 }
 
 + (NSString *)outerXMLOfDOMElement:(DOMElement *)element options:(KSXMLWriterDOMAdaptorOptions)options;
 {
-    NSMutableString *result = [NSMutableString string];
-    KSXMLWriter *xmlWriter = [[KSXMLWriter alloc] initWithOutputWriter:result];
+    KSWriter *output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
+    KSXMLWriter *xmlWriter = [[KSXMLWriter alloc] initWithOutputWriter:output];
     KSXMLWriterDOMAdaptor *adaptor = [[self alloc] initWithXMLWriter:xmlWriter options:options];
     
     [adaptor writeDOMElement:element];
@@ -82,7 +82,7 @@
     [xmlWriter close];
     [xmlWriter release];
     
-    return result;
+    return output.string;
 }
 
 #pragma mark High Level

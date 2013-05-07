@@ -30,6 +30,21 @@
 
 @implementation KSCSSWriter
 
+- initWithOutputWriter:(KSWriter *)output;
+{
+    if (self = [self init])
+    {
+        _output = [output retain];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [_output release];
+    [super dealloc];
+}
+
 - (void)writeCSSString:(NSString *)cssString;
 {
     [self writeString:cssString];
@@ -51,5 +66,7 @@
     
     // Could be smarter and analyze declarations for newlines
 }
+
+- (void)writeString:(NSString *)string; { [_output writeString:string]; }
 
 @end

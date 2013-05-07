@@ -48,15 +48,11 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
     NSMutableArray  *_classNames;
 }
 
-#pragma mark Creating an HTML Writer
-// For if you desperately need to set a doctype before calling -startDocument:isXHTML: (perhaps because you're not going to call it!)
-- (id)initWithOutputWriter:(id <KSWriter>)output docType:(NSString *)docType encoding:(NSStringEncoding)encoding;
-
-
 #pragma mark DTD
 
 // Default is HTML5
-@property(nonatomic, copy, readonly) NSString *docType;
+// Advise you don't change this mid-write, as that would be weird
+@property(nonatomic, copy) NSString *docType;
 
 // Whether empty elements should be written as <FOO> or <FOO />
 // Default is YES. There's no setter method; instead, specify with -startDocumentWithDocType:encoding: or when initializing.
@@ -92,7 +88,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 #pragma mark Document
 // Convenience to give you standard document structure
 // head is optional
-- (void)writeDocumentOfType:(NSString *)docType encoding:(NSStringEncoding)encoding head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
 
 
 #pragma mark Line Break

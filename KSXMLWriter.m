@@ -52,8 +52,6 @@
 
 - (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
 
-@property(nonatomic, readwrite) NSStringEncoding encoding;   // default is UTF-8
-
 @end
 
 
@@ -69,33 +67,47 @@
 
 #pragma mark Init & Dealloc
 
-- (id)initWithOutputWriter:(id <KSWriter>)output; // designated initializer
+- (id)initWithOutputWriter:(KSWriter *)output;  // designated initializer
 {
-    if (self = [super initWithOutputWriter:output])
+    NSParameterAssert(output);
+    
+    if (self = [super init])
     {
+        _output = [output retain];
+        
+        _encoding = output.encoding;
+        if (![[self class] isStringEncodingAvailable:_encoding])
+        {
+            CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(_encoding));
+            
+            [NSException raise:NSInvalidArgumentException
+                        format:@"Unsupported character encoding %@ (%lu)", encodingName, (unsigned long) _encoding];
+        }
+        
         _attributes = [[KSXMLAttributes alloc] init];
         _openElements = [[NSMutableArray alloc] init];
-        
-        // Inherit encoding where possible
-        _encoding = ([output respondsToSelector:@selector(encoding)] ?
-                     [(KSXMLWriter *)output encoding] :
-                     NSUTF8StringEncoding);
     }
     return self;
 }
 
-- (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
+- (id)init; { return [self initWithOutputWriter:nil]; }
+#pragma clang diagnostic pop
+
++ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
 {
-    if (self = [self initWithOutputWriter:output])
-    {
-        [self setEncoding:encoding];
-    }
-    
-    return self;
+	return [[[self alloc] initWithOutputWriter:[KSWriter writerWithEncoding:encoding block:^(NSString *string, NSRange range) {
+        
+		[output writeString:string range:range];
+        
+	}]] autorelease];
 }
 
 - (void)dealloc
-{    
+{
+    [self close];
+    
     [_openElements release];
     [_attributes release];
     
@@ -107,17 +119,16 @@
 - (void)close;
 {
     [self flush];
-    [super close];
+    
+    [_output release]; _output = nil;
 }
 
 - (void)flush; { }
 
 #pragma mark Document
 
-- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
+- (void)startDocumentWithDocType:(NSString *)docType;
 {
-    [self setEncoding:encoding];    // do first so -writeString: knows what's going on
-    
     [self writeString:@"<!DOCTYPE "];
     [self writeString:docType];
     [self writeString:@">"];
@@ -134,13 +145,13 @@
 
 + (NSString *)stringFromCharacters:(NSString *)string;
 {
-	NSMutableString *result = [NSMutableString string];
+	KSWriter *output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
+    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:output];
     
-    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
     [writer writeCharacters:string];
     [writer release];
     
-    return result;
+    return output.string;
 }
 
 #pragma mark Elements
@@ -215,13 +226,13 @@
 
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 {
-    NSMutableString *result = [NSMutableString string];
+    KSWriter *output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
+    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:output];
     
-    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
     [writer writeAttributeValue:value];
     [writer release];
     
-    return result;
+    return output.string;
 }
 
 - (void)writeAttribute:(NSString *)attribute
@@ -481,21 +492,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 #pragma mark String Encoding
 
-@synthesize encoding = _encoding;
-- (void)setEncoding:(NSStringEncoding)encoding;
-{
-    if (![[self class] isStringEncodingAvailable:encoding])
-    {
-        CFStringRef encodingName = CFStringGetNameOfEncoding(CFStringConvertNSStringEncodingToEncoding(encoding));
-        
-        [NSException raise:NSInvalidArgumentException
-                    format:@"Unsupported character encoding %@ (%lu)", encodingName, (unsigned long) encoding];
-    }
-	
-    
-	_encoding = encoding;
-}
-
 + (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
 {
     return (encoding == NSASCIIStringEncoding ||
@@ -505,7 +501,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 			encoding == NSUnicodeStringEncoding);
 }
 
-- (void)writeString:(NSString *)string;
+- (void)writeString:(NSString *)string range:(NSRange)nsrange;
 {
 	NSParameterAssert(nil != string); 
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
@@ -516,7 +512,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
     
     
-    CFRange range = CFRangeMake(0, CFStringGetLength((CFStringRef)string));
+    CFRange range = CFRangeMake(nsrange.location, nsrange.length);
     
     while (range.length)
     {
@@ -535,7 +531,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             if (written)
             {
                 NSRange validRange = NSMakeRange(range.location, written);
-                [super writeString:[string substringWithRange:validRange]];
+                [_output writeString:string range:validRange];
             }
             
             // Convert the invalid char
@@ -543,15 +539,19 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             switch (ch)
             {
                     // If we encounter a special character with a symbolic entity, use that
-                case 160:	[super writeString:@"&nbsp;"];      break;
-                case 169:	[super writeString:@"&copy;"];      break;
-                case 174:	[super writeString:@"&reg;"];       break;
-                case 8211:	[super writeString:@"&ndash;"];     break;
-                case 8212:	[super writeString:@"&mdash;"];     break;
-                case 8364:	[super writeString:@"&euro;"];      break;
+                case 160:	[_output writeString:@"&nbsp;"];      break;
+                case 169:	[_output writeString:@"&copy;"];      break;
+                case 174:	[_output writeString:@"&reg;"];       break;
+                case 8211:	[_output writeString:@"&ndash;"];     break;
+                case 8212:	[_output writeString:@"&mdash;"];     break;
+                case 8364:	[_output writeString:@"&euro;"];      break;
                     
                     // Otherwise, use the decimal unicode value.
-                default:	[super writeString:[NSString stringWithFormat:@"&#%d;",ch]];   break;
+                default:
+				{
+					NSString *string = [NSString stringWithFormat:@"&#%d;",ch];
+					[_output writeString:string];   break;
+				}
             }
             
             // Convert the rest
@@ -561,22 +561,19 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         else if (range.location == 0)
         {
             // Efficient route for if entire string can be written
-            [super writeString:string];
+            [_output writeString:string range:nsrange];
             break;
         }
         else
         {
-            // Use CFStringCreateWithSubstring() rather than -substringWithRange: since:
-            // A) Can dispose of it straight away rather than filling autorelease pool
-            // B) range doesn't need casting
-            CFStringRef substring = CFStringCreateWithSubstring(NULL, (CFStringRef)string, range);
-            [super writeString:(NSString *)substring];
-            CFRelease(substring);
-            
+            // Write what remains
+            [_output writeString:string range:NSMakeRange(range.location, range.length)];
             break;
         }
     }
 }
+
+- (void)writeString:(NSString *)string; { [self writeString:string range:NSMakeRange(0, string.length)]; }
 
 #pragma mark -
 #pragma mark Pre-Blocks Support

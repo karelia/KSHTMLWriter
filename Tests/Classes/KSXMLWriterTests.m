@@ -8,7 +8,7 @@
 
 #import "ECParameterisedTestCase.h"
 #import "KSXMLWriter.h"
-#import "KSStringWriter.h"
+#import "KSWriter.h"
 
 #pragma mark - KSXMLWriter Interface Shenanigans
 
@@ -26,7 +26,7 @@
 
 @interface KSXMLWriterTests : ECParameterisedTestCase
 {
-    KSStringWriter* output;
+    KSWriter* output;
     KSXMLWriter* writer;
 }
 @end
@@ -37,7 +37,7 @@
 
 - (void)setUp
 {
-    output = [[KSStringWriter alloc] init];
+    output = [[KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding] retain];
     writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
 }
 
@@ -188,7 +188,7 @@
 
 - (void)testStartDocument
 {
-    [writer startDocumentWithDocType:@"some-type" encoding:NSUTF8StringEncoding];
+    [writer startDocumentWithDocType:@"some-type"];
     [writer writeElement:@"foo" attributes:nil content:^{
         [writer writeCharacters:@"bar"];
     }];

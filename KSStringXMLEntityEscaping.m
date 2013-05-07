@@ -79,36 +79,3 @@
 }
 
 @end
-
-
-#pragma mark -
-
-
-@implementation KSEscapedXMLEntitiesWriter
-
-- (id)initWithOutputXMLWriter:(id <KSWriter>)output;	// designated initializer
-{
-    if (self = [self init])
-    {
-        _output = [output retain];
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [_output release];
-    [super dealloc];
-}
-
-- (void)writeString:(NSString *)string;
-{
-    [_output writeCharacters:string];
-}
-
-- (void)close;
-{
-    [_output release]; _output = nil;
-}
-
-@end

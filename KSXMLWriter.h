@@ -25,12 +25,12 @@
 //
 
 
-#import "KSForwardingWriter.h"
+#import "KSWriter.h"
 
 #import "KSXMLAttributes.h"
 
 
-@interface KSXMLWriter : KSForwardingWriter
+@interface KSXMLWriter : NSObject
 {
   @private
     KSXMLAttributes   *_attributes;
@@ -40,16 +40,17 @@
         
     NSInteger   _indentation;
     
+    KSWriter            *_output;
     NSStringEncoding    _encoding;
 }
 
 #pragma mark Creating an XML Writer
 
-// If output responds to -encoding, that is used as the default encoding. Designated initializer
-- (id)initWithOutputWriter:(id <KSWriter>)output;
+// .encoding is taken from the writer. Designated initializer
+- (id)initWithOutputWriter:(KSWriter *)output __attribute((nonnull(1)));
 
-// Use this if you need to set encoding up-front, rather than by starting document
-- (id)initWithOutputWriter:(id <KSWriter>)output encoding:(NSStringEncoding)encoding;
+// Use this if you need to specify a custom encoding
++ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
 
 
 #pragma mark Writer Status
@@ -59,7 +60,7 @@
 
 #pragma mark Document
 // e.g. docType of @"html" for HTML 5. KSHTMLWriter declares many such constants
-- (void)startDocumentWithDocType:(NSString *)docType encoding:(NSStringEncoding)encoding;
+- (void)startDocumentWithDocType:(NSString *)docType __attribute((nonnull(1)));
 
 
 #pragma mark Characters
@@ -161,8 +162,9 @@
 
 #pragma mark String Encoding
 @property(nonatomic, readonly) NSStringEncoding encoding;   // default is UTF-8
-+ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present 
-- (void)writeString:(NSString *)string; // anything outside .encoding gets escaped
+- (void)writeString:(NSString *)string range:(NSRange)range; // anything outside the receiver's encoding gets escaped. primitive
+- (void)writeString:(NSString *)string; // convenience
++ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present
 
 
 #pragma mark -
