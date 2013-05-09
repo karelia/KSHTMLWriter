@@ -13,19 +13,12 @@
 		22352BA614C6FCB00031F5DD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352BA514C6FCB00031F5DD /* SenTestingKit.framework */; };
 		22352BA714C6FCB00031F5DD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		22352BAA14C6FCB00031F5DD /* libKSHTMLWriter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9014C6FCB00031F5DD /* libKSHTMLWriter.a */; };
-		22352BD114C6FD260031F5DD /* KSCSSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC014C6FD260031F5DD /* KSCSSWriter.h */; };
 		22352BD214C6FD260031F5DD /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
-		22352BD314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */; };
-		22352BD614C6FD260031F5DD /* KSHTMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC714C6FD260031F5DD /* KSHTMLWriter.h */; };
 		22352BD714C6FD260031F5DD /* KSHTMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC814C6FD260031F5DD /* KSHTMLWriter.m */; };
-		22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */; };
 		22352BD914C6FD260031F5DD /* KSStringXMLEntityEscaping.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCA14C6FD260031F5DD /* KSStringXMLEntityEscaping.m */; };
-		22352BDA14C6FD260031F5DD /* KSXMLAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */; };
 		22352BDB14C6FD260031F5DD /* KSXMLAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCD14C6FD260031F5DD /* KSXMLAttributes.m */; };
-		22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; };
 		22352BDD14C6FD260031F5DD /* KSXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BCF14C6FD260031F5DD /* KSXMLWriter.m */; };
 		2278062214F7B4F7001205E1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C1948714C709A1009A4406 /* WebKit.framework */; };
-		22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1943C14C6FE9D009A4406 /* KSWriter.h */; };
 		22C1944914C6FE9D009A4406 /* KSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1943D14C6FE9D009A4406 /* KSWriter.m */; };
 		22C91F0614F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0214F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m */; };
 		22C91F0814F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0414F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m */; };
@@ -86,6 +79,18 @@
 			remoteInfo = KSHTMLWriter;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		270C2A5A173C3CE200358BFD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterNormalSnippetTests.m; sourceTree = "<group>"; };
@@ -485,20 +490,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		22352B8E14C6FCB00031F5DD /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22352BD114C6FD260031F5DD /* KSCSSWriter.h in Headers */,
-				22352BD314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h in Headers */,
-				22352BD614C6FD260031F5DD /* KSHTMLWriter.h in Headers */,
-				22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */,
-				22352BDA14C6FD260031F5DD /* KSXMLAttributes.h in Headers */,
-				22352BDC14C6FD260031F5DD /* KSXMLWriter.h in Headers */,
-				22C1944814C6FE9D009A4406 /* KSWriter.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9FC4242A15F57A0F001B9220 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,7 +514,7 @@
 			buildPhases = (
 				22352B8C14C6FCB00031F5DD /* Sources */,
 				22352B8D14C6FCB00031F5DD /* Frameworks */,
-				22352B8E14C6FCB00031F5DD /* Headers */,
+				270C2A5A173C3CE200358BFD /* CopyFiles */,
 			);
 			buildRules = (
 			);
