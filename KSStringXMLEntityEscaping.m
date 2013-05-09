@@ -53,13 +53,9 @@
 	return [result autorelease];
 }
 
-#endif
-
 - (NSString *)stringByUnescapingXMLEntities:(NSDictionary *)entities
 {
-	
-#if TARGET_OS_IPHONE
-	
+	/*  OLD IOS CODE; RE-INSTATE IF NEEDED
 	const xmlChar *unescapedXMLString = xmlStringDecodeEntities(xmlNewParserCtxt(),
 																(const xmlChar *)[self UTF8String],
 																XML_SUBSTITUTE_REF,
@@ -67,15 +63,15 @@
 	
 	NSString *result = [NSString stringWithUTF8String:(const char *)unescapedXMLString];
 	return result;
-	
-#else
-    
+    */
+	   
 	NSString *result = NSMakeCollectable(CFXMLCreateStringByUnescapingEntities(NULL,
                                                                                (CFStringRef)self,
                                                                                (CFDictionaryRef)entities));
 	return [result autorelease];
     
-#endif
 }
+
+#endif
 
 @end
