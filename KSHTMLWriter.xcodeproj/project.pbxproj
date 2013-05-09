@@ -17,7 +17,6 @@
 		22352BD114C6FD260031F5DD /* KSCSSWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC014C6FD260031F5DD /* KSCSSWriter.h */; };
 		22352BD214C6FD260031F5DD /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
 		22352BD314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC314C6FD260031F5DD /* KSXMLWriterDOMAdaptor.h */; };
-		22352BD414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */; };
 		22352BD614C6FD260031F5DD /* KSHTMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC714C6FD260031F5DD /* KSHTMLWriter.h */; };
 		22352BD714C6FD260031F5DD /* KSHTMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC814C6FD260031F5DD /* KSHTMLWriter.m */; };
 		22352BD814C6FD260031F5DD /* KSStringXMLEntityEscaping.h in Headers */ = {isa = PBXBuildFile; fileRef = 22352BC914C6FD260031F5DD /* KSStringXMLEntityEscaping.h */; };
@@ -664,7 +663,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22352BD214C6FD260031F5DD /* KSCSSWriter.m in Sources */,
-				22352BD414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m in Sources */,
 				22352BD714C6FD260031F5DD /* KSHTMLWriter.m in Sources */,
 				22352BD914C6FD260031F5DD /* KSStringXMLEntityEscaping.m in Sources */,
 				22352BDB14C6FD260031F5DD /* KSXMLAttributes.m in Sources */,
