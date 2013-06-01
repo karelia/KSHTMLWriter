@@ -332,6 +332,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 {    
     if (charset) [self pushAttribute:@"charset" value:charset];
     [self startJavascriptElementWithSrc:src];
+	if (!src) [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
     [self endElement];
 }
 
