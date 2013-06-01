@@ -373,12 +373,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
         // Outdent the script comapred to what's normal
         [self startElement:@"script" writeInline:NO];
         
-        if (!src)
-        {
-            [self decreaseIndentationLevel];
-            [self startNewline];
-            [self stopWritingInline];
-        }
+		[self decreaseIndentationLevel];
+		[self startNewline];
+		[self stopWritingInline];
     }
 }
 
