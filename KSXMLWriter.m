@@ -317,12 +317,12 @@
 
 - (void)increaseIndentationLevel;
 {
-    [self setIndentationLevel:[self indentationLevel] + 1];
+    self.indentationLevel++;
 }
 
 - (void)decreaseIndentationLevel;
 {
-    [self setIndentationLevel:[self indentationLevel] - 1];
+    self.indentationLevel--;
 }
 
 #pragma mark Validation
