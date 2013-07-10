@@ -132,7 +132,11 @@
 
 + (NSString *)stringFromCharacters:(NSString *)string;
 {
-	NSMutableString *result = [NSMutableString string];
+	// On the basis that most values don't need escaping, it's quickest to take
+    // a shortcut when possible, so as to avoid allocating a writer
+    if (![self writeStringByEscapingXMLEntities:string to:nil escapeQuotes:NO]) return string;
+    
+    NSMutableString *result = [NSMutableString string];
     
     KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
     [writer writeCharacters:string];
