@@ -127,20 +127,30 @@
 - (void)writeCharacters:(NSString *)string;
 {
     // Quotes are acceptable characters outside of attribute values
-    [self.class writeStringByEscapingXMLEntities:string to:self escapeQuotes:NO];
+    [self.class writeString:string escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+        
+        if (range.length != string.length) string = [string substringWithRange:range];
+        [self writeString:string];
+    }];
 }
 
-+ (NSString *)stringFromCharacters:(NSString *)string;
++ (NSString *)stringFromCharacters:(NSString *)characters;
 {
-	// On the basis that most values don't need escaping, it's quickest to take
-    // a shortcut when possible, so as to avoid allocating a writer
-    if (![self writeStringByEscapingXMLEntities:string to:nil escapeQuotes:NO]) return string;
+	__block NSString *result = @"";
     
-    NSMutableString *result = [NSMutableString string];
-    
-    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
-    [writer writeCharacters:string];
-    [writer release];
+    [self.class writeString:characters escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+        
+        // Often the original string is valid. If so, use it whole
+        if (string == characters && range.length == characters.length)
+        {
+            result = characters;
+        }
+        else
+        {
+            if (range.length != string.length) string = [string substringWithRange:range];
+            result = [result stringByAppendingString:string];
+        }
+    }];
     
     return result;
 }
@@ -212,20 +222,31 @@
 
 - (void)writeAttributeValue:(NSString *)value;
 {
-    [self.class writeStringByEscapingXMLEntities:value to:self escapeQuotes:YES];	// make sure to escape the quote mark
+    // Make sure to escape the quote mark
+    [self.class writeString:value escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+        
+        if (range.length != string.length) string = [string substringWithRange:range];
+        [self writeString:string];
+    }];
 }
 
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 {
-    // On the basis that most values don't need escaping, it's quickest to take
-    // a shortcut when possible, so as to avoid allocating a writer
-    if (![self writeStringByEscapingXMLEntities:value to:nil escapeQuotes:YES]) return value;
+    __block NSString *result = @"";
     
-    NSMutableString *result = [NSMutableString string];
-    
-    KSXMLWriter *writer = [[self alloc] initWithOutputWriter:result];
-    [writer writeAttributeValue:value];
-    [writer release];
+    [self.class writeString:value escapeXMLEntitiesIncludingQuotes:YES usingBlock:^(NSString *string, NSRange range) {
+        
+        // Often the original string is valid. If so, use it whole
+        if (string == value && range.length == value.length)
+        {
+            result = value;
+        }
+        else
+        {
+            if (range.length != string.length) string = [string substringWithRange:range];
+            result = [result stringByAppendingString:string];
+        }
+    }];
     
     return result;
 }
@@ -265,7 +286,7 @@
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
 {
     [self openComment];
-    [self.class writeStringByEscapingXMLEntities:comment to:self escapeQuotes:YES];
+    [self writeAttributeValue:comment];
     [self closeComment];
 }
 
@@ -433,7 +454,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 // So I think we want to gradually shift over to being explicit when we know when it's OK or not.
 //
 // Return value indicates whether any escaping actually needed doing
-+ (BOOL)writeStringByEscapingXMLEntities:(NSString *)string to:(KSXMLWriter *)writer escapeQuotes:(BOOL)escapeQuotes;
++ (void)writeString:(NSString *)string escapeXMLEntitiesIncludingQuotes:(BOOL)escapeQuotes usingBlock:(void (^)(NSString *string, NSRange range))block;
 {
     NSCharacterSet *charactersToEntityEscape = (escapeQuotes ?
                                                 sCharactersToEntityEscapeWithQuot :
@@ -444,8 +465,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     NSRange range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
     if (range.location == NSNotFound)
     {
-        [writer writeString:string];
-        return NO;
+        block(string, searchRange);
+        return;
     }
     
     
@@ -459,7 +480,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         }
         if (unescapedRange.length)
         {
-            [writer writeString:[string substringWithRange:unescapedRange]];
+            block(string, unescapedRange);
         }
         
         
@@ -469,14 +490,17 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             NSAssert(range.length == 1, @"trying to escaping non-single character string");    // that's all we should deal with for HTML escaping
 			
             unichar ch = [string characterAtIndex:range.location];
+            NSString *escaped;
             switch (ch)
             {
-                case '&':	[writer writeString:@"&amp;"];    break;
-                case '<':	[writer writeString:@"&lt;"];     break;
-                case '>':	[writer writeString:@"&gt;"];     break;
-                case '"':	[writer writeString:@"&quot;"];   break;
-                default:    [writer writeString:[NSString stringWithFormat:@"&#%d;",ch]];
+                case '&':	escaped = @"&amp;";     break;
+                case '<':	escaped = @"&lt;";      break;
+                case '>':	escaped = @"&gt;";      break;
+                case '"':   escaped = @"&quot;";    break;
+                default:    escaped = [NSString stringWithFormat:@"&#%d;",ch];
             }
+            
+            block(escaped, NSMakeRange(0, escaped.length));
 		}
         else
         {
@@ -489,8 +513,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         searchRange.length = [string length] - searchRange.location;
         range = [string rangeOfCharacterFromSet:charactersToEntityEscape options:0 range:searchRange];
 	}
-    
-    return YES;
 }
 
 #pragma mark String Encoding
