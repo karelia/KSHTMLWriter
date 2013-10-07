@@ -388,6 +388,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22352BB614C6FCB00031F5DD /* Build configuration list for PBXNativeTarget "KSHTMLWriter" */;
 			buildPhases = (
+				279616AA1803602600D9B950 /* Update Submodules */,
 				22352B8C14C6FCB00031F5DD /* Sources */,
 				22352B8D14C6FCB00031F5DD /* Frameworks */,
 				270C2A5A173C3CE200358BFD /* CopyFiles */,
@@ -504,6 +505,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
+		};
+		279616AA1803602600D9B950 /* Update Submodules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Update Submodules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "## Update Submodules\npushd \"${SRCROOT}\"\ngit submodule update --init --recursive\npopd\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
