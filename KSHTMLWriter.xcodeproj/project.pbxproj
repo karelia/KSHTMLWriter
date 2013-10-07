@@ -39,6 +39,7 @@
 		27724EA7173C3E41008787DA /* KSXMLWriter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; };
 		279616831803472C00D9B950 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
 		279616841803506A00D9B950 /* KSXMLWriterDOMAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC414C6FD260031F5DD /* KSXMLWriterDOMAdaptor.m */; };
+		27961685180356F800D9B950 /* KSCSSWriter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22352BC014C6FD260031F5DD /* KSCSSWriter.h */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -77,6 +78,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				27961685180356F800D9B950 /* KSCSSWriter.h in CopyFiles */,
 				27724EA3173C3E41008787DA /* KSHTMLWriter.h in CopyFiles */,
 				27724EA4173C3E41008787DA /* KSStringXMLEntityEscaping.h in CopyFiles */,
 				27724EA5173C3E41008787DA /* KSWriter.h in CopyFiles */,
