@@ -43,23 +43,6 @@
 		22C91F0814F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0414F7BDBC00FCFF8F /* KSXMLWriterCompoundTests.m */; };
 		22C91F0914F7BDBC00FCFF8F /* KSXMLWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0514F7BDBC00FCFF8F /* KSXMLWriterTests.m */; };
 		22C91F2A14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */; };
-		22C91F2C14F7BDCB00FCFF8F /* Simple.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0F14F7BDCB00FCFF8F /* Simple.html */; };
-		22C91F2D14F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1214F7BDCB00FCFF8F /* input.html */; };
-		22C91F2E14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1314F7BDCB00FCFF8F /* output.html */; };
-		22C91F2F14F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1514F7BDCB00FCFF8F /* input.html */; };
-		22C91F3014F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1614F7BDCB00FCFF8F /* output.html */; };
-		22C91F3114F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1814F7BDCB00FCFF8F /* input.html */; };
-		22C91F3214F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1914F7BDCB00FCFF8F /* output.html */; };
-		22C91F3314F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1B14F7BDCB00FCFF8F /* input.html */; };
-		22C91F3414F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1C14F7BDCB00FCFF8F /* output.html */; };
-		22C91F3514F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1E14F7BDCB00FCFF8F /* input.html */; };
-		22C91F3614F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F1F14F7BDCB00FCFF8F /* output.html */; };
-		22C91F3714F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2114F7BDCB00FCFF8F /* input.html */; };
-		22C91F3814F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2214F7BDCB00FCFF8F /* output.html */; };
-		22C91F3914F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2414F7BDCB00FCFF8F /* input.html */; };
-		22C91F3A14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2514F7BDCB00FCFF8F /* output.html */; };
-		22C91F3B14F7BDCB00FCFF8F /* input.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2714F7BDCB00FCFF8F /* input.html */; };
-		22C91F3C14F7BDCB00FCFF8F /* output.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2814F7BDCB00FCFF8F /* output.html */; };
 		22C91F3D14F7BDCB00FCFF8F /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
 		22C91F4B14F7BEED00FCFF8F /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F4314F7BEED00FCFF8F /* ECTestCase.m */; };
 		22C91F4C14F7BEED00FCFF8F /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F4414F7BEED00FCFF8F /* README.mdown */; };
@@ -71,6 +54,7 @@
 		271963ED1691C95000CCBA0B /* KSBlockWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 271963EA1691C95000CCBA0B /* KSBlockWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		271963EE1691C95000CCBA0B /* KSBlockWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 271963EB1691C95000CCBA0B /* KSBlockWriter.m */; };
 		271963EF1691C95000CCBA0B /* KSBlockWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 271963EB1691C95000CCBA0B /* KSBlockWriter.m */; };
+		279616831803472C00D9B950 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -158,23 +142,6 @@
 		22C91F0514F7BDBC00FCFF8F /* KSXMLWriterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSXMLWriterTests.m; sourceTree = "<group>"; };
 		22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KSXMLWriterCompoundTests.plist; sourceTree = "<group>"; };
 		22C91F0C14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KSHTMLWriterTests.plist; sourceTree = "<group>"; };
-		22C91F0F14F7BDCB00FCFF8F /* Simple.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Simple.html; sourceTree = "<group>"; };
-		22C91F1214F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F1314F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F1514F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F1614F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F1814F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F1914F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F1B14F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F1C14F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F1E14F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F1F14F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F2114F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F2214F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F2414F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F2514F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
-		22C91F2714F7BDCB00FCFF8F /* input.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = input.html; sourceTree = "<group>"; };
-		22C91F2814F7BDCB00FCFF8F /* output.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = output.html; sourceTree = "<group>"; };
 		22C91F2914F7BDCB00FCFF8F /* Stub.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Stub.html; sourceTree = "<group>"; };
 		22C91F4214F7BEED00FCFF8F /* ECTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECTestCase.h; sourceTree = "<group>"; };
 		22C91F4314F7BEED00FCFF8F /* ECTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTestCase.m; sourceTree = "<group>"; };
@@ -184,6 +151,7 @@
 		22C91F4914F7BEED00FCFF8F /* test-common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
 		271963EA1691C95000CCBA0B /* KSBlockWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBlockWriter.h; sourceTree = "<group>"; };
 		271963EB1691C95000CCBA0B /* KSBlockWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBlockWriter.m; sourceTree = "<group>"; };
+		279616821803471A00D9B950 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
 		9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSHTMLWriterFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC4243115F57A0F001B9220 /* KSHTMLWriterFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterFramework-Info.plist"; sourceTree = "<group>"; };
 		9FC4243315F57A0F001B9220 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -362,114 +330,10 @@
 			children = (
 				22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */,
 				22C91F0C14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist */,
-				22C91F0D14F7BDCB00FCFF8F /* Snippets */,
+				279616821803471A00D9B950 /* Snippets */,
 				22C91F2914F7BDCB00FCFF8F /* Stub.html */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		22C91F0D14F7BDCB00FCFF8F /* Snippets */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F0E14F7BDCB00FCFF8F /* Normal */,
-				22C91F1014F7BDCB00FCFF8F /* Pretty */,
-			);
-			path = Snippets;
-			sourceTree = "<group>";
-		};
-		22C91F0E14F7BDCB00FCFF8F /* Normal */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F0F14F7BDCB00FCFF8F /* Simple.html */,
-			);
-			path = Normal;
-			sourceTree = "<group>";
-		};
-		22C91F1014F7BDCB00FCFF8F /* Pretty */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1114F7BDCB00FCFF8F /* DeepIndent */,
-				22C91F1414F7BDCB00FCFF8F /* ExtraNewlines */,
-				22C91F1714F7BDCB00FCFF8F /* Paragraphs */,
-				22C91F1A14F7BDCB00FCFF8F /* WhitespaceAfter */,
-				22C91F1D14F7BDCB00FCFF8F /* WhitespaceBefore */,
-				22C91F2014F7BDCB00FCFF8F /* WhitespaceBeforeAfterAndInside */,
-				22C91F2314F7BDCB00FCFF8F /* WhitespaceBeforeAndAfter */,
-				22C91F2614F7BDCB00FCFF8F /* WhitespaceInside */,
-			);
-			path = Pretty;
-			sourceTree = "<group>";
-		};
-		22C91F1114F7BDCB00FCFF8F /* DeepIndent */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1214F7BDCB00FCFF8F /* input.html */,
-				22C91F1314F7BDCB00FCFF8F /* output.html */,
-			);
-			path = DeepIndent;
-			sourceTree = "<group>";
-		};
-		22C91F1414F7BDCB00FCFF8F /* ExtraNewlines */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1514F7BDCB00FCFF8F /* input.html */,
-				22C91F1614F7BDCB00FCFF8F /* output.html */,
-			);
-			path = ExtraNewlines;
-			sourceTree = "<group>";
-		};
-		22C91F1714F7BDCB00FCFF8F /* Paragraphs */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1814F7BDCB00FCFF8F /* input.html */,
-				22C91F1914F7BDCB00FCFF8F /* output.html */,
-			);
-			path = Paragraphs;
-			sourceTree = "<group>";
-		};
-		22C91F1A14F7BDCB00FCFF8F /* WhitespaceAfter */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1B14F7BDCB00FCFF8F /* input.html */,
-				22C91F1C14F7BDCB00FCFF8F /* output.html */,
-			);
-			path = WhitespaceAfter;
-			sourceTree = "<group>";
-		};
-		22C91F1D14F7BDCB00FCFF8F /* WhitespaceBefore */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F1E14F7BDCB00FCFF8F /* input.html */,
-				22C91F1F14F7BDCB00FCFF8F /* output.html */,
-			);
-			path = WhitespaceBefore;
-			sourceTree = "<group>";
-		};
-		22C91F2014F7BDCB00FCFF8F /* WhitespaceBeforeAfterAndInside */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F2114F7BDCB00FCFF8F /* input.html */,
-				22C91F2214F7BDCB00FCFF8F /* output.html */,
-			);
-			path = WhitespaceBeforeAfterAndInside;
-			sourceTree = "<group>";
-		};
-		22C91F2314F7BDCB00FCFF8F /* WhitespaceBeforeAndAfter */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F2414F7BDCB00FCFF8F /* input.html */,
-				22C91F2514F7BDCB00FCFF8F /* output.html */,
-			);
-			path = WhitespaceBeforeAndAfter;
-			sourceTree = "<group>";
-		};
-		22C91F2614F7BDCB00FCFF8F /* WhitespaceInside */ = {
-			isa = PBXGroup;
-			children = (
-				22C91F2714F7BDCB00FCFF8F /* input.html */,
-				22C91F2814F7BDCB00FCFF8F /* output.html */,
-			);
-			path = WhitespaceInside;
 			sourceTree = "<group>";
 		};
 		22C91F3E14F7BEED00FCFF8F /* ECUnitTests */ = {
@@ -666,28 +530,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C91F2A14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist in Resources */,
-				22C91F2C14F7BDCB00FCFF8F /* Simple.html in Resources */,
-				22C91F2D14F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F2E14F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F2F14F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3014F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3114F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3214F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3314F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3414F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3514F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3614F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3714F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3814F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3914F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3A14F7BDCB00FCFF8F /* output.html in Resources */,
-				22C91F3B14F7BDCB00FCFF8F /* input.html in Resources */,
-				22C91F3C14F7BDCB00FCFF8F /* output.html in Resources */,
 				22C91F3D14F7BDCB00FCFF8F /* Stub.html in Resources */,
 				22C91F4C14F7BEED00FCFF8F /* README.mdown in Resources */,
 				22C91F4D14F7BEED00FCFF8F /* Test.bundle in Resources */,
 				22C91F4E14F7BEED00FCFF8F /* ocunit2junit.rb in Resources */,
 				22C91F4F14F7BEED00FCFF8F /* test-common.sh in Resources */,
+				279616831803472C00D9B950 /* Snippets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
