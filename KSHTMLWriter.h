@@ -134,14 +134,61 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 #pragma mark Scripts
 
-- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding;
-- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
-- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
+/**
+ Writes a <script> element that references an external javascript.
+ 
+ For pre-HTML5 doc types, a `type` attribute is generated to explicitly mark the
+ script as javascript.
+ 
+ @param src A string that resolves to the URL of the javascript.
+ @param encoding The javascript's encoding. A `charset` attribute is written if it differs to the receiver's `encoding`.
+ */
+- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding __attribute((nonnull(1)));
+
+/**
+ Writes a <script> element that references an external javascript.
+ 
+ For pre-HTML5 doc types, a `type` attribute is generated to explicitly mark the
+ script as javascript.
+ 
+ Use of `writeJavascriptWithSrc:encoding:` is preferred to this method when
+ possible, as it can treat the encoding a little more intelligently.
+ 
+ @param src A string that resolves to the URL of the javascript.
+ @param charset The javascript's encoding; written as a `charset` attribute. May be `nil`.
+ */
+- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset __attribute((nonnull(1)));
+
+/**
+ Writes a <script> element for an inline javascript.
+ 
+ For pre-HTML5 doc types, a `type` attribute is generated to explicitly mark the
+ script as javascript. The javascript is written with the same indentation level
+ as the `<script>` tag.
+ 
+ @param script The raw javascript.
+ @param useCDATA Whether to wrap the script in a CDATA declaration.
+ */
+- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA __attribute((nonnull(1)));
+
+/**
+ Writes a <script> element for an inline javascript.
+ 
+ For pre-HTML5 doc types, a `type` attribute is generated to explicitly mark the
+ script as javascript. The javascript is written with the same indentation level
+ as the `<script>` tag.
+ 
+ This method is useful for writing scripts in a streaming fashion if you don't
+ already have it in a single convenient `NSString` form.
+ 
+ @param content A block which writes the javascript to the receiver.
+ */
 - (void)writeJavascriptWithContent:(void (^)(void))content;
 
 // Like -startCDATA and -endCDATA, but wrapped in a javascript comment so don't risk tripping up a browser's interpreter
 - (void)startJavascriptCDATA;
 - (void)endJavascriptCDATA;
+
 
 #pragma mark Param
 
