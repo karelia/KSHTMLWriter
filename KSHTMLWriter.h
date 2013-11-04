@@ -146,7 +146,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
  @param src A string that resolves to the URL of the javascript.
  @param encoding The javascript's encoding. A `charset` attribute is written if it differs to the receiver's `encoding`.
  */
-- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding;
+- (void)writeJavascriptWithSrc:(NSString *)src encoding:(NSStringEncoding)encoding __attribute((nonnull(1)));
 
 /**
  Writes a <script> element that references an external javascript.
@@ -160,7 +160,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
  @param src A string that resolves to the URL of the javascript.
  @param charset The javascript's encoding; written as a `charset` attribute. May be `nil`.
  */
-- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;
+- (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset __attribute((nonnull(1)));
 
 /**
  Writes a <script> element for an inline javascript.
@@ -172,7 +172,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
  @param script The raw javascript.
  @param useCDATA Whether to wrap the script in a CDATA declaration.
  */
-- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA;
+- (void)writeJavascript:(NSString *)script useCDATA:(BOOL)useCDATA __attribute((nonnull(1)));
 
 /**
  Writes a <script> element for an inline javascript.
