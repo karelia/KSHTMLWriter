@@ -136,14 +136,15 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
 {
+	id newValue = [[value copy] autorelease];		// in case value was mutable and cleared later
     if ([attribute isEqualToString:@"class"])
     {
-        return [self pushClassName:value];
+        return [self pushClassName:newValue];
     }
     
     // Keep track of IDs in use
-    if ([attribute isEqualToString:@"id"]) [_IDs addObject:value];
-    [super pushAttribute:attribute value:value];
+    if ([attribute isEqualToString:@"id"]) [_IDs addObject:newValue];
+    [super pushAttribute:attribute value:newValue];
 }
 
 - (KSXMLAttributes *)currentAttributes;
