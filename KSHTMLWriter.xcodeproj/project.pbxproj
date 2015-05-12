@@ -68,6 +68,20 @@
 			remoteGlobalIDString = 22352B8F14C6FCB00031F5DD;
 			remoteInfo = KSHTMLWriter;
 		};
+		27CF37B61B024BBC00DEABC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 22352B9014C6FCB00031F5DD;
+			remoteInfo = KSWriter;
+		};
+		27CF37B81B024BBC00DEABC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 22352BA414C6FCB00031F5DD;
+			remoteInfo = KSWriterTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +146,7 @@
 		22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22C91F4914F7BEED00FCFF8F /* test-common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
 		279616821803471A00D9B950 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
+		27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KSWriter.xcodeproj; path = KSWriter/KSWriter.xcodeproj; sourceTree = "<group>"; };
 		9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSHTMLWriterFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC4243115F57A0F001B9220 /* KSHTMLWriterFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterFramework-Info.plist"; sourceTree = "<group>"; };
 		9FC4243315F57A0F001B9220 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -197,6 +212,7 @@
 		22352B9214C6FCB00031F5DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */,
 				22C1948714C709A1009A4406 /* WebKit.framework */,
 				22352B9314C6FCB00031F5DD /* Cocoa.framework */,
 				22352BA514C6FCB00031F5DD /* SenTestingKit.framework */,
@@ -343,6 +359,15 @@
 			path = Scripts;
 			sourceTree = "<group>";
 		};
+		27CF37B21B024BBC00DEABC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27CF37B71B024BBC00DEABC4 /* libKSWriter.a */,
+				27CF37B91B024BBC00DEABC4 /* KSWriterTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9FC4242F15F57A0F001B9220 /* KSHTMLWriterFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,7 +444,7 @@
 			name = KSHTMLWriterTests;
 			productName = KSHTMLWriterTests;
 			productReference = 22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		9FC4242C15F57A0F001B9220 /* KSHTMLWriterFramework */ = {
 			isa = PBXNativeTarget;
@@ -458,6 +483,12 @@
 			mainGroup = 22352B8514C6FCAF0031F5DD;
 			productRefGroup = 22352B9114C6FCB00031F5DD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 27CF37B21B024BBC00DEABC4 /* Products */;
+					ProjectRef = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				22352B8F14C6FCB00031F5DD /* KSHTMLWriter */,
@@ -466,6 +497,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		27CF37B71B024BBC00DEABC4 /* libKSWriter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKSWriter.a;
+			remoteRef = 27CF37B61B024BBC00DEABC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		27CF37B91B024BBC00DEABC4 /* KSWriterTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KSWriterTests.octest;
+			remoteRef = 27CF37B81B024BBC00DEABC4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		22352BA114C6FCB00031F5DD /* Resources */ = {
