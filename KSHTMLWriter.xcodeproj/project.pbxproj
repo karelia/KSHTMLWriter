@@ -397,7 +397,8 @@
 				27CF37CD1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m */,
 				27CF37CB1B024EE000DEABC4 /* Supporting Files */,
 			);
-			path = "KSHTMLWriterFramework Tests";
+			name = "KSHTMLWriterFramework Tests";
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		27CF37CB1B024EE000DEABC4 /* Supporting Files */ = {
@@ -862,7 +863,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "KSHTMLWriterFramework Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -898,7 +899,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "KSHTMLWriterFramework Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
