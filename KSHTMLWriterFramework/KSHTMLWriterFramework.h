@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+@import KSWriter;
 
 // CSS
 #import <KSHTMLWriterFramework/KSCSSWriter.h>
@@ -40,6 +41,3 @@
 
 // HTML
 #import <KSHTMLWriterFramework/KSHTMLWriter.h>
-
-// KSWriter
-#import <KSHTMLWriterFramework/KSWriter.h>
