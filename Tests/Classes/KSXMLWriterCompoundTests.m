@@ -9,14 +9,13 @@
 #import "ECParameterisedTestCase.h"
 #import "KSXMLWriter.h"
 #import "KSHTMLWriter.h"
-#import "KSWriter.h"
+@import KSWriter;
 
-#pragma mark - Unit Tests Interface
+
 
 @interface KSXMLWriterCompoundTests : ECParameterisedTestCase
 @end
 
-#pragma mark - Unit Tests Implementation
 
 @implementation KSXMLWriterCompoundTests
 
@@ -88,7 +87,7 @@ typedef enum
     }
 
     NSDictionary* test = self.parameterisedTestDataItem;
-    KSWriter* output = [[KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding] retain];
+    KSWriter* output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
     KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
 
     NSArray* actions = [test objectForKey:@"actions"];
@@ -97,9 +96,6 @@ typedef enum
     
     NSString* generated = [output string];
     [self assertString:generated matchesString:expected];
-
-    [writer release];
-    [output release];
 }
 
 - (void)parameterisedTestCompoundXML

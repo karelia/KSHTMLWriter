@@ -3,4 +3,4 @@
 	url = https://github.com/karelia/KSWriter.git
 [submodule "Tests/ECUnitTests"]
 	path = Tests/ECUnitTests
-	url = https://github.com/elegantchaos/ECUnitTests.git
+	url = https://github.com/karelia/ECUnitTests.git
