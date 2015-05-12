@@ -225,7 +225,7 @@
 - (void)writeAttributeValue:(NSString *)value;
 {
     // Make sure to escape the quote mark
-    [self.class writeString:value escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+    [self.class writeString:value escapeXMLEntitiesIncludingQuotes:YES usingBlock:^(NSString *string, NSRange range) {
         [self writeString:string range:range];
     }];
 }
