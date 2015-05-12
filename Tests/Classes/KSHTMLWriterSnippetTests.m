@@ -10,11 +10,13 @@
 
 #import <WebKit/WebKit.h>
 
-@implementation KSHTMLWriterSnippetTests
+@implementation KSHTMLWriterSnippetTests {
+    XCTestExpectation   *_webViewLoadExpectation;
+}
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    [self timeToExitRunLoop];
+    [_webViewLoadExpectation fulfill];
 }    
 
 #pragma mark - Helpers
@@ -31,10 +33,11 @@
         result.frameLoadDelegate = self;
         [[result mainFrame] loadRequest:[NSURLRequest requestWithURL:stubURL]];
  
-        [self runUntilTimeToExit];
+        _webViewLoadExpectation = [self expectationWithDescription:@"WebView loading"];
+        [self waitForExpectationsWithTimeout:10 handler:NULL];
    }
     
-    return [result autorelease];
+    return result;
 }
 
 +(NSString*)snippetsPath

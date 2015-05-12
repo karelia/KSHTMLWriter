@@ -45,6 +45,11 @@
 		27CF37D71B0253AB00DEABC4 /* ECParameterisedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 223269E714FA8125003055A2 /* ECParameterisedTestCase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		27CF37D81B02546000DEABC4 /* ECTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F4314F7BEED00FCFF8F /* ECTestCase.m */; };
 		27CF37D91B02551100DEABC4 /* KSXMLWriterCompoundTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */; };
+		27CF37DB1B02566200DEABC4 /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0214F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m */; };
+		27CF37DC1B02570A00DEABC4 /* KSHTMLWriterPrettyPrintSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB614F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m */; };
+		27CF37DD1B02571B00DEABC4 /* KSHTMLWriterNormalSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */; };
+		27CF37DE1B02572C00DEABC4 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
+		27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -618,7 +623,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27CF37DE1B02572C00DEABC4 /* Snippets in Resources */,
 				27CF37D91B02551100DEABC4 /* KSXMLWriterCompoundTests.plist in Resources */,
+				27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +706,9 @@
 				27CF37D81B02546000DEABC4 /* ECTestCase.m in Sources */,
 				27CF37D51B024FE600DEABC4 /* KSXMLWriterTests.m in Sources */,
 				27CF37D61B02535800DEABC4 /* KSXMLWriterCompoundTests.m in Sources */,
+				27CF37DC1B02570A00DEABC4 /* KSHTMLWriterPrettyPrintSnippetTests.m in Sources */,
+				27CF37DD1B02571B00DEABC4 /* KSHTMLWriterNormalSnippetTests.m in Sources */,
+				27CF37DB1B02566200DEABC4 /* KSHTMLWriterSnippetTests.m in Sources */,
 				27CF37D71B0253AB00DEABC4 /* ECParameterisedTestCase.m in Sources */,
 				27CF37CE1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m in Sources */,
 			);

@@ -9,10 +9,8 @@
 #import "KSHTMLWriterSnippetTests.h"
 
 #import "KSHTMLWriter.h"
-#import "KSWriter.h"
 #import "KSXMLWriterDOMAdaptor.h"
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <WebKit/WebKit.h>
 
 @interface KSHTMLWriterNormalSnippetTests : KSHTMLWriterSnippetTests
@@ -52,9 +50,6 @@
     
     NSString* written = [output string];
     [self assertString:written matchesString:snippetHTML];
-    
-    [adaptor release];
-    [writer release];
 }
 
 
