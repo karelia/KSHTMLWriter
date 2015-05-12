@@ -40,6 +40,7 @@
 		27CF37C41B024E6900DEABC4 /* KSHTMLWriterFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */; };
 		27CF37CE1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CF37CD1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m */; };
 		27CF37CF1B024EE000DEABC4 /* KSHTMLWriterFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */; };
+		27CF37D51B024FE600DEABC4 /* KSXMLWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0514F7BDBC00FCFF8F /* KSXMLWriterTests.m */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -690,6 +691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27CF37D51B024FE600DEABC4 /* KSXMLWriterTests.m in Sources */,
 				27CF37CE1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,30 +6,19 @@
 //  Copyright (c) 2012 Karelia Software. All rights reserved.
 //
 
-#import "ECParameterisedTestCase.h"
+@import XCTest;
+
 #import "KSXMLWriter.h"
-#import "KSWriter.h"
-
-#pragma mark - KSXMLWriter Interface Shenanigans
-
-// We rudely explose a few bits of the private KSXMLWriter interface so that we can frig with them during
-// the unit tests
-//
-// Purists might argue that this is a no-no. They might be right.
-
-@interface KSXMLWriter(UnitTestInternalAccess)
-@property (nonatomic, assign, readwrite) NSStringEncoding encoding; 
-@end
+@import KSWriter;
 
 
-#pragma mark - Unit Tests Interface
-
-@interface KSXMLWriterTests : ECParameterisedTestCase
+@interface KSXMLWriterTests : XCTestCase
 {
     KSWriter* output;
     KSXMLWriter* writer;
 }
 @end
+
 
 #pragma mark - Unit Tests Implementation
 
@@ -37,20 +26,14 @@
 
 - (void)setUp
 {
-    output = [[KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding] retain];
+    output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
     writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
-}
-
-- (void)tearDown
-{
-    [output release];
-    [writer release];
 }
 
 - (void)testNoAction
 {
     NSString* generated = [output string];
-    STAssertTrue([generated isEqualToString:@""], @"generated string is empty");
+    XCTAssertTrue([generated isEqualToString:@""], @"generated string is empty");
 }
 
 - (void)testWriteElementNoContent
@@ -58,7 +41,7 @@
     [writer writeElement:@"foo" attributes:nil content:nil];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo />"];
+    XCTAssertEqualObjects(generated, @"<foo />");
 }
 
 - (void)testWriteElementEmptyContent
@@ -67,7 +50,7 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo />"];
+    XCTAssertEqualObjects(generated, @"<foo />");
 }
 
 - (void)testWriteElementNoAttributes
@@ -77,7 +60,7 @@
      }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo>bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo>bar</foo>");
 }
 
 - (void)testWriteElementEmptyAttributes
@@ -88,7 +71,7 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo>bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo>bar</foo>");
 }
 
 - (void)testWriteElementOneAttribute
@@ -99,7 +82,7 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo wobble=\"wibble\">bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo wobble=\"wibble\">bar</foo>");
 }
 
 - (void)testWriteElementMultipleAttributes
@@ -110,32 +93,32 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo k2=\"o2\" k1=\"o1\">bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo k2=\"o2\" k1=\"o1\">bar</foo>");
 }
 
 - (void)testPushAttribute
 {
     [writer pushAttribute:@"a1" value:@"v1"];
-    STAssertTrue([writer hasCurrentAttributes], @"has attributes");
-    STAssertNotNil([writer currentAttributes], @"has attributes");
+    XCTAssertTrue([writer hasCurrentAttributes]);
+    XCTAssertNotNil([writer currentAttributes]);
     NSUInteger attributeCount = [[writer currentAttributes] count];
-    STAssertEquals(attributeCount, (NSUInteger) 1 , @"wrong number of attributes");
+    XCTAssertEqual(attributeCount, (NSUInteger) 1 , @"wrong number of attributes");
     
     [writer pushAttribute:@"a2" value:@"v2"];
     attributeCount = [[writer currentAttributes] count];
-    STAssertEquals(attributeCount, (NSUInteger) 2, @"wrong number of attributes");
+    XCTAssertEqual(attributeCount, (NSUInteger) 2, @"wrong number of attributes");
     
     [writer writeElement:@"foo" attributes:nil content:^{
         [writer writeCharacters:@"bar"];
     }];
         
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo a1=\"v1\" a2=\"v2\">bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo a1=\"v1\" a2=\"v2\">bar</foo>");
     
-    STAssertFalse([writer hasCurrentAttributes], @"has attributes");
-    STAssertNotNil([writer currentAttributes], @"has attributes");
+    XCTAssertFalse([writer hasCurrentAttributes], @"has attributes");
+    XCTAssertNotNil([writer currentAttributes], @"has attributes");
     attributeCount = [[writer currentAttributes] count];
-    STAssertEquals(attributeCount, (NSUInteger) 0, @"wrong number of attributes");
+    XCTAssertEqual(attributeCount, (NSUInteger) 0, @"wrong number of attributes");
 }
 
 - (void)testWriteEscapedEntities
@@ -146,19 +129,21 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo>&lt; &amp; &gt;</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo>&lt; &amp; &gt;</foo>");
     
     // test the raw escaping whilst we're at it
     NSString* escaped = [KSXMLWriter stringFromCharacters:@"< & >"];
-    [self assertString:escaped matchesString:@"&lt; &amp; &gt;"];
+    XCTAssertEqualObjects(escaped, @"&lt; &amp; &gt;");
 }
 
 - (void)testWriteEscapedNonAsciiCharacters
 {
+    output = [KSWriter stringWriterWithEncoding:NSASCIIStringEncoding];
+    writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
+    
     // TODO could expand this to loop through all characters, but some of them will expand
     // to unexpected things - e.g. see character 160 below...
 
-    writer.encoding = NSASCIIStringEncoding;
     [writer writeElement:@"foo" attributes:nil content:^{
         
         // write some random non-ascii characters
@@ -169,7 +154,7 @@
     }];
 
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo>&nbsp;&#180;&#200;</foo>"];
+    XCTAssertEqualObjects(generated, @"<foo>&nbsp;&#180;&#200;</foo>");
     
 }
 
@@ -183,7 +168,7 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<foo><!--this is a comment-->this is not a comment<!--this is another comment--></foo>"];
+    XCTAssertEqualObjects(generated, @"<foo><!--this is a comment-->this is not a comment<!--this is another comment--></foo>");
 }
 
 - (void)testStartDocument
@@ -194,7 +179,7 @@
     }];
     
     NSString* generated = [output string];
-    [self assertString:generated matchesString:@"<!DOCTYPE some-type>\n<foo>bar</foo>"];
+    XCTAssertEqualObjects(generated, @"<!DOCTYPE some-type>\n<foo>bar</foo>");
     
 }
 
