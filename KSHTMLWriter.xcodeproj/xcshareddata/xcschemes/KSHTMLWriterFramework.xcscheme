@@ -20,20 +20,6 @@
                ReferencedContainer = "container:KSHTMLWriter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22352BA314C6FCB00031F5DD"
-               BuildableName = "KSHTMLWriterTests.octest"
-               BlueprintName = "KSHTMLWriterTests"
-               ReferencedContainer = "container:KSHTMLWriter.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "27CF37C81B024EE000DEABC4"
+               BuildableName = "KSHTMLWriterFramework Tests.xctest"
+               BlueprintName = "KSHTMLWriterFramework Tests"
+               ReferencedContainer = "container:KSHTMLWriter.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
