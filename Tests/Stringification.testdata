@@ -38,5 +38,20 @@
     "Input" : "<div>\n    This is a <strong>test<\/strong>\n<\/div>",
     "Literal" : "<div>\n    This is a <strong>test<\/strong>\n<\/div>",
     "Pretty-printed" : "<div>This is a <strong>test<\/strong><\/div>"
+  },
+  {
+    "Input" : "<a href=\"http:\/\/example.com\">Text<\/a>",
+    "Literal" : "<a href=\"http:\/\/example.com\">Text<\/a>",
+    "Pretty-printed" : "<a href=\"http:\/\/example.com\">Text<\/a>"
+  },
+  {
+    "Input" : "<span class=\"in Apple-style-span\">Text<\/span>",
+    "Literal" : "<span class=\"in Apple-style-span\">Text<\/span>",
+    "Pretty-printed" : "<span class=\"in Apple-style-span\">Text<\/span>"
+  },
+  {
+    "Input" : "<span class=\"foo\" style=\"color:red;\">Text<\/span>",
+    "Literal" : "<span style=\"color: red; \" class=\"foo\">Text<\/span>",
+    "Pretty-printed" : "<span style=\"color: red; \" class=\"foo\">Text<\/span>"
   }
 ]
