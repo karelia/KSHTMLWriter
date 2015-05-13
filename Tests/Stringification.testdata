@@ -33,5 +33,10 @@
     "Input" : "\n<p>Text 1<\/p>\n\n<p>Text 2<\/p>\n",
     "Literal" : "\n<p>Text 1<\/p>\n\n<p>Text 2<\/p>\n",
     "Pretty-printed" : "<p>Text 1<\/p>\n<p>Text 2<\/p>"
+  },
+  {
+    "Input" : "<div>\n    This is a <strong>test<\/strong>\n<\/div>",
+    "Literal" : "<div>\n    This is a <strong>test<\/strong>\n<\/div>",
+    "Pretty-printed" : "<div>This is a <strong>test<\/strong><\/div>"
   }
 ]
