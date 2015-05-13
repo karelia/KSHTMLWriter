@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 //
 
-@import KSWriter;
+#import <KSWriter/KSWriter.h>
 
 
 @interface KSCSSWriter : NSObject

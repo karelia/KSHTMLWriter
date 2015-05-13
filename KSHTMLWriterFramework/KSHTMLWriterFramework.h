@@ -26,7 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-@import KSWriter;
+#import <KSWriter/KSWriter.h>
 
 // CSS
 #import <KSHTMLWriterFramework/KSCSSWriter.h>
