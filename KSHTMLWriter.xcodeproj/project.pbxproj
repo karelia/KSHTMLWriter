@@ -28,7 +28,6 @@
 		27CF37DB1B02566200DEABC4 /* KSHTMLWriterSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0214F7BDBC00FCFF8F /* KSHTMLWriterSnippetTests.m */; };
 		27CF37DC1B02570A00DEABC4 /* KSHTMLWriterPrettyPrintSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB614F7E97F00210FBD /* KSHTMLWriterPrettyPrintSnippetTests.m */; };
 		27CF37DD1B02571B00DEABC4 /* KSHTMLWriterNormalSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */; };
-		27CF37DE1B02572C00DEABC4 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
 		27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
 		27E32EB61B0340B5002ED4A2 /* KSWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27CF37B71B024BBC00DEABC4 /* KSWriter.framework */; };
 		27E32EFC1B0383F0002ED4A2 /* Stringification.testdata in Resources */ = {isa = PBXBuildFile; fileRef = 27E32EFB1B0383F0002ED4A2 /* Stringification.testdata */; };
@@ -140,7 +139,6 @@
 		22C91F4614F7BEED00FCFF8F /* Test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Test.bundle; sourceTree = "<group>"; };
 		22C91F4814F7BEED00FCFF8F /* ocunit2junit.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = ocunit2junit.rb; sourceTree = "<group>"; };
 		22C91F4914F7BEED00FCFF8F /* test-common.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test-common.sh"; sourceTree = "<group>"; };
-		279616821803471A00D9B950 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Snippets; sourceTree = "<group>"; };
 		27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KSWriter.xcodeproj; path = KSWriter/KSWriter.xcodeproj; sourceTree = "<group>"; };
 		27CF37C91B024EE000DEABC4 /* KSHTMLWriterFramework Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KSHTMLWriterFramework Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CF37CC1B024EE000DEABC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			children = (
 				22C91F0B14F7BDCB00FCFF8F /* KSXMLWriterCompoundTests.plist */,
 				22C91F0C14F7BDCB00FCFF8F /* KSHTMLWriterTests.plist */,
-				279616821803471A00D9B950 /* Snippets */,
 				22C91F2914F7BDCB00FCFF8F /* Stub.html */,
 			);
 			path = Resources;
@@ -542,7 +539,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27CF37DE1B02572C00DEABC4 /* Snippets in Resources */,
 				27E32EFC1B0383F0002ED4A2 /* Stringification.testdata in Resources */,
 				27CF37D91B02551100DEABC4 /* KSXMLWriterCompoundTests.plist in Resources */,
 				27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */,
