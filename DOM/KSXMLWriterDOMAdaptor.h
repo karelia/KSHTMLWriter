@@ -99,4 +99,14 @@ typedef NS_OPTIONS(NSInteger, KSXMLWriterDOMAdaptorOptions) {
  */
 - (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMElement:(DOMElement *)element;
 
+- (void)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer didWriteContentsOfDOMElement:(DOMElement *)element;
+
+- (void)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer didWriteDOMElement:(DOMElement *)element;
+
+- (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMComment:(DOMComment *)comment;
+
+- (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMText:(DOMText *)text;
+
+- (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMCDATASection:(DOMCDATASection *)cdataSection;
+
 @end

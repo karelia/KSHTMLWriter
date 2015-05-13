@@ -162,8 +162,22 @@
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
 {
+    id <KSXMLWriterDOMAdaptorDelegate> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(DOMAdaptor:didWriteContentsOfDOMElement:)]) {
+        [self.delegate DOMAdaptor:self didWriteContentsOfDOMElement:element];
+    }
+    
     [[self XMLWriter] endElement];
-    return [element nextSibling];
+    
+    // Make sure to grab next node before messaging delegate, since it might do something like
+    // remove `element` from the document.
+    DOMNode *result = element.nextSibling;
+    
+    if ([delegate respondsToSelector:@selector(DOMAdaptor:didWriteDOMElement:)]) {
+        [self.delegate DOMAdaptor:self didWriteDOMElement:element];
+    }
+    
+    return result;
 }
 
 - (DOMNode *)writeComment:(NSString *)comment withDOMComment:(DOMComment *)commentNode;
@@ -174,7 +188,15 @@
 
 #pragma mark Pseudo-delegate
 
-- (DOMNode *)willWriteDOMText:(DOMText *)text; { return text; }
+- (DOMNode *)willWriteDOMText:(DOMText *)text; {
+    id <KSXMLWriterDOMAdaptorDelegate> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(DOMAdaptor:willWriteDOMText:)]) {
+        DOMNode *node = [delegate DOMAdaptor:self willWriteDOMText:text];
+        if (node != text) return node;
+    }
+    
+    return text;
+}
 
 - (DOMNode *)didWriteDOMText:(DOMText *)textNode nextNode:(DOMNode *)nextNode;
 {
@@ -521,7 +543,13 @@
 
 - (DOMNode *)writeData:(NSString *)data toHTMLWriter:(KSXMLWriterDOMAdaptor *)adaptor;
 {
-	return [adaptor writeComment:data withDOMComment:self];
+    id <KSXMLWriterDOMAdaptorDelegate> delegate = adaptor.delegate;
+    if ([delegate respondsToSelector:@selector(DOMAdaptor:willWriteDOMComment:)]) {
+        DOMNode *node = [delegate DOMAdaptor:adaptor willWriteDOMComment:self];
+        if (node != self) return node;
+    }
+    
+    return [adaptor writeComment:data withDOMComment:self];
 }
 
 @end
@@ -548,6 +576,12 @@
 
 - (DOMNode *)writeData:(NSString *)data toHTMLWriter:(KSXMLWriterDOMAdaptor *)adaptor;
 {
+    id <KSXMLWriterDOMAdaptorDelegate> delegate = adaptor.delegate;
+    if ([delegate respondsToSelector:@selector(DOMAdaptor:willWriteDOMCDATASection:)]) {
+        DOMNode *node = [delegate DOMAdaptor:adaptor willWriteDOMCDATASection:self];
+        if (node != self) return node;
+    }
+    
 	[[adaptor XMLWriter] writeString:[NSString stringWithFormat:@"<![CDATA[%@]]>", data]];
     return [self nextSibling];
 }
