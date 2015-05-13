@@ -1,0 +1,37 @@
+[
+  {
+    "Input" : "<p>Text <\/p>",
+    "Literal" : "<p>Text <\/p>",
+    "Pretty-printed" : "<p>Text<\/p>"
+  },
+  {
+    "Input" : "<p> Text<\/p>",
+    "Literal" : "<p> Text<\/p>",
+    "Pretty-printed" : "<p>Text<\/p>"
+  },
+  {
+    "Input" : "<p> Text <\/p>",
+    "Literal" : "<p> Text <\/p>",
+    "Pretty-printed" : "<p>Text<\/p>"
+  },
+  {
+    "Input" : "<p>Foo <b>bar<\/b> baz<\/p>",
+    "Literal" : "<p>Foo <b>bar<\/b> baz<\/p>",
+    "Pretty-printed" : "<p>Foo <b>bar<\/b> baz<\/p>"
+  },
+  {
+    "Input" : "<p> Foo <b>bar<\/b> baz <\/p>",
+    "Literal" : "<p> Foo <b>bar<\/b> baz <\/p>",
+    "Pretty-printed" : "<p>Foo <b>bar<\/b> baz<\/p>"
+  },
+  {
+    "Input" : "\t\t\t\t\t<p>Text<\/p>",
+    "Literal" : "\t\t\t\t\t<p>Text<\/p>",
+    "Pretty-printed" : "<p>Text<\/p>"
+  },
+  {
+    "Input" : "\n<p>Text 1<\/p>\n\n<p>Text 2<\/p>\n",
+    "Literal" : "\n<p>Text 1<\/p>\n\n<p>Text 2<\/p>\n",
+    "Pretty-printed" : "<p>Text 1<\/p>\n<p>Text 2<\/p>"
+  }
+]

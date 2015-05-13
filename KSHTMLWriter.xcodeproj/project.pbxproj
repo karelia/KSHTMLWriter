@@ -31,6 +31,8 @@
 		27CF37DE1B02572C00DEABC4 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
 		27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
 		27E32EB61B0340B5002ED4A2 /* KSWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27CF37B71B024BBC00DEABC4 /* KSWriter.framework */; };
+		27E32EFC1B0383F0002ED4A2 /* Stringification.testdata in Resources */ = {isa = PBXBuildFile; fileRef = 27E32EFB1B0383F0002ED4A2 /* Stringification.testdata */; };
+		27E32F001B038415002ED4A2 /* StringificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E32EFF1B038415002ED4A2 /* StringificationTests.m */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -143,6 +145,8 @@
 		27CF37C91B024EE000DEABC4 /* KSHTMLWriterFramework Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KSHTMLWriterFramework Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CF37CC1B024EE000DEABC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CF37CD1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSHTMLWriterFramework_Tests.m; sourceTree = "<group>"; };
+		27E32EFB1B0383F0002ED4A2 /* Stringification.testdata */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Stringification.testdata; sourceTree = "<group>"; };
+		27E32EFF1B038415002ED4A2 /* StringificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringificationTests.m; sourceTree = "<group>"; };
 		9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSHTMLWriterFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC4243115F57A0F001B9220 /* KSHTMLWriterFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KSHTMLWriterFramework-Info.plist"; sourceTree = "<group>"; };
 		9FC4243315F57A0F001B9220 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 			children = (
 				2291487B14CD7A0A00EFB4AB /* README.mdown */,
 				22C91F0114F7BDBC00FCFF8F /* Classes */,
+				27E32EFE1B0383F7002ED4A2 /* Stringification */,
 				22C91F0A14F7BDCB00FCFF8F /* Resources */,
 				22C91F3E14F7BEED00FCFF8F /* ECUnitTests */,
 				22C18C0014D3001700AE57DA /* Scripts */,
@@ -369,6 +374,15 @@
 				27CF37CC1B024EE000DEABC4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27E32EFE1B0383F7002ED4A2 /* Stringification */ = {
+			isa = PBXGroup;
+			children = (
+				27E32EFB1B0383F0002ED4A2 /* Stringification.testdata */,
+				27E32EFF1B038415002ED4A2 /* StringificationTests.m */,
+			);
+			name = Stringification;
 			sourceTree = "<group>";
 		};
 		9FC4242F15F57A0F001B9220 /* KSHTMLWriterFramework */ = {
@@ -529,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27CF37DE1B02572C00DEABC4 /* Snippets in Resources */,
+				27E32EFC1B0383F0002ED4A2 /* Stringification.testdata in Resources */,
 				27CF37D91B02551100DEABC4 /* KSXMLWriterCompoundTests.plist in Resources */,
 				27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */,
 			);
@@ -586,6 +601,7 @@
 				27CF37DD1B02571B00DEABC4 /* KSHTMLWriterNormalSnippetTests.m in Sources */,
 				27CF37DB1B02566200DEABC4 /* KSHTMLWriterSnippetTests.m in Sources */,
 				27CF37D71B0253AB00DEABC4 /* ECParameterisedTestCase.m in Sources */,
+				27E32F001B038415002ED4A2 /* StringificationTests.m in Sources */,
 				27CF37CE1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
