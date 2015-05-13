@@ -18,7 +18,6 @@
 		27724EA6173C3E41008787DA /* KSXMLAttributes.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22352BCC14C6FD260031F5DD /* KSXMLAttributes.h */; };
 		27724EA7173C3E41008787DA /* KSXMLWriter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22352BCE14C6FD260031F5DD /* KSXMLWriter.h */; };
 		27961685180356F800D9B950 /* KSCSSWriter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22352BC014C6FD260031F5DD /* KSCSSWriter.h */; };
-		27CF37C31B024C9800DEABC4 /* KSWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27CF37C01B024C9800DEABC4 /* KSWriter.framework */; };
 		27CF37CE1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CF37CD1B024EE000DEABC4 /* KSHTMLWriterFramework_Tests.m */; };
 		27CF37CF1B024EE000DEABC4 /* KSHTMLWriterFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4242D15F57A0F001B9220 /* KSHTMLWriterFramework.framework */; };
 		27CF37D51B024FE600DEABC4 /* KSXMLWriterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C91F0514F7BDBC00FCFF8F /* KSXMLWriterTests.m */; };
@@ -31,6 +30,7 @@
 		27CF37DD1B02571B00DEABC4 /* KSHTMLWriterNormalSnippetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22222CB514F7E97F00210FBD /* KSHTMLWriterNormalSnippetTests.m */; };
 		27CF37DE1B02572C00DEABC4 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 279616821803471A00D9B950 /* Snippets */; };
 		27CF37DF1B02572F00DEABC4 /* Stub.html in Resources */ = {isa = PBXBuildFile; fileRef = 22C91F2914F7BDCB00FCFF8F /* Stub.html */; };
+		27E32EB61B0340B5002ED4A2 /* KSWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27CF37B71B024BBC00DEABC4 /* KSWriter.framework */; };
 		9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22352B9314C6FCB00031F5DD /* Cocoa.framework */; };
 		9FC4243415F57A0F001B9220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4243215F57A0F001B9220 /* InfoPlist.strings */; };
 		9FC4243D15F5801E001B9220 /* KSCSSWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22352BC114C6FD260031F5DD /* KSCSSWriter.m */; };
@@ -58,20 +58,6 @@
 			remoteGlobalIDString = 22352B9014C6FCB00031F5DD;
 			remoteInfo = KSWriter;
 		};
-		27CF37B81B024BBC00DEABC4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 22352BA414C6FCB00031F5DD;
-			remoteInfo = KSWriterTests;
-		};
-		27CF37BF1B024C9800DEABC4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 27CF37921B023A6B00DEABC4;
-			remoteInfo = KSWriter;
-		};
 		27CF37C11B024C9800DEABC4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
@@ -85,6 +71,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9FC4242C15F57A0F001B9220;
 			remoteInfo = KSHTMLWriterFramework;
+		};
+		27E32EB41B03402D002ED4A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CF37B11B024BBC00DEABC4 /* KSWriter.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 27CF37911B023A6B00DEABC4;
+			remoteInfo = KSWriter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -179,7 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27CF37C31B024C9800DEABC4 /* KSWriter.framework in Frameworks */,
+				27E32EB61B0340B5002ED4A2 /* KSWriter.framework in Frameworks */,
 				9FC4244915F5802C001B9220 /* WebKit.framework in Frameworks */,
 				9FC4242E15F57A0F001B9220 /* Cocoa.framework in Frameworks */,
 			);
@@ -354,9 +347,7 @@
 		27CF37B21B024BBC00DEABC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				27CF37B71B024BBC00DEABC4 /* liblibKSWriter.a */,
-				27CF37B91B024BBC00DEABC4 /* KSWriterTests.xctest */,
-				27CF37C01B024C9800DEABC4 /* KSWriter.framework */,
+				27CF37B71B024BBC00DEABC4 /* KSWriter.framework */,
 				27CF37C21B024C9800DEABC4 /* KSWWriterTests.xctest */,
 			);
 			name = Products;
@@ -468,6 +459,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				27E32EB51B03402D002ED4A2 /* PBXTargetDependency */,
 			);
 			name = KSHTMLWriterFramework;
 			productName = KSHTMLWriterFramework;
@@ -515,25 +507,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		27CF37B71B024BBC00DEABC4 /* liblibKSWriter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = liblibKSWriter.a;
-			remoteRef = 27CF37B61B024BBC00DEABC4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		27CF37B91B024BBC00DEABC4 /* KSWriterTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = KSWriterTests.xctest;
-			remoteRef = 27CF37B81B024BBC00DEABC4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		27CF37C01B024C9800DEABC4 /* KSWriter.framework */ = {
+		27CF37B71B024BBC00DEABC4 /* KSWriter.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = KSWriter.framework;
-			remoteRef = 27CF37BF1B024C9800DEABC4 /* PBXContainerItemProxy */;
+			remoteRef = 27CF37B61B024BBC00DEABC4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		27CF37C21B024C9800DEABC4 /* KSWWriterTests.xctest */ = {
@@ -633,6 +611,11 @@
 			isa = PBXTargetDependency;
 			target = 9FC4242C15F57A0F001B9220 /* KSHTMLWriterFramework */;
 			targetProxy = 27CF37D01B024EE000DEABC4 /* PBXContainerItemProxy */;
+		};
+		27E32EB51B03402D002ED4A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KSWriter;
+			targetProxy = 27E32EB41B03402D002ED4A2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -868,6 +851,7 @@
 				27CF37D41B024EE000DEABC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FC4243B15F57A0F001B9220 /* Build configuration list for PBXNativeTarget "KSHTMLWriterFramework" */ = {
 			isa = XCConfigurationList;
