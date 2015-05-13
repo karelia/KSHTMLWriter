@@ -91,5 +91,12 @@ typedef NS_OPTIONS(NSInteger, KSXMLWriterDOMAdaptorOptions) {
 
 
 @protocol KSXMLWriterDOMAdaptorDelegate <NSObject>
+
+/**
+ Gives an opportunity to customise how the element is handled. Return `element` untouched for the
+ adaptor to do its usual work. Otherwise, return a different node to move onto that. You might well
+ perform your stringification logic for the element before returning.
+ */
 - (DOMNode *)DOMAdaptor:(KSXMLWriterDOMAdaptor *)writer willWriteDOMElement:(DOMElement *)element;
+
 @end
