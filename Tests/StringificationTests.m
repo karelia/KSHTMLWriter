@@ -38,6 +38,9 @@
 
 - (void)loadHTMLString:(NSString *)string completionHandler:(void (^)())block {
     
+    // Explicitly supply our own <body> tag, so whitespace within it is preserved in the DOM
+    string = [NSString stringWithFormat:@"<body>%@</body>", string];
+    
     [_webView.mainFrame loadHTMLString:string baseURL:nil];
     [self expectationForNotification:WebViewProgressFinishedNotification object:_webView handler:NULL];
     [self waitForExpectationsWithTimeout:5 handler:NULL];
