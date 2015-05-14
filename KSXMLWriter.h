@@ -38,7 +38,6 @@
         
     NSInteger   _indentation;
     
-    KSWriter            *_output;
     NSStringEncoding    _encoding;
 }
 
@@ -164,6 +163,10 @@
 - (void)writeString:(NSString *)string range:(NSRange)range; // anything outside the receiver's encoding gets escaped. primitive
 - (void)writeString:(NSString *)string; // convenience
 + (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present
+
+
+#pragma mark Output
+@property(readonly) KSWriter *outputWriter;
 
 
 #pragma mark -
