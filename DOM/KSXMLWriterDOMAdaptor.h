@@ -25,7 +25,7 @@
 //
 
 #import <WebKit/WebKit.h>
-#import "KSXMLWriter.h"
+@import KSHTMLWriterFramework;
 
 
 typedef NS_OPTIONS(NSInteger, KSXMLWriterDOMAdaptorOptions) {

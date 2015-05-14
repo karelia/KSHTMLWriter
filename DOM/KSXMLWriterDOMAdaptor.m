@@ -26,8 +26,6 @@
 
 #import "KSXMLWriterDOMAdaptor.h"
 
-#import "KSHTMLWriter.h"
-
 
 @interface DOMNode (KSDOMToHTMLWriter)
 

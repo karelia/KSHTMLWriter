@@ -25,14 +25,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>
 #import <KSWriter/KSWriter.h>
 
 // CSS
 #import <KSHTMLWriterFramework/KSCSSWriter.h>
-
-// DOM
-#import <KSHTMLWriterFramework/KSXMLWriterDOMAdaptor.h>
 
 // XML
 #import <KSHTMLWriterFramework/KSXMLAttributes.h>
