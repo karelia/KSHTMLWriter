@@ -320,7 +320,12 @@
 
 - (void)decreaseIndentationLevel;
 {
-    self.indentationLevel--;
+    if ([self indentationLevel] > 0) {
+        self.indentationLevel--;
+    }
+    else {
+        NSLog(@"Ignoring attempt to decrease indentation level when already at 0");
+    }
 }
 
 #pragma mark Validation

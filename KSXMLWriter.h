@@ -120,6 +120,11 @@
 // Setting the indentation level does not write to the context in any way. It is up to methods that actually do some writing to respect the indent level. e.g. starting a new line should indent that line to match.
 @property(nonatomic) NSInteger indentationLevel;
 - (void)increaseIndentationLevel;
+
+/**
+ Attempting to decrease the indentation level to a negative value will log an error message and go
+ otherwise ignored.
+ */
 - (void)decreaseIndentationLevel;
 
 
