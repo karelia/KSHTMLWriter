@@ -39,8 +39,6 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
-    BOOL            _isXHTML;
-    
     NSMutableArray  *_classNames;
 }
 
@@ -50,9 +48,11 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 // Advise you don't change this mid-write, as that would be weird
 @property(nonatomic, copy) NSString *docType;
 
-// Whether empty elements should be written as <FOO> or <FOO />
-// Default is YES. There's no setter method; instead, specify with -startDocumentWithDocType:encoding: or when initializing.
-- (BOOL)isXHTML;
+/**
+ Whether empty elements should be written as <FOO> or <FOO />
+ Default is YES. There's no setter method, as is derived from \c docType
+ */
+@property(nonatomic, readonly) BOOL isXHTML;
 + (BOOL)isDocTypeXHTML:(NSString *)docType;
 
 
