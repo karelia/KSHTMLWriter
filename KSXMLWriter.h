@@ -57,6 +57,13 @@
 
 
 #pragma mark Document
+
+/**
+ The document's type, which we hang onto so clients can get some information about the XML being
+ written if they need to. Avoid changing this mid-writing as would likely confuse clients.
+ */
+@property(nonatomic, copy) NSString *docType;
+
 // e.g. docType of @"html" for HTML 5. KSHTMLWriter declares many such constants
 - (void)startDocumentWithDocType:(NSString *)docType __attribute((nonnull(1)));
 

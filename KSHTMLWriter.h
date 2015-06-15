@@ -36,6 +36,9 @@ extern NSString *KSHTMLWriterDocTypeXHTML_1_1;
 extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 
+/**
+ New instances are given a doctype of \c KSHTMLWriterDocTypeHTML_5 by default.
+ */
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
@@ -43,10 +46,6 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 }
 
 #pragma mark DTD
-
-// Default is HTML5
-// Advise you don't change this mid-write, as that would be weird
-@property(nonatomic, copy) NSString *docType;
 
 /**
  Whether empty elements should be written as <FOO> or <FOO />

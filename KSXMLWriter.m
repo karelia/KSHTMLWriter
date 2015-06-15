@@ -101,6 +101,7 @@
     
     [_openElements release];
     [_attributes release];
+    [_docType release];
     
     [super dealloc];
 }

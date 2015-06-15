@@ -70,9 +70,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)setDocType:(NSString *)docType;
 {
-    docType = [docType copy];
-    [_docType release]; _docType = docType;
-    
+    [super setDocType:docType];
     _isXHTML = [[self class] isDocTypeXHTML:docType];
 }
 
