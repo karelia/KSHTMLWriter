@@ -47,7 +47,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     if (self = [super initWithOutputWriter:output])
     {
         [self setDocType:KSHTMLWriterDocTypeHTML_5];
-        _IDs = [[NSMutableSet alloc] init];
         _classNames = [[NSMutableArray alloc] init];
     }
     
@@ -56,7 +55,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)dealloc
 {
-    [_IDs release];
     [_classNames release];
     
     [super dealloc];
@@ -127,8 +125,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
         return [self pushClassName:newValue];
     }
     
-    // Keep track of IDs in use
-    if ([attribute isEqualToString:@"id"]) [_IDs addObject:newValue];
     [super pushAttribute:attribute value:newValue];
 }
 
@@ -222,12 +218,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     if (className) [self pushAttribute:@"class" value:className];
     
     [self startElement:tagName];
-}
-
-- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
-{
-    BOOL result = ![_IDs containsObject:anID];
-    return result;
 }
 
 #pragma mark Document
