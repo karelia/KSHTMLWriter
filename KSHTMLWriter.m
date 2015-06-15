@@ -28,14 +28,14 @@
 #import "KSXMLAttributes.h"
 
 
-NSString *KSHTMLWriterDocTypeHTML_4_01_Strict = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_4_01_Transitional = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_4_01_Frameset = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Strict = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Transitional = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Frameset = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
+NSString *KSHTMLDoctypeHTML_4_01_Strict = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"";
+NSString *KSHTMLDoctypeHTML_4_01_Transitional = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"";
+NSString *KSHTMLDoctypeHTML_4_01_Frameset = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Strict = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Transitional = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Frameset = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"";
+NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 
 @implementation KSHTMLWriter
@@ -46,7 +46,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 {
     if (self = [super initWithOutputWriter:output])
     {
-        self.doctype = KSHTMLWriterDocTypeHTML_5;
+        self.doctype = KSHTMLDoctypeHTML_5;
         _classNames = [[NSMutableArray alloc] init];
     }
     
@@ -70,9 +70,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 + (BOOL)isDoctypeXHTML:(NSString *)docType;
 {
-    BOOL result = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
-                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
-                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Frameset]);
+    BOOL result = !([docType isEqualToString:KSHTMLDoctypeHTML_4_01_Strict] ||
+                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Transitional] ||
+                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Frameset]);
     return result;
 }
 
@@ -334,7 +334,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
     // HTML5 doesn't need the script type specified, but older doc types do for standards-compliance
-    if (![self.doctype isEqualToString:KSHTMLWriterDocTypeHTML_5])
+    if (![self.doctype isEqualToString:KSHTMLDoctypeHTML_5])
     {
         [self pushAttribute:@"type" value:@"text/javascript"];
     }

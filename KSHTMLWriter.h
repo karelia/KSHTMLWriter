@@ -26,18 +26,18 @@
 #import "KSXMLWriter.h"
 
 
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Strict;
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Transitional;
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Frameset;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Strict;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Transitional;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Frameset;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_1;
-extern NSString *KSHTMLWriterDocTypeHTML_5;
+extern NSString *KSHTMLDoctypeHTML_4_01_Strict;
+extern NSString *KSHTMLDoctypeHTML_4_01_Transitional;
+extern NSString *KSHTMLDoctypeHTML_4_01_Frameset;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Strict;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Transitional;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Frameset;
+extern NSString *KSHTMLDoctypeXHTML_1_1;
+extern NSString *KSHTMLDoctypeHTML_5;
 
 
 /**
- New instances are given a doctype of \c KSHTMLWriterDocTypeHTML_5 by default.
+ New instances are given a doctype of \c KSHTMLDoctypeHTML_5 by default.
  */
 @interface KSHTMLWriter : KSXMLWriter
 {
