@@ -119,10 +119,10 @@
 
 #pragma mark Document
 
-- (void)startDocumentWithDocType:(NSString *)docType;
+- (void)writeDoctypeDeclaration
 {
     [self writeString:@"<!DOCTYPE "];
-    [self writeString:docType];
+    [self writeString:self.docType];
     [self writeString:@">"];
     [self startNewline];
 }

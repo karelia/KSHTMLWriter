@@ -62,12 +62,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark DTD
 
-- (void)startDocumentWithDocType:(NSString *)docType;
-{
-    [self setDocType:docType];
-    [super startDocumentWithDocType:docType];
-}
-
 - (void)setDocType:(NSString *)docType;
 {
     [super setDocType:docType];

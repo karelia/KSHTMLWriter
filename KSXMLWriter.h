@@ -64,8 +64,12 @@
  */
 @property(nonatomic, copy) NSString *docType;
 
-// e.g. docType of @"html" for HTML 5. KSHTMLWriter declares many such constants
-- (void)startDocumentWithDocType:(NSString *)docType __attribute((nonnull(1)));
+/**
+ Writes a doctype declaration according to the receiver's \c docType, which must be non-nil. Example:
+ 
+ <!DOCTYPE %docType%>
+ */
+- (void)writeDoctypeDeclaration;
 
 
 #pragma mark Characters
