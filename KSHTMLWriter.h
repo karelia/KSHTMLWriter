@@ -52,7 +52,7 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
  Default is YES. There's no setter method, as is derived from \c docType
  */
 @property(nonatomic, readonly) BOOL isXHTML;
-+ (BOOL)isDocTypeXHTML:(NSString *)docType;
++ (BOOL)isDoctypeXHTML:(NSString *)docType;
 
 
 #pragma mark CSS Class Name

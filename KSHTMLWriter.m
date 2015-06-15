@@ -65,10 +65,10 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)setDoctype:(NSString *)doctype;
 {
     [super setDoctype:doctype];
-    _isXHTML = [[self class] isDocTypeXHTML:doctype];
+    _isXHTML = [self.class isDoctypeXHTML:doctype];
 }
 
-+ (BOOL)isDocTypeXHTML:(NSString *)docType;
++ (BOOL)isDoctypeXHTML:(NSString *)docType;
 {
     BOOL result = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
                     [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
