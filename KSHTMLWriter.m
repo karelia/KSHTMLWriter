@@ -211,9 +211,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Document
 
-- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
-{
-    [self startDocumentWithDocType:docType];
+- (void)writeDocumentWithHead:(void (^)(void))headBlock body:(void (^)(void))bodyBlock {
+    [self writeDoctypeDeclaration];
     
     [self writeElement:@"html" content:^{
         if (headBlock) [self writeElement:@"head" content:headBlock];

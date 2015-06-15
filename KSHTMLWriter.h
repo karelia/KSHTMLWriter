@@ -80,9 +80,11 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 
 
 #pragma mark Document
-// Convenience to give you standard document structure
-// head is optional
-- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+/**
+ Convenience to give you standard document structure
+ @param headBlock Optional
+ */
+- (void)writeDocumentWithHead:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
 
 
 #pragma mark Line Break
