@@ -68,7 +68,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [super startDocumentWithDocType:docType];
 }
 
-@synthesize docType = _docType;
 - (void)setDocType:(NSString *)docType;
 {
     docType = [docType copy];

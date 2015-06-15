@@ -39,7 +39,6 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
-    NSString        *_docType;
     BOOL            _isXHTML;
     
     NSMutableArray  *_classNames;
