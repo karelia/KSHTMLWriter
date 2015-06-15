@@ -46,7 +46,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 {
     if (self = [super initWithOutputWriter:output])
     {
-        [self setDocType:KSHTMLWriterDocTypeHTML_5];
+        self.doctype = KSHTMLWriterDocTypeHTML_5;
         _classNames = [[NSMutableArray alloc] init];
     }
     
@@ -62,10 +62,10 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark DTD
 
-- (void)setDocType:(NSString *)docType;
+- (void)setDoctype:(NSString *)doctype;
 {
-    [super setDocType:docType];
-    _isXHTML = [[self class] isDocTypeXHTML:docType];
+    [super setDoctype:doctype];
+    _isXHTML = [[self class] isDocTypeXHTML:doctype];
 }
 
 + (BOOL)isDocTypeXHTML:(NSString *)docType;
@@ -334,7 +334,7 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
     // HTML5 doesn't need the script type specified, but older doc types do for standards-compliance
-    if (![[self docType] isEqualToString:KSHTMLWriterDocTypeHTML_5])
+    if (![self.doctype isEqualToString:KSHTMLWriterDocTypeHTML_5])
     {
         [self pushAttribute:@"type" value:@"text/javascript"];
     }

@@ -101,7 +101,7 @@
     
     [_openElements release];
     [_attributes release];
-    [_docType release];
+    [_doctype release];
     
     [super dealloc];
 }
@@ -122,7 +122,7 @@
 - (void)writeDoctypeDeclaration
 {
     [self writeString:@"<!DOCTYPE "];
-    [self writeString:self.docType];
+    [self writeString:self.doctype];
     [self writeString:@">"];
     [self startNewline];
 }

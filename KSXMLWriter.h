@@ -62,7 +62,7 @@
  The document's type, which we hang onto so clients can get some information about the XML being
  written if they need to. Avoid changing this mid-writing as would likely confuse clients.
  */
-@property(nonatomic, copy) NSString *docType;
+@property(nonatomic, copy) NSString *doctype;
 
 /**
  Writes a doctype declaration according to the receiver's \c docType, which must be non-nil. Example:
