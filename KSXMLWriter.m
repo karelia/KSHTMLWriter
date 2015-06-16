@@ -101,6 +101,7 @@
     
     [_openElements release];
     [_attributes release];
+    [_doctype release];
     
     [super dealloc];
 }
@@ -118,10 +119,10 @@
 
 #pragma mark Document
 
-- (void)startDocumentWithDocType:(NSString *)docType;
+- (void)writeDoctypeDeclaration
 {
     [self writeString:@"<!DOCTYPE "];
-    [self writeString:docType];
+    [self writeString:self.doctype];
     [self writeString:@">"];
     [self startNewline];
 }

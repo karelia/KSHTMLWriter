@@ -57,8 +57,19 @@
 
 
 #pragma mark Document
-// e.g. docType of @"html" for HTML 5. KSHTMLWriter declares many such constants
-- (void)startDocumentWithDocType:(NSString *)docType __attribute((nonnull(1)));
+
+/**
+ The document's type, which we hang onto so clients can get some information about the XML being
+ written if they need to. Avoid changing this mid-writing as would likely confuse clients.
+ */
+@property(nonatomic, copy) NSString *doctype;
+
+/**
+ Writes a doctype declaration according to the receiver's \c docType, which must be non-nil. Example:
+ 
+ <!DOCTYPE %docType%>
+ */
+- (void)writeDoctypeDeclaration;
 
 
 #pragma mark Characters
