@@ -37,8 +37,6 @@
     NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
         
     NSInteger   _indentation;
-    
-    NSStringEncoding    _encoding;
 }
 
 #pragma mark Creating an XML Writer
