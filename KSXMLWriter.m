@@ -66,7 +66,7 @@
 - (id)initWithOutputWriter:(KSWriter *)output {
     if (self = [super init])
     {
-        _output = [output retain];
+        _outputWriter = [output retain];
         
         _encoding = (output ? output.encoding : NSUTF8StringEncoding);
         if (![[self class] isStringEncodingAvailable:_encoding])
@@ -102,7 +102,7 @@
 {
     [self flush];
     
-    [_output release]; _output = nil;
+    [_outputWriter release]; _outputWriter = nil;
 }
 
 - (void)flush; { }
@@ -552,7 +552,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             if (written)
             {
                 NSRange validRange = NSMakeRange(range.location, written);
-                [_output writeString:string range:validRange];
+                [_outputWriter writeString:string range:validRange];
             }
             
             // Convert the invalid char
@@ -560,18 +560,18 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             switch (ch)
             {
                     // If we encounter a special character with a symbolic entity, use that
-                case 160:	[_output writeString:@"&nbsp;"];      break;
-                case 169:	[_output writeString:@"&copy;"];      break;
-                case 174:	[_output writeString:@"&reg;"];       break;
-                case 8211:	[_output writeString:@"&ndash;"];     break;
-                case 8212:	[_output writeString:@"&mdash;"];     break;
-                case 8364:	[_output writeString:@"&euro;"];      break;
+                case 160:	[_outputWriter writeString:@"&nbsp;"];      break;
+                case 169:	[_outputWriter writeString:@"&copy;"];      break;
+                case 174:	[_outputWriter writeString:@"&reg;"];       break;
+                case 8211:	[_outputWriter writeString:@"&ndash;"];     break;
+                case 8212:	[_outputWriter writeString:@"&mdash;"];     break;
+                case 8364:	[_outputWriter writeString:@"&euro;"];      break;
                     
                     // Otherwise, use the decimal unicode value.
                 default:
 				{
 					NSString *escaped = [NSString stringWithFormat:@"&#%d;",ch];
-					[_output writeString:escaped];   break;
+					[_outputWriter writeString:escaped];   break;
 				}
             }
             
@@ -582,23 +582,19 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         else if (range.location == 0)
         {
             // Efficient route for if entire string can be written
-            [_output writeString:string range:nsrange];
+            [_outputWriter writeString:string range:nsrange];
             break;
         }
         else
         {
             // Write what remains
-            [_output writeString:string range:NSMakeRange(range.location, range.length)];
+            [_outputWriter writeString:string range:NSMakeRange(range.location, range.length)];
             break;
         }
     }
 }
 
 - (void)writeString:(NSString *)string; { [self writeString:string range:NSMakeRange(0, string.length)]; }
-
-#pragma mark Output
-
-@synthesize outputWriter = _output;
 
 #pragma mark -
 #pragma mark Pre-Blocks Support
