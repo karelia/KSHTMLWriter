@@ -82,7 +82,6 @@
     [adaptor writeDOMElement:element];
     
     [adaptor release];
-    [htmlWriter close];
     [htmlWriter release];
     
     return output.string;
@@ -97,7 +96,6 @@
     [adaptor writeDOMElement:element];
     
     [adaptor release];
-    [xmlWriter close];
     [xmlWriter release];
     
     return output.string;

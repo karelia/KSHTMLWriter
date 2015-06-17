@@ -71,25 +71,12 @@
 
 - (void)dealloc
 {
-    [self close];
-    
     [_openElements release];
     [_attributes release];
     [_doctype release];
     
     [super dealloc];
 }
-
-#pragma mark Writer Status
-
-- (void)close;
-{
-    [self flush];
-    
-    [_outputWriter release]; _outputWriter = nil;
-}
-
-- (void)flush; { }
 
 #pragma mark Document
 

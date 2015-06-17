@@ -36,11 +36,6 @@
 - (id)initWithOutputWriter:(KSWriter *)output NS_DESIGNATED_INITIALIZER;
 
 
-#pragma mark Writer Status
-- (void)close;  // calls -flush, then releases most ivars such as _writer
-- (void)flush;  // if there's anything waiting to be lazily written, forces it to write now. For subclasses to implement
-
-
 #pragma mark Document
 
 /**
