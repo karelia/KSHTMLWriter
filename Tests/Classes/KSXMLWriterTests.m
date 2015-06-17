@@ -173,7 +173,8 @@
 
 - (void)testStartDocument
 {
-    [writer startDocumentWithDocType:@"some-type"];
+    writer.doctype = @"some-type";
+    [writer writeDoctypeDeclaration];
     [writer writeElement:@"foo" attributes:nil content:^{
         [writer writeCharacters:@"bar"];
     }];
