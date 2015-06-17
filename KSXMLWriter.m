@@ -63,8 +63,7 @@
 
 #pragma mark Init & Dealloc
 
-- (id)initWithOutputWriter:(KSWriter *)output;  // designated initializer
-{    
+- (id)initWithOutputWriter:(KSWriter *)output {
     if (self = [super init])
     {
         _output = [output retain];

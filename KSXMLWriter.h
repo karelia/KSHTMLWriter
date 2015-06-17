@@ -44,8 +44,7 @@
 #pragma mark Creating an XML Writer
 
 // .encoding is taken from the writer. If output writer is nil, defaults to UTF-8
-// Designated initializer
-- (id)initWithOutputWriter:(KSWriter *)output;
+- (id)initWithOutputWriter:(KSWriter *)output NS_DESIGNATED_INITIALIZER;
 
 
 #pragma mark Writer Status
