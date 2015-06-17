@@ -302,8 +302,6 @@
 
 #pragma mark Indentation
 
-@synthesize indentationLevel = _indentation;
-
 - (void)increaseIndentationLevel;
 {
     self.indentationLevel++;
