@@ -167,10 +167,17 @@
 
 
 #pragma mark String Encoding
-@property(nonatomic, readonly) NSStringEncoding encoding;
 - (void)writeString:(NSString *)string range:(NSRange)range; // anything outside the receiver's encoding gets escaped. primitive
 - (void)writeString:(NSString *)string; // convenience
-+ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present
+
+/**
+ Automatically taken from the \c outputWriter. Defaults to UTF8 if there is no output
+ */
+@property(nonatomic, readonly) NSStringEncoding encoding;
+
+/** we support ASCII, UTF8, ISO Latin 1, and Unicode at present
+ */
++ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
 
 
 #pragma mark Output
