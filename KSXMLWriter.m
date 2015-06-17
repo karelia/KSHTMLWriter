@@ -86,15 +86,6 @@
 
 - (id)init; { return [self initWithOutputWriter:nil]; }
 
-+ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
-{
-	return [[[self alloc] initWithOutputWriter:[KSWriter writerWithEncoding:encoding block:^(NSString *string, NSRange range) {
-        
-		[output writeString:string range:range];
-        
-	}]] autorelease];
-}
-
 - (void)dealloc
 {
     [self close];

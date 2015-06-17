@@ -47,9 +47,6 @@
 // Designated initializer
 - (id)initWithOutputWriter:(KSWriter *)output;
 
-// Use this if you need to specify a custom encoding
-+ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
-
 
 #pragma mark Writer Status
 - (void)close;  // calls -flush, then releases most ivars such as _writer
