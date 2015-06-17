@@ -166,9 +166,20 @@
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
 
-#pragma mark String Encoding
-- (void)writeString:(NSString *)string range:(NSRange)range; // anything outside the receiver's encoding gets escaped. primitive
-- (void)writeString:(NSString *)string; // convenience
+#pragma mark Output
+
+/**
+ This is the primitive API through which all output is channeled. The requested \c range of \c string
+ is sent through to \c outputWriter. Any characters which aren't supported by the receiver's
+ \c encoding are XML escaped before sending through.
+ */
+- (void)writeString:(NSString *)string range:(NSRange)range;
+
+/**
+ Convenience that calls straight through to \c writeString:range: requesting the whole string be
+ written
+ */
+- (void)writeString:(NSString *)string;
 
 /**
  Automatically taken from the \c outputWriter. Defaults to UTF8 if there is no output
@@ -180,7 +191,6 @@
 + (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
 
 
-#pragma mark Output
 @property(readonly) KSWriter *outputWriter;
 
 
