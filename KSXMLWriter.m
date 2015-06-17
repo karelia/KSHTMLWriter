@@ -59,7 +59,12 @@
 #pragma mark -
 
 
-@implementation KSXMLWriter
+@implementation KSXMLWriter {
+    KSXMLAttributes   *_attributes;
+    NSMutableArray  *_openElements;
+    BOOL            _elementIsEmpty;
+    NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
+}
 
 #pragma mark Init & Dealloc
 
