@@ -27,27 +27,6 @@
 
 
 @interface KSXMLWriter ()
-
-#pragma mark Element Primitives
-
-//   attribute="value"
-- (void)writeAttribute:(NSString *)attribute
-                 value:(id)value;
-
-//  Starts tracking -writeString: calls to see if element is empty
-- (void)didStartElement;
-
-//  >
-//  Then increases indentation level
-- (void)closeStartTag;
-
-//   />
-- (void)closeEmptyElementTag;             
-
-- (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
-
-- (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
-
 @end
 
 
@@ -247,6 +226,11 @@
     return result;
 }
 
+/**
+ Performs the raw writing of an attribute and its value:
+ 
+ \c attribute="value"
+ */
 - (void)writeAttribute:(NSString *)attribute
                  value:(id)value;
 {
@@ -378,28 +362,50 @@
 
 #pragma mark Element Primitives
 
-- (void)didStartElement;
-{
+/**
+ Called each time an element is started. Begins tracking \c -writeString: calls to see if element is empty
+ */
+- (void)didStartElement {
+    
     // For elements which can't be empty, might as well go ahead and close the start tag now
     _elementIsEmpty = [self elementCanBeEmpty:[self topElement]];
     if (!_elementIsEmpty) [self closeStartTag];
 }
 
-- (void)closeStartTag;
-{
+/**
+ Writes the raw \c > character that marks the close of a _tag_ (not the element, the tag)
+ */
+- (void)closeStartTag {
     [self writeString:@">"];
 }
 
-- (void)closeEmptyElementTag; { [self writeString:@" />"]; }
+/**
+ Much like \c closeStartTag, but for ending an element which has been found to be empty:
+ 
+ \c  />
+ */
+- (void)closeEmptyElementTag {
+    [self writeString:@" />"];
+}
 
-- (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
-{
+/**
+ Primitive method that writes an end tag, ignoring the open elements stack
+ */
+- (void)writeEndTag:(NSString *)tagName {
+    
     [self writeString:@"</"];
     [self writeString:tagName];
     [self writeString:@">"];
 }
 
-- (BOOL)elementCanBeEmpty:(NSString *)tagName; { return YES; }
+/**
+ Whether we're allowed to not bother with an end tag for a particular empty element. For pure XML
+ all elements are fine like this, so we return \c YES, but the HTML Writer subclasses to opt out
+ unsupported elements.
+ */
+- (BOOL)elementCanBeEmpty:(NSString *)tagName {
+    return YES;
+}
 
 #pragma mark Inline Writing
 
