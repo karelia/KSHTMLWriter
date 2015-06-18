@@ -419,7 +419,7 @@
         // For text inside HTML elements like <span>, whitespace has meaning, so domn't trim it
         KSXMLWriter *writer = [adaptor XMLWriter];
         NSString *parentElement = [writer topElement];
-        if (!parentElement || ![writer canWriteElementInline:parentElement])
+        if (!parentElement || ![writer.class shouldPrettyPrintElementInline:parentElement])
         {
             static NSCharacterSet *nonWhitespace;
             if (!nonWhitespace) nonWhitespace = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] copy];

@@ -156,8 +156,13 @@
 - (void)startWritingInline;
 - (void)stopWritingInline;
 
-// Class method is a general rule; instance method takes into account current indent level etc.
-- (BOOL)canWriteElementInline:(NSString *)element;
+/**
+ When starting an element with \c prettyPrint turned on, this gets called to decide if \c element
+ should be written inline, or begin on a new line.
+ 
+ The default implementation returns \c NO. \c KSHTMLWriter overrides to know about a variety of
+ common HTML elements.
+ */
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
 
