@@ -811,6 +811,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "KSHTMLWriterFramework/KSHTMLWriterFramework-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "KSHTMLWriterFramework/KSHTMLWriterFramework-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks/";
 				PRODUCT_NAME = "$(TARGET_NAME)";
