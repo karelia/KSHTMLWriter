@@ -160,6 +160,8 @@
     
 }
 
+#pragma mark Comments
+
 - (void)testWriteComment
 {
     // TODO could expand this to include a list of all entities
@@ -171,6 +173,19 @@
     
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<foo><!--this is a comment-->this is not a comment<!--this is another comment--></foo>");
+}
+
+- (void)testCommentAtEndOfElement {
+    writer.prettyPrint = YES;
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeElement:@"bar" text:@"text"];
+    }];
+    
+    [writer writeComment:@"comment"];
+    
+    XCTAssertEqualObjects(output.string, @"<foo>\n\t<bar>text</bar>\n</foo><!--comment-->",
+                          @"Comment should be directly after end of element; not on a new line");
 }
 
 - (void)testStartDocument
