@@ -311,16 +311,6 @@
 
 #pragma mark Elements Stack
 
-- (BOOL)canWriteElementInline:(NSString *)element;
-{
-    // In standard XML, no elements can be inline, unless it's the start of the doc
-    return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
-}
-
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
-    return NO;
-}
-
 - (NSArray *)openElements; { return [[_openElements copy] autorelease]; }
 
 - (NSUInteger)openElementsCount;
@@ -418,6 +408,18 @@
 }
 
 - (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
+
+- (BOOL)canWriteElementInline:(NSString *)element;
+{
+    // In standard XML, no elements can be inline, unless it's the start of the doc
+    return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
+}
+
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
+    return NO;
+}
+
+#pragma mark String Encoding
 
 static NSCharacterSet *sCharactersToEntityEscapeWithQuot;
 static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
