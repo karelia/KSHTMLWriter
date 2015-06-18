@@ -26,14 +26,6 @@
 #import "KSStringXMLEntityEscaping.h"
 
 
-@interface KSXMLWriter (KSXMLWriterSecretsIKnow)
-- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
-@end
-
-
-#pragma mark -
-
-
 @implementation NSString (KSStringXMLEntityEscaping)
 
 #pragma mark XML
