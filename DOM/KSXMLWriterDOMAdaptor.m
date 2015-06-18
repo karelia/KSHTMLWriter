@@ -147,15 +147,8 @@
     }
     
     
-    if ([self options] & KSXMLWriterDOMAdaptorPrettyPrint)
-    {
-        // pretty printing leaves the writer to make whitespace
-        [[self XMLWriter] startElement:elementName];
-    }
-    else
-    {
-        [[self XMLWriter] startElement:elementName writeInline:YES];
-    }
+    // We leave the writer to do pretty-printing
+    [self.XMLWriter startElement:elementName];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write

@@ -596,13 +596,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 #pragma mark -
 #pragma mark Pre-Blocks Support
 
-- (void)startElement:(NSString *)elementName;
-{
-    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
-}
-
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
-{
+- (void)startElement:(NSString *)elementName {
+    
+    BOOL writeInline = !self.prettyPrint || [self canWriteElementInline:elementName];
+    
     // Can only write suitable tags inline if containing element also allows it
     if (!writeInline)
     {

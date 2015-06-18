@@ -195,7 +195,6 @@
 
 // These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
 - (void)startElement:(NSString *)elementName;
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 - (void)endElement;
 
 - (void)startCDATA;

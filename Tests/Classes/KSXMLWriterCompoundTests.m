@@ -89,6 +89,7 @@ typedef enum
     NSDictionary* test = self.parameterisedTestDataItem;
     KSWriter* output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
     KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
+    writer.prettyPrint = YES;
 
     NSArray* actions = [test objectForKey:@"actions"];
     NSString* expected = [test objectForKey:expectedKey];
