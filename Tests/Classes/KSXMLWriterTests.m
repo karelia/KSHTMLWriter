@@ -204,4 +204,23 @@
     XCTAssertEqualObjects(output.string, @"<foo />\n<bar />");
 }
 
+- (void)testNestedElements {
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeElement:@"bar" content:nil];
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<foo><bar /></foo>");
+}
+
+- (void)testNestedElementsPrettyPrinted {
+    writer.prettyPrint = YES;
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeElement:@"bar" content:nil];
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<foo>\n\t<bar />\n</foo>");
+}
+
 @end
