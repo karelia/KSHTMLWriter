@@ -59,4 +59,12 @@
     XCTAssertEqualObjects(output.string, @"<p>Test <b>strong</b>. Test <i>often</i>.</p>");
 }
 
+- (void)testEmbeddedJavascriptPrettyPrinting {
+    [writer writeJavascript:@"// your script goes here" useCDATA:NO];
+    
+    XCTAssertEqualObjects(output.string, @"<script>\n// your script goes here\n</script>",
+                          @"The script contents go on their own line, level with the <script> tag. "
+                          @"The </script> tag goes down onto its own line too");
+}
+
 @end

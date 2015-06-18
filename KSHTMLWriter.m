@@ -348,13 +348,12 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 	}
     else
     {
-        // Outdent the script comapred to what's normal
-        [self startElement:@"script" writeInline:NO];
-        // Ideally embedded scripts should start on their own line for clarity
+        // Outdent the script compared to what's normal. Context will take care of placing on a
+        // new line for us
+        [self startElement:@"script"];
         
 		[self decreaseIndentationLevel];
 		[self startNewline];
-		[self stopWritingInline];
     }
 }
 
