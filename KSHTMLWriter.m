@@ -47,6 +47,7 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
     if (self = [super initWithOutputWriter:output])
     {
         self.doctype = KSHTMLDoctypeHTML_5;
+        self.prettyPrint = YES;
         _classNames = [[NSMutableArray alloc] init];
     }
     

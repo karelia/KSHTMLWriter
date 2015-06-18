@@ -143,7 +143,14 @@
 - (void)closeEmptyElementTag;             
 
 
-#pragma mark Inline Writing
+#pragma mark Pretty Printing
+
+/**
+ Whether the receiver should create human-friendly output by indenting elements, and placing them on
+ a newline. The default is \c NO, but \c KSHTMLWriter does the opposite, to make pretty-printing on
+ by default.
+ */
+@property(nonatomic) BOOL prettyPrint;
 
 - (BOOL)isWritingInline;
 - (void)startWritingInline;

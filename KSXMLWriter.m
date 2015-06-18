@@ -395,7 +395,7 @@
     return YES;
 }
 
-#pragma mark Inline Writing
+#pragma mark Pretty Printing
 
 /*! How it works:
  *

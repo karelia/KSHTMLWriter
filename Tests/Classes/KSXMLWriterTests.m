@@ -30,6 +30,8 @@
     writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
 }
 
+#pragma mark Single Elements
+
 - (void)testNoAction
 {
     NSString* generated = [output string];
@@ -182,6 +184,24 @@
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<!DOCTYPE some-type>\n<foo>bar</foo>");
     
+}
+
+#pragma mark Multiple Elements
+
+- (void)testSiblingElements {
+    [writer writeElement:@"foo" content:nil];
+    [writer writeElement:@"bar" content:nil];
+    
+    XCTAssertEqualObjects(output.string, @"<foo /><bar />");
+}
+
+- (void)testSiblingElementsPrettyPrinted {
+    writer.prettyPrint = YES;
+    
+    [writer writeElement:@"foo" content:nil];
+    [writer writeElement:@"bar" content:nil];
+    
+    XCTAssertEqualObjects(output.string, @"<foo />\n<bar />");
 }
 
 @end
