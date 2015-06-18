@@ -92,15 +92,6 @@
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 
 
-#pragma mark Whitespace
-
-/**
- Writes a newline character. If pretty-printing is turned on, includes tabs to match \c -indentationLevel.
- Normally newlines are automatically written for you; call this if you need an extra one.
- */
-- (void)startNewline;
-
-
 #pragma mark Comments
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
 - (void)openComment;
@@ -109,6 +100,60 @@
 
 #pragma mark CDATA
 - (void)writeCDATAWithContentBlock:(void (^)(void))content;
+
+
+#pragma mark Pretty Printing
+
+/**
+ Start a new line for pretty printing purposes, including tabs to match \c indentationLevel.
+ Normally newlines are automatically written for you (if pretty-printing is enabled). You can call
+ this if you need an extra one, or are implementing your own extra control over formatting.
+ 
+ KSXMLWriter uses this as the cue to know that the current element spans multiple lines, and
+ therefore its end tag should be written on a new line too.
+ */
+- (void)startNewline;
+
+/**
+ Whether the receiver should create human-friendly output by indenting elements, and placing them on
+ a newline. The default is \c NO, but \c KSHTMLWriter does the opposite, to make pretty-printing on
+ by default.
+ 
+ Pretty-printing is implemented such that when starting an element, it is placed onto a new line,
+ with an increased \c indentationLevel. There are some exceptions:
+ 
+ - When starting a document, if the first bit of content is an element, it doesn't make sense to
+ place that on a new line because if we did, you'd be left with a weird empty line at the start of
+ the document.
+ 
+ - You can call \c -resetPrettyPrinting to make use of the mechanism described above so as to force
+ the writer not to insert a newline for a moment.
+ 
+ - For HTML, some elements want to be written inline anyway for optimum prettiness. E.g. \c <em> tags
+ inside of a paragraph. `shouldPrettyPrintElementInline` is consulted to find out if that is the
+ case, so as to bypass the newline behaviour.
+ 
+ By waiting until the _start_ of an element, clients are able to do a little customisation with the
+ _end_ of elements. For example, you can add a comment straight after the end tag, and that won't
+ get shunted onto a new line.
+ */
+@property(nonatomic) BOOL prettyPrint;
+
+/**
+ Resets the system so that the next element to be written is *not* given a new line to itself,
+ regardless of tag name etc. You don't need to call this under normal circumstances, but it can be
+ handy for odd occasions where you need to temporarily disable pretty printing.
+ */
+- (void)resetPrettyPrinting;
+
+/**
+ When starting an element with \c prettyPrint turned on, this gets called to decide if \c element
+ should be written inline, or begin on a new line.
+ 
+ The default implementation returns \c NO. \c KSHTMLWriter overrides to know about a variety of
+ common HTML elements.
+ */
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
 
 #pragma mark Indentation
@@ -145,29 +190,6 @@
 
 #pragma mark Element Primitives
 - (void)closeEmptyElementTag;             
-
-
-#pragma mark Pretty Printing
-
-/**
- Whether the receiver should create human-friendly output by indenting elements, and placing them on
- a newline. The default is \c NO, but \c KSHTMLWriter does the opposite, to make pretty-printing on
- by default.
- */
-@property(nonatomic) BOOL prettyPrint;
-
-- (BOOL)isWritingInline;
-- (void)startWritingInline;
-- (void)stopWritingInline;
-
-/**
- When starting an element with \c prettyPrint turned on, this gets called to decide if \c element
- should be written inline, or begin on a new line.
- 
- The default implementation returns \c NO. \c KSHTMLWriter overrides to know about a variety of
- common HTML elements.
- */
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
 
 #pragma mark Output

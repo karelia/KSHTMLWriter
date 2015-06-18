@@ -42,7 +42,10 @@
     KSXMLAttributes   *_attributes;
     NSMutableArray  *_openElements;
     BOOL            _elementIsEmpty;
-    NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
+    
+    // Pretty printing
+    BOOL        _prettyPrintingDisabled;
+    NSUInteger  _elementCountAtLastNewline;
 }
 
 #pragma mark Init & Dealloc
@@ -63,6 +66,7 @@
         
         _attributes = [[KSXMLAttributes alloc] init];
         _openElements = [[NSMutableArray alloc] init];
+        [self resetPrettyPrinting];
     }
     return self;
 }
@@ -160,9 +164,6 @@
     _elementIsEmpty = NO;
     
     [_openElements removeLastObject];
-    
-    // Time to cancel inline writing?
-    if (![self isWritingInline]) [self stopWritingInline];
 }
 
 #pragma mark Current Element
@@ -231,22 +232,6 @@
     [self writeString:@"\""];
 }
 
-#pragma mark Whitespace
-
-- (void)startNewline
-{
-    [self writeString:@"\n"];
-    
-    if (self.prettyPrint) {
-        
-        NSUInteger indentationLevel = [self indentationLevel];
-        for (NSUInteger i = 0; i < indentationLevel; i++)
-        {
-            [self writeString:@"\t"];
-        }
-    }
-}
-
 #pragma mark Comments
 
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
@@ -273,6 +258,43 @@
     [self startCDATA];
     content();
     [self endCDATA];
+}
+
+#pragma mark Pretty Printing
+
+- (void)startNewline {
+    [self writeString:@"\n"];
+    
+    NSUInteger indentationLevel = [self indentationLevel];
+    for (NSUInteger i = 0; i < indentationLevel; i++)
+    {
+        [self writeString:@"\t"];
+    }
+    
+    _elementCountAtLastNewline = self.openElementsCount;
+}
+
+/*! How it works:
+ *
+ *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
+ *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
+ *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
+ */
+
+- (void)resetPrettyPrinting {
+    _prettyPrintingDisabled = YES;
+}
+
+- (BOOL)shouldBeginNewlineForElement:(NSString *)element;
+{
+    if (_prettyPrintingDisabled) return NO;
+    if (!self.prettyPrint) return NO;
+    if ([self.class shouldPrettyPrintElementInline:element]) return NO;
+    return YES;
+}
+
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
+    return NO;
 }
 
 #pragma mark Indentation
@@ -380,41 +402,6 @@
  */
 - (BOOL)elementCanBeEmpty:(NSString *)tagName {
     return YES;
-}
-
-#pragma mark Pretty Printing
-
-/*! How it works:
- *
- *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
- *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
- *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
- */
-
-- (BOOL)isWritingInline;
-{
-    return ([self openElementsCount] >= _inlineWritingLevel);
-}
-
-- (void)startWritingInline;
-{
-    // Is it time to switch over to inline writing? (we may already be writing inline, so can ignore request)
-    if (_inlineWritingLevel >= NSNotFound || _inlineWritingLevel == 0)
-    {
-        _inlineWritingLevel = [self openElementsCount];
-    }
-}
-
-- (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
-
-- (BOOL)canWriteElementInline:(NSString *)element;
-{
-    // In standard XML, no elements can be inline, unless it's the start of the doc
-    return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
-}
-
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
-    return NO;
 }
 
 #pragma mark String Encoding
@@ -597,13 +584,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)startElement:(NSString *)elementName {
     
-    BOOL writeInline = !self.prettyPrint || [self canWriteElementInline:elementName];
-    
-    // Can only write suitable tags inline if containing element also allows it
-    if (!writeInline)
-    {
+    if ([self shouldBeginNewlineForElement:elementName]) {
         [self startNewline];
-        [self stopWritingInline];
     }
     
     // Warn of impending start
@@ -614,7 +596,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
     [self pushElement:elementName];
-    [self startWritingInline];
+    
+    // Once an element has been written, it's time to resume normal service (if pretty-printing) and
+    // start a newline for any following elements which merit it.
+    _prettyPrintingDisabled = NO;
     
     
     // Write attributes
@@ -626,11 +611,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [self increaseIndentationLevel];
 }
 
-- (void)endElement;
-{
-    // Handle whitespace
+- (void)endElement {
+    
+    // We've reached the end of the element, so of course indentation needs to decrease
 	[self decreaseIndentationLevel];
-    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
     
     
     // Write the tag itself.
@@ -641,6 +625,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
     else
     {
+        // Did that element span multiple lines? If so, the end tag ought to go on its own line
+        if (self.openElementsCount - 1 < _elementCountAtLastNewline) {
+            [self startNewline];   // was this element written entirely inline?
+        }
+        
         [self writeEndTag:[self topElement]];
         [self popElement];
     }
