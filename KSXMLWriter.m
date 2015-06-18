@@ -317,8 +317,7 @@
     return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
 }
 
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
-{
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
     return NO;
 }
 
