@@ -518,9 +518,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 			encoding == NSUnicodeStringEncoding);
 }
 
-- (void)writeString:(NSString *)string range:(NSRange)nsrange;
-{
-	NSParameterAssert(nil != string); 
+- (void)writeString:(NSString *)string range:(NSRange)nsrange {
+	NSParameterAssert(string);
+    
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_elementIsEmpty && [string length])
     {
