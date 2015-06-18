@@ -233,19 +233,22 @@
 
 #pragma mark Whitespace
 
-- (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel
+- (void)startNewline
 {
     [self writeString:@"\n"];
     
-    NSInteger indentationLevel = [self indentationLevel];
-	if (indentationLevel < 0)
-	{
-		NSLog(@"KSXMLWriter: Negative Indentation Level!");
-		indentationLevel = 0;    // prevent accidental overruns if negative
-	}
-	for (NSUInteger i = 0; i < indentationLevel; i++)
-    {
-        [self writeString:@"\t"];
+    if (self.prettyPrint) {
+        
+        NSInteger indentationLevel = [self indentationLevel];
+        if (indentationLevel < 0)
+        {
+            NSLog(@"KSXMLWriter: Negative Indentation Level!");
+            indentationLevel = 0;    // prevent accidental overruns if negative
+        }
+        for (NSUInteger i = 0; i < indentationLevel; i++)
+        {
+            [self writeString:@"\t"];
+        }
     }
 }
 
