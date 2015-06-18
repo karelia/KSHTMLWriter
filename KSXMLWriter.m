@@ -71,6 +71,7 @@
 
 - (void)dealloc
 {
+    [_outputWriter release];
     [_openElements release];
     [_attributes release];
     [_doctype release];
