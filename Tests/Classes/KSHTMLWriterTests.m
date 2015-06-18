@@ -46,4 +46,17 @@
                           @"Comment should be directly after end of element; not on a new line");
 }
 
+- (void)testPrettyPrintedParagraph {
+    
+    [writer writeElement:@"p" content:^{
+        [writer writeCharacters:@"Test "];
+        [writer writeElement:@"b" text:@"strong"];
+        [writer writeCharacters:@". Test "];
+        [writer writeElement:@"i" text:@"often"];
+        [writer writeCharacters:@"."];
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<p>Test <b>strong</b>. Test <i>often</i>.</p>");
+}
+
 @end
