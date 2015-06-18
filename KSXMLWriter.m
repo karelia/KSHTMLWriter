@@ -524,7 +524,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_elementIsEmpty && [string length])
     {
-        _elementIsEmpty = NO;   // comes first to avoid infinte recursion
+        _elementIsEmpty = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }
     
