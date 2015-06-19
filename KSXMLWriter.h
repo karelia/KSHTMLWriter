@@ -129,7 +129,7 @@
  - You can call \c -resetPrettyPrinting to make use of the mechanism described above so as to force
  the writer not to insert a newline for a moment.
  
- - For HTML, some elements want to be written inline anyway for optimum prettiness. E.g. \c <em> tags
+ - For HTML, some elements want to be written inline anyway for optimum prettiness. E.g. \c EM tags
  inside of a paragraph. `shouldPrettyPrintElementInline` is consulted to find out if that is the
  case, so as to bypass the newline behaviour.
  
