@@ -73,7 +73,8 @@
 - (void)willStartElement:(NSString *)element;
 
 
-#pragma mark Current Element
+#pragma mark Attributes
+
 /*  You can also gain finer-grained control over element attributes. KSXMLWriter maintains a list of attributes that will be applied when you *next* call one of the -startElement: methods. This has several advantages:
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
@@ -85,8 +86,6 @@
 - (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
 - (BOOL)hasCurrentAttributes;           // faster than querying -currentAttributes
 
-
-#pragma mark Attributes
 // Like +stringFromCharacters: but for attributes, where quotes need to be escaped
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 

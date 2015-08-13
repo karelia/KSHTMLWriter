@@ -158,7 +158,7 @@
     [_openElements removeLastObject];
 }
 
-#pragma mark Current Element
+#pragma mark Attributes
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
@@ -175,8 +175,6 @@
 {
     return [_attributes count];
 }
-
-#pragma mark Attributes
 
 - (void)writeAttributeValue:(NSString *)value;
 {
