@@ -175,9 +175,11 @@
  */
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
-
-#pragma mark Indentation
-// Setting the indentation level does not write to the context in any way. It is up to methods that actually do some writing to respect the indent level. e.g. starting a new line should indent that line to match.
+/**
+ The number of tabs to indent by whenever `startNewline` is called. You do not normally need to
+ adjust this property mid-writing as starting/ending elements etc. automatically adjust the level to
+ match.
+ */
 @property(nonatomic) NSUInteger indentationLevel;
 - (void)increaseIndentationLevel;
 
