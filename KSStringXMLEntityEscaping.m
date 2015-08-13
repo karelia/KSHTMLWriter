@@ -26,14 +26,6 @@
 #import "KSStringXMLEntityEscaping.h"
 
 
-@interface KSXMLWriter (KSXMLWriterSecretsIKnow)
-- (void)writeStringByEscapingXMLEntities:(NSString *)string escapeQuot:(BOOL)escapeQuotes;
-@end
-
-
-#pragma mark -
-
-
 @implementation NSString (KSStringXMLEntityEscaping)
 
 #pragma mark XML
@@ -45,9 +37,9 @@
 
 - (NSString *)stringByEscapingXMLEntities:(NSDictionary *)entities
 {
-	NSString *result = NSMakeCollectable(CFXMLCreateStringByEscapingEntities(NULL,
-                                                                             (CFStringRef)self,
-                                                                             (CFMutableDictionaryRef)entities));
+	NSString *result = (NSString *)CFXMLCreateStringByEscapingEntities(NULL,
+                                                                       (CFStringRef)self,
+                                                                       (CFMutableDictionaryRef)entities);
 	return [result autorelease];
 }
 
@@ -63,9 +55,9 @@
 	return result;
     */
 	   
-	NSString *result = NSMakeCollectable(CFXMLCreateStringByUnescapingEntities(NULL,
-                                                                               (CFStringRef)self,
-                                                                               (CFDictionaryRef)entities));
+    NSString *result = (NSString *)CFXMLCreateStringByUnescapingEntities(NULL,
+                                                                         (CFStringRef)self,
+                                                                         (CFDictionaryRef)entities);
 	return [result autorelease];
     
 }

@@ -47,6 +47,7 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
     if (self = [super initWithOutputWriter:output])
     {
         self.doctype = KSHTMLDoctypeHTML_5;
+        self.prettyPrint = YES;
         _classNames = [[NSMutableArray alloc] init];
     }
     
@@ -347,13 +348,12 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 	}
     else
     {
-        // Embedded scripts should start on their own line for clarity
-        // Outdent the script comapred to what's normal
-        [self startElement:@"script" writeInline:NO];
+        // Outdent the script compared to what's normal. Context will take care of placing on a
+        // new line for us
+        [self startElement:@"script"];
         
 		[self decreaseIndentationLevel];
 		[self startNewline];
-		[self stopWritingInline];
     }
 }
 
@@ -541,8 +541,8 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 #pragma mark Element Primitives
 
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
-{
+- (void)willStartElement:(NSString *)elementName {
+    
 #ifdef DEBUG
     NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
 #endif
@@ -556,7 +556,8 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
         [super pushAttribute:@"class" value:class];
     }
     
-    [super startElement:elementName writeInline:writeInline];
+    
+    [super willStartElement:elementName];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML

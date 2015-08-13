@@ -83,7 +83,6 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 - (void)close;
 {
     [_writer endElement];   // </urlset>
-    [_writer close];
     [_writer release]; _writer = nil;
 }
 
@@ -136,7 +135,6 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 - (void)close;
 {
     [_writer endElement];   // </urlset>
-    [_writer close];
     [_writer release]; _writer = nil;
 }
 

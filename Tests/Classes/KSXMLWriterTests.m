@@ -30,6 +30,8 @@
     writer = [[KSXMLWriter alloc] initWithOutputWriter:output];
 }
 
+#pragma mark Single Elements
+
 - (void)testNoAction
 {
     NSString* generated = [output string];
@@ -173,7 +175,8 @@
 
 - (void)testStartDocument
 {
-    [writer startDocumentWithDocType:@"some-type"];
+    writer.doctype = @"some-type";
+    [writer writeDoctypeDeclaration];
     [writer writeElement:@"foo" attributes:nil content:^{
         [writer writeCharacters:@"bar"];
     }];
@@ -181,6 +184,43 @@
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<!DOCTYPE some-type>\n<foo>bar</foo>");
     
+}
+
+#pragma mark Multiple Elements
+
+- (void)testSiblingElements {
+    [writer writeElement:@"foo" content:nil];
+    [writer writeElement:@"bar" content:nil];
+    
+    XCTAssertEqualObjects(output.string, @"<foo /><bar />");
+}
+
+- (void)testSiblingElementsPrettyPrinted {
+    writer.prettyPrint = YES;
+    
+    [writer writeElement:@"foo" content:nil];
+    [writer writeElement:@"bar" content:nil];
+    
+    XCTAssertEqualObjects(output.string, @"<foo />\n<bar />");
+}
+
+- (void)testNestedElements {
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeElement:@"bar" content:nil];
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<foo><bar /></foo>");
+}
+
+- (void)testNestedElementsPrettyPrinted {
+    writer.prettyPrint = YES;
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeElement:@"bar" content:nil];
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<foo>\n\t<bar />\n</foo>");
 }
 
 @end

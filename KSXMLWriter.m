@@ -27,27 +27,6 @@
 
 
 @interface KSXMLWriter ()
-
-#pragma mark Element Primitives
-
-//   attribute="value"
-- (void)writeAttribute:(NSString *)attribute
-                 value:(id)value;
-
-//  Starts tracking -writeString: calls to see if element is empty
-- (void)didStartElement;
-
-//  >
-//  Then increases indentation level
-- (void)closeStartTag;
-
-//   />
-- (void)closeEmptyElementTag;             
-
-- (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
-
-- (BOOL)elementCanBeEmpty:(NSString *)tagName;  // YES for everything in pure XML
-
 @end
 
 
@@ -59,15 +38,22 @@
 #pragma mark -
 
 
-@implementation KSXMLWriter
+@implementation KSXMLWriter {
+    KSXMLAttributes   *_attributes;
+    NSMutableArray  *_openElements;
+    BOOL            _elementIsEmpty;
+    
+    // Pretty printing
+    BOOL        _prettyPrintingDisabled;
+    NSUInteger  _elementCountAtLastNewline;
+}
 
 #pragma mark Init & Dealloc
 
-- (id)initWithOutputWriter:(KSWriter *)output;  // designated initializer
-{    
+- (id)initWithOutputWriter:(KSWriter *)output {
     if (self = [super init])
     {
-        _output = [output retain];
+        _outputWriter = [output retain];
         
         _encoding = (output ? output.encoding : NSUTF8StringEncoding);
         if (![[self class] isStringEncodingAvailable:_encoding])
@@ -80,42 +66,22 @@
         
         _attributes = [[KSXMLAttributes alloc] init];
         _openElements = [[NSMutableArray alloc] init];
+        [self resetPrettyPrinting];
     }
     return self;
 }
 
 - (id)init; { return [self initWithOutputWriter:nil]; }
 
-+ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
-{
-	return [[[self alloc] initWithOutputWriter:[KSWriter writerWithEncoding:encoding block:^(NSString *string, NSRange range) {
-        
-		[output writeString:string range:range];
-        
-	}]] autorelease];
-}
-
 - (void)dealloc
 {
-    [self close];
-    
+    [_outputWriter release];
     [_openElements release];
     [_attributes release];
     [_doctype release];
     
     [super dealloc];
 }
-
-#pragma mark Writer Status
-
-- (void)close;
-{
-    [self flush];
-    
-    [_output release]; _output = nil;
-}
-
-- (void)flush; { }
 
 #pragma mark Document
 
@@ -198,9 +164,6 @@
     _elementIsEmpty = NO;
     
     [_openElements removeLastObject];
-    
-    // Time to cancel inline writing?
-    if (![self isWritingInline]) [self stopWritingInline];
 }
 
 #pragma mark Current Element
@@ -252,6 +215,11 @@
     return result;
 }
 
+/**
+ Performs the raw writing of an attribute and its value:
+ 
+ \c attribute="value"
+ */
 - (void)writeAttribute:(NSString *)attribute
                  value:(id)value;
 {
@@ -262,24 +230,6 @@
     [self writeString:@"=\""];
     [self writeAttributeValue:valueString];
     [self writeString:@"\""];
-}
-
-#pragma mark Whitespace
-
-- (void)startNewline;   // writes a newline character and the tabs to match -indentationLevel
-{
-    [self writeString:@"\n"];
-    
-    NSInteger indentationLevel = [self indentationLevel];
-	if (indentationLevel < 0)
-	{
-		NSLog(@"KSXMLWriter: Negative Indentation Level!");
-		indentationLevel = 0;    // prevent accidental overruns if negative
-	}
-	for (NSUInteger i = 0; i < indentationLevel; i++)
-    {
-        [self writeString:@"\t"];
-    }
 }
 
 #pragma mark Comments
@@ -310,9 +260,44 @@
     [self endCDATA];
 }
 
-#pragma mark Indentation
+#pragma mark Pretty Printing
 
-@synthesize indentationLevel = _indentation;
+- (void)startNewline {
+    [self writeString:@"\n"];
+    
+    NSUInteger indentationLevel = [self indentationLevel];
+    for (NSUInteger i = 0; i < indentationLevel; i++)
+    {
+        [self writeString:@"\t"];
+    }
+    
+    _elementCountAtLastNewline = self.openElementsCount;
+}
+
+/*! How it works:
+ *
+ *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
+ *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
+ *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
+ */
+
+- (void)resetPrettyPrinting {
+    _prettyPrintingDisabled = YES;
+}
+
+- (BOOL)shouldBeginNewlineForElement:(NSString *)element;
+{
+    if (_prettyPrintingDisabled) return NO;
+    if (!self.prettyPrint) return NO;
+    if ([self.class shouldPrettyPrintElementInline:element]) return NO;
+    return YES;
+}
+
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element {
+    return NO;
+}
+
+#pragma mark Indentation
 
 - (void)increaseIndentationLevel;
 {
@@ -346,17 +331,6 @@
 
 #pragma mark Elements Stack
 
-- (BOOL)canWriteElementInline:(NSString *)element;
-{
-    // In standard XML, no elements can be inline, unless it's the start of the doc
-    return (_inlineWritingLevel == 0 || [[self class] shouldPrettyPrintElementInline:element]);
-}
-
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
-{
-    return NO;
-}
-
 - (NSArray *)openElements; { return [[_openElements copy] autorelease]; }
 
 - (NSUInteger)openElementsCount;
@@ -385,53 +359,52 @@
 
 #pragma mark Element Primitives
 
-- (void)didStartElement;
-{
+/**
+ Called each time an element is started. Begins tracking \c -writeString: calls to see if element is empty
+ */
+- (void)didStartElement {
+    
     // For elements which can't be empty, might as well go ahead and close the start tag now
     _elementIsEmpty = [self elementCanBeEmpty:[self topElement]];
     if (!_elementIsEmpty) [self closeStartTag];
 }
 
-- (void)closeStartTag;
-{
+/**
+ Writes the raw \c > character that marks the close of a _tag_ (not the element, the tag)
+ */
+- (void)closeStartTag {
     [self writeString:@">"];
 }
 
-- (void)closeEmptyElementTag; { [self writeString:@" />"]; }
+/**
+ Much like \c closeStartTag, but for ending an element which has been found to be empty:
+ 
+ \c  />
+ */
+- (void)closeEmptyElementTag {
+    [self writeString:@" />"];
+}
 
-- (void)writeEndTag:(NSString *)tagName;    // primitive version that ignores open elements stack
-{
+/**
+ Primitive method that writes an end tag, ignoring the open elements stack
+ */
+- (void)writeEndTag:(NSString *)tagName {
+    
     [self writeString:@"</"];
     [self writeString:tagName];
     [self writeString:@">"];
 }
 
-- (BOOL)elementCanBeEmpty:(NSString *)tagName; { return YES; }
-
-#pragma mark Inline Writing
-
-/*! How it works:
- *
- *  _inlineWritingLevel records the number of objects in the Elements Stack at the point inline writing began (-startWritingInline).
- *  A value of NSNotFound indicates that we are not writing inline (-stopWritingInline). This MUST be done whenever about to write non-inline content (-openTag: does so automatically).
- *  Finally, if _inlineWritingLevel is 0, this is a special value to indicate we're at the start of the document/section, so the next element to be written is inline, but then normal service shall resume.
+/**
+ Whether we're allowed to not bother with an end tag for a particular empty element. For pure XML
+ all elements are fine like this, so we return \c YES, but the HTML Writer subclasses to opt out
+ unsupported elements.
  */
-
-- (BOOL)isWritingInline;
-{
-    return ([self openElementsCount] >= _inlineWritingLevel);
+- (BOOL)elementCanBeEmpty:(NSString *)tagName {
+    return YES;
 }
 
-- (void)startWritingInline;
-{
-    // Is it time to switch over to inline writing? (we may already be writing inline, so can ignore request)
-    if (_inlineWritingLevel >= NSNotFound || _inlineWritingLevel == 0)
-    {
-        _inlineWritingLevel = [self openElementsCount];
-    }
-}
-
-- (void)stopWritingInline; { _inlineWritingLevel = NSNotFound; }
+#pragma mark String Encoding
 
 static NSCharacterSet *sCharactersToEntityEscapeWithQuot;
 static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
@@ -532,13 +505,13 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 			encoding == NSUnicodeStringEncoding);
 }
 
-- (void)writeString:(NSString *)string range:(NSRange)nsrange;
-{
-	NSParameterAssert(nil != string); 
+- (void)writeString:(NSString *)string range:(NSRange)nsrange {
+	NSParameterAssert(string);
+    
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_elementIsEmpty && [string length])
     {
-        _elementIsEmpty = NO;   // comes first to avoid infinte recursion
+        _elementIsEmpty = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }
     
@@ -562,7 +535,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             if (written)
             {
                 NSRange validRange = NSMakeRange(range.location, written);
-                [_output writeString:string range:validRange];
+                [_outputWriter writeString:string range:validRange];
             }
             
             // Convert the invalid char
@@ -570,18 +543,18 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             switch (ch)
             {
                     // If we encounter a special character with a symbolic entity, use that
-                case 160:	[_output writeString:@"&nbsp;"];      break;
-                case 169:	[_output writeString:@"&copy;"];      break;
-                case 174:	[_output writeString:@"&reg;"];       break;
-                case 8211:	[_output writeString:@"&ndash;"];     break;
-                case 8212:	[_output writeString:@"&mdash;"];     break;
-                case 8364:	[_output writeString:@"&euro;"];      break;
+                case 160:	[_outputWriter writeString:@"&nbsp;"];      break;
+                case 169:	[_outputWriter writeString:@"&copy;"];      break;
+                case 174:	[_outputWriter writeString:@"&reg;"];       break;
+                case 8211:	[_outputWriter writeString:@"&ndash;"];     break;
+                case 8212:	[_outputWriter writeString:@"&mdash;"];     break;
+                case 8364:	[_outputWriter writeString:@"&euro;"];      break;
                     
                     // Otherwise, use the decimal unicode value.
                 default:
 				{
 					NSString *escaped = [NSString stringWithFormat:@"&#%d;",ch];
-					[_output writeString:escaped];   break;
+					[_outputWriter writeString:escaped];   break;
 				}
             }
             
@@ -592,13 +565,13 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         else if (range.location == 0)
         {
             // Efficient route for if entire string can be written
-            [_output writeString:string range:nsrange];
+            [_outputWriter writeString:string range:nsrange];
             break;
         }
         else
         {
             // Write what remains
-            [_output writeString:string range:NSMakeRange(range.location, range.length)];
+            [_outputWriter writeString:string range:NSMakeRange(range.location, range.length)];
             break;
         }
     }
@@ -606,25 +579,13 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 - (void)writeString:(NSString *)string; { [self writeString:string range:NSMakeRange(0, string.length)]; }
 
-#pragma mark Output
-
-@synthesize outputWriter = _output;
-
 #pragma mark -
 #pragma mark Pre-Blocks Support
 
-- (void)startElement:(NSString *)elementName;
-{
-    [self startElement:elementName writeInline:[self canWriteElementInline:elementName]];
-}
-
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline;
-{
-    // Can only write suitable tags inline if containing element also allows it
-    if (!writeInline)
-    {
+- (void)startElement:(NSString *)elementName {
+    
+    if ([self shouldBeginNewlineForElement:elementName]) {
         [self startNewline];
-        [self stopWritingInline];
     }
     
     // Warn of impending start
@@ -635,7 +596,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
     [self pushElement:elementName];
-    [self startWritingInline];
+    
+    // Once an element has been written, it's time to resume normal service (if pretty-printing) and
+    // start a newline for any following elements which merit it.
+    _prettyPrintingDisabled = NO;
     
     
     // Write attributes
@@ -647,11 +611,10 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [self increaseIndentationLevel];
 }
 
-- (void)endElement;
-{
-    // Handle whitespace
+- (void)endElement {
+    
+    // We've reached the end of the element, so of course indentation needs to decrease
 	[self decreaseIndentationLevel];
-    if (![self isWritingInline]) [self startNewline];   // was this element written entirely inline?
     
     
     // Write the tag itself.
@@ -662,6 +625,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
     else
     {
+        // Did that element span multiple lines? If so, the end tag ought to go on its own line
+        if (self.openElementsCount - 1 < _elementCountAtLastNewline) {
+            [self startNewline];   // was this element written entirely inline?
+        }
+        
         [self writeEndTag:[self topElement]];
         [self popElement];
     }

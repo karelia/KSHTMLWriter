@@ -29,31 +29,11 @@
 
 
 @interface KSXMLWriter : NSObject
-{
-  @private
-    KSXMLAttributes   *_attributes;
-    NSMutableArray  *_openElements;
-    BOOL            _elementIsEmpty;
-    NSUInteger      _inlineWritingLevel;    // the number of open elements at which inline writing began
-        
-    NSInteger   _indentation;
-    
-    NSStringEncoding    _encoding;
-}
 
 #pragma mark Creating an XML Writer
 
 // .encoding is taken from the writer. If output writer is nil, defaults to UTF-8
-// Designated initializer
-- (id)initWithOutputWriter:(KSWriter *)output;
-
-// Use this if you need to specify a custom encoding
-+ (instancetype)writerWithOutputWriter:(KSWriter *)output encoding:(NSStringEncoding)encoding;
-
-
-#pragma mark Writer Status
-- (void)close;  // calls -flush, then releases most ivars such as _writer
-- (void)flush;  // if there's anything waiting to be lazily written, forces it to write now. For subclasses to implement
+- (id)initWithOutputWriter:(KSWriter *)output NS_DESIGNATED_INITIALIZER;
 
 
 #pragma mark Document
@@ -112,11 +92,6 @@
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 
 
-#pragma mark Whitespace
-//  Writes a newline character and the tabs to match -indentationLevel. Normally newlines are automatically written for you; call this if you need an extra one.
-- (void)startNewline;
-
-
 #pragma mark Comments
 - (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
 - (void)openComment;
@@ -127,9 +102,63 @@
 - (void)writeCDATAWithContentBlock:(void (^)(void))content;
 
 
+#pragma mark Pretty Printing
+
+/**
+ Start a new line for pretty printing purposes, including tabs to match \c indentationLevel.
+ Normally newlines are automatically written for you (if pretty-printing is enabled). You can call
+ this if you need an extra one, or are implementing your own extra control over formatting.
+ 
+ KSXMLWriter uses this as the cue to know that the current element spans multiple lines, and
+ therefore its end tag should be written on a new line too.
+ */
+- (void)startNewline;
+
+/**
+ Whether the receiver should create human-friendly output by indenting elements, and placing them on
+ a newline. The default is \c NO, but \c KSHTMLWriter does the opposite, to make pretty-printing on
+ by default.
+ 
+ Pretty-printing is implemented such that when starting an element, it is placed onto a new line,
+ with an increased \c indentationLevel. There are some exceptions:
+ 
+ - When starting a document, if the first bit of content is an element, it doesn't make sense to
+ place that on a new line because if we did, you'd be left with a weird empty line at the start of
+ the document.
+ 
+ - You can call \c -resetPrettyPrinting to make use of the mechanism described above so as to force
+ the writer not to insert a newline for a moment.
+ 
+ - For HTML, some elements want to be written inline anyway for optimum prettiness. E.g. \c EM tags
+ inside of a paragraph. `shouldPrettyPrintElementInline` is consulted to find out if that is the
+ case, so as to bypass the newline behaviour.
+ 
+ By waiting until the _start_ of an element, clients are able to do a little customisation with the
+ _end_ of elements. For example, you can add a comment straight after the end tag, and that won't
+ get shunted onto a new line.
+ */
+@property(nonatomic) BOOL prettyPrint;
+
+/**
+ Resets the system so that the next element to be written is *not* given a new line to itself,
+ regardless of tag name etc. You don't need to call this under normal circumstances, but it can be
+ handy for odd occasions where you need to temporarily disable pretty printing.
+ */
+- (void)resetPrettyPrinting;
+
+/**
+ When starting an element with \c prettyPrint turned on, this gets called to decide if \c element
+ should be written inline, or begin on a new line.
+ 
+ The default implementation returns \c NO. \c KSHTMLWriter overrides to know about a variety of
+ common HTML elements.
+ */
++ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
+
+
 #pragma mark Indentation
 // Setting the indentation level does not write to the context in any way. It is up to methods that actually do some writing to respect the indent level. e.g. starting a new line should indent that line to match.
-@property(nonatomic) NSInteger indentationLevel;
+@property(nonatomic) NSUInteger indentationLevel;
 - (void)increaseIndentationLevel;
 
 /**
@@ -163,25 +192,31 @@
 - (void)closeEmptyElementTag;             
 
 
-#pragma mark Inline Writing
-
-- (BOOL)isWritingInline;
-- (void)startWritingInline;
-- (void)stopWritingInline;
-
-// Class method is a general rule; instance method takes into account current indent level etc.
-- (BOOL)canWriteElementInline:(NSString *)element;
-+ (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
-
-
-#pragma mark String Encoding
-@property(nonatomic, readonly) NSStringEncoding encoding;   // default is UTF-8
-- (void)writeString:(NSString *)string range:(NSRange)range; // anything outside the receiver's encoding gets escaped. primitive
-- (void)writeString:(NSString *)string; // convenience
-+ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;   // we support ASCII, UTF8, ISO Latin 1, and Unicode at present
-
-
 #pragma mark Output
+
+/**
+ This is the primitive API through which all output is channeled. The requested \c range of \c string
+ is sent through to \c outputWriter. Any characters which aren't supported by the receiver's
+ \c encoding are XML escaped before sending through.
+ */
+- (void)writeString:(NSString *)string range:(NSRange)range;
+
+/**
+ Convenience that calls straight through to \c writeString:range: requesting the whole string be
+ written
+ */
+- (void)writeString:(NSString *)string;
+
+/**
+ Automatically taken from the \c outputWriter. Defaults to UTF8 if there is no output
+ */
+@property(nonatomic, readonly) NSStringEncoding encoding;
+
+/** we support ASCII, UTF8, ISO Latin 1, and Unicode at present
+ */
++ (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
+
+
 @property(readonly) KSWriter *outputWriter;
 
 
@@ -191,7 +226,6 @@
 
 // These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
 - (void)startElement:(NSString *)elementName;
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
 - (void)endElement;
 
 - (void)startCDATA;
