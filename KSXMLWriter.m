@@ -600,13 +600,13 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     _prettyPrintingDisabled = NO;
     
     
-    // Write attributes
-    [_attributes writeAttributes:self];
-    [_attributes close];
-    
-    
     // With writing done, begin tracking to see if element is empty
     _yetToCloseStartTag = YES;
+    
+    
+    // Add attributes
+    [_attributes writeAttributes:self];
+    [_attributes close];
     
     
     [self increaseIndentationLevel];
@@ -661,7 +661,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     {
         NSString *attribute = [_attributes objectAtIndex:i];
         NSString *value = [_attributes objectAtIndex:i+1];
-        [writer writeAttribute:attribute value:value];
+        [writer addAttribute:attribute value:value];
     }
 }
 
