@@ -165,7 +165,15 @@
     if (_yetToCloseStartTag) {
         // Temporarily turn off tracking so the write goes through without triggering closure
         _yetToCloseStartTag = NO;
-        [self writeAttribute:attribute value:value];
+        
+        NSString *valueString = [value description];
+        
+        [self writeString:@" "];
+        [self writeString:attribute];
+        [self writeString:@"=\""];
+        [self writeAttributeValue:valueString];
+        [self writeString:@"\""];
+        
         _yetToCloseStartTag = YES;
     }
     else {
@@ -221,23 +229,6 @@
     }];
     
     return result;
-}
-
-/**
- Performs the raw writing of an attribute and its value:
- 
- \c attribute="value"
- */
-- (void)writeAttribute:(NSString *)attribute
-                 value:(id)value;
-{
-	NSString *valueString = [value description];
-	
-    [self writeString:@" "];
-    [self writeString:attribute];
-    [self writeString:@"=\""];
-    [self writeAttributeValue:valueString];
-    [self writeString:@"\""];
 }
 
 #pragma mark Comments
