@@ -67,9 +67,9 @@
 
 - (void)testWriteElementOneAttribute
 {
-    [writer pushAttribute:@"wobble" value:@"wibble"];
-    
     [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"wobble" value:@"wibble"];
+        
         [writer writeCharacters:@"bar"];
     }];
     
@@ -79,15 +79,29 @@
 
 - (void)testWriteElementMultipleAttributes
 {
-    [writer pushAttribute:@"k2" value:@"o2"];
-    [writer pushAttribute:@"k1" value:@"o1"];
-    
     [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"k2" value:@"o2"];
+        [writer addAttribute:@"k1" value:@"o1"];
+        
         [writer writeCharacters:@"bar"];
     }];
     
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<foo k2=\"o2\" k1=\"o1\">bar</foo>");
+}
+
+- (void)testAddingAttributeTooEarly {
+    
+    XCTAssertThrows([writer addAttribute:@"foo" value:@"bar"]);
+}
+
+- (void)testAddingAttributeTooLate {
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeCharacters:@"text"];
+        
+        XCTAssertThrows([writer addAttribute:@"foo" value:@"bar"]);
+    }];
 }
 
 - (void)testPushAttribute

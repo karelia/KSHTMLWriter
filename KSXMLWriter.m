@@ -44,7 +44,7 @@
     
     /// Tracks whether the current element's start tag is yet to be closed, so we know later if need
     /// to write an end tag, or can have a single <foo /> type of tag
-    BOOL            _elementIsEmpty;
+    BOOL            _yetToCloseStartTag;
     
     // Pretty printing
     BOOL        _prettyPrintingDisabled;
@@ -153,12 +153,30 @@
 
 - (void)popElement;
 {
-    _elementIsEmpty = NO;
+    _yetToCloseStartTag = NO;
     
     [_openElements removeLastObject];
 }
 
 #pragma mark Attributes
+
+- (void)addAttribute:(NSString * __nonnull)attribute value:(NSString * __nonnull)value {
+    
+    if (_yetToCloseStartTag) {
+        // Temporarily turn off tracking so the write goes through without triggering closure
+        _yetToCloseStartTag = NO;
+        [self writeAttribute:attribute value:value];
+        _yetToCloseStartTag = YES;
+    }
+    else {
+        if (self.openElementsCount) {
+            [NSException raise:NSInvalidArgumentException format:@"Can't add attributes to an element which already has content"];
+        }
+        else {
+            [NSException raise:NSInvalidArgumentException format:@"No element open to add attributes to"];
+        }
+    }
+}
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
@@ -489,9 +507,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	NSParameterAssert(string);
     
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
-    if (_elementIsEmpty && [string length])
+    if (_yetToCloseStartTag && [string length])
     {
-        _elementIsEmpty = NO;   // comes first to avoid infinite recursion
+        _yetToCloseStartTag = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }
     
@@ -588,7 +606,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     
     // With writing done, begin tracking to see if element is empty
-    _elementIsEmpty = YES;
+    _yetToCloseStartTag = YES;
     
     
     [self increaseIndentationLevel];
@@ -602,7 +620,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     // Write the tag itself.
     NSString *element = self.topElement;
-    if (_elementIsEmpty && [self elementCanBeEmpty:element])
+    if (_yetToCloseStartTag && [self elementCanBeEmpty:element])
     {
         [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
         [self closeEmptyElementTag];

@@ -85,6 +85,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Attributes
 
+/**
+ Appends an attribute to the current element. Importantly this ONLY works in the time between an
+ element being started, and the first bit of content being written. For example, this is fine:
+ 
+    [writer startElement:@"foo"];
+    [writer addAttribute:@"bar" value:@"true"];
+    [writer writeCharacters:@"text"];
+ 
+ and so is this:
+ 
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"foo" value:@"bar"]);
+        [writer writeCharacters:@"text"];
+    }];
+ 
+ But this will throw an exception since the writer has nowhere to add the attribite *to*:
+ 
+    [writer writeElement:@"foo" content:^{
+        [writer writeCharacters:@"text"];
+        [writer addAttribute:@"foo" value:@"bar"]);
+    }];
+ */
+- (void)addAttribute:(NSString *)attribute value:(NSString *)value;
+
 /*  You can also gain finer-grained control over element attributes. KSXMLWriter maintains a list of attributes that will be applied when you *next* call one of the -startElement: methods. This has several advantages:
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
