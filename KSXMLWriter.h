@@ -57,10 +57,16 @@
 
 #pragma mark Characters
 
-//  Escapes the string and calls -writeString:. NOT intended for other text-like strings such as element attributes
+/**
+ Escapes any XML entities, passing the results through to \c -writeString:
+ 
+ NOT intended for other text-like strings such as element attributes. Use other APIs for that instead.
+ */
 - (void)writeCharacters:(NSString *)string;
 
-// Convenience to perform escaping without instantiating a writer
+/**
+ Convenience to perform escaping without instantiating a writer.
+ */
 + (NSString *)stringFromCharacters:(NSString *)string;
 
 
@@ -68,7 +74,9 @@
 
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
 
-// Convenience for writing <tag>text</tag>
+/**
+ Convenience for writing <tag>text</tag>
+ */
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
 - (void)willStartElement:(NSString *)element;
@@ -84,15 +92,28 @@
  *  The stack is cleared for you each time an element starts, to save the trouble of manually managing that.
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
-- (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
-- (BOOL)hasCurrentAttributes;           // faster than querying -currentAttributes
 
-// Like +stringFromCharacters: but for attributes, where quotes need to be escaped
+/**
+ @result a copy of the current attributes stack
+ */
+- (KSXMLAttributes *)currentAttributes;
+
+/**
+ Handy way to find if there's any attributes pushed without the overhead of copying \c currentAttributes
+ */
+- (BOOL)hasCurrentAttributes;
+
+/**
+ Like +stringFromCharacters: but for attributes, where quotes need to be escaped
+ */
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 
 
 #pragma mark Comments
-- (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
+/**
+ Writes a comment tag, escaping the text as needed.
+ */
+- (void)writeComment:(NSString *)comment;
 - (void)openComment;
 - (void)closeComment;
 
