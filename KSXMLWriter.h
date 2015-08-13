@@ -27,13 +27,14 @@
 
 #import "KSXMLAttributes.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface KSXMLWriter : NSObject
 
 #pragma mark Creating an XML Writer
 
 // .encoding is taken from the writer. If output writer is nil, defaults to UTF-8
-- (id)initWithOutputWriter:(KSWriter *)output NS_DESIGNATED_INITIALIZER;
+- (id)initWithOutputWriter:(nullable KSWriter *)output NS_DESIGNATED_INITIALIZER;
 
 
 #pragma mark Document
@@ -45,7 +46,7 @@
  nil by default, but subclasses might override that. For example, KSHTMLWriter does, to default to
  the HTML 5 doctype.
  */
-@property(nonatomic, copy) NSString *doctype;
+@property(nonatomic, copy, nullable) NSString *doctype;
 
 /**
  Writes a doctype declaration according to the receiver's \c docType, which must be non-nil. Example:
@@ -72,7 +73,7 @@
 
 #pragma mark Elements
 
-- (void)writeElement:(NSString *)name content:(void (^)(void))content;
+- (void)writeElement:(NSString *)name content:(nullable void (^)(void))content;
 
 /**
  Convenience for writing <tag>text</tag>
@@ -211,7 +212,7 @@
 - (NSUInteger)openElementsCount;
 - (BOOL)hasOpenElement:(NSString *)tagName;
 
-- (NSString *)topElement;
+- (nullable NSString *)topElement;
 - (void)pushElement:(NSString *)element;
 - (void)popElement;
 
@@ -245,7 +246,7 @@
 + (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
 
 
-@property(readonly) KSWriter *outputWriter;
+@property(nullable, readonly) KSWriter *outputWriter;
 
 
 #pragma mark -
@@ -261,3 +262,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
