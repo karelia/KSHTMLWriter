@@ -80,8 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
-- (void)willStartElement:(NSString *)element;
-
 
 #pragma mark Attributes
 

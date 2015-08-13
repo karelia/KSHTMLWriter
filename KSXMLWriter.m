@@ -143,8 +143,6 @@
     }];
 }
 
-- (void)willStartElement:(NSString *)element; { /* for subclassers */ }
-
 - (void)pushElement:(NSString *)element;
 {
     // Private method so that Sandvox can work for now
@@ -576,9 +574,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     if ([self shouldBeginNewlineForElement:elementName]) {
         [self startNewline];
     }
-    
-    // Warn of impending start
-    [self willStartElement:elementName];
     
     [self writeString:@"<"];
     [self writeString:elementName];
