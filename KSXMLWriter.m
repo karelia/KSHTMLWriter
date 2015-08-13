@@ -41,6 +41,9 @@
 @implementation KSXMLWriter {
     KSXMLAttributes   *_attributes;
     NSMutableArray  *_openElements;
+    
+    /// Tracks whether the current element's start tag is yet to be closed, so we know later if need
+    /// to write an end tag, or can have a single <foo /> type of tag
     BOOL            _elementIsEmpty;
     
     // Pretty printing
