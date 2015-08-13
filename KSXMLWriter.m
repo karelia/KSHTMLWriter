@@ -587,10 +587,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [_attributes close];
     
     
-    // With writing done, begin tracking \c -writeString: calls to see if element is empty
-    // For elements which can't be empty, might as well go ahead and close the start tag now
-    _elementIsEmpty = [self elementCanBeEmpty:elementName];
-    if (!_elementIsEmpty) [self closeStartTag];
+    // With writing done, begin tracking to see if element is empty
+    _elementIsEmpty = YES;
     
     
     [self increaseIndentationLevel];
@@ -603,7 +601,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     
     // Write the tag itself.
-    if (_elementIsEmpty)
+    NSString *element = self.topElement;
+    if (_elementIsEmpty && [self elementCanBeEmpty:element])
     {
         [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
         [self closeEmptyElementTag];
@@ -615,7 +614,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             [self startNewline];   // was this element written entirely inline?
         }
         
-        [self writeEndTag:[self topElement]];
+        [self writeEndTag:element];
         [self popElement];
     }
 }
