@@ -191,7 +191,10 @@
 
 
 #pragma mark Validation
-// Default implementation returns YES. Subclasses can override to advise that the writing of an element would result in invalid markup
+/**
+ Default implementation returns YES. Subclasses can override to advise that the writing of an
+ element would result in invalid markup
+ */
 - (BOOL)validateElement:(NSString *)element;
 - (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
 
@@ -200,7 +203,10 @@
 #pragma mark Elements Stack
 // XMLWriter maintains a stack of the open elements so it knows how to end them. You probably don't ever care about this, but it can be handy in more advanced use cases
 
-@property(nonatomic, readonly) NSArray *openElements;  // the methods below are faster than this
+/**
+ A copy of the current elements stack
+ */
+@property(nonatomic, readonly) NSArray *openElements;
 
 - (NSUInteger)openElementsCount;
 - (BOOL)hasOpenElement:(NSString *)tagName;
