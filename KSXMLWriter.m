@@ -352,16 +352,6 @@
 #pragma mark Element Primitives
 
 /**
- Called each time an element is started. Begins tracking \c -writeString: calls to see if element is empty
- */
-- (void)didStartElement {
-    
-    // For elements which can't be empty, might as well go ahead and close the start tag now
-    _elementIsEmpty = [self elementCanBeEmpty:[self topElement]];
-    if (!_elementIsEmpty) [self closeStartTag];
-}
-
-/**
  Writes the raw \c > character that marks the close of a _tag_ (not the element, the tag)
  */
 - (void)closeStartTag {
@@ -599,7 +589,12 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [_attributes close];
     
     
-    [self didStartElement];
+    // With writing done, begin tracking \c -writeString: calls to see if element is empty
+    // For elements which can't be empty, might as well go ahead and close the start tag now
+    _elementIsEmpty = [self elementCanBeEmpty:elementName];
+    if (!_elementIsEmpty) [self closeStartTag];
+    
+    
     [self increaseIndentationLevel];
 }
 
