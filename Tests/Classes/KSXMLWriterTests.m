@@ -104,6 +104,16 @@
     }];
 }
 
+- (void)testEmptyElementWithAttribute
+{
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"wobble" value:@"wibble"];
+    }];
+    
+    NSString* generated = [output string];
+    XCTAssertEqualObjects(generated, @"<foo wobble=\"wibble\" />");
+}
+
 - (void)testPushAttribute
 {
     [writer pushAttribute:@"a1" value:@"v1"];
