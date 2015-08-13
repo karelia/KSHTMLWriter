@@ -537,23 +537,21 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 #pragma mark Element Primitives
 
-- (void)willStartElement:(NSString *)elementName {
+- (void)startElement:(NSString *)elementName {
     
 #ifdef DEBUG
     NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
 #endif
     
+    [super startElement:elementName];
     
     // Add in any pre-written classes
     NSString *class = [self currentElementClassName];
     if (class)
     {
         [_classNames removeAllObjects];
-        [super pushAttribute:@"class" value:class];
+        [self addAttribute:@"class" value:class];
     }
-    
-    
-    [super willStartElement:elementName];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML
