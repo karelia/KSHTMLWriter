@@ -64,7 +64,6 @@
 #pragma mark Elements
 
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
 
 /* Need to force inline writing? Fall back to the old -startElement… API for now */
 

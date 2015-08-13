@@ -52,7 +52,11 @@
         NSString* element = [action objectForKey:@"element"];
         if (element)
         {
-            [writer writeElement:element attributes:attributes content:^{
+            [attributes enumerateKeysAndObjectsUsingBlock:^(NSString *attribute, id value, BOOL *stop) {
+                [writer pushAttribute:attribute value:value];
+            }];
+            
+            [writer writeElement:element content:^{
                 [self writer:writer performActions:content];
             }];
         }

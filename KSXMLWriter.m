@@ -133,17 +133,6 @@
     [self endElement];
 }
 
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self writeElement:name content:content];
-}
-
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
     [self writeElement:elementName content:^{
