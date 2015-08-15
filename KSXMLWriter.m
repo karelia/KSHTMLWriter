@@ -129,6 +129,60 @@
 
 #pragma mark Elements
 
+- (void)startElement:(NSString *)elementName {
+    
+    if ([self shouldBeginNewlineForElement:elementName]) {
+        [self startNewline];
+    }
+    
+    [self writeString:@"<"];
+    [self writeString:elementName];
+    
+    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
+    [self pushElement:elementName];
+    
+    // Once an element has been written, it's time to resume normal service (if pretty-printing) and
+    // start a newline for any following elements which merit it.
+    _prettyPrintingDisabled = NO;
+    
+    
+    // With writing done, begin tracking to see if element is empty
+    _yetToCloseStartTag = YES;
+    
+    
+    // Add attributes
+    [_attributes writeAttributes:self];
+    [_attributes close];
+    
+    
+    [self increaseIndentationLevel];
+}
+
+- (void)endElement {
+    
+    // We've reached the end of the element, so of course indentation needs to decrease
+    [self decreaseIndentationLevel];
+    
+    
+    // Write the tag itself.
+    NSString *element = self.topElement;
+    if (_yetToCloseStartTag && [self elementCanBeEmpty:element])
+    {
+        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
+        [self closeEmptyElementTag];
+    }
+    else
+    {
+        // Did that element span multiple lines? If so, the end tag ought to go on its own line
+        if (self.openElementsCount - 1 < _elementCountAtLastNewline) {
+            [self startNewline];   // was this element written entirely inline?
+        }
+        
+        [self writeEndTag:element];
+        [self popElement];
+    }
+}
+
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
 {
     [self startElement:name];
@@ -570,60 +624,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 
 #pragma mark -
 #pragma mark Pre-Blocks Support
-
-- (void)startElement:(NSString *)elementName {
-    
-    if ([self shouldBeginNewlineForElement:elementName]) {
-        [self startNewline];
-    }
-    
-    [self writeString:@"<"];
-    [self writeString:elementName];
-    
-    // Must do this AFTER writing the string so subclasses can take early action in a -writeString: override
-    [self pushElement:elementName];
-    
-    // Once an element has been written, it's time to resume normal service (if pretty-printing) and
-    // start a newline for any following elements which merit it.
-    _prettyPrintingDisabled = NO;
-    
-    
-    // With writing done, begin tracking to see if element is empty
-    _yetToCloseStartTag = YES;
-    
-    
-    // Add attributes
-    [_attributes writeAttributes:self];
-    [_attributes close];
-    
-    
-    [self increaseIndentationLevel];
-}
-
-- (void)endElement {
-    
-    // We've reached the end of the element, so of course indentation needs to decrease
-	[self decreaseIndentationLevel];
-    
-    
-    // Write the tag itself.
-    NSString *element = self.topElement;
-    if (_yetToCloseStartTag && [self elementCanBeEmpty:element])
-    {
-        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
-        [self closeEmptyElementTag];
-    }
-    else
-    {
-        // Did that element span multiple lines? If so, the end tag ought to go on its own line
-        if (self.openElementsCount - 1 < _elementCountAtLastNewline) {
-            [self startNewline];   // was this element written entirely inline?
-        }
-        
-        [self writeEndTag:element];
-        [self popElement];
-    }
-}
 
 - (void)startCDATA;
 {

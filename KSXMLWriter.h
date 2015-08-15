@@ -73,7 +73,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Elements
 
-- (void)writeElement:(NSString *)name content:(nullable void (^)(void))content;
+/**
+ The primitive API for beginning an element. Each call must be matched with a later call to \c endElement
+ once you've written the contents of the element.
+ 
+ An element's contents may well include other elements — this is XML after all! The writer maintains
+ a stack of the open elements to track it all.
+
+ It's often more convenient to use one of the \c writeElement:… methods. There's no need to call
+ \c endElement yourself, and your code is nicely indented in a similar fashion to the markup
+ produced :-)
+ */
+- (void)startElement:(NSString *)elementName;
+
+/**
+ Ends the current element. Uses the element stack to know the tag to write.
+ */
+- (void)endElement;
+
+/**
+ Convenience that starts \c elementName, executes the \c content block, then ends the element.
+ */
+- (void)writeElement:(NSString *)elementName content:(nullable void (^)(void))content;
 
 /**
  Convenience for writing <tag>text</tag>
@@ -274,10 +295,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 #pragma mark Pre-Blocks Support
 // Would be a category, but that confuses the compiler when looking for protocol-conformance in Sandvox
-
-// These simple methods make up the bulk of element writing. You can start as many elements at a time as you like in order to nest them. Calling -endElement will automatically know the right close tag to write etc.
-- (void)startElement:(NSString *)elementName;
-- (void)endElement;
 
 - (void)startCDATA;
 - (void)endCDATA;
