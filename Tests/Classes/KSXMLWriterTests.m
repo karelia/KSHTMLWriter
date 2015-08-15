@@ -40,7 +40,7 @@
 
 - (void)testWriteElementNoContent
 {
-    [writer writeElement:@"foo" attributes:nil content:nil];
+    [writer writeElement:@"foo" content:nil];
     
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<foo />");
@@ -48,7 +48,7 @@
 
 - (void)testWriteElementEmptyContent
 {
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
     }];
     
     NSString* generated = [output string];
@@ -57,7 +57,7 @@
 
 - (void)testWriteElementNoAttributes
 {
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
          [writer writeCharacters:@"bar"];
      }];
     
@@ -65,21 +65,11 @@
     XCTAssertEqualObjects(generated, @"<foo>bar</foo>");
 }
 
-- (void)testWriteElementEmptyAttributes
-{
-    NSDictionary* attributes = [NSDictionary dictionary];
-    [writer writeElement:@"foo" attributes:attributes content:^{
-        [writer writeCharacters:@"bar"];
-    }];
-    
-    NSString* generated = [output string];
-    XCTAssertEqualObjects(generated, @"<foo>bar</foo>");
-}
-
 - (void)testWriteElementOneAttribute
 {
-    NSDictionary* attributes = [NSDictionary dictionaryWithObject:@"wibble" forKey:@"wobble"];
-    [writer writeElement:@"foo" attributes:attributes content:^{
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"wobble" value:@"wibble"];
+        
         [writer writeCharacters:@"bar"];
     }];
     
@@ -89,13 +79,39 @@
 
 - (void)testWriteElementMultipleAttributes
 {
-    NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:@"o1", @"k1", @"o2", @"k2", nil];
-    [writer writeElement:@"foo" attributes:attributes content:^{
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"k2" value:@"o2"];
+        [writer addAttribute:@"k1" value:@"o1"];
+        
         [writer writeCharacters:@"bar"];
     }];
     
     NSString* generated = [output string];
     XCTAssertEqualObjects(generated, @"<foo k2=\"o2\" k1=\"o1\">bar</foo>");
+}
+
+- (void)testAddingAttributeTooEarly {
+    
+    XCTAssertThrows([writer addAttribute:@"foo" value:@"bar"]);
+}
+
+- (void)testAddingAttributeTooLate {
+    
+    [writer writeElement:@"foo" content:^{
+        [writer writeCharacters:@"text"];
+        
+        XCTAssertThrows([writer addAttribute:@"foo" value:@"bar"]);
+    }];
+}
+
+- (void)testEmptyElementWithAttribute
+{
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"wobble" value:@"wibble"];
+    }];
+    
+    NSString* generated = [output string];
+    XCTAssertEqualObjects(generated, @"<foo wobble=\"wibble\" />");
 }
 
 - (void)testPushAttribute
@@ -110,7 +126,7 @@
     attributeCount = [[writer currentAttributes] count];
     XCTAssertEqual(attributeCount, (NSUInteger) 2, @"wrong number of attributes");
     
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
         [writer writeCharacters:@"bar"];
     }];
         
@@ -126,7 +142,7 @@
 - (void)testWriteEscapedEntities
 {
     // TODO could expand this to include a list of all entities
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
         [writer writeCharacters:@"< & >"];
     }];
     
@@ -146,7 +162,7 @@
     // TODO could expand this to loop through all characters, but some of them will expand
     // to unexpected things - e.g. see character 160 below...
 
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
         
         // write some random non-ascii characters
         // (160 happens to be a non-breaking space, so it will be encoded as nbsp;)
@@ -163,7 +179,7 @@
 - (void)testWriteComment
 {
     // TODO could expand this to include a list of all entities
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
         [writer writeComment:@"this is a comment"];
         [writer writeCharacters:@"this is not a comment"];
         [writer writeComment:@"this is another comment"];
@@ -177,7 +193,7 @@
 {
     writer.doctype = @"some-type";
     [writer writeDoctypeDeclaration];
-    [writer writeElement:@"foo" attributes:nil content:^{
+    [writer writeElement:@"foo" content:^{
         [writer writeCharacters:@"bar"];
     }];
     

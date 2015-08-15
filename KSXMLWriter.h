@@ -27,13 +27,14 @@
 
 #import "KSXMLAttributes.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface KSXMLWriter : NSObject
 
 #pragma mark Creating an XML Writer
 
 // .encoding is taken from the writer. If output writer is nil, defaults to UTF-8
-- (id)initWithOutputWriter:(KSWriter *)output NS_DESIGNATED_INITIALIZER;
+- (id)initWithOutputWriter:(nullable KSWriter *)output NS_DESIGNATED_INITIALIZER;
 
 
 #pragma mark Document
@@ -41,8 +42,11 @@
 /**
  The document's type, which we hang onto so clients can get some information about the XML being
  written if they need to. Avoid changing this mid-writing as would likely confuse clients.
+ 
+ nil by default, but subclasses might override that. For example, KSHTMLWriter does, to default to
+ the HTML 5 doctype.
  */
-@property(nonatomic, copy) NSString *doctype;
+@property(nonatomic, copy, nullable) NSString *doctype;
 
 /**
  Writes a doctype declaration according to the receiver's \c docType, which must be non-nil. Example:
@@ -54,27 +58,55 @@
 
 #pragma mark Characters
 
-//  Escapes the string and calls -writeString:. NOT intended for other text-like strings such as element attributes
+/**
+ Escapes any XML entities, passing the results through to \c -writeString:
+ 
+ NOT intended for other text-like strings such as element attributes. Use other APIs for that instead.
+ */
 - (void)writeCharacters:(NSString *)string;
 
-// Convenience to perform escaping without instantiating a writer
+/**
+ Convenience to perform escaping without instantiating a writer.
+ */
 + (NSString *)stringFromCharacters:(NSString *)string;
 
 
 #pragma mark Elements
 
-- (void)writeElement:(NSString *)name content:(void (^)(void))content;
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
+- (void)writeElement:(NSString *)name content:(nullable void (^)(void))content;
 
-/* Need to force inline writing? Fall back to the old -startElement… API for now */
-
-// Convenience for writing <tag>text</tag>
+/**
+ Convenience for writing <tag>text</tag>
+ */
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 
-- (void)willStartElement:(NSString *)element;
 
+#pragma mark Attributes
 
-#pragma mark Current Element
+/**
+ Appends an attribute to the current element. Importantly this ONLY works in the time between an
+ element being started, and the first bit of content being written. For example, this is fine:
+ 
+    [writer startElement:@"foo"];
+    [writer addAttribute:@"bar" value:@"true"];
+    [writer writeCharacters:@"text"];
+ 
+ and so is this:
+ 
+    [writer writeElement:@"foo" content:^{
+        [writer addAttribute:@"foo" value:@"bar"]);
+        [writer writeCharacters:@"text"];
+    }];
+ 
+ But this will throw an exception since the writer has nowhere to add the attribite *to*:
+ 
+    [writer writeElement:@"foo" content:^{
+        [writer writeCharacters:@"text"];
+        [writer addAttribute:@"foo" value:@"bar"]);
+    }];
+ */
+- (void)addAttribute:(NSString *)attribute value:(NSString *)value;
+
 /*  You can also gain finer-grained control over element attributes. KSXMLWriter maintains a list of attributes that will be applied when you *next* call one of the -startElement: methods. This has several advantages:
  *      - Attributes are written in exactly the order you specify
  *      - More efficient than building up a temporary dictionary object
@@ -83,17 +115,28 @@
  *  The stack is cleared for you each time an element starts, to save the trouble of manually managing that.
  */
 - (void)pushAttribute:(NSString *)attribute value:(id)value;
-- (KSXMLAttributes *)currentAttributes; // modifying this object will not affect writing
-- (BOOL)hasCurrentAttributes;           // faster than querying -currentAttributes
 
+/**
+ @result a copy of the current attributes stack
+ */
+- (KSXMLAttributes *)currentAttributes;
 
-#pragma mark Attributes
-// Like +stringFromCharacters: but for attributes, where quotes need to be escaped
+/**
+ Handy way to find if there's any attributes pushed without the overhead of copying \c currentAttributes
+ */
+- (BOOL)hasCurrentAttributes;
+
+/**
+ Like +stringFromCharacters: but for attributes, where quotes need to be escaped
+ */
 + (NSString *)stringFromAttributeValue:(NSString *)value;
 
 
 #pragma mark Comments
-- (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
+/**
+ Writes a comment tag, escaping the text as needed.
+ */
+- (void)writeComment:(NSString *)comment;
 - (void)openComment;
 - (void)closeComment;
 
@@ -155,9 +198,11 @@
  */
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)element;
 
-
-#pragma mark Indentation
-// Setting the indentation level does not write to the context in any way. It is up to methods that actually do some writing to respect the indent level. e.g. starting a new line should indent that line to match.
+/**
+ The number of tabs to indent by whenever `startNewline` is called. You do not normally need to
+ adjust this property mid-writing as starting/ending elements etc. automatically adjust the level to
+ match.
+ */
 @property(nonatomic) NSUInteger indentationLevel;
 - (void)increaseIndentationLevel;
 
@@ -169,7 +214,10 @@
 
 
 #pragma mark Validation
-// Default implementation returns YES. Subclasses can override to advise that the writing of an element would result in invalid markup
+/**
+ Default implementation returns YES. Subclasses can override to advise that the writing of an
+ element would result in invalid markup
+ */
 - (BOOL)validateElement:(NSString *)element;
 - (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
 
@@ -178,12 +226,15 @@
 #pragma mark Elements Stack
 // XMLWriter maintains a stack of the open elements so it knows how to end them. You probably don't ever care about this, but it can be handy in more advanced use cases
 
-@property(nonatomic, readonly) NSArray *openElements;  // the methods below are faster than this
+/**
+ A copy of the current elements stack
+ */
+@property(nonatomic, readonly) NSArray *openElements;
 
 - (NSUInteger)openElementsCount;
 - (BOOL)hasOpenElement:(NSString *)tagName;
 
-- (NSString *)topElement;
+- (nullable NSString *)topElement;
 - (void)pushElement:(NSString *)element;
 - (void)popElement;
 
@@ -217,7 +268,7 @@
 + (BOOL)isStringEncodingAvailable:(NSStringEncoding)encoding;
 
 
-@property(readonly) KSWriter *outputWriter;
+@property(nullable, readonly) KSWriter *outputWriter;
 
 
 #pragma mark -
@@ -233,3 +284,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

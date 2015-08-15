@@ -234,12 +234,11 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
     // TODO: Remove this method once Sandvox no longer needs it
-	if (href) [self pushAttribute:@"href" value:href];
-	if (targetString) [self pushAttribute:@"target" value:targetString];
-	if (titleString) [self pushAttribute:@"title" value:titleString];
-	if (relString) [self pushAttribute:@"rel" value:relString];
-	
     [self startElement:@"a"];
+    if (href) [self addAttribute:@"href" value:href];
+    if (targetString) [self addAttribute:@"target" value:targetString];
+    if (titleString) [self addAttribute:@"title" value:titleString];
+    if (relString) [self addAttribute:@"rel" value:relString];
 }
 
 - (void)writeAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString content:(void (^)(void))content;
@@ -258,13 +257,12 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
                     width:(id)width
                    height:(id)height;
 {
-    [self pushAttribute:@"src" value:src];
-    [self pushAttribute:@"alt" value:alt];
-    if (width) [self pushAttribute:@"width" value:width];
-    if (height) [self pushAttribute:@"height" value:height];
-    
-    [self startElement:@"img"];
-    [self endElement];
+    [self writeElement:@"img" content:^{
+        [self addAttribute:@"src" value:src];
+        [self addAttribute:@"alt" value:alt];
+        if (width) [self addAttribute:@"width" value:width];
+        if (height) [self addAttribute:@"height" value:height];
+    }];
 }
 
 #pragma mark Link
@@ -275,14 +273,13 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    if (rel) [self pushAttribute:@"rel" value:rel];
-    if (type) [self pushAttribute:@"type" value:type];
-    [self pushAttribute:@"href" value:href];
-    if (title) [self pushAttribute:@"title" value:title];
-    if (media) [self pushAttribute:@"media" value:media];
-    
-    [self startElement:@"link"];
-    [self endElement];
+    [self writeElement:@"link" content:^{
+        if (rel) [self addAttribute:@"rel" value:rel];
+        if (type) [self addAttribute:@"type" value:type];
+        [self addAttribute:@"href" value:href];
+        if (title) [self addAttribute:@"title" value:title];
+        if (media) [self addAttribute:@"media" value:media];
+    }];
 }
 
 - (void)writeLinkToStylesheet:(NSString *)href
@@ -308,9 +305,9 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 - (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;	// src may be nil
 {    
-    if (charset) [self pushAttribute:@"charset" value:charset];
     [self startJavascriptElementWithSrc:src];
-	if (!src) [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
+    if (charset) [self addAttribute:@"charset" value:charset];
+    if (!src) [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
     [self endElement];
 }
 
@@ -334,25 +331,24 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
+    [self startElement:@"script"];
+    
     // HTML5 doesn't need the script type specified, but older doc types do for standards-compliance
     if (![self.doctype isEqualToString:KSHTMLDoctypeHTML_5])
     {
-        [self pushAttribute:@"type" value:@"text/javascript"];
+        [self addAttribute:@"type" value:@"text/javascript"];
     }
     
     // Script
     if (src)
 	{
-		[self pushAttribute:@"src" value:src];
-        [self startElement:@"script"];
+		[self addAttribute:@"src" value:src];
 	}
     else
     {
         // Outdent the script compared to what's normal. Context will take care of placing on a
         // new line for us
-        [self startElement:@"script"];
-        
-		[self decreaseIndentationLevel];
+        [self decreaseIndentationLevel];
 		[self startNewline];
     }
 }
@@ -375,10 +371,10 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 - (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
 {
-	if (name) [self pushAttribute:@"name" value:name];
-	if (value) [self pushAttribute:@"value" value:value];
-    [self startElement:@"param"];
-    [self endElement];
+    [self writeElement:@"param" content:^{
+        if (name) [self addAttribute:@"name" value:name];
+        if (value) [self addAttribute:@"value" value:value];
+    }];
 }
 
 #pragma mark Style
@@ -392,8 +388,8 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    if (type) [self pushAttribute:@"type" value:type];
     [self startElement:@"style"];
+    if (type) [self addAttribute:@"type" value:type];
 }
 
 #pragma mark Elements Stack
@@ -541,23 +537,21 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 #pragma mark Element Primitives
 
-- (void)willStartElement:(NSString *)elementName {
+- (void)startElement:(NSString *)elementName {
     
 #ifdef DEBUG
     NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
 #endif
     
+    [super startElement:elementName];
     
     // Add in any pre-written classes
     NSString *class = [self currentElementClassName];
     if (class)
     {
         [_classNames removeAllObjects];
-        [super pushAttribute:@"class" value:class];
+        [self addAttribute:@"class" value:class];
     }
-    
-    
-    [super willStartElement:elementName];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML

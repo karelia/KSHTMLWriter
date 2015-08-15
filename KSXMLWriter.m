@@ -41,7 +41,10 @@
 @implementation KSXMLWriter {
     KSXMLAttributes   *_attributes;
     NSMutableArray  *_openElements;
-    BOOL            _elementIsEmpty;
+    
+    /// Tracks whether the current element's start tag is yet to be closed, so we know later if need
+    /// to write an end tag, or can have a single <foo /> type of tag
+    BOOL            _yetToCloseStartTag;
     
     // Pretty printing
     BOOL        _prettyPrintingDisabled;
@@ -133,25 +136,12 @@
     [self endElement];
 }
 
-- (void)writeElement:(NSString *)name attributes:(NSDictionary *)attributes content:(void (^)(void))content;
-{
-    for (NSString *aName in attributes)
-    {
-        NSString *aValue = [attributes objectForKey:aName];
-        [self pushAttribute:aName value:aValue];
-    }
-    
-    [self writeElement:name content:content];
-}
-
 - (void)writeElement:(NSString *)elementName text:(NSString *)text;
 {
     [self writeElement:elementName content:^{
         [self writeCharacters:text];
     }];
 }
-
-- (void)willStartElement:(NSString *)element; { /* for subclassers */ }
 
 - (void)pushElement:(NSString *)element;
 {
@@ -161,12 +151,38 @@
 
 - (void)popElement;
 {
-    _elementIsEmpty = NO;
+    _yetToCloseStartTag = NO;
     
     [_openElements removeLastObject];
 }
 
-#pragma mark Current Element
+#pragma mark Attributes
+
+- (void)addAttribute:(NSString * __nonnull)attribute value:(NSString * __nonnull)value {
+    
+    if (_yetToCloseStartTag) {
+        // Temporarily turn off tracking so the write goes through without triggering closure
+        _yetToCloseStartTag = NO;
+        
+        NSString *valueString = [value description];
+        
+        [self writeString:@" "];
+        [self writeString:attribute];
+        [self writeString:@"=\""];
+        [self writeAttributeValue:valueString];
+        [self writeString:@"\""];
+        
+        _yetToCloseStartTag = YES;
+    }
+    else {
+        if (self.openElementsCount) {
+            [NSException raise:NSInvalidArgumentException format:@"Can't add attributes to an element which already has content"];
+        }
+        else {
+            [NSException raise:NSInvalidArgumentException format:@"No element open to add attributes to"];
+        }
+    }
+}
 
 - (void)pushAttribute:(NSString *)attribute value:(id)value; // call before -startElement:
 {
@@ -183,8 +199,6 @@
 {
     return [_attributes count];
 }
-
-#pragma mark Attributes
 
 - (void)writeAttributeValue:(NSString *)value;
 {
@@ -213,23 +227,6 @@
     }];
     
     return result;
-}
-
-/**
- Performs the raw writing of an attribute and its value:
- 
- \c attribute="value"
- */
-- (void)writeAttribute:(NSString *)attribute
-                 value:(id)value;
-{
-	NSString *valueString = [value description];
-	
-    [self writeString:@" "];
-    [self writeString:attribute];
-    [self writeString:@"=\""];
-    [self writeAttributeValue:valueString];
-    [self writeString:@"\""];
 }
 
 #pragma mark Comments
@@ -358,16 +355,6 @@
 }
 
 #pragma mark Element Primitives
-
-/**
- Called each time an element is started. Begins tracking \c -writeString: calls to see if element is empty
- */
-- (void)didStartElement {
-    
-    // For elements which can't be empty, might as well go ahead and close the start tag now
-    _elementIsEmpty = [self elementCanBeEmpty:[self topElement]];
-    if (!_elementIsEmpty) [self closeStartTag];
-}
 
 /**
  Writes the raw \c > character that marks the close of a _tag_ (not the element, the tag)
@@ -509,9 +496,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 	NSParameterAssert(string);
     
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
-    if (_elementIsEmpty && [string length])
+    if (_yetToCloseStartTag && [string length])
     {
-        _elementIsEmpty = NO;   // comes first to avoid infinite recursion
+        _yetToCloseStartTag = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }
     
@@ -588,9 +575,6 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
         [self startNewline];
     }
     
-    // Warn of impending start
-    [self willStartElement:elementName];
-    
     [self writeString:@"<"];
     [self writeString:elementName];
     
@@ -602,12 +586,15 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     _prettyPrintingDisabled = NO;
     
     
-    // Write attributes
+    // With writing done, begin tracking to see if element is empty
+    _yetToCloseStartTag = YES;
+    
+    
+    // Add attributes
     [_attributes writeAttributes:self];
     [_attributes close];
     
     
-    [self didStartElement];
     [self increaseIndentationLevel];
 }
 
@@ -618,7 +605,8 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     
     
     // Write the tag itself.
-    if (_elementIsEmpty)
+    NSString *element = self.topElement;
+    if (_yetToCloseStartTag && [self elementCanBeEmpty:element])
     {
         [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
         [self closeEmptyElementTag];
@@ -630,7 +618,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
             [self startNewline];   // was this element written entirely inline?
         }
         
-        [self writeEndTag:[self topElement]];
+        [self writeEndTag:element];
         [self popElement];
     }
 }
@@ -659,7 +647,7 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     {
         NSString *attribute = [_attributes objectAtIndex:i];
         NSString *value = [_attributes objectAtIndex:i+1];
-        [writer writeAttribute:attribute value:value];
+        [writer addAttribute:attribute value:value];
     }
 }
 
