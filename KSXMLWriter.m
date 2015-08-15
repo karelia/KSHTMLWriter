@@ -306,21 +306,6 @@
     }
 }
 
-#pragma mark Validation
-
-- (BOOL)validateElement:(NSString *)element;
-{
-    NSParameterAssert(element);
-    return YES;
-}
-
-- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
-{
-    NSParameterAssert(name);
-    NSParameterAssert(element);
-    return value;
-}
-
 #pragma mark Elements Stack
 
 - (NSArray *)openElements; { return [[_openElements copy] autorelease]; }
@@ -635,6 +620,24 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
 - (void)endCDATA;
 {
     [self writeString:@"]]>"];
+}
+
+@end
+
+
+@implementation KSXMLWriter (Validation)
+
+- (BOOL)validateElement:(NSString *)element;
+{
+    NSParameterAssert(element);
+    return YES;
+}
+
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
+{
+    NSParameterAssert(name);
+    NSParameterAssert(element);
+    return value;
 }
 
 @end

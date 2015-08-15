@@ -206,16 +206,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)decreaseIndentationLevel;
 
 
-#pragma mark Validation
-/**
- Default implementation returns YES. Subclasses can override to advise that the writing of an
- element would result in invalid markup
- */
-- (BOOL)validateElement:(NSString *)element;
-- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
-
-
-
 #pragma mark Elements Stack
 // XMLWriter maintains a stack of the open elements so it knows how to end them. You probably don't ever care about this, but it can be handy in more advanced use cases
 
@@ -299,6 +289,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)writeCDATAWithContentBlock:(void (^)(void))content;
 
+
+@end
+
+@interface KSXMLWriter (Validation)
+
+/**
+ Default implementation returns YES. Subclasses can override to advise that the writing of an
+ element would result in invalid markup
+ */
+- (BOOL)validateElement:(NSString *)element;
+- (NSString *)validateAttribute:(NSString *)name value:(NSString *)value ofElement:(NSString *)element;
 
 @end
 
