@@ -56,21 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)writeDoctypeDeclaration;
 
 
-#pragma mark Characters
-
-/**
- Escapes any XML entities, passing the results through to \c -writeString:
- 
- NOT intended for other text-like strings such as element attributes. Use other APIs for that instead.
- */
-- (void)writeCharacters:(NSString *)string;
-
-/**
- Convenience to perform escaping without instantiating a writer.
- */
-+ (NSString *)stringFromCharacters:(NSString *)string;
-
-
 #pragma mark Elements
 
 /**
@@ -151,19 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
  Like +stringFromCharacters: but for attributes, where quotes need to be escaped
  */
 + (NSString *)stringFromAttributeValue:(NSString *)value;
-
-
-#pragma mark Comments
-/**
- Writes a comment tag, escaping the text as needed.
- */
-- (void)writeComment:(NSString *)comment;
-- (void)openComment;
-- (void)closeComment;
-
-
-#pragma mark CDATA
-- (void)writeCDATAWithContentBlock:(void (^)(void))content;
 
 
 #pragma mark Pretty Printing
@@ -292,12 +264,41 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nullable, readonly) KSWriter *outputWriter;
 
 
-#pragma mark -
-#pragma mark Pre-Blocks Support
-// Would be a category, but that confuses the compiler when looking for protocol-conformance in Sandvox
+@end
+
+@interface KSXMLWriter (CharacterData)
+
+#pragma mark Text
+
+/**
+ Escapes any XML entities, passing the results through to \c -writeString:
+ 
+ NOT intended for other text-like strings such as element attributes. Use other APIs for that instead.
+ */
+- (void)writeCharacters:(NSString *)string;
+
+/**
+ Convenience to perform escaping without instantiating a writer.
+ */
++ (NSString *)stringFromCharacters:(NSString *)string;
+
+
+#pragma mark Comments
+/**
+ Writes a comment tag, escaping the text as needed.
+ */
+- (void)writeComment:(NSString *)comment;
+- (void)openComment;
+- (void)closeComment;
+
+
+#pragma mark CDATA
 
 - (void)startCDATA;
 - (void)endCDATA;
+
+- (void)writeCDATAWithContentBlock:(void (^)(void))content;
+
 
 @end
 

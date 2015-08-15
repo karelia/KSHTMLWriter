@@ -96,37 +96,6 @@
     [self startNewline];
 }
 
-#pragma mark Characters
-
-- (void)writeCharacters:(NSString *)string;
-{
-    // Quotes are acceptable characters outside of attribute values
-    [self.class writeString:string escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
-        [self writeString:string range:range];
-    }];
-}
-
-+ (NSString *)stringFromCharacters:(NSString *)characters;
-{
-	__block NSString *result = @"";
-    
-    [self.class writeString:characters escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
-        
-        // Often the original string is valid. If so, use it whole
-        if (string == characters && range.length == characters.length)
-        {
-            result = characters;
-        }
-        else
-        {
-            if (range.length != string.length) string = [string substringWithRange:range];
-            result = [result stringByAppendingString:string];
-        }
-    }];
-    
-    return result;
-}
-
 #pragma mark Elements
 
 - (void)startElement:(NSString *)elementName {
@@ -281,34 +250,6 @@
     }];
     
     return result;
-}
-
-#pragma mark Comments
-
-- (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
-{
-    [self openComment];
-    [self writeAttributeValue:comment];
-    [self closeComment];
-}
-
-- (void)openComment;
-{
-    [self writeString:@"<!--"];
-}
-
-- (void)closeComment;
-{
-    [self writeString:@"-->"];
-}
-
-#pragma mark CDATA
-
-- (void)writeCDATAWithContentBlock:(void (^)(void))content;
-{
-    [self startCDATA];
-    content();
-    [self endCDATA];
 }
 
 #pragma mark Pretty Printing
@@ -622,8 +563,69 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     [self writeString:string range:NSMakeRange(0, string.length)];
 }
 
-#pragma mark -
-#pragma mark Pre-Blocks Support
+@end
+
+
+@implementation KSXMLWriter (CharacterData)
+
+#pragma mark Text
+
+- (void)writeCharacters:(NSString *)string;
+{
+    // Quotes are acceptable characters outside of attribute values
+    [self.class writeString:string escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+        [self writeString:string range:range];
+    }];
+}
+
++ (NSString *)stringFromCharacters:(NSString *)characters;
+{
+    __block NSString *result = @"";
+    
+    [self.class writeString:characters escapeXMLEntitiesIncludingQuotes:NO usingBlock:^(NSString *string, NSRange range) {
+        
+        // Often the original string is valid. If so, use it whole
+        if (string == characters && range.length == characters.length)
+        {
+            result = characters;
+        }
+        else
+        {
+            if (range.length != string.length) string = [string substringWithRange:range];
+            result = [result stringByAppendingString:string];
+        }
+    }];
+    
+    return result;
+}
+
+#pragma mark Comments
+
+- (void)writeComment:(NSString *)comment;   // escapes the string, and wraps in a comment tag
+{
+    [self openComment];
+    [self writeAttributeValue:comment];
+    [self closeComment];
+}
+
+- (void)openComment;
+{
+    [self writeString:@"<!--"];
+}
+
+- (void)closeComment;
+{
+    [self writeString:@"-->"];
+}
+
+#pragma mark CDATA
+
+- (void)writeCDATAWithContentBlock:(void (^)(void))content;
+{
+    [self startCDATA];
+    content();
+    [self endCDATA];
+}
 
 - (void)startCDATA;
 {
