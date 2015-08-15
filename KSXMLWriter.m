@@ -564,7 +564,9 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     }
 }
 
-- (void)writeString:(NSString *)string; { [self writeString:string range:NSMakeRange(0, string.length)]; }
+- (void)writeString:(NSString *)string {
+    [self writeString:string range:NSMakeRange(0, string.length)];
+}
 
 #pragma mark -
 #pragma mark Pre-Blocks Support
