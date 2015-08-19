@@ -26,36 +26,33 @@
 #import "KSXMLWriter.h"
 
 
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Strict;
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Transitional;
-extern NSString *KSHTMLWriterDocTypeHTML_4_01_Frameset;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Strict;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Transitional;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_0_Frameset;
-extern NSString *KSHTMLWriterDocTypeXHTML_1_1;
-extern NSString *KSHTMLWriterDocTypeHTML_5;
+extern NSString *KSHTMLDoctypeHTML_4_01_Strict;
+extern NSString *KSHTMLDoctypeHTML_4_01_Transitional;
+extern NSString *KSHTMLDoctypeHTML_4_01_Frameset;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Strict;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Transitional;
+extern NSString *KSHTMLDoctypeXHTML_1_0_Frameset;
+extern NSString *KSHTMLDoctypeXHTML_1_1;
+extern NSString *KSHTMLDoctypeHTML_5;
 
 
+/**
+ New instances are given a doctype of \c KSHTMLDoctypeHTML_5 by default.
+ */
 @interface KSHTMLWriter : KSXMLWriter
 {
   @private
-    NSString        *_docType;
-    BOOL            _isXHTML;
-    NSMutableSet    *_IDs;
-    
     NSMutableArray  *_classNames;
 }
 
 #pragma mark DTD
 
-// Default is HTML5
-// Advise you don't change this mid-write, as that would be weird
-@property(nonatomic, copy) NSString *docType;
-
-// Whether empty elements should be written as <FOO> or <FOO />
-// Default is YES. There's no setter method; instead, specify with -startDocumentWithDocType:encoding: or when initializing.
-- (BOOL)isXHTML;
-+ (BOOL)isDocTypeXHTML:(NSString *)docType;
+/**
+ Whether empty elements should be written as <FOO> or <FOO />
+ Default is YES. There's no setter method, as is derived from \c docType
+ */
+@property(nonatomic, readonly) BOOL isXHTML;
++ (BOOL)isDoctypeXHTML:(NSString *)docType;
 
 
 #pragma mark CSS Class Name
@@ -81,13 +78,13 @@ extern NSString *KSHTMLWriterDocTypeHTML_5;
 - (void)startElement:(NSString *)tagName className:(NSString *)className;
 - (void)startElement:(NSString *)tagName idName:(NSString *)idName className:(NSString *)className;
 
-- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
-
 
 #pragma mark Document
-// Convenience to give you standard document structure
-// head is optional
-- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
+/**
+ Convenience to give you standard document structure
+ @param headBlock Optional
+ */
+- (void)writeDocumentWithHead:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
 
 
 #pragma mark Line Break

@@ -52,7 +52,11 @@
         NSString* element = [action objectForKey:@"element"];
         if (element)
         {
-            [writer writeElement:element attributes:attributes content:^{
+            [attributes enumerateKeysAndObjectsUsingBlock:^(NSString *attribute, id value, BOOL *stop) {
+                [writer pushAttribute:attribute value:value];
+            }];
+            
+            [writer writeElement:element content:^{
                 [self writer:writer performActions:content];
             }];
         }
@@ -89,6 +93,7 @@ typedef enum
     NSDictionary* test = self.parameterisedTestDataItem;
     KSWriter* output = [KSWriter stringWriterWithEncoding:NSUnicodeStringEncoding];
     KSXMLWriter* writer = [[class alloc] initWithOutputWriter:output];
+    writer.prettyPrint = YES;
 
     NSArray* actions = [test objectForKey:@"actions"];
     NSString* expected = [test objectForKey:expectedKey];

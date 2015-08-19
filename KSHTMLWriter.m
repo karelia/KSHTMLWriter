@@ -28,14 +28,14 @@
 #import "KSXMLAttributes.h"
 
 
-NSString *KSHTMLWriterDocTypeHTML_4_01_Strict = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_4_01_Transitional = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_4_01_Frameset = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Strict = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Transitional = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_0_Frameset = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"";
-NSString *KSHTMLWriterDocTypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"";
-NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
+NSString *KSHTMLDoctypeHTML_4_01_Strict = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"";
+NSString *KSHTMLDoctypeHTML_4_01_Transitional = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"";
+NSString *KSHTMLDoctypeHTML_4_01_Frameset = @"HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Strict = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Transitional = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_0_Frameset = @"html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"";
+NSString *KSHTMLDoctypeXHTML_1_1 = @"html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"";
+NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 
 @implementation KSHTMLWriter
@@ -46,8 +46,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 {
     if (self = [super initWithOutputWriter:output])
     {
-        [self setDocType:KSHTMLWriterDocTypeHTML_5];
-        _IDs = [[NSMutableSet alloc] init];
+        self.doctype = KSHTMLDoctypeHTML_5;
+        self.prettyPrint = YES;
         _classNames = [[NSMutableArray alloc] init];
     }
     
@@ -56,7 +56,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)dealloc
 {
-    [_IDs release];
     [_classNames release];
     
     [super dealloc];
@@ -64,28 +63,17 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark DTD
 
-- (void)startDocumentWithDocType:(NSString *)docType;
+- (void)setDoctype:(NSString *)doctype;
 {
-    [self setDocType:docType];
-    [super startDocumentWithDocType:docType];
+    [super setDoctype:doctype];
+    _isXHTML = [self.class isDoctypeXHTML:doctype];
 }
 
-@synthesize docType = _docType;
-- (void)setDocType:(NSString *)docType;
++ (BOOL)isDoctypeXHTML:(NSString *)docType;
 {
-    docType = [docType copy];
-    [_docType release]; _docType = docType;
-    
-    _isXHTML = [[self class] isDocTypeXHTML:docType];
-}
-
-- (BOOL)isXHTML; { return _isXHTML; }
-
-+ (BOOL)isDocTypeXHTML:(NSString *)docType;
-{
-    BOOL result = !([docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Strict] ||
-                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Transitional] ||
-                    [docType isEqualToString:KSHTMLWriterDocTypeHTML_4_01_Frameset]);
+    BOOL result = !([docType isEqualToString:KSHTMLDoctypeHTML_4_01_Strict] ||
+                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Transitional] ||
+                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Frameset]);
     return result;
 }
 
@@ -127,8 +115,6 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
         return [self pushClassName:newValue];
     }
     
-    // Keep track of IDs in use
-    if ([attribute isEqualToString:@"id"]) [_IDs addObject:newValue];
     [super pushAttribute:attribute value:newValue];
 }
 
@@ -224,17 +210,10 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
     [self startElement:tagName];
 }
 
-- (BOOL)isIDValid:(NSString *)anID; // NO if the ID has already been used
-{
-    BOOL result = ![_IDs containsObject:anID];
-    return result;
-}
-
 #pragma mark Document
 
-- (void)writeDocumentOfType:(NSString *)docType head:(void (^)(void))headBlock body:(void (^)(void))bodyBlock;
-{
-    [self startDocumentWithDocType:docType];
+- (void)writeDocumentWithHead:(void (^)(void))headBlock body:(void (^)(void))bodyBlock {
+    [self writeDoctypeDeclaration];
     
     [self writeElement:@"html" content:^{
         if (headBlock) [self writeElement:@"head" content:headBlock];
@@ -255,12 +234,11 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 - (void)startAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString;
 {
     // TODO: Remove this method once Sandvox no longer needs it
-	if (href) [self pushAttribute:@"href" value:href];
-	if (targetString) [self pushAttribute:@"target" value:targetString];
-	if (titleString) [self pushAttribute:@"title" value:titleString];
-	if (relString) [self pushAttribute:@"rel" value:relString];
-	
     [self startElement:@"a"];
+    if (href) [self addAttribute:@"href" value:href];
+    if (targetString) [self addAttribute:@"target" value:targetString];
+    if (titleString) [self addAttribute:@"title" value:titleString];
+    if (relString) [self addAttribute:@"rel" value:relString];
 }
 
 - (void)writeAnchorElementWithHref:(NSString *)href title:(NSString *)titleString target:(NSString *)targetString rel:(NSString *)relString content:(void (^)(void))content;
@@ -279,13 +257,12 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                     width:(id)width
                    height:(id)height;
 {
-    [self pushAttribute:@"src" value:src];
-    [self pushAttribute:@"alt" value:alt];
-    if (width) [self pushAttribute:@"width" value:width];
-    if (height) [self pushAttribute:@"height" value:height];
-    
-    [self startElement:@"img"];
-    [self endElement];
+    [self writeElement:@"img" content:^{
+        [self addAttribute:@"src" value:src];
+        [self addAttribute:@"alt" value:alt];
+        if (width) [self addAttribute:@"width" value:width];
+        if (height) [self addAttribute:@"height" value:height];
+    }];
 }
 
 #pragma mark Link
@@ -296,14 +273,13 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
                     title:(NSString *)title
                     media:(NSString *)media;
 {
-    if (rel) [self pushAttribute:@"rel" value:rel];
-    if (type) [self pushAttribute:@"type" value:type];
-    [self pushAttribute:@"href" value:href];
-    if (title) [self pushAttribute:@"title" value:title];
-    if (media) [self pushAttribute:@"media" value:media];
-    
-    [self startElement:@"link"];
-    [self endElement];
+    [self writeElement:@"link" content:^{
+        if (rel) [self addAttribute:@"rel" value:rel];
+        if (type) [self addAttribute:@"type" value:type];
+        [self addAttribute:@"href" value:href];
+        if (title) [self addAttribute:@"title" value:title];
+        if (media) [self addAttribute:@"media" value:media];
+    }];
 }
 
 - (void)writeLinkToStylesheet:(NSString *)href
@@ -329,9 +305,9 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeJavascriptWithSrc:(NSString *)src charset:(NSString *)charset;	// src may be nil
 {    
-    if (charset) [self pushAttribute:@"charset" value:charset];
     [self startJavascriptElementWithSrc:src];
-	if (!src) [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
+    if (charset) [self addAttribute:@"charset" value:charset];
+    if (!src) [self increaseIndentationLevel];    // compensate for -decreaseIndentationLevel
     [self endElement];
 }
 
@@ -355,27 +331,25 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)startJavascriptElementWithSrc:(NSString *)src;  // src may be nil
 {
+    [self startElement:@"script"];
+    
     // HTML5 doesn't need the script type specified, but older doc types do for standards-compliance
-    if (![[self docType] isEqualToString:KSHTMLWriterDocTypeHTML_5])
+    if (![self.doctype isEqualToString:KSHTMLDoctypeHTML_5])
     {
-        [self pushAttribute:@"type" value:@"text/javascript"];
+        [self addAttribute:@"type" value:@"text/javascript"];
     }
     
     // Script
     if (src)
 	{
-		[self pushAttribute:@"src" value:src];
-        [self startElement:@"script"];
+		[self addAttribute:@"src" value:src];
 	}
     else
     {
-        // Embedded scripts should start on their own line for clarity
-        // Outdent the script comapred to what's normal
-        [self startElement:@"script" writeInline:NO];
-        
-		[self decreaseIndentationLevel];
+        // Outdent the script compared to what's normal. Context will take care of placing on a
+        // new line for us
+        [self decreaseIndentationLevel];
 		[self startNewline];
-		[self stopWritingInline];
     }
 }
 
@@ -397,10 +371,10 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)writeParamElementWithName:(NSString *)name value:(NSString *)value;
 {
-	if (name) [self pushAttribute:@"name" value:name];
-	if (value) [self pushAttribute:@"value" value:value];
-    [self startElement:@"param"];
-    [self endElement];
+    [self writeElement:@"param" content:^{
+        if (name) [self addAttribute:@"name" value:name];
+        if (value) [self addAttribute:@"value" value:value];
+    }];
 }
 
 #pragma mark Style
@@ -414,8 +388,8 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 - (void)startStyleElementWithType:(NSString *)type;
 {
-    if (type) [self pushAttribute:@"type" value:type];
     [self startElement:@"style"];
+    if (type) [self addAttribute:@"type" value:type];
 }
 
 #pragma mark Elements Stack
@@ -563,22 +537,21 @@ NSString *KSHTMLWriterDocTypeHTML_5 = @"html";
 
 #pragma mark Element Primitives
 
-- (void)startElement:(NSString *)elementName writeInline:(BOOL)writeInline; // for more control
-{
+- (void)startElement:(NSString *)elementName {
+    
 #ifdef DEBUG
     NSAssert1([elementName isEqualToString:[elementName lowercaseString]], @"Attempt to start non-lowercase element: %@", elementName);
 #endif
     
+    [super startElement:elementName];
     
     // Add in any pre-written classes
     NSString *class = [self currentElementClassName];
     if (class)
     {
         [_classNames removeAllObjects];
-        [super pushAttribute:@"class" value:class];
+        [self addAttribute:@"class" value:class];
     }
-    
-    [super startElement:elementName writeInline:writeInline];
 }
 
 - (void)closeEmptyElementTag;               //   />    OR    >    depending on -isXHTML

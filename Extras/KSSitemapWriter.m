@@ -68,10 +68,12 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
         
         if (lastMod)
         {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             NSString *lastModText = [lastMod descriptionWithCalendarFormat:@"%Y-%m-%dT%H:%M:%SZ"
                                                                   timeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]
                                                                     locale:nil];
-            
+#pragma clang diagnostic pop
             [_writer writeElement:@"lastmod" text:lastModText];
         }
         
@@ -83,7 +85,6 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 - (void)close;
 {
     [_writer endElement];   // </urlset>
-    [_writer close];
     [_writer release]; _writer = nil;
 }
 
@@ -124,10 +125,12 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
         
         if (lastMod)
         {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             NSString *lastModText = [lastMod descriptionWithCalendarFormat:@"%Y-%m-%dT%H:%M:%SZ"
                                                                   timeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]
                                                                     locale:nil];
-            
+#pragma clang diagnostic pop
             [_writer writeElement:@"lastmod" text:lastModText];
         }
     }];
@@ -136,7 +139,6 @@ NSUInteger const KSSitemapIndexMaxFileSize = 10485760;
 - (void)close;
 {
     [_writer endElement];   // </urlset>
-    [_writer close];
     [_writer release]; _writer = nil;
 }
 

@@ -80,7 +80,6 @@
     [adaptor writeDOMElement:element];
     
     [adaptor release];
-    [htmlWriter close];
     [htmlWriter release];
     
     return output.string;
@@ -95,7 +94,6 @@
     [adaptor writeDOMElement:element];
     
     [adaptor release];
-    [xmlWriter close];
     [xmlWriter release];
     
     return output.string;
@@ -147,15 +145,8 @@
     }
     
     
-    if ([self options] & KSXMLWriterDOMAdaptorPrettyPrint)
-    {
-        // pretty printing leaves the writer to make whitespace
-        [[self XMLWriter] startElement:elementName];
-    }
-    else
-    {
-        [[self XMLWriter] startElement:elementName writeInline:YES];
-    }
+    // We leave the writer to do pretty-printing
+    [self.XMLWriter startElement:elementName];
 }
 
 - (DOMNode *)endElementWithDOMElement:(DOMElement *)element;    // returns the next sibling to write
@@ -448,7 +439,7 @@
         // For text inside HTML elements like <span>, whitespace has meaning, so domn't trim it
         KSXMLWriter *writer = [adaptor XMLWriter];
         NSString *parentElement = [writer topElement];
-        if (!parentElement || ![writer canWriteElementInline:parentElement])
+        if (!parentElement || ![writer.class shouldPrettyPrintElementInline:parentElement])
         {
             static NSCharacterSet *nonWhitespace;
             if (!nonWhitespace) nonWhitespace = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] copy];
