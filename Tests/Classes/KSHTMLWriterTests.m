@@ -67,4 +67,57 @@
                           @"The </script> tag goes down onto its own line too");
 }
 
+/**
+ This is an example similar to something in Sandvox where you have some stuff followed by a
+ complicated header (i.e. it's got an element nested in it). This is the pure version which works ok
+ as-is, but I want to keep the test around.
+ */
+- (void)testPrettyPrinting {
+    
+    [writer writeElement:@"div" content:^{
+        [writer writeElement:@"p" text:@"Text"];
+    }];
+    
+    [writer writeElement:@"h2" content:^{
+        [writer writeElement:@"span" text:@"Subheading"];
+    }];
+    
+    XCTAssertEqualObjects(output.string,
+                          @"<div>\n\t<p>Text</p>\n</div>\n"
+                          @"<h2><span>Subheading</span></h2>");
+}
+
+/**
+ …and now we try it again, but this time mimicking some of the content coming from a source other
+ than nice writer commands. e.g. a template
+ */
+- (void)testPrettyPrintingAfterTemplate {
+    
+    // Some template stuff…
+    [writer writeString:@"TEMPLATE START\n"];
+    
+    // …contains a direct bit of content
+    [writer writeElement:@"div" content:^{
+        [writer writeElement:@"h4" text:@"Title"];
+    }];
+    
+    // Then goes back to the template
+    [writer writeString:@"\n"];
+    [writer writeString:@"TEMPLATE END\n"];
+    
+    // And now it's time to write the next thing
+    [writer resetPrettyPrinting];
+    [writer writeElement:@"h2" content:^{
+        [writer writeElement:@"span" text:@"Subheading"];
+    }];
+    
+    XCTAssertEqualObjects(output.string,
+                          @"TEMPLATE START\n"
+                          @"<div>\n"
+                          @"\t<h4>Title</h4>\n"
+                          @"</div>\n"
+                          @"TEMPLATE END\n"
+                          @"<h2><span>Subheading</span></h2>");
+}
+
 @end
