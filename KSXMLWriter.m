@@ -142,13 +142,14 @@
     }
     else
     {
+        [self popElement];
+        
         // Did that element span multiple lines? If so, the end tag ought to go on its own line
-        if (self.openElementsCount - 1 < _elementCountAtLastNewline) {
+        if (self.openElementsCount < _elementCountAtLastNewline) {
             [self startNewline];   // was this element written entirely inline?
         }
         
         [self writeEndTag:element];
-        [self popElement];
     }
 }
 
