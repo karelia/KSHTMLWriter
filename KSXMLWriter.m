@@ -132,25 +132,25 @@
     // We've reached the end of the element, so of course indentation needs to decrease
     [self decreaseIndentationLevel];
     
-    
-    // Write the tag itself.
+    // and same goes for the stack
     NSString *element = self.topElement;
-    if (_yetToCloseStartTag && [self elementCanBeEmpty:element])
-    {
-        [self popElement];  // turn off _elementIsEmpty first or regular start tag will be written!
+    [self popElement];
+    
+    
+    // Write the tag itself, as a special empty one if we should
+    if (_yetToCloseStartTag && [self elementCanBeEmpty:element]) {
+        
+        _yetToCloseStartTag = NO;
         [self closeEmptyElementTag];
+        return;
     }
-    else
-    {
-        [self popElement];
-        
-        // Did that element span multiple lines? If so, the end tag ought to go on its own line
-        if (self.openElementsCount < _elementCountAtLastNewline) {
-            [self startNewline];   // was this element written entirely inline?
-        }
-        
-        [self writeEndTag:element];
+    
+    // Did that element span multiple lines? If so, the end tag ought to go on its own line
+    if (self.openElementsCount < _elementCountAtLastNewline) {
+        [self startNewline];   // was this element written entirely inline?
     }
+    
+    [self writeEndTag:element];
 }
 
 - (void)writeElement:(NSString *)name content:(void (^)(void))content;
@@ -175,8 +175,6 @@
 
 - (void)popElement;
 {
-    _yetToCloseStartTag = NO;
-    
     [_openElements removeLastObject];
 }
 
