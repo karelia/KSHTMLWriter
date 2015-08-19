@@ -120,4 +120,13 @@
                           @"<h2><span>Subheading</span></h2>");
 }
 
+- (void)testEmptyElement {
+    
+    [writer writeElement:@"style" idName:@"paragraph-styles" className:nil content:^{
+        
+    }];
+    
+    XCTAssertEqualObjects(output.string, @"<style id=\"paragraph-styles\"></style>");
+}
+
 @end
