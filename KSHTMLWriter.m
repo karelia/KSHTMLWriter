@@ -77,6 +77,13 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
     return result;
 }
 
+- (void)writeDoctypeDeclaration {
+    [self writeString:@"<!doctype "];
+    [self writeString:self.doctype];
+    [self writeString:@">"];
+    [self startNewline];
+}
+
 #pragma mark CSS Class Name
 
 - (NSString *)currentElementClassName;
