@@ -434,7 +434,6 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
                      @"link",
                      @"input",
                      @"base",
-                     @"basefont",
                      @"param",
                      @"area",
                      @"source", nil];
