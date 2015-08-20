@@ -54,6 +54,11 @@ extern NSString *KSHTMLDoctypeHTML_5;
 @property(nonatomic, readonly) BOOL isXHTML;
 + (BOOL)isDoctypeXHTML:(NSString *)docType;
 
+/**
+ Overrides \c super to make the \c doctype declaration lowercase as recommended by http://html5boilerplate.com
+ */
+- (void)writeDoctypeDeclaration;
+
 
 #pragma mark CSS Class Name
 // Class names are accumulated and written automatically as an attribute of the next element started
