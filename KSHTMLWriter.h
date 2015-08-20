@@ -49,7 +49,7 @@ extern NSString *KSHTMLDoctypeHTML_5;
 
 /**
  Whether empty elements should be written as <FOO> or <FOO />
- Default is YES. There's no setter method, as is derived from \c docType
+ Default is NO. There's no setter method, as is derived from \c docType
  */
 @property(nonatomic, readonly) BOOL isXHTML;
 + (BOOL)isDoctypeXHTML:(NSString *)docType;

@@ -71,10 +71,10 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 + (BOOL)isDoctypeXHTML:(NSString *)docType;
 {
-    BOOL result = !([docType isEqualToString:KSHTMLDoctypeHTML_4_01_Strict] ||
-                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Transitional] ||
-                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Frameset]);
-    return result;
+    return ([docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Strict] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Transitional] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Frameset] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_1]);
 }
 
 #pragma mark CSS Class Name
