@@ -47,6 +47,15 @@
 }
 
 /**
+ To be valid XHTML, void tags need to be self-closing
+ */
+- (void)testVoidXHTMLElement {
+    writer.doctype = KSHTMLDoctypeXHTML_1_1;
+    [writer writeElement:@"hr" content:NULL];
+    XCTAssertEqualObjects(output.string, @"<hr />");
+}
+
+/**
  <SPAN> is a normal, not void element. If empty, still need to write a close tag, as HTML does not
  support self-closing tags for this.
  */
