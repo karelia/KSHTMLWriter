@@ -420,26 +420,33 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 #pragma mark (X)HTML
 
-- (BOOL)elementCanBeEmpty:(NSString *)tagName;
+- (BOOL)isVoidElement:(NSString *)tagName;
 {
-    static NSSet *emptyTags;
+    static NSSet *voidElements;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        emptyTags = [[NSSet alloc] initWithObjects:
-                     @"br",
-                     @"img",
-                     @"hr",
-                     @"meta",
-                     @"link",
-                     @"input",
-                     @"base",
-                     @"param",
-                     @"area",
-                     @"source", nil];
+        // http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
+        voidElements = [[NSSet alloc] initWithObjects:
+                        @"area",
+                        @"base",
+                        @"br",
+                        @"col",
+                        @"embed",
+                        @"hr",
+                        @"img",
+                        @"input",
+                        @"keygen",
+                        @"link",
+                        @"menuitem",
+                        @"meta",
+                        @"param",
+                        @"source",
+                        @"track",
+                        @"wbr", nil];
     });
     
-    return [emptyTags containsObject:tagName];
+    return [voidElements containsObject:tagName];
 }
 
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)elementName;

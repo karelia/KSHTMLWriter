@@ -362,12 +362,12 @@
 }
 
 /**
- Whether we're allowed to not bother with an end tag for a particular empty element. For pure XML
- all elements are fine like this, so we return \c YES, but the HTML Writer subclasses to opt out
- unsupported elements.
+ HTML has the notion of void elements (XML doesn't as far as I can tell). A void element MUST be
+ empty, and CANNOT have an end tag (it should be self-closing, or written as just a start tag,
+ whatever suits)
  */
-- (BOOL)elementCanBeEmpty:(NSString *)tagName {
-    return YES;
+- (BOOL)isVoidElement:(NSString *)tagName {
+    return NO;
 }
 
 #pragma mark String Encoding
