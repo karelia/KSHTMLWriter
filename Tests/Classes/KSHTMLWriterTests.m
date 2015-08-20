@@ -52,7 +52,7 @@
 - (void)testVoidXHTMLElement {
     writer.doctype = KSHTMLDoctypeXHTML_1_1;
     [writer writeElement:@"hr" content:NULL];
-    XCTAssertEqualObjects(output.string, @"<hr />");
+    XCTAssertEqualObjects(output.string, @"<hr/>");
 }
 
 /**

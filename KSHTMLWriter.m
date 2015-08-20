@@ -571,7 +571,8 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 {
     if ([self isXHTML])
     {
-        [super closeEmptyElementTag];
+        // http://dev.w3.org/html5/html-author/#tags tells us a space before the slash isn't needed
+        [self writeString:@"/>"];
     }
     else
     {
