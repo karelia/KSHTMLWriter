@@ -34,7 +34,7 @@
     [super tearDown];
 }
 
-#pragma mark Empty Elements
+#pragma mark Element Types
 
 /**
  <HR> is a void element in HTML, so isn't allowed to contain any content or have an end tag. HTML
@@ -53,6 +53,10 @@
 - (void)testEmptyNormalElement {
     [writer writeElement:@"span" content:NULL];
     XCTAssertEqualObjects(output.string, @"<span></span>");
+}
+
+- (void)testContentInsideVoidElement {
+    XCTAssertThrows([writer writeElement:@"hr" text:@"Misplaced text"]);
 }
 
 #pragma mark Pretty Printing

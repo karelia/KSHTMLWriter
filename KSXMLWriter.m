@@ -477,6 +477,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_yetToCloseStartTag && [string length])
     {
+        // Complain if trying to write inside of a void element
+        if ([self isVoidElement:self.topElement]) {
+            [NSException raise:NSInvalidArgumentException format:@"Void elements can't have any contents — http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements"];
+        }
+        
         _yetToCloseStartTag = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }
