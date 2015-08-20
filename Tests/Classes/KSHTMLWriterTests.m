@@ -34,6 +34,29 @@
     [super tearDown];
 }
 
+#pragma mark Empty Elements
+
+/**
+ <HR> is a void element in HTML, so isn't allowed to contain any content or have an end tag. HTML
+ parsers handle there being a start tag only, but to be XHTML-compatible, it needs to be a self-
+ closing tag (have a slash at the end)
+ */
+- (void)testVoidElement {
+    [writer writeElement:@"hr" content:NULL];
+    XCTAssertEqualObjects(output.string, @"<hr>");
+}
+
+/**
+ <SPAN> is a normal, not void element. If empty, still need to write a close tag, as HTML does not
+ support self-closing tags for this.
+ */
+- (void)testEmptyNormalElement {
+    [writer writeElement:@"span" content:NULL];
+    XCTAssertEqualObjects(output.string, @"<span></span>");
+}
+
+#pragma mark Pretty Printing
+
 - (void)testCommentAtEndOfElement {
     
     [writer writeElement:@"div" content:^{
