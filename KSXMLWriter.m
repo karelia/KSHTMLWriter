@@ -26,7 +26,15 @@
 #import "KSXMLWriter.h"
 
 
-@interface KSXMLWriter ()
+@interface KSXMLWriter (ImplementedBySubclasses)
+
+/**
+ HTML has the notion of void elements (XML doesn't as far as I can tell). A void element MUST be
+ empty, and CANNOT have an end tag (it should be self-closing, or written as just a start tag,
+ whatever suits). We don't implement this method ourselves, but trust the HTML writer to do so.
+ */
+- (BOOL)isVoidElement:(NSString *)elementName;
+
 @end
 
 
@@ -138,11 +146,14 @@
     
     
     // Write the tag itself, as a special empty one if we should
-    if (_yetToCloseStartTag && [self elementCanBeEmpty:element]) {
+    if (_yetToCloseStartTag) {
         
-        _yetToCloseStartTag = NO;
-        [self closeEmptyElementTag];
-        return;
+        if (![self respondsToSelector:@selector(isVoidElement:)] || [self isVoidElement:element]) {
+            
+            _yetToCloseStartTag = NO;
+            [self closeEmptyElementTag];
+            return;
+        }
     }
     
     // Did that element span multiple lines? If so, the end tag ought to go on its own line
@@ -361,15 +372,6 @@
     [self writeString:@">"];
 }
 
-/**
- Whether we're allowed to not bother with an end tag for a particular empty element. For pure XML
- all elements are fine like this, so we return \c YES, but the HTML Writer subclasses to opt out
- unsupported elements.
- */
-- (BOOL)elementCanBeEmpty:(NSString *)tagName {
-    return YES;
-}
-
 #pragma mark String Encoding
 
 static NSCharacterSet *sCharactersToEntityEscapeWithQuot;
@@ -477,6 +479,11 @@ static NSCharacterSet *sCharactersToEntityEscapeWithoutQuot;
     // Is this string some element content? If so, the element is no longer empty so must close the tag and mark as such
     if (_yetToCloseStartTag && [string length])
     {
+        // Complain if trying to write inside of a void element
+        if ([self respondsToSelector:@selector(isVoidElement:)] && [self isVoidElement:self.topElement]) {
+            [NSException raise:NSInvalidArgumentException format:@"Void elements can't have any contents — http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements"];
+        }
+        
         _yetToCloseStartTag = NO;   // comes first to avoid infinite recursion
         [self closeStartTag];
     }

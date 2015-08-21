@@ -71,10 +71,10 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 + (BOOL)isDoctypeXHTML:(NSString *)docType;
 {
-    BOOL result = !([docType isEqualToString:KSHTMLDoctypeHTML_4_01_Strict] ||
-                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Transitional] ||
-                    [docType isEqualToString:KSHTMLDoctypeHTML_4_01_Frameset]);
-    return result;
+    return ([docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Strict] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Transitional] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_0_Frameset] ||
+			[docType isEqualToString:KSHTMLDoctypeXHTML_1_1]);
 }
 
 - (void)writeDoctypeDeclaration {
@@ -420,27 +420,33 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 
 #pragma mark (X)HTML
 
-- (BOOL)elementCanBeEmpty:(NSString *)tagName;
+- (BOOL)isVoidElement:(NSString *)tagName;
 {
-    static NSSet *emptyTags;
+    static NSSet *voidElements;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        emptyTags = [[NSSet alloc] initWithObjects:
-                     @"br",
-                     @"img",
-                     @"hr",
-                     @"meta",
-                     @"link",
-                     @"input",
-                     @"base",
-                     @"basefont",
-                     @"param",
-                     @"area",
-                     @"source", nil];
+        // http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
+        voidElements = [[NSSet alloc] initWithObjects:
+                        @"area",
+                        @"base",
+                        @"br",
+                        @"col",
+                        @"embed",
+                        @"hr",
+                        @"img",
+                        @"input",
+                        @"keygen",
+                        @"link",
+                        @"menuitem",
+                        @"meta",
+                        @"param",
+                        @"source",
+                        @"track",
+                        @"wbr", nil];
     });
     
-    return [emptyTags containsObject:tagName];
+    return [voidElements containsObject:tagName];
 }
 
 + (BOOL)shouldPrettyPrintElementInline:(NSString *)elementName;
@@ -565,7 +571,8 @@ NSString *KSHTMLDoctypeHTML_5 = @"html";
 {
     if ([self isXHTML])
     {
-        [super closeEmptyElementTag];
+        // http://dev.w3.org/html5/html-author/#tags tells us a space before the slash isn't needed
+        [self writeString:@"/>"];
     }
     else
     {
