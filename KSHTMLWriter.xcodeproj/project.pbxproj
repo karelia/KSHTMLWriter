@@ -476,7 +476,7 @@
 			name = KSHTMLWriterTests;
 			productName = KSHTMLWriterTests;
 			productReference = 22352BA414C6FCB00031F5DD /* KSHTMLWriterTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		9FC4242C15F57A0F001B9220 /* KSHTMLWriterFramework */ = {
 			isa = PBXNativeTarget;
@@ -671,7 +671,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -694,7 +694,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
